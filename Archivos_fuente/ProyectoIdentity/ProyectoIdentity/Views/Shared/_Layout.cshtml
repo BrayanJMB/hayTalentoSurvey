@@ -13,94 +13,119 @@
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProyectoIdentity.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500&display=swap">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="~/assets/css/jquery.mCustomScrollbar.min.css">
+        <link rel="stylesheet" href="~/assets/css/animate.css">
+        <link rel="stylesheet" href="~/assets/css/style.css">
+        <link rel="stylesheet" href="~/assets/css/media-queries.css">
+        <!--JS side Bar-->
+        <script src="~/assets/js/jquery-3.3.1.min.js"></script>
+		<script src="~/assets/js/jquery-migrate-3.0.0.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="~/assets/js/jquery.backstretch.min.js"></script>
+        <script src="~/assets/js/wow.min.js"></script>
+        <script src="~/assets/js/jquery.waypoints.min.js"></script>
+        <script src="~/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="~/assets/js/scripts.js"></script>
+
+
+        <!-- Favicon and touch icons -->
+        <link rel="shortcut icon" href="~/assets/ico/favicon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="~/assets/ico/apple-touch-icon-57-precomposed.png">
+
 </head>
 <body>
     @if(ViewBag.Message!="Login"){
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ProyectoIdentity</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>                        
-                    </ul>
-
-                    <!--Vista parcial para acceso(login) y registro-->
-                    <partial name="_LoginRegistroVistaParcial" />
-                </div>
-            </div>
-        </nav>
-    </header>
     
-    <div id="wrapper">
-   <div class="overlay"></div>
     
-        <!-- Sidebar -->
-    <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
-     <ul class="nav sidebar-nav">
-       <div class="sidebar-header">
-       <div class="sidebar-brand">
-         <a href="#">Brand</a></div></div>
-       <li><a href="#home">Home</a></li>
-       <li><a href="#about">About</a></li>
-       <li><a href="#events">Events</a></li>
-       <li><a href="#team">Team</a></li>
-       <li class="dropdown">
-       <a href="#works" class="dropdown-toggle"  data-toggle="dropdown">Works <span class="caret"></span></a>
-     <ul class="dropdown-menu animated fadeInLeft" role="menu">
-      <div class="dropdown-header">Dropdown heading</div>
-      <li><a href="#pictures">Pictures</a></li>
-      <li><a href="#videos">Videeos</a></li>
-      <li><a href="#books">Books</a></li>
-      <li><a href="#art">Art</a></li>
-      <li><a href="#awards">Awards</a></li>
-      </ul>
-      </li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="#followme">Follow me</a></li>
-      </ul>
-  </nav>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
-                <span class="hamb-top"></span>
-    			<span class="hamb-middle"></span>
-				<span class="hamb-bottom"></span>
-            </button>
-            <div class="container">
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-2" style="padding-right:0">
+                <nav class="sidebar active">
+				
+				<!-- close sidebar menu -->
+								
+				<div class="logo">
+					<h3><img src="../imagenes/Logo.png"
+              class="img-fluid" alt="Sample image"></h3>
+				</div>
+				
+				<ul class="list-unstyled menu-elements">
+					<li>
+						<a class="scroll-link" href="#section-6"><i class="fas fa-envelope"></i>Usuarios</a>
+					</li>
+                    <li class="active">
+						<a class="scroll-link" href="#top-content"><i class="fas fa-home"></i>Crea Encuesta</a>
+					</li>
+					<li>
+						<a class="scroll-link" href="#section-1"><i class="fas fa-cog"></i>Mis Encuestas</a>
+					</li>
+					<li>
+						<a class="scroll-link" href="#section-2"><i class="fas fa-user"></i>Envia Correos</a>
+					</li>
+					<li>
+						<a class="scroll-link" href="#section-5"><i class="fas fa-pencil-alt"></i>Dashboard</a>
+					</li>		
+					
+				</ul>
+			</nav>
+    </div>
+            <div class="col-10" style="padding-left:0">
                 <div class="row">
-                    
+                    <div class="col-12">
+
+                
+                <header>
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3" style="background-color:#333333 !important;">
+                    <div class="container">
+                        <a class="navbar-brand">Nombre de la Compañia</a>
+                        
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">                   
+                            <!--Vista parcial para acceso(login) y registro-->
+                            <partial name="_LoginRegistroVistaParcial" />
+                        </div>
+                    </div>
+                </nav>
+                </header>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="container">
+                            <main role="main" class="pb-3">
+                                @RenderBody()
+                            </main>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- /#page-content-wrapper -->
-
-    </div>
+        
+        
+    
+            </div>
+   
     }
     <!-- /#wrapper -->
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - ProyectoIdentity - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    @if (ViewBag.Message == "Login")
+    {
+        <div class="row">
+            <div class="col-12">
+                        <div class="container">
+                            <main role="main" class="pb-3">
+                                @RenderBody()
+                            </main>
+                        </div>
+                    </div>
+                </div>
+    }
+   
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -116,33 +141,7 @@
                 dateFormat: 'yy-mm-dd'
             })
         });
-        $(document).ready(function () {
-            var trigger = $('.hamburger'),
-            overlay = $('.overlay'),
-            isClosed = false;
-            trigger.click(function () {
-                hamburger_cross();      
-        });
-
-    function hamburger_cross() {
-
-      if (isClosed == true) {          
-        overlay.hide();
-        trigger.removeClass('is-open');
-        trigger.addClass('is-closed');
-        isClosed = false;
-      } else {   
-        overlay.show();
-        trigger.removeClass('is-closed');
-        trigger.addClass('is-open');
-        isClosed = true;
-      }
-  }
-  
-  $('[data-toggle="offcanvas"]').click(function () {
-        $('#wrapper').toggleClass('toggled');
-  });  
-});
+       
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
