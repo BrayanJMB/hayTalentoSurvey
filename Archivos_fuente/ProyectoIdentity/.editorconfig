@@ -78,6 +78,9 @@ csharp_style_conditional_delegate_call = true:suggestion
 csharp_style_prefer_parameter_null_checking = true:suggestion
 csharp_using_directive_placement = outside_namespace:silent
 
+# CS8632: La anotación para tipos de referencia que aceptan valores NULL solo debe usarse en el código dentro de un contexto de anotaciones "#nullable".
+dotnet_diagnostic.CS8632.severity = none
+
 [*.vb]
 #### Estilos de nomenclatura ####
 

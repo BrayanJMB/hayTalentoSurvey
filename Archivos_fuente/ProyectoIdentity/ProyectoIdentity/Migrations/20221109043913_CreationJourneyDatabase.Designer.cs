@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoIdentity.Datos;
 
@@ -11,9 +12,10 @@ using ProyectoIdentity.Datos;
 namespace ProyectoIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221109043913_CreationJourneyDatabase")]
+    partial class CreationJourneyDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -495,9 +497,6 @@ namespace ProyectoIdentity.Migrations
                     b.Property<int>("CodigoPais")
                         .HasColumnType("int");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Direccion")
                         .HasColumnType("nvarchar(max)");
 
@@ -518,8 +517,6 @@ namespace ProyectoIdentity.Migrations
 
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasDiscriminator().HasValue("AppUsuario");
                 });
@@ -679,17 +676,6 @@ namespace ProyectoIdentity.Migrations
                     b.Navigation("Encuesta");
                 });
 
-            modelBuilder.Entity("ProyectoIdentity.Models.AppUsuario", b =>
-                {
-                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Company", "Company")
-                        .WithMany("AppUsuarios")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Categoria", b =>
                 {
                     b.Navigation("Preguntas");
@@ -697,8 +683,6 @@ namespace ProyectoIdentity.Migrations
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Company", b =>
                 {
-                    b.Navigation("AppUsuarios");
-
                     b.Navigation("Encuestas");
                 });
 

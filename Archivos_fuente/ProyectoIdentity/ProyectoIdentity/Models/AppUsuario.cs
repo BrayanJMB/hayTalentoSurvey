@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ProyectoIdentity.Models.ModelsJourney;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProyectoIdentity.Models
 {
@@ -13,6 +15,10 @@ namespace ProyectoIdentity.Models
         public string Direccion { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public bool Estado { get; set; }
+        //llave foranea
+        [ForeignKey("Company")]
+        public int CompanyId { get; set; }
+        public Company? Company { get; set; }
 
     }
 }
