@@ -17,7 +17,7 @@ namespace ProyectoIdentity.Models
         public bool Estado { get; set; }
         //llave foranea
         [ForeignKey("Company")]
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
         public Company? Company { get; set; }
 
     }

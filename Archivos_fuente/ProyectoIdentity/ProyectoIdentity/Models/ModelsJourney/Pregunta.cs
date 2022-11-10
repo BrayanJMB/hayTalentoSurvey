@@ -1,13 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProyectoIdentity.Models.ModelsJourney
 {
     public class Pregunta
     {
         public int Id { get; set; }
+        [Display(Name = "Pregunta")]
+        [StringLength(17, ErrorMessage = "El {0} no puede superar los {1} Caracteres")]
         public string NombrePregunta { get; set; }
         //llaves Foraneas
         [ForeignKey("TipoPregunta")]
+        [Display(Name = "Clase de Pregunta")]
         public int TipoPreguntaId { get; set; }
         public TipoPregunta?  TipoPregunta { get; set; }
         [ForeignKey("Categoria")]

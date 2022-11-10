@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ApiPrueba.ConText;
-using ApiPrueba.Models.ModelsJourney;
+using ProyectoIdentity.Datos;
+using ProyectoIdentity.Models.ModelsJourney;
 
-namespace ApiPrueba.Controllers
+namespace ProyectoIdentity.Controllers
 {
     public class CompaniesController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CompaniesController(AppDbContext context)
+        public CompaniesController(ApplicationDbContext context)
         {
             _context = context;
         }

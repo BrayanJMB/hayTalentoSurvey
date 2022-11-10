@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ApiPrueba.ConText;
-using ApiPrueba.Models.ModelsJourney;
+using ProyectoIdentity.Datos;
+using ProyectoIdentity.Models.ModelsJourney;
 
-namespace ApiPrueba.Controllers
+namespace ProyectoIdentity.Controllers
 {
     public class FechaRespuestasController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public FechaRespuestasController(AppDbContext context)
+        public FechaRespuestasController(ApplicationDbContext context)
         {
             _context = context;
         }
