@@ -10,7 +10,6 @@
 
     <!--Estilos jquery ui para datepicker-->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProyectoIdentity.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500&display=swap">
@@ -38,6 +37,9 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="~/assets/ico/apple-touch-icon-57-precomposed.png">
+        @await RenderSectionAsync("Styles", required: false)
+
+
 
 </head>
 <body>
@@ -61,7 +63,7 @@
 						<a class="scroll-link" asp-area="" asp-controller="Companies" asp-action="Index" ><i class="fas fa-envelope"></i>Usuarios</a>
 					</li>
                     <li class="active">
-						<a class="scroll-link" href="#top-content"><i class="fas fa-home"></i>Crea Encuesta</a>
+						<a class="scroll-link" asp-area="" asp-controller="Encuestas" asp-action="Index"><i class="fas fa-home"></i>Crea Encuesta</a>
 					</li>
 					<li>
 						<a class="scroll-link" href="#section-1"><i class="fas fa-cog"></i>Mis Encuestas</a>
@@ -138,5 +140,7 @@
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+
 </body>
 </html>
