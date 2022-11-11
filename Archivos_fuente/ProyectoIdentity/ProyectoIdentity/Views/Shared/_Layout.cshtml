@@ -5,110 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ProyectoIdentity</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <!--Iconos de bootstrap 5-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-
-    <!--Estilos jquery ui para datepicker-->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+   <!--Estilos jquery ui para datepicker-->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProyectoIdentity.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500&display=swap">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        <link rel="stylesheet" href="~/assets/css/jquery.mCustomScrollbar.min.css">
-        <link rel="stylesheet" href="~/assets/css/animate.css">
-        <link rel="stylesheet" href="~/assets/css/style.css">
-        <link rel="stylesheet" href="~/assets/css/media-queries.css">
-        <!--JS side Bar-->
-        <script src="~/assets/js/jquery-3.3.1.min.js"></script>
-		<script src="~/assets/js/jquery-migrate-3.0.0.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="~/assets/js/jquery.backstretch.min.js"></script>
-        <script src="~/assets/js/wow.min.js"></script>
-        <script src="~/assets/js/jquery.waypoints.min.js"></script>
-        <script src="~/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="~/assets/js/scripts.js"></script>
-
-
-        <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="~/assets/ico/favicon.png">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/assets/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/assets/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/assets/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="~/assets/ico/apple-touch-icon-57-precomposed.png">
-        @await RenderSectionAsync("Styles", required: false)
-
-
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" ></script>    
+      @await RenderSectionAsync("Styles", required: false)
 </head>
+
 <body>
+    
+
+
     @if(ViewBag.Message!="Login"){
-    
-    
-    <div class="wrapper">
-        <div class="row">
-            <div class="col-2" style="padding-right:0">
-                <nav class="sidebar active">
-				
-				<!-- close sidebar menu -->
-								
-				<div class="logo">
-					<h3><img src="../imagenes/Logo.png"
-              class="img-fluid" alt="Sample image"></h3>
-				</div>
-				
-				<ul class="list-unstyled menu-elements">
-					<li>
-						<a class="scroll-link" asp-area="" asp-controller="Companies" asp-action="Index" ><i class="fas fa-envelope"></i>Usuarios</a>
-					</li>
-                    <li class="active">
-						<a class="scroll-link" asp-area="" asp-controller="Encuestas" asp-action="Index"><i class="fas fa-home"></i>Crea Encuesta</a>
-					</li>
-					<li>
-						<a class="scroll-link" href="#section-1"><i class="fas fa-cog"></i>Mis Encuestas</a>
-					</li>
-					<li>
-						<a class="scroll-link" href="#section-2"><i class="fas fa-user"></i>Envia Correos</a>
-					</li>
-					<li>
-						<a class="scroll-link" href="#section-5"><i class="fas fa-pencil-alt"></i>Dashboard</a>
-					</li>		
-					
-				</ul>
-			</nav>
-    </div>
-            <div class="col-10" style="padding-left:0">
-                <div class="row">
-                    <div class="col-12">
-                <header>
-                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3" style="background-color:#333333 !important;">
-                    <div class="container">
-                        <a class="navbar-brand">Nombre de la Compañia</a>
-                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">                   
-                            <!--Vista parcial para acceso(login) y registro-->
-                            <partial name="_LoginRegistroVistaParcial" />
-                        </div>
-                    </div>
-                </nav>
-                </header>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="container">
-                            <main role="main" class="pb-3">
-                                @RenderBody()
-                            </main>
-                        </div>
-                    </div>
-                </div>
+        <header>
+  <!-- Sidebar -->
+  <!-- Sidebar -->
+          <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <div class="position-sticky">
+              <div class="list-group list-group-flush mx-3 mt-4">
+                <a          
+                  class="list-group-item list-group-item-action py-2 ripple"
+                  aria-current="true" asp-area="" asp-controller="Companies" asp-action="Index"
+                >
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Usuarios</span>
+                </a>
+                <a class="list-group-item list-group-item-action py-2 ripple" asp-area="" asp-controller="Encuestas" asp-action="Index1">
+                  <i class="fas fa-chart-area fa-fw me-3"></i><span>Crea Encuesta</span>
+                </a>
+                <a  class="list-group-item list-group-item-action py-2 ripple" asp-area="" asp-controller="Encuestas" asp-action="Index">
+                    <i class="fas fa-lock fa-fw me-3"></i><span>Mis Encuestas</span>
+                </a>
+                <a class="list-group-item list-group-item-action py-2 ripple" asp-area="" asp-controller="Correo" asp-action="Index"
+                  ><i class="fas fa-chart-line fa-fw me-3"></i><span>Envia Correos</span>
+                </a>
+                <a class="list-group-item list-group-item-action py-2 ripple" asp-area="" asp-controller="Dashboard" asp-action="Index">
+                  <i class="fas fa-chart-pie fa-fw me-3"></i>
+                  <span>Dashboard</span>
+                </a>        
+              </div>
             </div>
-        </div>
+          </nav>
+          <!-- Sidebar -->
+  <!-- Sidebar -->
+
+  <!-- Navbar -->
+  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#sidebarMenu"
+        aria-controls="sidebarMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Brand -->
+      <a class="navbar-brand" href="#">
+        <img
+          src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+          height="25"
+          alt="MDB Logo"
+          loading="lazy"
+        />
+      </a>
+      
+      <!-- Right links -->
+      <ul class="navbar-nav ms-auto d-flex flex-row">
+        <!-- Notification dropdown -->
+        <li class="nav-item dropdown">
+          <partial name="_LoginRegistroVistaParcial" />          
+        </li>
+
+        <!-- Icon -->
+        <li class="nav-item">
+          <a class="nav-link me-3 me-lg-0" asp-controller="Cuentas" asp-action="SalirAplicacion">
+            <i class="fas fa-fill-drip"></i>
+            <span class="badge rounded-pill badge-notification bg-danger">Salir</span>
+          </a>
+        </li>
+        <!-- Icon -->
+        <li class="nav-item me-3 me-lg-0">
+          <a class="nav-link" href="#">
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
+      </ul>
     </div>
-    }
-    <!-- /#wrapper -->
-    @if (ViewBag.Message == "Login")
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+  </header>
+  <!--Main layout-->
+<main style="margin-top: 58px;">
+  <div class="container pt-4">
+      @RenderBody()
+  </div>
+</main>
+<!--Main layout-->
+    
+  }
+  @if (ViewBag.Message == "Login")
     {
         <div class="row">
             <div class="col-12">
@@ -120,27 +123,14 @@
                     </div>
                 </div>
     }
-   
+
+
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-    <!--JS para jquery ui datepicker-->
-    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-    <script>
-        $(function() {
-            $("#datepicker").datepicker({
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '1930:2020',
-                dateFormat: 'yy-mm-dd'
-            })
-        });
-       
-    </script>
-
     @await RenderSectionAsync("Scripts", required: false)
-
-
 </body>
+
 </html>

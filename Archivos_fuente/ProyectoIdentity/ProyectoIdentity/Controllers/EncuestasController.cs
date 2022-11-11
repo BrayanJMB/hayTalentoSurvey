@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,14 +11,22 @@ namespace ProyectoIdentity.Controllers
     public class EncuestasController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        private Dictionary<string, string> preguntasBase = new();
         public EncuestasController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: Encuestas
+        [Authorize]
         public async Task<IActionResult> Index()
+        {
+
+            var appDbContext = _context.Encuesta.Include(e => e.Company);
+            return View(await appDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Index1()
         {
             var appDbContext = _context.Encuesta.Include(e => e.Company);
             return View(await appDbContext.ToListAsync());
@@ -63,7 +69,18 @@ namespace ProyectoIdentity.Controllers
             {
                 _context.Add(encuesta);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                
+
+                //agregar las Categorias
+
+                //agregar las preguntas
+
+                //Agregar Opciones Existentes
+
+                //Modificar las preguntas
+                //Listado de preguntas una por una
+                //Retornar vistas de preguntas donde el id de la encuasta sea el creado anterioremente
+                return RedirectToAction(nameof(Index1));
             }
             ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
             return View(encuesta);
@@ -146,6 +163,7 @@ namespace ProyectoIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            //las encuestas no se pueden borrar solo inactivar parta que nboi se puedan observar
             if (_context.Encuesta == null)
             {
                 return Problem("Entity set 'AppDbContext.Encuesta'  is null.");

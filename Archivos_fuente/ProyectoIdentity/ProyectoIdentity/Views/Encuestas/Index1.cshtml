@@ -38,11 +38,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Company.CompanyId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Modificar</a>
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> 
-            </td>
+            </td>            
         </tr>
 }
     </tbody>
@@ -65,3 +61,4 @@
         } );
     </script>
 }
+
