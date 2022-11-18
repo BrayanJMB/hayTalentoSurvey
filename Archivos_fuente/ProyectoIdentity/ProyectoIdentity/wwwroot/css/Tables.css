@@ -1,0 +1,75 @@
+﻿.form-inline {
+    display: -ms-flexbox;
+    display: block !important;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-sizing: border-box;
+    box-shadow: rgb(79 81 110 / 30%) 0px 2px 4px;
+    line-height: 22px;
+}
+
+.dataTables_length select {
+    margin: 0 10px 0 10px;
+}
+
+.fqodEh .page-heading-wrapper {
+    
+}
+
+.TitleTable {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    max-height: 80px;
+    min-height: 64px;
+    text-align: left;
+    font-family: Inter, sans-serif, sans-serif;
+    font-size: 16px;
+    line-height: 22px;
+    color: rgb(36, 36, 36);
+    font-weight: 300;
+    letter-spacing: 0.25px;
+    border-radius: 8px;
+    background: white;
+    box-sizing: border-box;
+    box-shadow: rgb(79 81 110 / 30%) 0px 2px 4px;
+    transition: box-shadow 0.2s ease-in-out 0s;
+    padding: 16px;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.titleButton, .titleButton:hover{
+    color:white;
+}
+.titleButtonP{
+    margin-top:8px;
+}
+
+@media (min-width: 576px) {
+    .form-inline .form-check-input {
+        margin-top: 6px !important;
+    }
+}
+.actived {
+    border: 2px solid green;
+    padding: 0 3px 0 3px;
+    color: green;
+    margin: 3px 2px 0 2px;
+}
+.unactive {
+    border: 2px solid red;
+    padding: 0 3px 0 3px;
+    color: red;
+    margin:3px 2px 0 2px;
+}
+
+

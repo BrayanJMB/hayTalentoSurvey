@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoIdentity.Datos;
 using ProyectoIdentity.Models.ModelsJourney;
+using ProyectoIdentity.Models.ModelTemplateJorney;
 
 namespace ProyectoIdentity.Controllers
 {
@@ -25,11 +26,18 @@ namespace ProyectoIdentity.Controllers
             var appDbContext = _context.Encuesta.Include(e => e.Company);
             return View(await appDbContext.ToListAsync());
         }
-
+        //Vista Para encuesta no modificable
         public async Task<IActionResult> Index1()
         {
             var appDbContext = _context.Encuesta.Include(e => e.Company);
             return View(await appDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> IndexCreaPreguntas()
+        {
+            var Model = new ModelSurvey();
+            Model.Categorias = ModelSurvey.Categories();
+            return View(Model);
         }
 
         // GET: Encuestas/Details/5

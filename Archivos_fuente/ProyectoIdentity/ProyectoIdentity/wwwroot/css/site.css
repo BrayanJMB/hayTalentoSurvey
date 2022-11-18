@@ -18,7 +18,7 @@ body {
 }
 
 body {
-    background-color: #fbfbfb;
+    background-color: #fbfbfb !important;
 }
 
 @media (min-width: 991.98px) {

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ProyectoIdentity.Datos;
 using ProyectoIdentity.Servicios;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 //Configuramos la conexión a sql server
@@ -48,7 +49,7 @@ builder.Services.AddAuthentication().AddGoogle(options =>
 builder.Services.AddTransient<IEmailSender, MailJetEmailSender>();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 
