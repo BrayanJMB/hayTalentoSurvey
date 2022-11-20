@@ -49,7 +49,7 @@
                                                     @Html.DisplayNameFor(model => model.Email)
                                                 </dt>
                                                 <dd class="col-sm-10">
-                                                    @Html.DisplayFor(model => model.Email)
+                                                    @Html.DisplayFor(model => model.Name)
                                                 </dd>
                                                 <dt class="col-sm-2">
                                                     @Html.DisplayNameFor(model => model.PhoneNumber)
@@ -67,7 +67,7 @@
                                         </div>
                                         <div>
                                             <a asp-action="Index" class="btn btn-dark mr-2">Regresar</a>
-                                            <a asp-action="Edit" asp-route-id="@Model?.CompanyId" class="btn btn-primary mr2">Editar</a> 
+                                            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary mr2">Editar</a> 
                                             
                                         </div>
                                     </div>

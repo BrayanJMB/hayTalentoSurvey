@@ -267,6 +267,12 @@ namespace ProyectoIdentity.Migrations
                         .HasMaxLength(350)
                         .HasColumnType("nvarchar(350)");
 
+                    b.Property<DateTime>("FechaDeCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaMaximoPlazo")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("NombreEncuesta")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -278,26 +284,22 @@ namespace ProyectoIdentity.Migrations
                     b.ToTable("Encuesta");
                 });
 
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.FechaRespuesta", b =>
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaRepondente", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("EncuestaId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("FechaDeRespuesta")
-                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("RespondenteId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.Property<DateTime>("FechaRespuesta")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("RespondenteId")
-                        .IsUnique();
+                    b.HasKey("EncuestaId", "RespondenteId");
 
-                    b.ToTable("FechaRespuesta");
+                    b.HasIndex("RespondenteId");
+
+                    b.ToTable("EncuestaRepondente");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Opcion", b =>
@@ -403,8 +405,6 @@ namespace ProyectoIdentity.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VersionId");
-
                     b.ToTable("Respondente");
                 });
 
@@ -447,33 +447,6 @@ namespace ProyectoIdentity.Migrations
                     b.ToTable("TipoPregunta");
                 });
 
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.VersionEncuesta", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("EncuestaId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaMaximoPlazo")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("VersionNumber")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EncuestaId");
-
-                    b.ToTable("VersionEncuesta");
-                });
-
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Company", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -485,16 +458,13 @@ namespace ProyectoIdentity.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("PersonFullName")
-                        .HasMaxLength(110)
-                        .HasColumnType("nvarchar(110)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.HasDiscriminator().HasValue("Company");
                 });
@@ -570,15 +540,19 @@ namespace ProyectoIdentity.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.FechaRespuesta", b =>
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaRepondente", b =>
                 {
-                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Respondente", "Respondente")
-                        .WithOne("FechaRespuesta")
-                        .HasForeignKey("ProyectoIdentity.Models.ModelsJourney.FechaRespuesta", "RespondenteId")
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Encuesta", null)
+                        .WithMany("Versions")
+                        .HasForeignKey("EncuestaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Respondente");
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Respondente", null)
+                        .WithMany("EncuestaRepondente")
+                        .HasForeignKey("RespondenteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Opcion", b =>
@@ -611,17 +585,6 @@ namespace ProyectoIdentity.Migrations
                     b.Navigation("TipoPregunta");
                 });
 
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Respondente", b =>
-                {
-                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.VersionEncuesta", "Version")
-                        .WithMany("Respondentes")
-                        .HasForeignKey("VersionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Version");
-                });
-
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Respuesta", b =>
                 {
                     b.HasOne("ProyectoIdentity.Models.ModelsJourney.Pregunta", "Pregunta")
@@ -639,17 +602,6 @@ namespace ProyectoIdentity.Migrations
                     b.Navigation("Pregunta");
 
                     b.Navigation("Respondente");
-                });
-
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.VersionEncuesta", b =>
-                {
-                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Encuesta", "Encuesta")
-                        .WithMany("Versions")
-                        .HasForeignKey("EncuestaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Encuesta");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Categoria", b =>
@@ -673,7 +625,7 @@ namespace ProyectoIdentity.Migrations
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Respondente", b =>
                 {
-                    b.Navigation("FechaRespuesta");
+                    b.Navigation("EncuestaRepondente");
 
                     b.Navigation("Respuestas");
                 });
@@ -681,11 +633,6 @@ namespace ProyectoIdentity.Migrations
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.TipoPregunta", b =>
                 {
                     b.Navigation("Pregunta");
-                });
-
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.VersionEncuesta", b =>
-                {
-                    b.Navigation("Respondentes");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Company", b =>

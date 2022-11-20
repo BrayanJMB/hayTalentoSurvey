@@ -31,6 +31,7 @@ namespace ProyectoIdentity.Controllers
         [HttpGet]
         public async Task<IActionResult> Registro(string returnurl = null)
         {
+            ViewBag.Message = "Login";
             ViewData["ReturnUrl"] = returnurl;
             RegistroViewModel registroVM = new RegistroViewModel();
             return View(registroVM);
@@ -40,11 +41,12 @@ namespace ProyectoIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registro(RegistroViewModel rgViewModel, string returnurl = null)
         {
+            ViewBag.Message = "Login";
             ViewData["ReturnUrl"] = returnurl;
             returnurl = returnurl??Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var usuario = new Company { UserName = rgViewModel.Email, Email = rgViewModel.Email, PersonFullName = rgViewModel.Nombre,PhoneNumber= rgViewModel.Telefono };
+                var usuario = new Company { UserName = rgViewModel.Email, Email = rgViewModel.Email, PersonFullName = rgViewModel.Nombre,PhoneNumber= rgViewModel.Telefono,PasswordHash=rgViewModel.Password,Name= rgViewModel.NombreCompania };
                 var resultado = await _userManager.CreateAsync(usuario, rgViewModel.Password);
 
                 if (resultado.Succeeded)
@@ -97,8 +99,8 @@ namespace ProyectoIdentity.Controllers
 
                 if (resultado.Succeeded)
                 {
+                    
                     return RedirectToAction("Index", "Home");
-                    return LocalRedirect(returnurl);
                 }
                 if (resultado.IsLockedOut)
                 {
@@ -128,6 +130,7 @@ namespace ProyectoIdentity.Controllers
         [HttpGet]
         public IActionResult OlvidoPassword()
         {
+            ViewBag.Message = "Login";
             return View();
         }
 
@@ -159,6 +162,7 @@ namespace ProyectoIdentity.Controllers
         [AllowAnonymous]
         public IActionResult ConfirmacionOlvidoPassword()
         {
+            ViewBag.Message = "Login";
             return View();
         }
 
@@ -167,6 +171,7 @@ namespace ProyectoIdentity.Controllers
         [AllowAnonymous]
         public IActionResult ResetPassword(string code=null)
         {
+            ViewBag.Message = "Login";
             return code == null ? View("Error") : View();
         }
 
@@ -199,6 +204,8 @@ namespace ProyectoIdentity.Controllers
         [AllowAnonymous]
         public IActionResult ConfirmacionRecuperaPassword()
         {
+            
+            ViewBag.Message = "Login";
             return View(); ;
         }
 
@@ -206,6 +213,7 @@ namespace ProyectoIdentity.Controllers
         [HttpGet]
         public async Task<IActionResult> ConfirmarEmail(string userId, string code)
         {
+            ViewBag.Message = "Login";
             if (userId == null || code == null)
             {
                 return View("Error");
@@ -276,6 +284,7 @@ namespace ProyectoIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmacionAccesoExterno(ConfirmacionAccesoExternoViewModel caeViewModel, string returnurl = null)
         {
+            ViewBag.Message = "Login";
             returnurl = returnurl??Url.Content("~/");
 
             if (ModelState.IsValid)

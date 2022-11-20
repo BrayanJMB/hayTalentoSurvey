@@ -1,4 +1,7 @@
-﻿@model ProyectoIdentity.Models.ModelsJourney.Encuesta
+﻿@using Microsoft.AspNetCore.Identity;
+@model ProyectoIdentity.Models.ModelsJourney.Encuesta
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Create";
@@ -42,7 +45,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="CompanyId" class="control-label"></label>
-                                                <select asp-for="CompanyId" class="form-control" asp-items="ViewBag.CompanyId"></select>
+                                                <input asp-for="CompanyId" class="form-control" value="@UserManager.GetUserId(User)"/>
                                             </div>
                                             <div class="form-group">
                                                 <a asp-action="Index" class="btn btn-dark mr-2">Regresar</a>

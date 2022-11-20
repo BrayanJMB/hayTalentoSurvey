@@ -62,7 +62,7 @@ namespace ProyectoIdentity.Controllers
         // GET: Encuestas/Create
         public IActionResult Create()
         {
-            //ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId");
+            ViewData["CompanyId"] = new SelectList(_context.Company, "Id", "Id");
             return View();
         }
 

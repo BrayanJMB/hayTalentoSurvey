@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProyectoIdentity.Migrations
 {
-    public partial class CreationJourneyDatabase : Migration
+    public partial class firstDataBasae11 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,15 +29,10 @@ namespace ProyectoIdentity.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CodigoPais = table.Column<int>(type: "int", nullable: true),
-                    Telefono = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Pais = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Ciudad = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Direccion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Estado = table.Column<bool>(type: "bit", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Adress = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    PersonFullName = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    Activo = table.Column<bool>(type: "bit", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -59,30 +54,13 @@ namespace ProyectoIdentity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Company",
-                columns: table => new
-                {
-                    CompanyId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Adress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PersonFullName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Company", x => x.CompanyId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TipoPregunta",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NombreTipoPregunta = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    NombreTipoPregunta = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Descripcion = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -201,19 +179,18 @@ namespace ProyectoIdentity.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NombreEncuesta = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DescripcionEncuesta = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyId = table.Column<int>(type: "int", nullable: false)
+                    NombreEncuesta = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    DescripcionEncuesta = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
+                    CompanyId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Encuesta", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Encuesta_Company_CompanyId",
+                        name: "FK_Encuesta_AspNetUsers_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Company",
-                        principalColumn: "CompanyId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -222,8 +199,8 @@ namespace ProyectoIdentity.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NombreCategoria = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NombreCategoria = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Descripcion = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     EncuestaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -265,7 +242,7 @@ namespace ProyectoIdentity.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NombrePregunta = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NombrePregunta = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: true),
                     TipoPreguntaId = table.Column<int>(type: "int", nullable: false),
                     CategoriaId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -291,15 +268,15 @@ namespace ProyectoIdentity.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Ciudad = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UnidadNegocio = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Area = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Parentesco = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Sexo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EstadoCivil = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NivelEducativo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DependienteEconomicamente = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nombre = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    Ciudad = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    UnidadNegocio = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Area = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Parentesco = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Sexo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    EstadoCivil = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    NivelEducativo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    DependienteEconomicamente = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Edad = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VersionId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -320,7 +297,7 @@ namespace ProyectoIdentity.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     NumeroOpcion = table.Column<int>(type: "int", nullable: false),
                     PreguntaId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -371,7 +348,7 @@ namespace ProyectoIdentity.Migrations
                         column: x => x.PreguntaId,
                         principalTable: "Pregunta",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Respuesta_Respondente_RespondenteId",
                         column: x => x.RespondenteId,
@@ -497,9 +474,6 @@ namespace ProyectoIdentity.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Pregunta");
 
             migrationBuilder.DropTable(
@@ -518,7 +492,7 @@ namespace ProyectoIdentity.Migrations
                 name: "Encuesta");
 
             migrationBuilder.DropTable(
-                name: "Company");
+                name: "AspNetUsers");
         }
     }
 }

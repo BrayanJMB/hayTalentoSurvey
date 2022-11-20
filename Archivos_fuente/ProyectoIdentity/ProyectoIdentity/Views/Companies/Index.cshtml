@@ -42,21 +42,31 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td class="d-flex">
                   <input class="form-check-input"  type="checkbox" id="CheckActive">
-                  <label class="form-check-label" for="flexCheckDefault" id="labelActive">
-                    Inactivo
-                  </label> 
+                    @if (item.Activo)
+                    {
+                        <label class="form-check-label activeLabel" for="flexCheckDefault" id="labelActive">
+                            Activo
+                        </label>
+                    }
+                    else
+                    {
+                        <label class="form-check-label" for="flexCheckDefault" id="labelActive">
+                            Inactivo
+                        </label>
+                    }
+
             </td>
             <td>
-                    <a asp-action="Edit" asp-route-id="@item.CompanyId"><i class="bi bi-pencil-square"></i></a> 
-                    <a asp-action="Details" asp-route-id="@item.CompanyId"><i class="bi bi-list"></i></a> 
-                    <a asp-action="Delete" asp-route-id="@item.CompanyId"><i class="bi bi-trash3-fill"></i></a>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a> 
+                    <a asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-list"></i></a> 
+                    <a asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash3-fill"></i></a>
             </td>
         </tr>
             indxInput++;

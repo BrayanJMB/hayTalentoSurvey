@@ -63,7 +63,9 @@ body {
 .Login {
     box-shadow: 2px 2px 5px 2px #000;
     width: 90%;
-    height: 80%; 
+    height: 80%;
+    background-color: #fff !important;
+
 }
 
 .Contenedor {
@@ -73,9 +75,11 @@ body {
 .vh-100 {
     align-items: center;
     display: flex;
-    justify-content: center;
     width: 100%;
 }
+
+
+    
 
 
 

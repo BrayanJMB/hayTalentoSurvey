@@ -12,8 +12,8 @@ using ProyectoIdentity.Datos;
 namespace ProyectoIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221120004644_new-nesIdentityUser")]
-    partial class newnesIdentityUser
+    [Migration("20221120041602_firstDataBasae11")]
+    partial class firstDataBasae11
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -487,16 +487,13 @@ namespace ProyectoIdentity.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("PersonFullName")
-                        .HasMaxLength(110)
-                        .HasColumnType("nvarchar(110)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.HasDiscriminator().HasValue("Company");
                 });

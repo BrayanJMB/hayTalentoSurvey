@@ -31,19 +31,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.MaxFailedAccessAttempts = 3;
 });
 
-//Agregar autenticación de facebook
-builder.Services.AddAuthentication().AddFacebook(options =>
-{
-    options.AppId = "297709012325292";
-    options.AppSecret = "4e0cbee917d9bae76655314274119297";
-});
-
-//Agregar autenticación de google
-builder.Services.AddAuthentication().AddGoogle(options =>
-{
-    options.ClientId = "228603965289-ce9gi69u2pp3m19em861lhjiepfnhav0.apps.googleusercontent.com";
-    options.ClientSecret = "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";
-});
 
 //Se agregar IEmailSender
 builder.Services.AddTransient<IEmailSender, MailJetEmailSender>();

@@ -35,11 +35,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
         [ForeignKey("Version")]
         [Display(Name = "Version")]
         public int VersionId { get; set; }
-
-        public VersionEncuesta? Version { get; set; }
-
-        //
-        public FechaRespuesta? FechaRespuesta { get; set; }
+        public List<EncuestaRepondente>? EncuestaRepondente { get; set; }
         public List<Respuesta>? Respuestas { get; set; }
 
 
