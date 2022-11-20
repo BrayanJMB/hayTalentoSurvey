@@ -1,0 +1,190 @@
+﻿@model ProyectoIdentity.Models.ModelTemplateJorney.ModelSurvey
+
+@{
+    ViewData["Title"] = "Delete";
+    bool Active = true;
+    string firstSteper = "js-active";
+    int opcion = 1;
+    string[] iconStepper = {"","bi bi-globe-americas",
+                            "bi bi-heart-pulse",
+                            "bi bi-piggy-bank-fill",
+                            "bi bi-person-check-fill",
+                            "bi bi-tools",
+                            "bi bi-shield-lock-fill" };
+}
+
+
+@section Styles{
+
+    <link rel="stylesheet" href="~/css/styleStepper.css">
+    <link rel="stylesheet" href="~/css/Preguntas.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+}
+
+
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+        <div class="row">
+            <div class="col-md-12 mx-0">
+                <form id="msform">
+                    <!-- progressbar -->
+
+                    <ul id="progressbar">
+                        @foreach (var categori in Model.Categorias)
+                        {
+                            if (Active)
+                            {
+                                <li class="active @iconStepper[opcion]" id="account"><strong>@categori.NombreCategoria</strong></li>
+                                Active = false;
+                            }
+                            else
+                            {
+                                <li class="@iconStepper[opcion]" id="personal"><strong>@categori.NombreCategoria</strong></li>
+
+                            }
+                            opcion++;
+                        }
+                        @{
+                            opcion=1;
+                        }
+                    </ul>
+
+                    <!-- fieldsets -->
+                    @foreach (var categori in Model.Categorias)
+                    {
+                        <fieldset>
+                            <div class="w-100 mt-4 shadow p-4 rounded bg-white">
+                                <div >
+                                    <div class="addQuestion mt-2">
+                                        <div class="question-list ">
+                                            @if (categori.Preguntas != null)
+                                            {
+                                                @foreach (var pregunta in categori.Preguntas)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="showEditDelete">
+                                                                <div>
+                                                                    <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(x => pregunta.NumeroPregunta).&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
+                                                                    <div class="row ml-2" >
+                                                                        @if (pregunta.Opciones != null)
+                                                                        {
+                                                                            @foreach (var opcionP in pregunta.Opciones)
+                                                                            {
+                                                                                @if (pregunta.TipoPregunta == "Likkert")
+                                                                                {
+                                                                                    <div class="col-md-4 col-sm-12">
+                                                                                        <div class="options">
+                                                                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                                                                                            <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                else if(pregunta.TipoPregunta == "Selección Multiple")
+                                                                                {
+                                                                                                            <div class="col-md-6 col-sm-12">
+                                                                                        <div class="options">
+                                                                                             <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                                                                            <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                else if (pregunta.TipoPregunta == "Respuesta única")
+                                                                                {
+                                                                                    <div class="col-md-4 col-sm-12">
+                                                                                        <div class="options">
+                                                                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                                                                                            <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                else if (pregunta.TipoPregunta == "Valoracion Multiple")
+                                                                                {
+                                                                                    <div class="col-md-6 col-sm-12">
+                                                                                        <div class="options">
+                                                                                                <select  class="form-select form-select-sm" aria-label="Default select example">
+                                                                                                    <option selected></option>
+                                                                                                    <option value="1">1</option>
+                                                                                                    <option value="2">2</option>
+                                                                                                    <option value="3">3</option>
+                                                                                                    <option value="4">4</option>
+                                                                                                    <option value="5">5</option>
+                                                                                                    <option value="6">6</option>
+                                                                                                    <option value="7">7</option>
+                                                                                                    <option value="8">8</option>
+                                                                                                    <option value="9">9</option>
+                                                                                                    <option value="10">10</option>
+                                                                                            </select>
+                                                                                        <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                else if (pregunta.TipoPregunta == "Likkert Multiple" || pregunta.TipoPregunta == "Multiple Likkert")
+                                                                                {
+                                                                                    <div class="col-md-6 col-sm-12">
+                                                                                        <div class="options-multiple-linkert">
+                                                                                              <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
+                                                                                              <select  class="form-select form-select-sm" aria-label="Default select example">
+                                                                                                <option selected></option>
+                                                                                                <option value="1">No aplica</option>
+                                                                                                <option value="2">No cumple las expectativas</option>
+                                                                                                <option value="3">Necesita algunas mejoras</option>
+                                                                                                <option value="4">Cumple las expectativas</option>
+                                                                                                <option value="5">Supera las expectativas</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                            }
+                                                                            opcion++;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <div style="height:50px;" class="mt-2">
+                                                                                  <input type="text" class="form-control" >
+                                                                            </div>
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="padding-left: 28px; padding-right: 28px;">
+                                                        <hr class="mb-0 mt-0">
+                                                    </div>
+                                                    opcion = 1;
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sc-xWrgk lssbs steppeActionBlock">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="text-right">
+                                            <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                            <input type="button" name="next" class="next action-button btn btn-primary" value="Siguiente" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    }
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    }

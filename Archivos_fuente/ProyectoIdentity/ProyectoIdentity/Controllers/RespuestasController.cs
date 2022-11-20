@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoIdentity.Datos;
 using ProyectoIdentity.Models.ModelsJourney;
+using ProyectoIdentity.Models.ModelTemplateJorney;
 
 namespace ProyectoIdentity.Controllers
 {
@@ -169,6 +170,13 @@ namespace ProyectoIdentity.Controllers
         private bool RespuestaExists(int id)
         {
           return _context.Respuesta.Any(e => e.PreguntaId == id);
+        }
+
+        public async Task<IActionResult> IndexRespuestas()
+        {
+            var Model = new ModelSurvey();
+            Model.Categorias = ModelSurvey.Categories();
+            return View(Model);
         }
     }
 }
