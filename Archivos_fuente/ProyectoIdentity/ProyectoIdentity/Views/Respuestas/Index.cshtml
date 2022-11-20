@@ -1,47 +1,259 @@
-﻿@model IEnumerable<ProyectoIdentity.Models.ModelsJourney.Respuesta>
+﻿@model ProyectoIdentity.Models.ModelTemplateJorney.ModelSurvey
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Delete";
+    bool Active = true;
+    int opcion = 1;
+    string[] iconStepper = {"","bi bi-globe-americas",
+                            "bi bi-heart-pulse",
+                            "bi bi-piggy-bank-fill",
+                            "bi bi-person-check-fill",
+                            "bi bi-tools",
+                            "bi bi-shield-lock-fill" };
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DescripcionRespuesta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Respondente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pregunta)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescripcionRespuesta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Respondente.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pregunta.Id)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+@section Styles{
+
+    <link rel="stylesheet" href="~/css/styleStepper.css">
+    <link rel="stylesheet" href="~/css/Preguntas.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
 }
-    </tbody>
-</table>
+
+
+
+
+
+
+
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+        <div class="sc-ZqGJI fqodEh">
+            <div class="sc-xWrgk hIODdx page-heading-wrapper">
+                <div class="heading-wrapper pr-3">
+                    <div class="title-row">
+                        <h5 id="heading_text" class="sc-gKPRtg kgoyPS">Preguntas</h5>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mx-0">
+
+                <form id="msform">
+                    <!-- progressbar -->
+
+                    <ul id="progressbar">
+                        @foreach (var categori in Model.Categorias)
+                        {
+                            if (Active)
+                            {
+                                <li class="active @iconStepper[opcion]" id="account"><strong>@categori.Id</strong></li>
+                                Active = false;
+                            }
+                            else
+                            {
+                                <li class="@iconStepper[opcion]" id="personal"><strong>@categori.Id</strong></li>
+
+                            }
+                            opcion++;
+                        }
+                        @{
+                            opcion=1;
+                        }
+                    </ul>
+
+                    <!-- fieldsets -->
+                    @foreach (var categori in Model.Categorias)
+                    {
+                        <fieldset>
+                            <div class="w-100 mt-4 shadow p-4 rounded bg-white">
+                                <h3>@Html.DisplayFor(c=>categori.NombreCategoria)</h3>
+                                <div class="form-card">
+                                    <div class="addQuestion mt-2">
+                                        <div class="question-list ">
+                                            @if (categori.Preguntas != null)
+                                            {
+                                                @foreach (var pregunta in categori.Preguntas)
+                                                {
+                                                    <div class="modal fade" id="exampleModal_@pregunta.NumeroPregunta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">@categori.NombreCategoria- @pregunta.TipoPregunta</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body sc-xWrgk dbEiCY surveyListBlock">
+                                                                    <div>
+
+                                                                        <label class="control-label" for="NombreEncuesta">Pregunta</label>
+                                                                    </div>
+                                                                    <div class="d-flex w-100 align-items-center mb-2">
+                                                                        <div class="common-sub-title mr-2">@pregunta.NumeroPregunta</div>
+                                                                        <div class="w-100">
+                                                                            <textarea class="form-control custom-survey-input w-100" placeholder="Añadir Pregunta" type="text" data-val="true" data-val-length="Ha excedido el tamaño maximo del Nombre" data-val-length-max="100" id="NombreEncuesta" rows="2" maxlength="200" name="NombreEncuesta" >@pregunta.NombrePregunta</textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+
+                                                                        <label class="control-label" for="NombreEncuesta">Descripcion de la Pregunta</label>
+                                                                    </div>
+                                                                    <div class="col-md-12 text-limit mt-2">
+                                                                        <textarea placeholder="Descripcion de la pregunta…" autocomplete="off" rows="4" id="full-width" maxlength="1000" class="form-control"></textarea>
+                                                                    </div>
+                                                                    <div class="sc-iTFTee dOrRfI">
+                                                                        <div class="sc-iAEawV iTZqMQ">
+                                                                            <div class="row">
+                                                                                <div class="col-8"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="sc-eeMvmM cYRtHo">0/250</div>
+                                                                    </div>
+                                                                    @if (pregunta.TipoPregunta != "Abierta")
+                                                                    {
+                                                                       
+                                                                        <div class="row mt-2">
+                                                                            @if (pregunta.Opciones != null)
+                                                                            {
+                                                                                foreach (var opcionP in pregunta.Opciones)
+                                                                                {
+                                                                                    <div class="col-6 text-limit mb-1">
+                                                                                        <div class="sc-cwSeag iHLect">
+                                                                                            <div class="sc-lllmON eEvYeb">
+                                                                                                <div class="option-num">@opcion</div>
+                                                                                                <textarea id="with-placeholder" maxlength="150" placeholder="Añadir opción..." autocomplete="off" class="sc-iJnaPW fjyQZj">@opcionP.OpcionName</textarea>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="sc-ezOQGI bQftdk">
+                                                                                            <div class="sc-bYMpWt eGMbIs">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-12"></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="sc-kMjNwy jtBNGv">Eliminar</div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    
+                                                                                    opcion++;
+                                                                                }
+                                                                            }
+                                                                            @{
+                                                                                opcion = 1;
+                                                                            }
+                                                                            
+                                                                        </div>
+                                                                    }
+                                                                    
+                                                                    <div class="modal-footer justify-content-start">
+                                                                        <div class="justify-content-center w-75">
+                                                                            <button type="button" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i> Agregar Opcion</button>
+                                                                        </div>
+                                                                        <div>
+                                                                            <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
+                                                                            <button type="button" class="btn btn-primary mr-1">Guardar</button>
+
+                                                                        </div>
+                                                                        
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="showEditDelete">
+
+                                                                <div class="question_number mt-1"><span class="ques-no">@pregunta.NumeroPregunta </span></div>
+                                                                <div class="question_data">
+                                                                    <div id="mandatory-or-not" name="mandatory-or-not" class="mandatory-block"> @pregunta.TipoPregunta </div>
+                                                                    <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
+
+                                                                    <div class="editDelete">
+                                                                        <button type="button" color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">
+                                                                            <span class="sc-fEXmlR kowIqE">
+                                                                                <i class="bi-pencil-square" data-toggle="modal" data-target="#exampleModal_@pregunta.NumeroPregunta"></i>
+                                                                            </span>
+                                                                        </button>
+                                                                        <button id="delete-survey-template-quest" name="delete-survey-template-quest" color="base" aria-label="Delete" size="48" radius="50" class="sc-fnGiBr izDhoi">
+                                                                            <span class="sc-fEXmlR kowIqE">
+                                                                                <i class="bi bi-trash3-fill"></i>
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        @if (pregunta.Opciones != null)
+                                                                        {
+                                                                            foreach (var opcionP in pregunta.Opciones)
+                                                                            {
+                                                                                <div class="col-4">
+                                                                                    <div class="options">
+                                                                                        <div class="block">@opcion</div>
+                                                                                        <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                opcion++;
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <div style="height:50px;"></div>
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="padding-left: 28px; padding-right: 28px;">
+                                                        <hr class="mb-0 mt-0">
+                                                    </div>
+                                                    opcion = 1;
+
+
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sc-xWrgk lssbs steppeActionBlock">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="text-right">
+                                            <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                            <input type="button" name="next" class="next action-button btn btn-primary" value="Siguiente" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    }
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+@section Scripts{
+    <link rel="stylesheet" href="~/js/functionStepper.js" asp-append-version="true" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    }

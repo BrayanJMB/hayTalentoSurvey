@@ -225,6 +225,16 @@
     margin-top: 13px;
 }
 
+.options-multiple-linkert {
+    color: #777777;
+    margin-bottom: 7px;
+    margin-top: 13px;
+    color: #777777;
+    align-items: center;
+    font-size: 13px;
+    line-height: 25px;
+}
+
 .addQuestion .question-list .options {
     display: inline-flex;
     width: 100%;

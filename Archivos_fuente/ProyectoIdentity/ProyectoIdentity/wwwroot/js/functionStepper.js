@@ -1,10 +1,11 @@
 $(document).ready(function () {
+   
 
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
 
     $(".next").click(function () {
-
+        debugger;
         current_fs = $(this).parent().parent().parent().parent().parent();
         next_fs = $(this).parent().parent().parent().parent().parent().next();
 
