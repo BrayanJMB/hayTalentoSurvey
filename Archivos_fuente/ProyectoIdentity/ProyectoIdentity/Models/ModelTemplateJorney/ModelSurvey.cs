@@ -6,12 +6,281 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 {
     public class ModelSurvey
     {
-        
-        public  List<Category> Categorias { get; set; }
+
+        public List<Category> Categorias { get; set; }
 
         private List<Opcion> OpcionesIniciales { get; set; }
 
         private List<Pregunta> preguntasIniciales { get; set; }
+
+
+        //Datos demograficos
+        private static List<Opcion> Demo1()
+        {
+
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "Colaborador"},
+                new Opcion { Id = 1, OpcionName = "Conyugue"},
+                new Opcion { Id = 1, OpcionName = "Hijo 1, 2, 3…"},
+                new Opcion { Id = 1, OpcionName = "Madre"},
+                new Opcion { Id = 1, OpcionName = "Padre"},
+                new Opcion { Id = 1, OpcionName = "Hermano 1, 2, 3"},
+                new Opcion { Id = 1, OpcionName = "Otro"}
+
+            };
+
+            return OpcionesLik;
+
+        }
+
+        private static List<Opcion> Demo2()
+        {
+
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "Masculino"},
+                new Opcion { Id = 1, OpcionName = "Femenino"}
+            };
+
+            return OpcionesLik;
+
+        }
+        private static List<Opcion> Demo3()
+        {
+
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "Soltero(a)"},
+                new Opcion { Id = 1, OpcionName = "Unión Libre 2 o más años"},
+                new Opcion { Id = 1, OpcionName = "Unión Libre < a 2 años"},
+                new Opcion { Id = 1, OpcionName = "Casado(a)"},
+                new Opcion { Id = 1, OpcionName = "Separado(a)"},
+                new Opcion { Id = 1, OpcionName = "Divorciado (a)"},
+                new Opcion { Id = 1, OpcionName = "Viudo(a)"}
+
+            };
+
+            return OpcionesLik;
+
+        }
+        private static List<Opcion> Demo4()
+        {
+
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "Ninguno"},
+                new Opcion { Id = 1, OpcionName = "Preescolar"},
+                new Opcion { Id = 1, OpcionName = "Primaria"},
+                new Opcion { Id = 1, OpcionName = "Bachillerato"},
+                new Opcion { Id = 1, OpcionName = "Técnico/Tecnól."},
+                new Opcion { Id = 1, OpcionName = "Pregrado"},
+                new Opcion { Id = 1, OpcionName = "Especialización"},
+                new Opcion { Id = 1, OpcionName = "Maestría"},
+                new Opcion { Id = 1, OpcionName = "Doctorado"}
+            };
+
+            return OpcionesLik;
+
+        }
+        private static List<Opcion> Demo5()
+        {
+
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "Sí" },
+                new Opcion { Id = 1, OpcionName = "No" },
+            };
+
+            return OpcionesLik;
+
+        }
+        private static List<Opcion> Demo6()
+        {
+
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "De 0 a 7 años"},
+                new Opcion { Id = 1, OpcionName = "De 7 a 11 años "},
+                new Opcion { Id = 1, OpcionName = "De 12 a 17 años"},
+                new Opcion { Id = 1, OpcionName = "De 18 a 25 años"},
+                new Opcion { Id = 1, OpcionName = "De 26 a 35 años"},
+                new Opcion { Id = 1, OpcionName = "De 36 a 45 años"},
+                new Opcion { Id = 1, OpcionName = "De 46 a 55 años"},
+                new Opcion { Id = 1, OpcionName = "55 años o más"}
+
+            };
+
+            return OpcionesLik;
+
+        }
+
+
+        private static List<Opcion> Demo7()
+        {
+
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "Si" },
+                new Opcion { Id = 1, OpcionName = "No" }
+
+            };
+
+            return OpcionesLik;
+
+        }
+        private static List<Opcion> Demo8()
+        {
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "Propia" },
+                new Opcion { Id = 1, OpcionName = "Arrendada" },
+                new Opcion { Id = 1, OpcionName = "Familiar " },
+
+            };
+
+            return OpcionesLik;
+
+        }
+        private static List<Opcion> Demo9()
+        {
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "1" },
+                new Opcion { Id = 1, OpcionName = "2" },
+                new Opcion { Id = 1, OpcionName = "3" },
+                new Opcion { Id = 1, OpcionName = "4" },
+                new Opcion { Id = 1, OpcionName = "5" },
+                new Opcion { Id = 1, OpcionName = "6" },
+                new Opcion { Id = 1, OpcionName = "7" }
+            };
+
+            return OpcionesLik;
+
+        }
+        private static List<Opcion> Demo10()
+        {
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "Falta de acceso a créditos por capacidad de pago" },
+                new Opcion { Id = 1, OpcionName = "No ha logrado reunir el valor de la cuota inicial" },
+                new Opcion { Id = 1, OpcionName = "Por reporte en centrales de riesgo" },
+                new Opcion { Id = 1, OpcionName = "No tiene interés en adquirir vivienda actualmente" },
+                new Opcion { Id = 1, OpcionName = "Otro, ¿Cuál?" }
+            };
+            return OpcionesLik;
+
+        }
+        private static List<Opcion> Demo11()
+        {
+
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "No"},
+                new Opcion { Id = 1, OpcionName = "Sí (especifica si es carro, moto u otro):"}
+            };
+
+            return OpcionesLik;
+
+        }
+
+        private static List<Opcion> Demo12()
+        {
+
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "Gato"},
+                new Opcion { Id = 1, OpcionName = "Perro"},
+                new Opcion { Id = 1, OpcionName = "Otra ¿Cuál?"}
+            };
+
+            return OpcionesLik;
+
+        }
+        //listas de opciones
+
+        //preguntas
+        private static List<Pregunta> PreguntasDemograficas()
+        {
+            List<Pregunta> Demograficos = new List<Pregunta> {
+            new Pregunta
+            {
+                NombrePregunta = "Parentesco",
+                TipoPregunta = "Respuesta única",
+                NumeroPregunta = 47,
+                Opciones = Demo1(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Sexo",
+                TipoPregunta = "Respuesta única",
+                NumeroPregunta = 48,
+                Opciones = Demo2(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Estado civil",
+                TipoPregunta = "Respuesta única",
+                NumeroPregunta = 49,
+                Opciones = Demo3(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Nivel educativo",
+                TipoPregunta = "Respuesta única",
+                NumeroPregunta = 50,
+                Opciones = Demo4(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "¿Dependiente económicamente?",
+                TipoPregunta = "Respuesta única",
+                NumeroPregunta = 51,
+                Opciones = Demo5(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Edad",
+                TipoPregunta = "Respuesta única",
+                NumeroPregunta = 52,
+                Opciones = Demo6(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Existe otro ingreso en tu hogar",
+                TipoPregunta = "Respuesta única",
+                NumeroPregunta = 53,
+                Opciones = Demo7(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Tu vivienda es",
+                TipoPregunta = "Respuesta única",
+                NumeroPregunta = 54,
+                Opciones = Demo8(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Tu vivienda es estrato",
+                TipoPregunta = "Respuesta única",
+                NumeroPregunta = 55,
+                Opciones = Demo9(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "En caso de NO tener vivienda propia, explica el motivo",
+                TipoPregunta = "Respuesta única",
+                NumeroPregunta = 56,
+                Opciones = Demo10(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Tienes vehículo propio",
+                TipoPregunta = "Respuesta única",
+                NumeroPregunta = 57,
+                Opciones = Demo11(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Tiene mascotas",
+                TipoPregunta = "Respuesta única",
+                NumeroPregunta = 58,
+                Opciones = Demo12(),
+            },
+            };
+            return Demograficos;
+
+        }
+
+      
 
 
         private static List<Opcion> OpcionesLikkert1() {
@@ -498,7 +767,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         public  static List<Category> Categories() {
 
             var categiras = new List<Category> {
-                new Category{Id=1,NombreCategoria="Datos Demograficos",Preguntas=null},
+                new Category{Id=1,NombreCategoria="Datos Demograficos",Preguntas=PreguntasDemograficas()},
                 new Category{Id=2,NombreCategoria="Beneficios de Calidad de Vida",Preguntas=PreguntaCalidad1()},
                 new Category{Id=3,NombreCategoria="Beneficios Monetarios y No Monetarios",Preguntas=PreguntaMonetarios2()},
                 new Category{Id=4,NombreCategoria="Beneficios de Desarrollo Personal",Preguntas=PreguntaDesarrollo3()},
