@@ -499,6 +499,7 @@ element.style {
     margin-left:3px;
 }
 
+
 .steppeActionBlock {
      padding: 10px 20px; 
      background-color: #fff; 
@@ -589,4 +590,27 @@ element.style {
 .jIDlkp * {
     box-sizing: border-box;
 }
+
+.elIVef {
+    padding: 0px 0px 0px 14px;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    font-weight: 300;
+    color: rgb(134, 140, 204);
+}
+.surveyContentWrap .option-num {
+    width: 25px;
+    height: 25px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background: #F0F2F5;
+    border-radius: 4px;
+    color: #B2B2B2;
+}
+.fglRPU {
+    flex: 1 1 0%;
+}
+
 

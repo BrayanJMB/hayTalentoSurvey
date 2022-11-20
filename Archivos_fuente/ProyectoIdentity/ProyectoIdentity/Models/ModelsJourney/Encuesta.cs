@@ -15,7 +15,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
 
         //llaves Foraneas
         [ForeignKey("Company")]
-        public int CompanyId  { get; set; }
+        public string CompanyId  { get; set; }
         
         public Company? Company { get; set; }
 

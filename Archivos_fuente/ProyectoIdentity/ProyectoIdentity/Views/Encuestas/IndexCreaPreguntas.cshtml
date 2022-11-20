@@ -5,6 +5,12 @@
     bool Active = true;
     string firstSteper = "js-active";
     int opcion = 1;
+    string[] iconStepper = {"","bi bi-globe-americas",
+                            "bi bi-heart-pulse",
+                            "bi bi-piggy-bank-fill",
+                            "bi bi-person-check-fill",
+                            "bi bi-tools",
+                            "bi bi-shield-lock-fill" };
 }
 
 
@@ -13,7 +19,7 @@
     <link rel="stylesheet" href="~/css/styleStepper.css">
     <link rel="stylesheet" href="~/css/Preguntas.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    
+
 }
 
 
@@ -29,12 +35,14 @@
                 <div class="heading-wrapper pr-3">
                     <div class="title-row">
                         <h5 id="heading_text" class="sc-gKPRtg kgoyPS">Preguntas</h5>
+
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 mx-0">
+
                 <form id="msform">
                     <!-- progressbar -->
 
@@ -43,15 +51,18 @@
                         {
                             if (Active)
                             {
-                                <li class="active" id="account"><strong>@categori.Id</strong></li>
+                                <li class="active @iconStepper[opcion]" id="account"><strong>@categori.Id</strong></li>
                                 Active = false;
                             }
                             else
                             {
-                                <li id="personal"><strong>@categori.Id</strong></li>
+                                <li class="@iconStepper[opcion]" id="personal"><strong>@categori.Id</strong></li>
 
                             }
-
+                            opcion++;
+                        }
+                        @{
+                            opcion=1;
                         }
                     </ul>
 
@@ -63,18 +74,16 @@
                                 <h3>@Html.DisplayFor(c=>categori.NombreCategoria)</h3>
                                 <div class="form-card">
                                     <div class="addQuestion mt-2">
-
                                         <div class="question-list ">
                                             @if (categori.Preguntas != null)
                                             {
-
                                                 @foreach (var pregunta in categori.Preguntas)
                                                 {
                                                     <div class="modal fade" id="exampleModal_@pregunta.NumeroPregunta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">@categori.NombreCategoria</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">@categori.NombreCategoria- @pregunta.TipoPregunta</h5>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
@@ -85,9 +94,9 @@
                                                                         <label class="control-label" for="NombreEncuesta">Pregunta</label>
                                                                     </div>
                                                                     <div class="d-flex w-100 align-items-center mb-2">
-                                                                        <div class="common-sub-title mr-2">@pregunta.NumeroPregunta .</div>
+                                                                        <div class="common-sub-title mr-2">@pregunta.NumeroPregunta</div>
                                                                         <div class="w-100">
-                                                                            <input class="form-control custom-survey-input w-100" placeholder="Añadir Pregunta" type="text" data-val="true" data-val-length="Ha excedido el tamaño maximo del Nombre" data-val-length-max="100" id="NombreEncuesta" maxlength="100" name="NombreEncuesta" value="@pregunta.NombrePregunta">
+                                                                            <textarea class="form-control custom-survey-input w-100" placeholder="Añadir Pregunta" type="text" data-val="true" data-val-length="Ha excedido el tamaño maximo del Nombre" data-val-length-max="100" id="NombreEncuesta" rows="2" maxlength="200" name="NombreEncuesta" >@pregunta.NombrePregunta</textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div>
@@ -95,8 +104,7 @@
                                                                         <label class="control-label" for="NombreEncuesta">Descripcion de la Pregunta</label>
                                                                     </div>
                                                                     <div class="col-md-12 text-limit mt-2">
-                                                                        <textarea placeholder="Descripcion de la pregunta…" autocomplete="off" rows="4" id="full-width" maxlength="1000" class="form-control">
-                                        </textarea>
+                                                                        <textarea placeholder="Descripcion de la pregunta…" autocomplete="off" rows="4" id="full-width" maxlength="1000" class="form-control"></textarea>
                                                                     </div>
                                                                     <div class="sc-iTFTee dOrRfI">
                                                                         <div class="sc-iAEawV iTZqMQ">
@@ -106,59 +114,52 @@
                                                                         </div>
                                                                         <div class="sc-eeMvmM cYRtHo">0/250</div>
                                                                     </div>
-                                                                    @if (pregunta.TipoPregunta != "Abierta"){
-                                                                    <div class="row mt-2">
-                                                                        @if(pregunta.Opciones!=null){
-                                                                        foreach (var opcionP in pregunta.Opciones)
-                                                                        {
-                                                                        <div class="col-4 text-limit mb-1">
-                                                                            <div class="sc-cwSeag iHLect">
-                                                                                <div class="sc-lllmON eEvYeb">
-                                                                                    <div class="sc-ilhmMj elIVef eui-input-left">
-                                                                                        <div class="option-num">@opcion</div>
-                                                                                    </div>
-                                                                                    <div class="sc-jIRcFI fglRPU">
-                                                                                        <input id="with-placeholder" maxlength="44" placeholder="Añadir opción..." autocomplete="off" class="sc-iJnaPW fjyQZj" value="@opcionP.OpcionName">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="sc-ezOQGI bQftdk">
-                                                                                    <div class="sc-bYMpWt eGMbIs">
-                                                                                        <div class="row">
-                                                                                            <div class="col-12">
+                                                                    @if (pregunta.TipoPregunta != "Abierta")
+                                                                    {
+                                                                       
+                                                                        <div class="row mt-2">
+                                                                            @if (pregunta.Opciones != null)
+                                                                            {
+                                                                                foreach (var opcionP in pregunta.Opciones)
+                                                                                {
+                                                                                    <div class="col-6 text-limit mb-1">
+                                                                                        <div class="sc-cwSeag iHLect">
+                                                                                            <div class="sc-lllmON eEvYeb">
+                                                                                                <div class="option-num">@opcion</div>
+                                                                                                <textarea id="with-placeholder" maxlength="150" placeholder="Añadir opción..." autocomplete="off" class="sc-iJnaPW fjyQZj">@opcionP.OpcionName</textarea>
                                                                                             </div>
                                                                                         </div>
+                                                                                        <div class="sc-ezOQGI bQftdk">
+                                                                                            <div class="sc-bYMpWt eGMbIs">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-12"></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="sc-kMjNwy jtBNGv">Eliminar</div>
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div class="sc-kMjNwy jtBNGv">
-                                                                                        0/44
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            </div>
-                                                                            opcion++;
-                                                                        }
-                                                                        }
-                                                                        @{
-                                                                            opcion = 1;
-                                                                        }
-                                                                        <div class="col-4">
-                                                                            <div class="another-choice-img mt-0" id="multiplechoice-add-option" name="multiplechoice-add-option">
-                                                                                <span class="sc-bcXHqe eCGCgc">
-                                                                                    <svg width="22" height="22" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path d="M25.0001 4.16669C20.8796 4.16669 16.8517 5.38854 13.4257 7.67774C9.99969 9.96693 7.32943 13.2207 5.7526 17.0274C4.17577 20.8342 3.76321 25.0231 4.56706 29.0644C5.37092 33.1057 7.35511 36.8178 10.2687 39.7314C13.1823 42.645 16.8944 44.6292 20.9357 45.433C24.977 46.2369 29.1659 45.8243 32.9727 44.2475C36.7795 42.6707 40.0332 40.0004 42.3224 36.5744C44.6116 33.1484 45.8334 29.1205 45.8334 25C45.8334 22.2641 45.2946 19.5551 44.2476 17.0274C43.2006 14.4998 41.666 12.2032 39.7315 10.2686C37.7969 8.33407 35.5003 6.7995 32.9727 5.75253C30.445 4.70556 27.736 4.16669 25.0001 4.16669ZM25.0001 42.625C21.5042 42.625 18.0869 41.5878 15.1807 39.6447C12.2745 37.7016 10.0102 34.94 8.67427 31.7094C7.33836 28.4788 6.99094 24.9245 7.67599 21.4964C8.36105 18.0683 10.0478 14.9205 12.5227 12.4514C14.9976 9.98233 18.1494 8.30304 21.5791 7.62608C25.0088 6.94912 28.5623 7.30493 31.7898 8.64847C35.0172 9.99201 37.7734 12.2629 39.7097 15.1736C41.6459 18.0844 42.675 21.5041 42.6668 25C42.6668 29.6855 40.8055 34.1791 37.4923 37.4922C34.1792 40.8054 29.6856 42.6667 25.0001 42.6667V42.625Z" fill="#4054B2">
-                                                                                        </path>
-                                                                                        <path d="M33.9793 23.4375H26.5626V16.0209C26.5626 15.6065 26.398 15.209 26.1049 14.916C25.8119 14.623 25.4145 14.4584 25.0001 14.4584C24.5857 14.4584 24.1883 14.623 23.8952 14.916C23.6022 15.209 23.4376 15.6065 23.4376 16.0209V23.4375H16.0209C15.6065 23.4375 15.2091 23.6021 14.9161 23.8952C14.623 24.1882 14.4584 24.5856 14.4584 25C14.4584 25.4144 14.623 25.8118 14.9161 26.1049C15.2091 26.3979 15.6065 26.5625 16.0209 26.5625H23.4376V33.9792C23.4376 34.3936 23.6022 34.791 23.8952 35.084C24.1883 35.3771 24.5857 35.5417 25.0001 35.5417C25.4145 35.5417 25.8119 35.3771 26.1049 35.084C26.398 34.791 26.5626 34.3936 26.5626 33.9792V26.5625H33.9793C34.3937 26.5625 34.7911 26.3979 35.0841 26.1049C35.3771 25.8118 35.5418 25.4144 35.5418 25C35.5418 24.5856 35.3771 24.1882 35.0841 23.8952C34.7911 23.6021 34.3937 23.4375 33.9793 23.4375Z" fill="#4054B2">
-                                                                                        </path>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span class="add-another ml-2"> Añadir opción </span>
-                                                                            </div>
+                                                                                    
+                                                                                    opcion++;
+                                                                                }
+                                                                            }
+                                                                            @{
+                                                                                opcion = 1;
+                                                                            }
+                                                                            
                                                                         </div>
-                                                                    </div>
                                                                     }
+                                                                    
+                                                                    <div class="modal-footer justify-content-start">
+                                                                        <div class="justify-content-center w-75">
+                                                                            <button type="button" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i> Agregar Opcion</button>
+                                                                        </div>
+                                                                        <div>
+                                                                            <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
+                                                                            <button type="button" class="btn btn-primary mr-1">Guardar</button>
 
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                                        </div>
+                                                                        
+                                                                        
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -168,6 +169,7 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="showEditDelete">
+
                                                                 <div class="question_number mt-1"><span class="ques-no">@pregunta.NumeroPregunta </span></div>
                                                                 <div class="question_data">
                                                                     <div id="mandatory-or-not" name="mandatory-or-not" class="mandatory-block"> @pregunta.TipoPregunta </div>
@@ -201,7 +203,7 @@
                                                                         }
                                                                         else
                                                                         {
-                                                                           <div style="height:50px;"></div>
+                                                                            <div style="height:50px;"></div>
                                                                         }
 
                                                                     </div>
@@ -227,29 +229,14 @@
 
                                     <div class="col-md-12">
                                         <div class="text-right">
-                                            <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                                            <input type="button" name="make_payment" class="next action-button" value="Next" />
-
+                                            <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                            <input type="button" name="next" class="next action-button btn btn-primary" value="Siguiente" />
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
-
-
-
-
-
+                            </div>
                         </fieldset>
                     }
-
-
-
-
-
-
                 </form>
             </div>
         </div>
@@ -259,8 +246,7 @@
 </div>
 
 
-<form class="multisteps-form__form">
-</form>
+
 
 
 

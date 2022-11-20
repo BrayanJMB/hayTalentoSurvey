@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProyectoIdentity.Models.ModelsJourney
 {
-    public class Company
+    public class Company: IdentityUser
     {
         public int CompanyId { get; set; }
         [Display(Name = "Nombre de la Compañia")]
@@ -23,9 +24,9 @@ namespace ProyectoIdentity.Models.ModelsJourney
         [StringLength(110, ErrorMessage = "El {0} no puede superar los {1} Caracteres")]
 
         public string PersonFullName { get; set; }
-        //
-        //public List<AppUsuario> AppUsuarios { get; set; }
-        //Tablas De referencia
+        [Display(Name = "Estado del usuario")]
+        public bool Activo { get; set; } = false;
+        
         public List<Encuesta>? Encuestas { get; set; }
     }
 }

@@ -59,17 +59,17 @@
         margin-top: 6px !important;
     }
 }
-.actived {
-    border: 2px solid green;
-    padding: 0 3px 0 3px;
-    color: green;
-    margin: 3px 2px 0 2px;
+.activeLabel {
+    border: 2px solid green !important;
+    padding: 0 3px 0 3px !important;
+    color: green !important;
+    margin: 3px 2px 0 2px !important;
 }
-.unactive {
+#labelActive {
     border: 2px solid red;
     padding: 0 3px 0 3px;
     color: red;
-    margin:3px 2px 0 2px;
+    margin: 3px 2px 0 2px;
 }
 
 

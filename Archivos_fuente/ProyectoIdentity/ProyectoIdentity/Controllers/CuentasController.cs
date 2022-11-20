@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoIdentity.Models;
+using ProyectoIdentity.Models.ModelsJourney;
 using System.Security.Claims;
 
 namespace ProyectoIdentity.Controllers
@@ -43,7 +44,7 @@ namespace ProyectoIdentity.Controllers
             returnurl = returnurl??Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var usuario = new AppUsuario { UserName = rgViewModel.Email, Email = rgViewModel.Email, Nombre = rgViewModel.Nombre, Url = rgViewModel.Url, CodigoPais = rgViewModel.CodigoPais, Telefono = rgViewModel.Telefono, Pais = rgViewModel.Pais, Ciudad = rgViewModel.Ciudad, Direccion = rgViewModel.Direccion, FechaNacimiento = rgViewModel.FechaNacimiento, Estado = rgViewModel.Estado };
+                var usuario = new Company { UserName = rgViewModel.Email, Email = rgViewModel.Email, PersonFullName = rgViewModel.Nombre,PhoneNumber= rgViewModel.Telefono };
                 var resultado = await _userManager.CreateAsync(usuario, rgViewModel.Password);
 
                 if (resultado.Succeeded)
@@ -286,7 +287,7 @@ namespace ProyectoIdentity.Controllers
                     return View("Error");
                 }
 
-                var usuario = new AppUsuario { UserName = caeViewModel.Email, Email = caeViewModel.Email, Nombre = caeViewModel.Name };
+                var usuario = new Company { UserName = caeViewModel.Email, Email = caeViewModel.Email, PersonFullName = caeViewModel.Name };
                 var resultado = await _userManager.CreateAsync(usuario);
                 if (resultado.Succeeded)
                 {

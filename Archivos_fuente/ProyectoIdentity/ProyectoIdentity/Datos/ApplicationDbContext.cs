@@ -12,10 +12,8 @@ namespace ProyectoIdentity.Datos
         }
 
         //Agregamos los diferentes modelos que necesitamos
-        public DbSet<AppUsuario> AppUsuario { get; set; }
 
         public DbSet<Categoria> Categoria { get; set; }
-        public DbSet<Company> Company { get; set; }
         public DbSet<Encuesta> Encuesta { get; set; }
         public DbSet<FechaRespuesta> FechaRespuesta { get; set; }
         public DbSet<Opcion> Opcion { get; set; }
@@ -25,6 +23,7 @@ namespace ProyectoIdentity.Datos
         public DbSet<Respuesta> Respuesta { get; set; }
         public DbSet<TipoPregunta> TipoPregunta { get; set; }
         public DbSet<VersionEncuesta> VersionEncuesta { get; set; }
+        public DbSet<Company> Company { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

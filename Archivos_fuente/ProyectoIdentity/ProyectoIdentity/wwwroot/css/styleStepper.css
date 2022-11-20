@@ -43,64 +43,19 @@
             color: #9E9E9E;
         }
 
-    #msform input, #msform textarea {
-        padding: 0px 8px 4px 8px;
-        border: none;
-        border-bottom: 1px solid #ccc;
-        border-radius: 0px;
-        margin-bottom: 25px;
-        margin-top: 2px;
-        width: 100%;
-        box-sizing: border-box;
-        font-family: montserrat;
-        color: #2C3E50;
-        font-size: 16px;
-        letter-spacing: 1px;
-    }
+    
 
-        #msform input:focus, #msform textarea:focus {
-            -moz-box-shadow: none !important;
-            -webkit-box-shadow: none !important;
-            box-shadow: none !important;
-            border: none;
-            font-weight: bold;
-            border-bottom: 2px solid skyblue;
-            outline-width: 0;
-        }
+        
 
     /*Blue Buttons*/
-    #msform .action-button {
-        width: 100px;
-        background: skyblue;
-        font-weight: bold;
-        color: white;
-        border: 0 none;
-        border-radius: 0px;
-        cursor: pointer;
-        padding: 10px 5px;
-        margin: 10px 5px;
-    }
+    
 
-        #msform .action-button:hover, #msform .action-button:focus {
-            box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
-        }
+        
 
     /*Previous Buttons*/
-    #msform .action-button-previous {
-        width: 100px;
-        background: #616161;
-        font-weight: bold;
-        color: white;
-        border: 0 none;
-        border-radius: 0px;
-        cursor: pointer;
-        padding: 10px 5px;
-        margin: 10px 5px;
-    }
+    
 
-        #msform .action-button-previous:hover, #msform .action-button-previous:focus {
-            box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
-        }
+    
 
 /*Dropdown List Exp Date*/
 select.list-dt {
@@ -157,17 +112,16 @@ select.list-dt {
     /*Icons in the ProgressBar*/
     #progressbar #account:before {
         font-family: FontAwesome;
-        content: "\f023";
+        
     }
 
     #progressbar #personal:before {
-        font-family: FontAwesome;
-        content: "\f007";
+        font-family: FontAwesome;        
     }
 
     #progressbar #payment:before {
         font-family: FontAwesome;
-        content: "\f09d";
+        
     }
 
     #progressbar #confirm:before {
@@ -236,4 +190,8 @@ select.list-dt {
 .fit-image {
     width: 100%;
     object-fit: cover;
+}
+
+#with-placeholder:focus-visible {
+    border: none;
 }
