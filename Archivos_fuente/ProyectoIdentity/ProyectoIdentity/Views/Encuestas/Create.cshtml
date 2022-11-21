@@ -5,9 +5,11 @@
 
 @{
     ViewData["Title"] = "Create";
+    
+
 }
 @section Styles{
-
+    
     <link rel="stylesheet" href="~/css/Preguntas.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
@@ -44,7 +46,11 @@
                                                 <span asp-validation-for="DescripcionEncuesta" class="text-danger"></span>
                                             </div>
                                             <div class="form-group">
-                                                <label asp-for="CompanyId" class="control-label"></label>
+                                                <label asp-for="FechaMaximoPlazo" class="control-label"></label>
+                                                <input asp-for="FechaMaximoPlazo" class="form-control sc-lllmON eEvYeb" />
+                                                <span asp-validation-for="FechaMaximoPlazo" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
                                                 <input type="hidden" asp-for="CompanyId" class="form-control" value="@UserManager.GetUserId(User)"/>
                                             </div>
                                             <div class="form-group">

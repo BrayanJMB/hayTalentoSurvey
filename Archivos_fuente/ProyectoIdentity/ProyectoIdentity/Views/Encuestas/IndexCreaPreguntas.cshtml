@@ -22,12 +22,6 @@
 
 }
 
-
-
-
-
-
-
 <div class="container-fluid" id="grad1">
     <div class="row justify-content-center mt-0">
         <div class="sc-ZqGJI fqodEh">
@@ -116,16 +110,14 @@
                                                                     </div>
                                                                     @if (pregunta.TipoPregunta != "Abierta")
                                                                     {
-                                                                       
-                                                                        <div class="row mt-2">
+                                                                        <div class="row mt-2" id="Opciones">
                                                                             @if (pregunta.Opciones != null)
                                                                             {
                                                                                 foreach (var opcionP in pregunta.Opciones)
                                                                                 {
-                                                                                    <div class="col-6 text-limit mb-1">
+                                                                                    <div class="col-6 text-limit mb-1" id="OpcionPregunta">
                                                                                         <div class="sc-cwSeag iHLect">
                                                                                             <div class="sc-lllmON eEvYeb">
-                                                                                                <div class="option-num">@opcion</div>
                                                                                                 <textarea id="with-placeholder" maxlength="150" placeholder="Añadir opción..." autocomplete="off" class="sc-iJnaPW fjyQZj">@opcionP.OpcionName</textarea>
                                                                                             </div>
                                                                                         </div>
@@ -135,12 +127,30 @@
                                                                                                     <div class="col-12"></div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div class="sc-kMjNwy jtBNGv">Eliminar</div>
+                                                                                            <div class="sc-kMjNwy jtBNGv" id="EliminaOpcion" onclick="EliminaOpcionOne(this)">Eliminar</div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    
+
                                                                                     opcion++;
                                                                                 }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <div class="col-6 text-limit mb-1" id="OpcionPregunta">
+                                                                                    <div class="sc-cwSeag iHLect">
+                                                                                        <div class="sc-lllmON eEvYeb">
+                                                                                            <textarea id="with-placeholder" maxlength="150" placeholder="Añadir opción..." autocomplete="off" class="sc-iJnaPW fjyQZj"></textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="sc-ezOQGI bQftdk">
+                                                                                        <div class="sc-bYMpWt eGMbIs">
+                                                                                            <div class="row">
+                                                                                                <div class="col-12"></div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="sc-kMjNwy jtBNGv" id="EliminaOpcion" onclick="EliminaOpcionOne(this)">Eliminar</div>
+                                                                                    </div>
+                                                                                </div>
                                                                             }
                                                                             @{
                                                                                 opcion = 1;
@@ -151,48 +161,47 @@
                                                                     
                                                                     <div class="modal-footer justify-content-start">
                                                                         <div class="justify-content-center w-75">
-                                                                            <button type="button" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i> Agregar Opcion</button>
+                                                                            <button type="button" class="btn btn-outline-success" id="AgregaOpcion"><i class="bi bi-plus-circle"></i> Agregar Opcion</button>
                                                                         </div>
                                                                         <div>
                                                                             <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
-                                                                            <button type="button" class="btn btn-primary mr-1">Guardar</button>
-
+                                                                            <button type="button" id="GuardaPregunta" class="btn btn-primary mr-1">Guardar</button>
                                                                         </div>
-                                                                        
-                                                                        
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="row">
+                                                    <div class="row" id="FilaPregunta">
                                                         <div class="col-md-12">
                                                             <div class="showEditDelete">
-
+                                                                @if(categori.NombreCategoria!="Datos Demograficos"){
                                                                 <div class="question_number mt-1"><span class="ques-no">@pregunta.NumeroPregunta </span></div>
+                                                                }
                                                                 <div class="question_data">
                                                                     <div id="mandatory-or-not" name="mandatory-or-not" class="mandatory-block"> @pregunta.TipoPregunta </div>
                                                                     <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
 
                                                                     <div class="editDelete">
-                                                                        <button type="button" color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">
+                                                                        <button type="button"  color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">
                                                                             <span class="sc-fEXmlR kowIqE">
                                                                                 <i class="bi-pencil-square" data-toggle="modal" data-target="#exampleModal_@pregunta.NumeroPregunta"></i>
                                                                             </span>
                                                                         </button>
-                                                                        <button id="delete-survey-template-quest" name="delete-survey-template-quest" color="base" aria-label="Delete" size="48" radius="50" class="sc-fnGiBr izDhoi">
-                                                                            <span class="sc-fEXmlR kowIqE">
+                                                                        @if(categori.NombreCategoria!="Datos Demograficos"){
+                                                                        <button type="button" id="DeletQuestion"  color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">
+                                                                            
                                                                                 <i class="bi bi-trash3-fill"></i>
-                                                                            </span>
                                                                         </button>
+                                                                        }
                                                                     </div>
                                                                     <div class="row">
                                                                         @if (pregunta.Opciones != null)
                                                                         {
                                                                             foreach (var opcionP in pregunta.Opciones)
                                                                             {
-                                                                                <div class="col-4">
+                                                                                <div class="col-4 optionsQue">
                                                                                     <div class="options">
                                                                                         <div class="block">@opcion</div>
                                                                                         <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
@@ -212,7 +221,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div style="padding-left: 28px; padding-right: 28px;">
+                                                    <div id="linedata" style="padding-left: 28px; padding-right: 28px;">
                                                         <hr class="mb-0 mt-0">
                                                     </div>
                                                     opcion = 1;
@@ -229,8 +238,26 @@
 
                                     <div class="col-md-12">
                                         <div class="text-right">
-                                            <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
-                                            <input type="button" name="next" class="next action-button btn btn-primary" value="Siguiente" />
+                                            @if (categori.Id==Model.Categorias.Last().Id)
+                                            {
+                                                <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                                <input type="su" name="next" class="next action-button btn btn-success" value="Finalizar" />
+
+
+                                            }
+                                            else
+                                            {
+                                                if (categori.Id != Model.Categorias.First().Id)
+                                                {
+                                                    <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="button" onclick="history.back()" class="btn btn-dark mr-2" value="Anterior" />
+                                                }
+                                                <input type="button" name="next" class="next action-button btn btn-primary" value="Siguiente" />
+                                            }
+                                            
                                         </div>
                                     </div>
                                 </div>
