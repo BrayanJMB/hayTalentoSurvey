@@ -4,33 +4,29 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Html.DisplayFor(model => model.NombreEncuesta)</h1>
 
 <div>
-    <h4>Encuesta</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreEncuesta)
+        <dt class = "col-sm-10">
+            @Html.DisplayNameFor(model => model.FechaDeCreacion)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NombreEncuesta)
+            @Html.DisplayFor(model => model.FechaDeCreacion)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DescripcionEncuesta)
+
+
+        <dt class = "col-sm-10">
+            @Html.DisplayNameFor(model => model.FechaMaximoPlazo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DescripcionEncuesta)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Company)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Company.Id)
+            @Html.DisplayFor(model => model.FechaMaximoPlazo)
         </dd>
     </dl>
 </div>
+<h2>El numero de respondetes para esta encuenta es @ViewData["respondestesEncuensta"]</h2>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Regreso a la lista de encuestas</a>
 </div>

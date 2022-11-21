@@ -55,7 +55,11 @@ namespace ProyectoIdentity.Controllers
             {
                 return NotFound();
             }
-
+            
+            var cantidadRespondente = (from x in _context.EncuestaRepondente
+                        where x.EncuestaId == id
+                            select x).Count();
+            ViewData["respondestesEncuensta"] = cantidadRespondente;
             return View(encuesta);
         }
 

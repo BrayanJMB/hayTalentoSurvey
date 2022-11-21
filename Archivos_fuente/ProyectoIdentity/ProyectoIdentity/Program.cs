@@ -7,22 +7,23 @@ using ProyectoIdentity.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Configuramos la conexión a sql server
+//Configuramos la conexiï¿½n a sql server
 builder.Services.AddDbContext<ApplicationDbContext>(opciones => 
     opciones.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSql"))
 );
-
-//Agregar el servicio Identity a la aplicación
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-//Esta línea es para la url de retorno al acceder
+//Agregar el servicio Identity a la aplicaciï¿½n
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+//Esta lï¿½nea es para la url de retorno al acceder
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = new PathString("/Cuentas/Acceso");
     options.AccessDeniedPath = new PathString("/Cuentas/Bloqueado");
 });
 
-//Estas son opciones de configuración del identity
+//Estas son opciones de configuraciï¿½n del identity
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequiredLength = 5;
@@ -52,7 +53,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-//Se agrega la autenticación
+//Se agrega la autenticaciï¿½n
 app.UseAuthentication();
 app.UseAuthorization();
 
