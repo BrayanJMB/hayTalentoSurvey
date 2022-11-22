@@ -24,7 +24,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
         public Company? Company { get; set; }
 
         //tablas de referencia
-        public List<Categoria>? Categorias { get; set; }
+        public List<EncuestaCategoria>? EncuestaCategorias { get; set; }
 
         public List<EncuestaRepondente>? Versions { get; set; }
     }

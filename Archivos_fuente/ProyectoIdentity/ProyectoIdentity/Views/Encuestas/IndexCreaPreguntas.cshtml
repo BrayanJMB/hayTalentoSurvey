@@ -1,7 +1,7 @@
 ﻿@model ProyectoIdentity.Models.ModelTemplateJorney.ModelSurvey
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "CreateEncuestas";
     bool Active = true;
     string firstSteper = "js-active";
     int opcion = 1;
@@ -37,7 +37,10 @@
         <div class="row">
             <div class="col-md-12 mx-0">
 
-                <form id="msform">
+                <form id="msform" asp-action="CreateEncuestas" asp-controller="Encuestas" method="post">
+                @*    <input type="text" name="data" class="form-control" />
+                    <input type="submit" name="next" class="next action-button btn btn-success" value="Finalizar" />
+                </form>    *@
                     <!-- progressbar -->
 
                     <ul id="progressbar">
@@ -241,7 +244,7 @@
                                             @if (categori.Id==Model.Categorias.Last().Id)
                                             {
                                                 <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
-                                                <input type="su" name="next" class="next action-button btn btn-success" value="Finalizar" />
+                                                <input type="submit" name="next" class="next action-button btn btn-success" value="Finalizar" />
 
 
                                             }

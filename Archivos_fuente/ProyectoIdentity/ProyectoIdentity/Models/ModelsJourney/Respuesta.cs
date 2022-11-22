@@ -6,7 +6,10 @@ namespace ProyectoIdentity.Models.ModelsJourney
 {
     public class Respuesta
     {
+
         public string DescripcionRespuesta { get; set; }
+
+        public float Valor { get; set; }
 
         //llaves Foraneas
         [Display(Name = "Id Persona que Responde")]

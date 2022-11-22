@@ -69,6 +69,17 @@ namespace ProyectoIdentity.Controllers
             ViewData["CompanyId"] = new SelectList(_context.Company, "Id", "Id");
             return View();
         }
+        [HttpPost]
+        public IActionResult CreateEncuestas(int data)
+        {
+
+            data += 15;
+            ViewData["CompanyId"] = new SelectList(_context.Company, "Id", "Id");
+            return View();
+        }
+
+
+
 
         // POST: Encuestas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
