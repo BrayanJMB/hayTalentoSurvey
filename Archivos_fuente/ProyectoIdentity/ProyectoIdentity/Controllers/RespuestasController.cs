@@ -23,6 +23,7 @@ namespace ProyectoIdentity.Controllers
         // GET: Respuestas
         public async Task<IActionResult> Index()
         {
+            
             var appDbContext = _context.Respuesta.Include(r => r.Pregunta).Include(r => r.Respondente);
             return View(await appDbContext.ToListAsync());
         }
@@ -174,9 +175,22 @@ namespace ProyectoIdentity.Controllers
 
         public async Task<IActionResult> IndexRespuestas()
         {
+            ViewBag.Message = "Login";
             var Model = new ModelSurvey();
             Model.Categorias = ModelSurvey.Categories();
             return View(Model);
+        }
+
+        public async Task<IActionResult> RedirectIndexRespuestas()
+        {
+            ViewBag.Message = "Login";
+            return View();
+        }
+
+        public async Task<IActionResult> EnvioIndexRespuestas()
+        {
+            ViewBag.Message = "Login";
+            return View();
         }
     }
 }

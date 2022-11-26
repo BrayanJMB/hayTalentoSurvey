@@ -76,7 +76,7 @@
                                                                                 {
                                                                                     <div class="col-md-4 col-sm-12">
                                                                                         <div class="options">
-                                                                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                                                                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value=@:"(opcionP.OpcionName);">
                                                                                             <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
                                                                                         </div>
                                                                                     </div>
@@ -167,8 +167,23 @@
 
                                     <div class="col-md-12">
                                         <div class="text-right">
-                                            <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
-                                            <input type="button" name="next" class="next action-button btn btn-primary" value="Siguiente" />
+                                            @if (categori.Id==Model.Categorias.Last().Id)
+                                            {
+                                                <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                                <input type="submit" name="next" id="EnviarEncuesta" class="next action-button btn btn-success" value="Enviar Encuesta" />
+                                            }
+                                            else
+                                            {
+                                                if (categori.Id != Model.Categorias.First().Id)
+                                                {
+                                                    <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="button" onclick="history.back()" class="btn btn-dark mr-2" value="Anterior" />
+                                                }
+                                                <input type="button" name="next" class="next action-button btn btn-primary" value="Siguiente" />
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -187,4 +202,12 @@
 @section Scripts{
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script>
+    $(function(){
+        $("#EnviarEncuesta").click(function (e) {
+            e.preventDefault();
+            document.location = '@Url.Action("EnvioIndexRespuestas","Respuestas")';
+        });
+        });
+</script>
     }
