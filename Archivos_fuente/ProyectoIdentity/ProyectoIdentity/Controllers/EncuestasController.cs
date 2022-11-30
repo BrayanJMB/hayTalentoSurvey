@@ -1,4 +1,5 @@
 ﻿
+using Mailjet.Client.Resources.SMS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,7 +13,7 @@ namespace ProyectoIdentity.Controllers
     public class EncuestasController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private Dictionary<string, string> preguntasBase = new();
+        //private Dictionary<string, string> preguntasBase = new();
         public EncuestasController(ApplicationDbContext context)
         {
             _context = context;
@@ -33,9 +34,10 @@ namespace ProyectoIdentity.Controllers
             return View(await appDbContext.ToListAsync());
         }
 
-        public async Task<IActionResult> IndexCreaPreguntas()
+        public async Task<IActionResult> IndexCreaPreguntas(Encuesta encuesta)
         {
             var Model = new ModelSurvey();
+            ViewBag.Encuesta = encuesta;
             Model.Categorias = ModelSurvey.Categories();
             return View(Model);
         }
@@ -55,28 +57,97 @@ namespace ProyectoIdentity.Controllers
             {
                 return NotFound();
             }
-
+            
+            var cantidadRespondente = (from x in _context.EncuestaRepondente
+                        where x.EncuestaId == id
+                            select x).Count();
+            ViewData["respondestesEncuensta"] = cantidadRespondente;
             return View(encuesta);
         }
 
         // GET: Encuestas/Create
         public IActionResult Create()
         {
-            ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId");
+            ViewData["CompanyId"] = new SelectList(_context.Company, "Id", "Id");
             return View();
         }
+        [HttpPost]
+        public IActionResult Create(Encuesta data)
+        {
+            ViewData["Encuesta"] = data;
+            return View();
+        }
+
+
+
 
         // POST: Encuestas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NombreEncuesta,DescripcionEncuesta,CompanyId")] Encuesta encuesta)
+        public async Task<IActionResult> CreateEncuestas(data encuesta)
         {
+            
             if (ModelState.IsValid)
             {
-                _context.Add(encuesta);
-                await _context.SaveChangesAsync();
+                Encuesta Encuesta = new Encuesta
+                {
+                    CompanyId = encuesta.CompanyId,
+                    DescripcionEncuesta=encuesta.DescripcionEcuesta,
+                    FechaDeCreacion=encuesta.FechaDeCreacion,
+                    FechaMaximoPlazo=encuesta.Fechalimite,
+                    NombreEncuesta=encuesta.NombreEncuesta
+                    
+                };
+                var encuestaRes = await _context.Encuesta.AddAsync(Encuesta);
+                _context.SaveChanges();
+                //espacio para demograficos
+                var demograficos = encuesta.CategoriaR[0];
+                encuesta.CategoriaR.Remove(demograficos);
+                
+                //otras dimensiones diferentes a demograficas
+                int numeroPregunta = 1;
+                foreach (var categories in encuesta.CategoriaR)
+                {
+                    var preguntaCa=await _context.EncuestaCategoria.AddAsync(new EncuestaCategoria
+                    {
+                        CategoriaId = categories.Idcategoria,
+                        EncuestaId = categories.Idcategoria
+                    });
+                    await _context.SaveChangesAsync();
+                    foreach(var preguntas in categories.Preguntas)
+                    {
+
+                        var pregunntap = await _context.Pregunta.AddAsync(new Models.ModelsJourney.Pregunta
+                        {
+                            NombrePregunta=preguntas.Nombre,
+                            DescripcionPregunta=preguntas.ToString(),
+                            EncuestaCategoriaId = preguntaCa.Entity.Id,
+                            TipoPreguntaId = preguntas.TipoPreguntaId,
+                            NumeroPregunta=numeroPregunta
+                            
+                        });
+                        await _context.SaveChangesAsync();
+                        int numeroOpcion = 1;
+                        if (preguntas.Opciones.Count > 0) { 
+                        foreach (var opc in preguntas.Opciones)
+                        {
+                            await _context.Opcion.AddAsync(new Models.ModelsJourney.Opcion
+                            {
+                                Nombre = opc.NombreOpcion,
+                                NumeroOpcion = numeroOpcion,
+                                PreguntaId = pregunntap.Entity.Id,
+                                ValorOpcion = (5 / preguntas.Opciones.Count) * numeroOpcion
+                            });
+                            
+                            numeroOpcion++;
+                        }
+                        }
+                        await _context.SaveChangesAsync();
+                    }
+                    numeroPregunta++;
+                }
                 
 
                 //agregar las Categorias
@@ -90,7 +161,7 @@ namespace ProyectoIdentity.Controllers
                 //Retornar vistas de preguntas donde el id de la encuasta sea el creado anterioremente
                 return RedirectToAction(nameof(Index1));
             }
-            ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
+            //ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
             return View(encuesta);
         }
 
@@ -107,7 +178,7 @@ namespace ProyectoIdentity.Controllers
             {
                 return NotFound();
             }
-            ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
+            //ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
             return View(encuesta);
         }
 
@@ -143,7 +214,7 @@ namespace ProyectoIdentity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
+            //ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
             return View(encuesta);
         }
 
@@ -191,4 +262,6 @@ namespace ProyectoIdentity.Controllers
           return _context.Encuesta.Any(e => e.Id == id);
         }
     }
+
+    
 }

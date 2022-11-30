@@ -1,0 +1,554 @@
+﻿@model List<int>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <h2>Dimensiones de los beneficios</h2>
+    <canvas id="myChart"></canvas>
+</div>
+
+
+<div class=" row d-flex align-content-center justify-content-center">
+    <h2>Dimensiones de los beneficios</h2>
+    <div class="col-6">
+        <canvas id="myChart2"></canvas>
+    </div>
+    <div class="col-3 relative" >
+        <canvas id="myChart3"></canvas>
+          <div class="absolute-center text-center">
+            <p>Some text</p>
+          </div>
+    </div>
+        <div class="col-3 relative" >
+        <canvas id="myChart4"></canvas>
+          <div class="absolute-center text-center">
+            <p>Some text</p>
+          </div>
+    </div>
+</div>
+
+<div class="row">
+    <div style="width:200px" >
+        <h2>Demograficos</h2>
+        <canvas id="demograficos"></canvas>
+    </div>
+
+</div>
+
+
+
+<div class="row">
+    <h2>Percepciones para cada Dimensión y Pregunta</h2>
+    <canvas id="myChart5"></canvas>
+</div>
+
+<div class="row">
+    <h2>Correlaciones</h2>
+    <canvas id="myChart6"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2 "></script>
+
+<script>
+    //Registra plugin
+    Chart.register(ChartDataLabels);
+    new Chart(document.getElementById("myChart"), {
+        type: 'bubble',
+        data: {
+            datasets: [
+                {
+                    label: `Madurez`,
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    data: [{
+                        x: 2,
+                        y: 40,
+                        r: 120 
+                    }]
+                },
+                {
+                    label: `2.4`,
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    borderColor: "rgba(255, 255,255,0.1)",
+                    data: [{
+                        x: 2,
+                        y: 35,
+                        r: 5 
+                    }],
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            size: '20',
+                            weight: 'bold'
+                        }
+                    }
+                },
+                //Contenido Herramiento de trabajo
+
+                {
+                    label: `Herramientas \n     de trabajo`,
+                    backgroundColor: "rgba(255,221,50,0.2)",
+                    borderColor: "rgba(255,221,50,1)",
+                    data: [{
+                        x: 2.5,
+                        y: 60,
+                        r: 50
+                    }]
+                },
+                 {
+                    label: `2.4`,
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    borderColor: "rgba(255, 255,255,0.1)",
+                    data: [{
+                        x: 3.3,
+                        y: 68,
+                        r: 5 
+                    }],
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            size: '20',
+                            weight: 'bold'
+                        }
+                    }
+                },
+                {
+                    label: ` Paquete de mejoras extralegales \n que complementan el salario base, \n pueden ser monetarias o emocionales.`,
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    borderColor: "rgba(255, 255,255,0.1)",
+                    data: [{
+                        x: 3.3,
+                        y: 60,
+                        r: 50
+                    }]
+                },
+                //Contenido texto Calidad de vida
+                {
+                    label: 'Calidad de vida',
+                    backgroundColor: "rgba(193,46,12,0.2)",
+                    borderColor: "rgba(193,46,12,1)",
+                    data: [{
+                        x: 1.5,
+                        y: 60,
+                        r: 50
+                    }]
+                },
+                {
+                    label: `2.4`,
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    borderColor: "rgba(255, 255,255,0.1)",
+                    data: [{
+                        x: 0.8,
+                        y: 68,
+                        r: 5
+                    }],
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            size: '20',
+                            weight: 'bold'
+                        }
+                    }
+                },
+                {
+                    label: ` Aspectos relacionados con las\n condiciones favorables en la relación\n laboral y el ambiente de trabajo.`,
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    borderColor: "rgba(255, 255,255,0.1)",
+                    data: [{
+                        x: 0.8,
+                        y: 60,
+                        r: 50
+                    }]
+                },
+                //Desarrollo
+                {
+                    label: 'Desarrollo \n o Persona',
+                    backgroundColor: "rgba(0,0,0,0.2)",
+                    borderColor: "#000",
+                    data: [{
+                        x: 1.5,
+                        y: 20,
+                        r: 50
+                    }]
+                  },
+                {
+                    label: `2.4`,
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    borderColor: "rgba(255, 255,255,0.1)",
+                    data: [{
+                        x: 0.7,
+                        y: 28,
+                        r: 5
+                    }],
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            size: '20',
+                            weight: 'bold'
+                        }
+                    }
+                },
+                {
+                    label: `Acciones de largo plazo que apuestan\n por el crecimiento personal, potencializar\n el talento y transformar la organización.`,
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    borderColor: "rgba(255, 255,255,0.1)",
+                    data: [{
+                        x: 0.7,
+                        y: 20,
+                        r: 50
+                    }]
+                },
+                //Monetarios
+                {
+                    label: '    Monetarios \n no monetarios',
+                    backgroundColor: "rgba(60,186,159,0.2)",
+                    borderColor: "rgba(60,186,159,1)",
+                    data: [{
+                        x: 2.5,
+                        y: 20,
+                        r: 50,
+                    }]
+                },
+                {
+                    label: `2.4`,
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    borderColor: "rgba(255, 255,255,0.1)",
+                    data: [{
+                        x: 3.2,
+                        y: 28,
+                        r: 5
+                    }],
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            size: '20',
+                            weight: 'bold'
+                        }
+                    }
+                },
+                {
+                    label: `Elementos útiles para una \nadecuada realización de la labor.`,
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    borderColor: "rgba(255, 255,255,0.1)",
+                    data: [{
+                        x: 3.2,
+                        y: 20,
+                        r: 50
+                    }]
+                },
+                //Total
+                {
+                    label: 'Total',
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    borderColor: "rgba(255,255,255,0.1)",
+                    data: [{
+                        x: 2,
+                        y: 8,
+                        r: 50,
+                    }]
+                },
+                {
+                    label: `2.4`,
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    borderColor: "rgba(255, 255,255,0.1)",
+                    data: [{
+                        x: 2,
+                        y: 2,
+                        r: 5
+                    }],
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            size: '20',
+                            weight: 'bold'
+                        }
+                    }
+                },
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRation: false,
+            plugins: {
+                tooltip:{
+                    display: false,
+                    enabled: false
+                },
+                legend: {
+                    display: false
+                },
+                datalabels: {
+                    color: 'black',
+                    formatter: (dp, ctx, b) => (ctx.dataset.label)
+                }
+            },
+            title: {
+                display: false
+            }, 
+            scales: {
+                y: {
+                    min:0,
+                    max:80,
+                    display: false
+                },
+                x: {
+                    min: 0,
+                    max: 4,
+                    display: false
+                }
+            }
+        }
+    });
+
+  const dimensionBeneficioBar = document.getElementById('myChart2');
+
+    new Chart(dimensionBeneficioBar, {
+        type: 'bar',
+        data: {
+            labels: ["Calidad de vida", "Monetarios no Monetarios", "Desarrollo Personal", "Herramientas Trabajo"],
+            datasets: [
+                {
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9"],
+                    data: [21, 30, 73, 50],
+                    borderWidth: 2,
+                    borderRadius: 25
+                }
+            ]
+        },
+        options: {
+           plugins: {
+                tooltip:{
+                    display: false
+                },
+                legend: {
+                    display: false
+                },
+           }
+        }
+    });
+
+    const dimensionBeneficioBar2 = document.getElementById('myChart3');
+    new Chart(dimensionBeneficioBar2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Probando','Bueno'],
+            datasets: [
+                {
+                    label: 'My First Dataset',
+                    backgroundColor: ["#3e95cd", "#8e5ea2"],
+                    data: [21, 30]
+                }
+            ]
+        },
+        options: {
+           plugins: {
+                tooltip:{
+                    display: false
+                },
+                legend: {
+                    display: false
+                }
+           }
+        }
+    });
+
+        const demografico = document.getElementById('demograficos');
+    const graficoConLinea = {
+        id: "graficoConLinea",
+        afterDraw(chart, args, options) {
+            const { ctx, chartArea: { top, bottom, left, right, width, height } } = chart;
+            chart.data.datasets.forEach((dataset, i)=>{
+                chart.getDatasetMeta(i).data.forEach((datapoint, index)=>{
+                    const { x, y } = datapoint.tooltipPosition();
+                    //ctx.fillStyle = dataset.backgroundColor[index];
+                    //ctx.fill();
+
+                    console.log(ctx)
+                    //draw line
+                    const halfwidth = width/2;
+                    const halfheight = height/2;
+                    const xLine = x >= halfwidth ? x + 15 : x - 15;
+                    const yLine = y >= halfheight ? y + 15 : y - 15;
+                    const extraLine = x >= halfwidth ? 15 : -15;
+                    ////
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(xLine, yLine);
+                    ctx.lineTo(xLine + extraLine, yLine);
+                    ctx.strokeStyle = dataset.backgroundColor[index];
+                    ctx.stroke();
+
+                    //text
+                    const textWidth = ctx.measureText(chart.data.labels[index]).width + 5;
+                    ctx.font = "12px Arial";
+
+                    //control position
+                    const textXPosition = x >= halfwidth ? 'left' : 'right';
+                    const plusFivePx = x >= halfwidth ?  5: -5;
+                    ctx.TextAlign = textXPosition;
+                    ctx.textBaseLine = "middle";
+                    ctx.fillStyle = dataset.backgroundColor[index];
+                    ctx.fillText(chart.data.labels[index], xLine + extraLine + plusFivePx, yLine);
+
+                })
+            })
+        }
+    }
+    new Chart(demografico, {
+        type: 'doughnut',
+        data: {
+            labels: ['Probando','Bueno'],
+            datasets: [
+                {
+                    label: 'My First Dataset',
+                    backgroundColor: ["#3e95cd", "#8e5ea2"],
+                    data: [21, 30],
+                    borderWidth:1,
+                    cutout:'90%'
+                }
+            ],
+
+        },
+        options: {
+            layout:{
+                padding: 20
+            },
+           plugins: {
+                tooltip:{
+                    display: false
+                },
+                legend: {
+                    display: false
+                }
+           }
+        },
+        plugins:[graficoConLinea]
+    });
+
+    const dimensionBeneficioBar3 = document.getElementById('myChart4');
+
+    //var data_ = []
+
+    //{
+    //}
+    //console.log(data_)
+
+    new Chart(dimensionBeneficioBar3, {
+        type: 'doughnut',
+        data: {
+            labels: ['Probando', 'Bueno'],
+            datasets: [
+                {
+                    label: 'My First Dataset',
+                    backgroundColor: ["#3e95cd", "#8e5ea2"],
+                    data: ["2","4"]
+                }
+            ]
+        },
+        options: {
+           plugins: {
+                tooltip:{
+                    display: false
+                },
+                legend: {
+                    display: false
+                },
+           }
+        }
+
+    });
+
+    const dimensionBeneficioBar4 = document.getElementById('myChart5');
+
+
+    new Chart(dimensionBeneficioBar4, {
+        type: 'bar',
+        data: {
+            labels: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio"],
+            datasets: [
+                {
+                    data: ["0.1","0.2","0.3",".5","0.7","0.75","3"],
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    borderColor: "white",
+                    borderWidth: 2,
+                    borderRadius: 25,
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            elements: {
+                bar: {
+                    borderWidth: 10,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Horizontal Bar Chart'
+                }
+            }
+        }
+    });
+    const dimensionBeneficioBar5 = document.getElementById('myChart6');
+    const dataBuble = {
+        datasets: [
+            {
+                label: 'Dataset 1',
+                data: [{
+                    x: 4,
+                    y: 2,
+                    r: 10
+                }],
+                borderColor: "green",
+                backgroundColor: "blue"
+            },
+            {
+                label: 'Dataset 2',
+                data: [{
+                    x: 2,
+                    y: 1.6,
+                    r: 10
+                }],
+                borderColor: "green",
+                backgroundColor: "gray"
+            }
+        ]
+    };
+    const config_ = {
+        type: 'bubble',
+        data: dataBuble,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Bubble Chart'
+                }
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 5,
+
+                },
+                x: {
+                    min: 0,
+                    max: 5,
+
+                }
+            }
+        },
+    };
+
+    new Chart(dimensionBeneficioBar5, config_)
+</script>
+

@@ -13,6 +13,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
         [Display(Name = "Numero Opcion")]
         [RegularExpression(@"^[0-9]{1,2}?$")]
         public int NumeroOpcion { get; set; }
+        public float ValorOpcion { get; set; }
         [ForeignKey("Pregunta")]
         [JsonIgnore]
         [Display(Name = "Pregunta Numero")]

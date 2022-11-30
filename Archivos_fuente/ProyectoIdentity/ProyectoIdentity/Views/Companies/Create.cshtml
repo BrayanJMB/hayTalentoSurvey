@@ -3,50 +3,87 @@
 @{
     ViewData["Title"] = "Create";
 }
+@section Styles{
 
-<h1>Create</h1>
+    <link rel="stylesheet" href="~/css/Preguntas.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+}
+<div class="app-main-content">
+    <div class="app-wrapper">
+        <div class="app-mid-column">
+            <div class="w-100">
+                <div class="sc-ZqGJI fqodEh">
+                    <div class="sc-xWrgk hIODdx page-heading-wrapper">
+                        <div class="heading-wrapper pr-3">
+                            <div class="title-row">
+                                <h4 id="heading_text" class="sc-gKPRtg kgoyPS">  Crear Compañia</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="createSurveyBlock animated slideInUpTiny animation-duration-10">
+                            <div class="stepperWrap w-100 mt-4">
+                                <div class="steapsData">
+                                    <div class="sc-xWrgk dbEiCY surveyListBlock">
+                                        <form asp-action="Create">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="form-group">
+                                                <label asp-for="Name" class="control-label"></label>
+                                                <input asp-for="Name" class="form-control" />
+                                                <span asp-validation-for="Name" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Adress" class="control-label"></label>
+                                                <input asp-for="Adress" class="form-control" />
+                                                <span asp-validation-for="Adress" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Email" class="control-label"></label>
+                                                <input asp-for="Email" class="form-control" />
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="PhoneNumber" class="control-label"></label>
+                                                <input asp-for="PhoneNumber" class="form-control" />
+                                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="PersonFullName" class="control-label"></label>
+                                                <input asp-for="PersonFullName" class="form-control" />
+                                                <span asp-validation-for="PersonFullName" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" asp-for="Activo" /> @Html.DisplayNameFor(model => model.Activo)
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="hidden" asp-for="PasswordHash" class="form-control" value="Admin1234." />
+                                            </div>                                            
+                                            <div class="form-group">
+                                                <a asp-action="Index" class="btn btn-dark mr-2">Regresar</a>
+                                                <input type="submit" value="Crear Usuario" class="btn btn-primary" />
+                                            </div>
+                                            
+                                        </form>
 
-<h4>Company</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Adress" class="control-label"></label>
-                <input asp-for="Adress" class="form-control" />
-                <span asp-validation-for="Adress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PersonFullName" class="control-label"></label>
-                <input asp-for="PersonFullName" class="form-control" />
-                <span asp-validation-for="PersonFullName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

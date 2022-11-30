@@ -22,8 +22,8 @@ namespace ProyectoIdentity.Controllers
         // GET: Categorias
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Categoria.Include(c => c.Encuesta);
-            return View(await appDbContext.ToListAsync());
+            var appDbContext =await _context.Categoria.ToListAsync();
+            return View(appDbContext);
         }
 
         // GET: Categorias/Details/5
@@ -34,9 +34,8 @@ namespace ProyectoIdentity.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categoria
-                .Include(c => c.Encuesta)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var categoria = await _context.Categoria.FindAsync(id);
+                
             if (categoria == null)
             {
                 return NotFound();
@@ -65,7 +64,6 @@ namespace ProyectoIdentity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EncuestaId"] = new SelectList(_context.Encuesta, "Id", "Id", categoria.EncuestaId);
             return View(categoria);
         }
 
@@ -82,7 +80,6 @@ namespace ProyectoIdentity.Controllers
             {
                 return NotFound();
             }
-            ViewData["EncuestaId"] = new SelectList(_context.Encuesta, "Id", "Id", categoria.EncuestaId);
             return View(categoria);
         }
 
@@ -91,7 +88,7 @@ namespace ProyectoIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NombreCategoria,Descripcion,EncuestaId")] Categoria categoria)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NombreCategoria,Descripcion")] Categoria categoria)
         {
             if (id != categoria.Id)
             {
@@ -118,7 +115,6 @@ namespace ProyectoIdentity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EncuestaId"] = new SelectList(_context.Encuesta, "Id", "Id", categoria.EncuestaId);
             return View(categoria);
         }
 
@@ -130,8 +126,7 @@ namespace ProyectoIdentity.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categoria
-                .Include(c => c.Encuesta)
+            var categoria = await _context.Categoria                
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (categoria == null)
             {

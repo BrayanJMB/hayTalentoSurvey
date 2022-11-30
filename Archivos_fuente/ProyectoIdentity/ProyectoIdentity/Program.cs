@@ -1,7 +1,41 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
+using ProyectoIdentity.Datos;
+using ProyectoIdentity.Servicios;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
+//Configuramos la conexi�n a sql server
+builder.Services.AddDbContext<ApplicationDbContext>(opciones => 
+    opciones.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSql"))
+);
+//Agregar el servicio Identity a la aplicaci�n
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+//Esta l�nea es para la url de retorno al acceder
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = new PathString("/Cuentas/Acceso");
+    options.AccessDeniedPath = new PathString("/Cuentas/Bloqueado");
+});
+
+//Estas son opciones de configuraci�n del identity
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequiredLength = 5;
+    options.Password.RequireLowercase = true;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+    options.Lockout.MaxFailedAccessAttempts = 3;
+});
+
+
+//Se agregar IEmailSender
+builder.Services.AddTransient<IEmailSender, MailJetEmailSender>();
+
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 
@@ -17,11 +51,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+//Se agrega la autenticaci�n
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Cuentas}/{action=Acceso}");
 
 app.Run();
