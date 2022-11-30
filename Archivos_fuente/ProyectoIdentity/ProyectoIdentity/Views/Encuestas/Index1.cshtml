@@ -4,18 +4,15 @@
     ViewData["Title"] = "Index";
 }
 @section Styles{
-
-    <link href="~/lib/datatables.net-bs4/dataTables.bootstrap4.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/Tables.css">
+    <link href="~/lib/datatables.net-bs4/dataTables.bootstrap4.min.css" rel="stylesheet"/>
 }
 
-<div class="TitleTable"><h4>Mis Encuestas</h4></div>
+<h1>Mis Encuestas</h1>
 
-<p class="btn btn-info shadow titleButtonP">
-    <i class="bi bi-plus-circle-dotted"></i>
-    <a class="titleButton" asp-action="Create">Nueva Encuesta</a>
+<p>
+    <a asp-action="Create">Nueva Encuesta</a>
 </p>
-<table class="display" id="TableEncuestas">
+<table class="Display" id="TableEncuestas">
     <thead>
         <tr>
             <th>
@@ -40,12 +37,8 @@
                 @Html.DisplayFor(modelItem => item.DescripcionEncuesta)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Company.Id)
-            </td>
-            <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
-                    <a asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-list"></i></a>
-            </td>
+                @Html.DisplayFor(modelItem => item.Company.CompanyId)
+            </td>            
         </tr>
 }
     </tbody>

@@ -55,31 +55,16 @@ namespace ProyectoIdentity.Controllers
             {
                 return NotFound();
             }
-            
-            var cantidadRespondente = (from x in _context.EncuestaRepondente
-                        where x.EncuestaId == id
-                            select x).Count();
-            ViewData["respondestesEncuensta"] = cantidadRespondente;
+
             return View(encuesta);
         }
 
         // GET: Encuestas/Create
         public IActionResult Create()
         {
-            ViewData["CompanyId"] = new SelectList(_context.Company, "Id", "Id");
+            ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId");
             return View();
         }
-        [HttpPost]
-        public IActionResult CreateEncuestas(int data)
-        {
-
-            data += 15;
-            ViewData["CompanyId"] = new SelectList(_context.Company, "Id", "Id");
-            return View();
-        }
-
-
-
 
         // POST: Encuestas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -105,7 +90,7 @@ namespace ProyectoIdentity.Controllers
                 //Retornar vistas de preguntas donde el id de la encuasta sea el creado anterioremente
                 return RedirectToAction(nameof(Index1));
             }
-            //ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
+            ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
             return View(encuesta);
         }
 
@@ -122,7 +107,7 @@ namespace ProyectoIdentity.Controllers
             {
                 return NotFound();
             }
-            //ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
+            ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
             return View(encuesta);
         }
 
@@ -158,7 +143,7 @@ namespace ProyectoIdentity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
+            ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
             return View(encuesta);
         }
 

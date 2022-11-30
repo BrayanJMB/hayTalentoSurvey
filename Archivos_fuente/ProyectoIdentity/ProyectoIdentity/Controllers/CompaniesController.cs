@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProyectoIdentity.Datos;
 using ProyectoIdentity.Models.ModelsJourney;
@@ -11,28 +9,19 @@ namespace ProyectoIdentity.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-
-        public CompaniesController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext context)
+        public CompaniesController(ApplicationDbContext context)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _context = context;
         }
 
-
-
         // GET: Companies
-        
         public async Task<IActionResult> Index()
         {
               return View(await _context.Company.ToListAsync());
         }
 
         // GET: Companies/Details/5
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Company == null)
             {
@@ -40,7 +29,7 @@ namespace ProyectoIdentity.Controllers
             }
 
             var company = await _context.Company
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CompanyId == id);
             if (company == null)
             {
                 return NotFound();
@@ -50,7 +39,6 @@ namespace ProyectoIdentity.Controllers
         }
 
         // GET: Companies/Create
-        
         public IActionResult Create()
         {
             return View();
@@ -61,44 +49,30 @@ namespace ProyectoIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Company company)
+        public async Task<IActionResult> Create([Bind("CompanyId,Name,Adress,Email,PhoneNumber,PersonFullName")] Company company)
         {
-
             if (ModelState.IsValid)
             {
-                company.UserName = company.Email;
-                var resultado = await _userManager.CreateAsync(company, company.PasswordHash);
-
-                if (resultado.Succeeded)
-                {
-                    
-                    await _signInManager.SignInAsync(company, isPersistent: false);
-                    return RedirectToAction(nameof(Index));
-                    
-                }
-
-                ValidarErrores(resultado);
+                _context.Add(company);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-
             return View(company);
-            
-            
         }
 
         // GET: Companies/Edit/5
-        public async Task<IActionResult> Edit(string? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Company == null)
             {
                 return NotFound();
             }
 
-            var company = await _userManager.FindByIdAsync(id);
+            var company = await _context.Company.FindAsync(id);
             if (company == null)
             {
                 return NotFound();
             }
-            
             return View(company);
         }
 
@@ -107,33 +81,38 @@ namespace ProyectoIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, Company company)
+        public async Task<IActionResult> Edit(int id, [Bind("CompanyId,Name,Adress,Email,PhoneNumber,PersonFullName")] Company company)
         {
-            var user =(Company) await _userManager.FindByIdAsync(id);
-            if (id != company.Id || user==null )
+            if (id != company.CompanyId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                    
-                user.UserName = company.Email;
-                user.Email= company.Email;
-                user.PhoneNumber=company.PhoneNumber;
-                user.PersonFullName = company.PersonFullName;
-                
-                var result= await _userManager.UpdateAsync(user);
-                    if (result.Succeeded)
-                        return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Update(company);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CompanyExists(company.CompanyId))
+                    {
+                        return NotFound();
+                    }
                     else
-                        ValidarErrores(result);
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
             }
             return View(company);
         }
 
         // GET: Companies/Delete/5
-        public async Task<IActionResult> Delete(string? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Company == null)
             {
@@ -141,7 +120,7 @@ namespace ProyectoIdentity.Controllers
             }
 
             var company = await _context.Company
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CompanyId == id);
             if (company == null)
             {
                 return NotFound();
@@ -152,8 +131,8 @@ namespace ProyectoIdentity.Controllers
 
         // POST: Companies/Delete/5
         [HttpPost, ActionName("Delete")]
-        
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Company == null)
             {
@@ -169,17 +148,9 @@ namespace ProyectoIdentity.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CompanyExists(string id)
+        private bool CompanyExists(int id)
         {
-          return _context.Company.Any(e => e.Id == id);
-        }
-
-        private void ValidarErrores(IdentityResult resultado)
-        {
-            foreach (var error in resultado.Errors)
-            {
-                ModelState.AddModelError(String.Empty, error.Description);
-            }
+          return _context.Company.Any(e => e.CompanyId == id);
         }
     }
 }

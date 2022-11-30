@@ -13,6 +13,6 @@ namespace ProyectoIdentity.Models.ModelsJourney
 
         public string Descripcion { get; set; }
         //
-        public List<Pregunta>? Pregunta { get; set; }
+        public Pregunta? Pregunta { get; set; }
     }
 }

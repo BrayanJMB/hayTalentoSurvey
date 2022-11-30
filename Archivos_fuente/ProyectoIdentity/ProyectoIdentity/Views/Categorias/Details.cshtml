@@ -23,9 +23,11 @@
             @Html.DisplayFor(model => model.Descripcion)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EncuestaCategoria)
+            @Html.DisplayNameFor(model => model.Encuesta)
         </dt>
-        
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Encuesta.Id)
+        </dd>
     </dl>
 </div>
 <div>

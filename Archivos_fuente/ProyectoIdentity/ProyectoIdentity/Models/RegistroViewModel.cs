@@ -6,7 +6,6 @@ namespace ProyectoIdentity.Models
     {
         [Required(ErrorMessage = "El email es obligatorio")]
         [EmailAddress]
-        [Display(Name = "Correo Electronico")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "La contraseña es obligatoria")]
@@ -22,13 +21,18 @@ namespace ProyectoIdentity.Models
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "El nombre es obligatorio")]
-        [Display(Name = "Nombre Completp")]
         public string Nombre { get; set; }
-        [Required(ErrorMessage = "El Telefono es obligatorio")]
+
+        public string Url { get; set; }
+        public Int32 CodigoPais { get; set; }
         public string Telefono { get; set; }
-        [Required(ErrorMessage = "La Compañia es obligatoria")]
-        [Display(Name = "Compañia")]
-        public string NombreCompania { get; set; }
+        [Required(ErrorMessage = "El país es obligatorio")]
+        public string Pais { get; set; }
+        public string Ciudad { get; set; }
+        public string Direccion { get; set; }
+        [Required(ErrorMessage = "La fecha es obligatoria")]
+        [Display(Name = "Fecha de nacimiento")]
+        public DateTime FechaNacimiento { get; set; }
 
         [Required(ErrorMessage = "El estado es obligatorio")]
         public bool Estado { get; set; }

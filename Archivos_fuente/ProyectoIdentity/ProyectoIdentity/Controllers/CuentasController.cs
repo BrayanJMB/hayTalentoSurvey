@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Castle.Core.Smtp;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoIdentity.Models;
-using ProyectoIdentity.Models.ModelsJourney;
 using System.Security.Claims;
 
 namespace ProyectoIdentity.Controllers
@@ -31,7 +30,6 @@ namespace ProyectoIdentity.Controllers
         [HttpGet]
         public async Task<IActionResult> Registro(string returnurl = null)
         {
-            ViewBag.Message = "Login";
             ViewData["ReturnUrl"] = returnurl;
             RegistroViewModel registroVM = new RegistroViewModel();
             return View(registroVM);
@@ -41,12 +39,11 @@ namespace ProyectoIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registro(RegistroViewModel rgViewModel, string returnurl = null)
         {
-            ViewBag.Message = "Login";
             ViewData["ReturnUrl"] = returnurl;
             returnurl = returnurl??Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var usuario = new Company { UserName = rgViewModel.Email, Email = rgViewModel.Email, PersonFullName = rgViewModel.Nombre,PhoneNumber= rgViewModel.Telefono,PasswordHash=rgViewModel.Password,Name= rgViewModel.NombreCompania };
+                var usuario = new AppUsuario { UserName = rgViewModel.Email, Email = rgViewModel.Email, Nombre = rgViewModel.Nombre, Url = rgViewModel.Url, CodigoPais = rgViewModel.CodigoPais, Telefono = rgViewModel.Telefono, Pais = rgViewModel.Pais, Ciudad = rgViewModel.Ciudad, Direccion = rgViewModel.Direccion, FechaNacimiento = rgViewModel.FechaNacimiento, Estado = rgViewModel.Estado };
                 var resultado = await _userManager.CreateAsync(usuario, rgViewModel.Password);
 
                 if (resultado.Succeeded)
@@ -54,8 +51,8 @@ namespace ProyectoIdentity.Controllers
                     //Implementación de confirmación de email en el registro
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(usuario);
                     var urlRetorno = Url.Action("ConfirmarEmail", "Cuentas", new { userId = usuario.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    await _emailSender.SendEmailAsync(rgViewModel.Email, "Confirmar su cuenta - Proyecto Identity",
-                    "Por favor confirme su cuenta dando click aquí: <a href=\"" + urlRetorno + "\">enlace</a>");
+                    //await _emailSender.SendEmailAsync(rgViewModel.Email, "Confirmar su cuenta - Proyecto Identity",
+                    //"Por favor confirme su cuenta dando click aquí: <a href=\"" + urlRetorno + "\">enlace</a>");
 
 
                     await _signInManager.SignInAsync(usuario, isPersistent: false);
@@ -99,8 +96,8 @@ namespace ProyectoIdentity.Controllers
 
                 if (resultado.Succeeded)
                 {
-                    
                     return RedirectToAction("Index", "Home");
+                    return LocalRedirect(returnurl);
                 }
                 if (resultado.IsLockedOut)
                 {
@@ -130,7 +127,6 @@ namespace ProyectoIdentity.Controllers
         [HttpGet]
         public IActionResult OlvidoPassword()
         {
-            ViewBag.Message = "Login";
             return View();
         }
 
@@ -149,8 +145,8 @@ namespace ProyectoIdentity.Controllers
                 var codigo = await _userManager.GeneratePasswordResetTokenAsync(usuario);
                 var urlRetorno = Url.Action("ResetPassword", "Cuentas", new {userId = usuario.Id, code = codigo}, protocol: HttpContext.Request.Scheme);
 
-                await _emailSender.SendEmailAsync(opViewModel.Email, "Recuperar contraseña - Proyecto Identity",
-                    "Por favor recupere su contraseña dando click aquí: <a href=\"" + urlRetorno + "\">enlace</a>");
+                //await _emailSender.SendEmailAsync(opViewModel.Email, "Recuperar contraseña - Proyecto Identity",
+                //    "Por favor recupere su contraseña dando click aquí: <a href=\"" + urlRetorno + "\">enlace</a>");
 
                 return RedirectToAction("ConfirmacionOlvidoPassword");
             }
@@ -162,7 +158,6 @@ namespace ProyectoIdentity.Controllers
         [AllowAnonymous]
         public IActionResult ConfirmacionOlvidoPassword()
         {
-            ViewBag.Message = "Login";
             return View();
         }
 
@@ -171,7 +166,6 @@ namespace ProyectoIdentity.Controllers
         [AllowAnonymous]
         public IActionResult ResetPassword(string code=null)
         {
-            ViewBag.Message = "Login";
             return code == null ? View("Error") : View();
         }
 
@@ -204,8 +198,6 @@ namespace ProyectoIdentity.Controllers
         [AllowAnonymous]
         public IActionResult ConfirmacionRecuperaPassword()
         {
-            
-            ViewBag.Message = "Login";
             return View(); ;
         }
 
@@ -213,7 +205,6 @@ namespace ProyectoIdentity.Controllers
         [HttpGet]
         public async Task<IActionResult> ConfirmarEmail(string userId, string code)
         {
-            ViewBag.Message = "Login";
             if (userId == null || code == null)
             {
                 return View("Error");
@@ -284,7 +275,6 @@ namespace ProyectoIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmacionAccesoExterno(ConfirmacionAccesoExternoViewModel caeViewModel, string returnurl = null)
         {
-            ViewBag.Message = "Login";
             returnurl = returnurl??Url.Content("~/");
 
             if (ModelState.IsValid)
@@ -296,7 +286,7 @@ namespace ProyectoIdentity.Controllers
                     return View("Error");
                 }
 
-                var usuario = new Company { UserName = caeViewModel.Email, Email = caeViewModel.Email, PersonFullName = caeViewModel.Name };
+                var usuario = new AppUsuario { UserName = caeViewModel.Email, Email = caeViewModel.Email, Nombre = caeViewModel.Name };
                 var resultado = await _userManager.CreateAsync(usuario);
                 if (resultado.Succeeded)
                 {
