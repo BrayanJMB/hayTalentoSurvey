@@ -2,6 +2,10 @@
     letter-spacing: 0.25px;
 }
 
+img{
+    max-width:100%;
+    height:auto;
+}
 
 .app-container .col-middle {
     width: 938px;
@@ -623,4 +627,30 @@ element.style {
     flex: 1 1 0%;
 }
 
+/*Table style */
+.title-table{
+    font-size: 14px;
+    text-align: center;
+}
 
+
+
+/* View Mobile*/
+@media (min-width: 768px) {
+    table{
+        display: block;
+    }
+    div.accordion{
+        display: none;
+    }
+}
+
+
+@media (max-width: 767.98px) {
+    table{
+        display: none;
+    }
+    div.accordion{
+        display: block;
+    }
+}

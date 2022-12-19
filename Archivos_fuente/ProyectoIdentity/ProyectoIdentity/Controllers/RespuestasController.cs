@@ -183,11 +183,34 @@ namespace ProyectoIdentity.Controllers
 
         public async Task<IActionResult> RedirectIndexRespuestas()
         {
-            ViewBag.Message = "Login";
+            ViewBag.Message = "EnvioRedirectRespuestas";
             return View();
         }
 
         public async Task<IActionResult> EnvioIndexRespuestas()
+        {
+            ViewBag.Message = "Login";
+            return View();
+        }
+
+
+        ////////////Encuesta Madurez//////////////////////////
+
+        public async Task<IActionResult> IndexRespuestasMadurez()
+        {
+            ViewBag.Message = "Login";
+            var Model = new ModelSurvey();
+            Model.Categorias = ModelSurvey.CategoriesMadurez();
+            return View(Model);
+        }
+
+        public async Task<IActionResult> RedirectIndexRespuestasMadurez()
+        {
+            ViewBag.Message = "EnvioRedirectRespuestasMadurez";
+            return View();
+        }
+
+        public async Task<IActionResult> EnvioIndexRespuestasMadurez()
         {
             ViewBag.Message = "Login";
             return View();

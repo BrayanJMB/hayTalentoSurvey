@@ -17,7 +17,7 @@
 
 
 
-@if (ViewBag.Message != "Login")
+@if (ViewBag.Message != "Login" && ViewBag.Message != "EnvioRedirectRespuestas" && ViewBag.Message != "EnvioRedirectRespuestasMadurez")
 {
     <body>
         <header>
@@ -110,14 +110,23 @@
 {
     <body>
         <div class="row">
-            <div class="col-12">
+            <div class="col-md-12">
                 <div class="container">
                         @RenderBody()
                 </div>
             </div>
         </div>
     </body>
+}
 
+
+@if (ViewBag.Message == "EnvioRedirectRespuestas" || ViewBag.Message == "EnvioRedirectRespuestasMadurez")
+{
+    <body>
+        <div class="container">
+                @RenderBody()
+        </div>
+    </body>
 }
 
 

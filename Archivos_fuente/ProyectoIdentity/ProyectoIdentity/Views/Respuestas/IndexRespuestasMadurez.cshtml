@@ -30,7 +30,7 @@
                 <form id="msform">
                     <!-- progressbar -->
                     <ul id="progressbar">
-                        <div class="row d-flex justify-content-between">
+                        <div class="row d-flex justify-content-center align-items-center">
                         @foreach (var categori in Model.Categorias)
                         {
                             if (Active)
@@ -61,9 +61,7 @@
                                         <div class="question-list ">
                                             @if (categori.Preguntas != null)
                                             {
-                                                <h3 class="titulo-dimension">Aspectos Demográficos</h3>
-                                                <p class="descripcion-dimension">País, Ciudad, Unidad de Negocio, Área</p>
-
+                                                <h3 class="titulo-dimension">Beneficios y Madurez</h3>
                                                 @foreach (var pregunta in categori.Preguntas)
                                                 {
                                                     <div class="row">
@@ -71,7 +69,7 @@
                                                             <div class="showEditDelete">
                                                                 <div>
                                                                     <p class="error-description"></p>
-                                                                    <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(x => pregunta.NumeroPregunta).&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
+                                                                    <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
                                                                     <div class="row ml-2" >
                                                                         @if (pregunta.Opciones != null)
                                                                         {
@@ -111,7 +109,7 @@
                                                                                             <div class="col-md-6">
                                                                                                         <p class="error-demograficos"></p>
                                                                                                         <p>Pais</p>
-                                                                                                        <select class="form-select form-select-sm  select-aspectos-demograficos"  >
+                                                                                                        <select class="form-select form-select-sm  select-demograficos"  >
                                                                                                             <option selected>Seleccione</option>
                                                                                                             <option value="value2">Colombia</option>
                                                                                                             <option value="value2">Estados Unidos</option>
@@ -162,7 +160,7 @@
                                                                                             <div class="col-md-6">
                                                                                                 <p class="error-demograficos"></p>
                                                                                                 <p>Area</p>
-                                                                                                <select class="form-select form-select-sm  select-aspectos-demograficos">
+                                                                                                <select class="form-select form-select-sm  select-demograficos">
                                                                                                     <option selected>Seleccione</option>
                                                                                                     <option value="value1">Area</option>
                                                                                                 </select>
@@ -170,7 +168,7 @@
                                                                                             <div class="col-md-6">
                                                                                                 <p class="error-demograficos"></p>
                                                                                                 <p>Unidad Negocio</p>
-                                                                                                <select class="form-select form-select-sm  select-aspectos-demograficos">
+                                                                                                <select class="form-select form-select-sm  select-demograficos">
                                                                                                     <option selected>Seleccione</option>
                                                                                                     <option value="value1">Unidad de Negocio</option>
                                                                                                 </select>
@@ -305,8 +303,8 @@
                                         <div class="text-right">
                                             @if (categori.Id==Model.Categorias.Last().Id)
                                             {
-                                                <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
-                                                <input type="submit" name="next" id="EnviarEncuesta" class="next action-button btn btn-success" value="Enviar Encuesta" />
+                                                <input type="button" name="previous" id="Anterior" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                                <input type="submit" name="next" id="EnviarEncuestaMadurez" class="next action-button btn btn-success" value="Enviar Encuesta" />
                                             }
                                             else
                                             {
@@ -339,6 +337,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+        $(function(){
+            $("#Anterior").click(function (e) {
+                e.preventDefault();
+                document.location = '@Url.Action("RedirectIndexRespuestasMadurez","Respuestas")';
+            });
+        });
         let titles = ["Colaborador", "Conyugue", "Madre", "Padre", "Hijos", "Hermanos", "Otro"]
         let demograficos_multiple_title = ["Hijos", "Hermanos"]
         let title = document.getElementsByClassName("title");
@@ -469,7 +473,7 @@
             }else{
                 debugger;
                 let conyugue_ = document.getElementsByClassName("conyugue");
-                if(conyugue_.length == 0 && conyugue[1].value != "Soltero(a)"){
+                if(conyugue_.length == 0 && conyugue[1].value == "Seleccione"){
                 $(`
                 <tr class="prueba conyugue">
                     <th scope="row">Conyugue</th>

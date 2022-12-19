@@ -19,14 +19,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         {
 
             var OpcionesLik = new List<Opcion> {
-                new Opcion { Id = 1, OpcionName = "Colaborador"},
-                new Opcion { Id = 1, OpcionName = "Conyugue"},
-                new Opcion { Id = 1, OpcionName = "Hijo 1, 2, 3…"},
-                new Opcion { Id = 1, OpcionName = "Madre"},
-                new Opcion { Id = 1, OpcionName = "Padre"},
-                new Opcion { Id = 1, OpcionName = "Hermano 1, 2, 3"},
-                new Opcion { Id = 1, OpcionName = "Otro"}
-
+                new Opcion { Id = 1, OpcionName = "Colaborador"}
             };
 
             return OpcionesLik;
@@ -193,91 +186,26 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
             List<Pregunta> Demograficos = new List<Pregunta> {
             new Pregunta
             {
-                NombrePregunta = "Parentesco",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 47,
+                NombrePregunta = "",
+                TipoPregunta = "Selección",
                 Opciones = Demo1(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Sexo",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 48,
-                Opciones = Demo2(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Estado civil",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 49,
-                Opciones = Demo3(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Nivel educativo",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 50,
-                Opciones = Demo4(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "¿Dependiente económicamente?",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 51,
-                Opciones = Demo5(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Edad",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 52,
-                Opciones = Demo6(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Existe otro ingreso en tu hogar",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 53,
-                Opciones = Demo7(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Tu vivienda es",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 54,
-                Opciones = Demo8(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Tu vivienda es estrato",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 55,
-                Opciones = Demo9(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "En caso de NO tener vivienda propia, explica el motivo",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 56,
-                Opciones = Demo10(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Tienes vehículo propio",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 57,
-                Opciones = Demo11(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Tiene mascotas",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 58,
-                Opciones = Demo12(),
-            },
+            }
             };
             return Demograficos;
+        }
 
+
+        private static List<Pregunta> PreguntasDemograficasInicio()
+        {
+            List<Pregunta> Demograficos = new List<Pregunta> {
+            new Pregunta
+            {
+                NombrePregunta = "",
+                TipoPregunta = "Selección",
+                Opciones = Demo1(),
+            }
+            };
+            return Demograficos;
         }
 
       
@@ -613,7 +541,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                     Opciones=optionAcciones3()},
                 new Pregunta {
                     NombrePregunta="Cuánto tiempo promedio en horas al día consume en actividades domésticas (aseo, preparación de alimentos, otras labores etc.) antes y después de ir a trabajar",
-                    TipoPregunta="Respuesta única",
+                    TipoPregunta="Selección",
                     NumeroPregunta=11,
                     Opciones=OpcionTiempo4()},
                 new Pregunta {
@@ -628,13 +556,13 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                     Opciones=OpcionAnimo6()},
                 new Pregunta {
                     NombrePregunta="Con que frecuencia consume medicamentos para aliviar el estrés",
-                    TipoPregunta="Respuesta única",
+                    TipoPregunta="Selección",
                     NumeroPregunta=14,
                     Opciones=OpcionMedicamento7()},
                 //Revisar por que tiene opciones de opciones
                 new Pregunta {
                     NombrePregunta="Con qué frecuencia consume las siguientes sustancias con el propósito de aliviar la ansiedad o el estrés",
-                    TipoPregunta="Respuesta única",
+                    TipoPregunta="Selección",
                     NumeroPregunta=15,
                     Opciones=OpcionMedicamento8()}
             };
@@ -654,21 +582,21 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                  new Pregunta {
                      NombrePregunta="Evalúa los siguientes beneficios y facilitadores de vida actuales que le ofrece la Compañía (previo entendimiento de la compañía a diagnosticar). ",
                      NumeroPregunta=17,
-                     TipoPregunta="Valoracion Multiple",
-                     Opciones=null
+                     TipoPregunta="Likkert",
+                     Opciones=OpcionesLikkert1()
                  },
                  new Pregunta {
                      NombrePregunta="¿Los beneficios son mejores que en la mayoría de las empresas del mercado?",
-                     TipoPregunta="Abierta",
+                     TipoPregunta="Likkert",
                      NumeroPregunta=18,
-                     Opciones=null
+                     Opciones=OpcionesLikkert1()
                  },
                  new Pregunta {
                      NombrePregunta="¿La distribución de beneficios es equitativa?",
-                     TipoPregunta="Abierta",
+                     TipoPregunta="Likkert",
                      NumeroPregunta=19,
-                     Opciones=null},
-
+                     Opciones=OpcionesLikkert1()
+                    },
             };
             return Preguntas;
         }
@@ -730,7 +658,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                      TipoPregunta="Multiple Likkert",
                      Opciones=OpcionesLikkertper15()
                  },
-                 new Pregunta {NombrePregunta = "¿Cuánto gastó su empresa en total en beneficios en el último año fiscal?", NumeroPregunta = 26, TipoPregunta = "Respuesta única", Opciones = OpcionesLikkertper16()},
+                 new Pregunta {NombrePregunta = "¿Cuánto gastó su empresa en total en beneficios en el último año fiscal?", NumeroPregunta = 26, TipoPregunta = "Selección", Opciones = OpcionesLikkertper16()},
                  new Pregunta {NombrePregunta = "¿Los empleados valoran su plan de beneficios?", NumeroPregunta = 27, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
                  new Pregunta {NombrePregunta = "¿El plan de beneficios mejora la atracción y retención?", NumeroPregunta = 28, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
                  new Pregunta {NombrePregunta = "¿El plan de beneficios mejora el compromiso del empleado con su trabajo?", NumeroPregunta = 29, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
@@ -767,11 +695,22 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         public  static List<Category> Categories() {
 
             var categiras = new List<Category> {
+                new Category{Id=10, NombreCategoria="Aspectos Demograficos",Preguntas=PreguntasDemograficasInicio()},
                 new Category{Id=1,NombreCategoria="Datos Demograficos",Preguntas=PreguntasDemograficas()},
                 new Category{Id=2,NombreCategoria="Beneficios de Calidad de Vida",Preguntas=PreguntaCalidad1()},
                 new Category{Id=3,NombreCategoria="Beneficios Monetarios y No Monetarios",Preguntas=PreguntaMonetarios2()},
                 new Category{Id=4,NombreCategoria="Beneficios de Desarrollo Personal",Preguntas=PreguntaDesarrollo3()},
                 new Category{Id=5,NombreCategoria="Beneficios en Herramientas de Trabajo",Preguntas=PreguntaComplementarios4()},
+                //new Category{Id=6,NombreCategoria="Beneficios/Madurez",Preguntas=PreguntaMercadeo5()}
+
+            };
+            return categiras;
+        }
+
+
+        public  static List<Category> CategoriesMadurez() {
+
+            var categiras = new List<Category> {
                 new Category{Id=6,NombreCategoria="Beneficios/Madurez",Preguntas=PreguntaMercadeo5()}
 
             };
