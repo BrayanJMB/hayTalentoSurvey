@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using ProyectoIdentity.Datos;
 using ProyectoIdentity.Models.ModelsJourney;
 using ProyectoIdentity.Models.ModelTemplateJorney;
+using System.Linq;
+using Opcion = ProyectoIdentity.Models.ModelTemplateJorney.Opcion;
+using Pregunta = ProyectoIdentity.Models.ModelTemplateJorney.Pregunta;
 
 namespace ProyectoIdentity.Controllers
 {
@@ -37,8 +40,31 @@ namespace ProyectoIdentity.Controllers
         public async Task<IActionResult> IndexCreaPreguntas(Encuesta encuesta)
         {
             var Model = new ModelSurvey();
+            var preguntas=
             ViewBag.Encuesta = encuesta;
             Model.Categorias = ModelSurvey.Categories();
+            //Funcionalidad Paises
+            
+            var paises =await _context.Country.Select(x=>x.CountryName).ToListAsync();
+            var opcionespaises = new List<Opcion>();
+            int count = 1;
+            foreach(var pais in paises)
+            {
+                opcionespaises.Add(new Opcion { Id = count, OpcionName = pais });
+                count++;    
+            }
+
+            //funcionalidad Ciudades
+            var Ciudades = await _context.City.ToListAsync();
+            Model.Ciudades = Ciudades;
+            var pregunta1 = new List<Pregunta>{
+                new Pregunta {NombrePregunta="Pais",NumeroPregunta=1,TipoPregunta="Respuesta Unica",Opciones=opcionespaises},
+                new Pregunta {NombrePregunta= "Ciudad",NumeroPregunta=2,TipoPregunta="Respuesta Unica"},
+                new Pregunta {NombrePregunta= "Area",NumeroPregunta=3,TipoPregunta= "Respuesta Unica" },
+                new Pregunta { NombrePregunta = "Unidad de Negocio",NumeroPregunta=4,TipoPregunta= "Respuesta Unica"}
+            };
+            Model.Categorias[0].Preguntas=pregunta1;
+
             return View(Model);
         }
 
@@ -101,11 +127,14 @@ namespace ProyectoIdentity.Controllers
                     
                 };
                 var encuestaRes = await _context.Encuesta.AddAsync(Encuesta);
-                _context.SaveChanges();
+                //_context.SaveChanges();
                 //espacio para demograficos
-                var demograficos = encuesta.CategoriaR[0];
+                var datosAreas = encuesta.CategoriaR[0].Preguntas.Where(p=>p.Nombre=="Area").Select(x=>x.Opciones).First();
+                //var datosArea2 = datosAreas.Except(_context.Area.Select(a=>a.AreaName).ToList());
+                var datosNegocio = encuesta.CategoriaR[0].Preguntas.Where(p => p.Nombre == "Unidad Negocio").Select(p => p.Opciones).First();
+                var demograficos = encuesta.CategoriaR[1];
                 encuesta.CategoriaR.Remove(demograficos);
-                
+                encuesta.CategoriaR.Remove(encuesta.CategoriaR[0]);
                 //otras dimensiones diferentes a demograficas
                 int numeroPregunta = 1;
                 foreach (var categories in encuesta.CategoriaR)
@@ -113,7 +142,7 @@ namespace ProyectoIdentity.Controllers
                     var preguntaCa=await _context.EncuestaCategoria.AddAsync(new EncuestaCategoria
                     {
                         CategoriaId = categories.Idcategoria,
-                        EncuestaId = categories.Idcategoria
+                        EncuestaId = encuestaRes.Entity.Id
                     });
                     await _context.SaveChangesAsync();
                     foreach(var preguntas in categories.Preguntas)
@@ -122,7 +151,7 @@ namespace ProyectoIdentity.Controllers
                         var pregunntap = await _context.Pregunta.AddAsync(new Models.ModelsJourney.Pregunta
                         {
                             NombrePregunta=preguntas.Nombre,
-                            DescripcionPregunta=preguntas.ToString(),
+                            DescripcionPregunta="falta esta parte",
                             EncuestaCategoriaId = preguntaCa.Entity.Id,
                             TipoPreguntaId = preguntas.TipoPreguntaId,
                             NumeroPregunta=numeroPregunta

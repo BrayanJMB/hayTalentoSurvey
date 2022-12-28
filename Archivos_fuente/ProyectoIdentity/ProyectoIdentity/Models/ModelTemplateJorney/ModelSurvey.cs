@@ -12,6 +12,9 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         private List<Opcion> OpcionesIniciales { get; set; }
 
         private List<Pregunta> preguntasIniciales { get; set; }
+        public List<City> Ciudades { get; set; }
+
+
 
 
         //Datos demograficos
@@ -772,6 +775,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         {
 
             var categiras = new List<Category> {
+                new Category{Id=0,NombreCategoria="Datos Demograficos",Preguntas=null},
                 new Category{Id=1,NombreCategoria="Datos Demograficos",Preguntas=PreguntasDemograficas()},
                 new Category{Id=2,NombreCategoria="Beneficios de Calidad de Vida",Preguntas=PreguntaCalidad1()},
                 new Category{Id=3,NombreCategoria="Beneficios Monetarios y No Monetarios",Preguntas=PreguntaMonetarios2()},
@@ -794,6 +798,8 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
         public DateTime Fechalimite { get; set; }
         public List<CategoriaR> CategoriaR { get; set; }
+
+        public List<City> Ciudad { get; set; }
     }
     public class CategoriaR
     {
@@ -814,6 +820,8 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
     {
         public string NombreOpcion { get; set; }
     }
+
+
 }
 
 

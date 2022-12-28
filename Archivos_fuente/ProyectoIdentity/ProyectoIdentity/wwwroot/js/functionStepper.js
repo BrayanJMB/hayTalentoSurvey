@@ -80,6 +80,7 @@ function EliminaOpcionOne(element) {
         divDelete.remove();
     } else {
         divDelete.querySelector("#with-placeholder").innerHTML = "";
+        divDelete.querySelector("#with-placeholder").value = "";
     }
 }
     
@@ -91,7 +92,9 @@ agregaOpcion.forEach(function (addOption) {
         let addDiv = e.target.closest(".justify-content-start").previousElementSibling;
         let hijo = addDiv.querySelector("#OpcionPregunta");
         let newOpcion = hijo.cloneNode(true);
-        newOpcion.querySelector("#with-placeholder").innerHTML="";
+        newOpcion.querySelector("#with-placeholder").innerHTML = "";
+        newOpcion.querySelector("#with-placeholder").value = "";
+        newOpcion.style.display = "block";
         addDiv.appendChild(newOpcion);
     })
 
@@ -114,7 +117,9 @@ btnGuardar.forEach(function (btn) {
         //agregar las nuevas opciones
         let newOptions = divCambiar.querySelectorAll("#with-placeholder");
         let options = saveDiv.querySelector(".row");
+        options.querySelector(".col-4").style.height = "auto";
         let option = options.querySelector(".col-4");
+        
         let newOption = option.cloneNode(true);
         while (options.hasChildNodes()) {
             options.removeChild(options.firstChild);
