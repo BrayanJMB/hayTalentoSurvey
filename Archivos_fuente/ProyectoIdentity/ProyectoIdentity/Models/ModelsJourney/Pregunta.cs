@@ -7,7 +7,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
     {
         public int Id { get; set; }
         [Display(Name = "Pregunta")]
-        [StringLength(17, ErrorMessage = "El {0} no puede superar los {1} Caracteres")]
+        [StringLength(500, ErrorMessage = "El {0} no puede superar los {1} Caracteres")]
         public string NombrePregunta { get; set; }
 
         public string DescripcionPregunta { get; set; }

@@ -12,8 +12,8 @@ using ProyectoIdentity.Datos;
 namespace ProyectoIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221227215551_aspectosdemograficos")]
-    partial class aspectosdemograficos
+    [Migration("20221231054755_AddDemographic5")]
+    partial class AddDemographic5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -311,6 +311,208 @@ namespace ProyectoIdentity.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("City");
+
+                    b.HasData(
+                        new
+                        {
+                            CityName = "Bogotá",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Medellín",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Cali",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Barranquilla",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Cartagena",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Soledad",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Cúcuta",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Ibagué",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Soacha",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Villavicencio",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Bucaramanga",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Santa Marta",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Valledupar",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Bello",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Pereira",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Montería",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Pasto",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Buenaventura",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Manizales",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Neiva",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Palmira",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Riohacha",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Sincelejo",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Popayán",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Itagüí",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Floridablanca",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Envigado",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Tuluá",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "San Andrés de Tumaco",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Dosquebradas",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Apartadó",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Tunja",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Girón",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Uribia",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Barrancabermeja",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Florencia",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Turbo",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Maicao",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Piedecuesta",
+                            CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Yopal",
+                            CountryId = "Colombia"
+                        });
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Country", b =>
@@ -322,6 +524,148 @@ namespace ProyectoIdentity.Migrations
                     b.HasKey("CountryName");
 
                     b.ToTable("Country");
+
+                    b.HasData(
+                        new
+                        {
+                            CountryName = "Antigua y Barbuda"
+                        },
+                        new
+                        {
+                            CountryName = "Argentina"
+                        },
+                        new
+                        {
+                            CountryName = "Bahamas"
+                        },
+                        new
+                        {
+                            CountryName = "Barbados"
+                        },
+                        new
+                        {
+                            CountryName = "Belice"
+                        },
+                        new
+                        {
+                            CountryName = "Bolivia"
+                        },
+                        new
+                        {
+                            CountryName = "Brasil"
+                        },
+                        new
+                        {
+                            CountryName = "Canadá"
+                        },
+                        new
+                        {
+                            CountryName = "Chile"
+                        },
+                        new
+                        {
+                            CountryName = "Colombia"
+                        },
+                        new
+                        {
+                            CountryName = "Costa Rica"
+                        },
+                        new
+                        {
+                            CountryName = "Cuba"
+                        },
+                        new
+                        {
+                            CountryName = "Dominica"
+                        },
+                        new
+                        {
+                            CountryName = "Ecuador"
+                        },
+                        new
+                        {
+                            CountryName = "El Salvador"
+                        },
+                        new
+                        {
+                            CountryName = "Estados Unidos"
+                        },
+                        new
+                        {
+                            CountryName = "Granada"
+                        },
+                        new
+                        {
+                            CountryName = "Guatemala"
+                        },
+                        new
+                        {
+                            CountryName = "Guyana"
+                        },
+                        new
+                        {
+                            CountryName = "Haití"
+                        },
+                        new
+                        {
+                            CountryName = "Honduras"
+                        },
+                        new
+                        {
+                            CountryName = "Jamaica"
+                        },
+                        new
+                        {
+                            CountryName = "México"
+                        },
+                        new
+                        {
+                            CountryName = "Nicaragua"
+                        },
+                        new
+                        {
+                            CountryName = "Panamá"
+                        },
+                        new
+                        {
+                            CountryName = "Paraguay"
+                        },
+                        new
+                        {
+                            CountryName = "Perú"
+                        },
+                        new
+                        {
+                            CountryName = "República Dominicana"
+                        },
+                        new
+                        {
+                            CountryName = "San Cristóbal y Nieves"
+                        },
+                        new
+                        {
+                            CountryName = "San Vicente y las Granadinas"
+                        },
+                        new
+                        {
+                            CountryName = "Santa Lucía"
+                        },
+                        new
+                        {
+                            CountryName = "Surinam"
+                        },
+                        new
+                        {
+                            CountryName = "Trinidad y Tobago"
+                        },
+                        new
+                        {
+                            CountryName = "Uruguay"
+                        },
+                        new
+                        {
+                            CountryName = "Venezuela"
+                        });
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Demograficos", b =>
@@ -369,6 +713,9 @@ namespace ProyectoIdentity.Migrations
                     b.Property<DateTime>("FechaMaximoPlazo")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NombreEncuesta")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -378,6 +725,52 @@ namespace ProyectoIdentity.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Encuesta");
+                });
+
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaArea", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AreaId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("EncuestaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaId");
+
+                    b.HasIndex("EncuestaId");
+
+                    b.ToTable("EncuestaArea");
+                });
+
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaBussines", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("BusinessUnitId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("EncuestaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessUnitId");
+
+                    b.HasIndex("EncuestaId");
+
+                    b.ToTable("EncuestaBussines");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaCategoria", b =>
@@ -430,8 +823,8 @@ namespace ProyectoIdentity.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Nombre")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("NumeroOpcion")
                         .HasColumnType("int");
@@ -485,8 +878,8 @@ namespace ProyectoIdentity.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("NombrePregunta")
-                        .HasMaxLength(17)
-                        .HasColumnType("nvarchar(17)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("NumeroPregunta")
                         .HasColumnType("int");
@@ -627,6 +1020,11 @@ namespace ProyectoIdentity.Migrations
                         {
                             Id = 5,
                             NombreTipoPregunta = "Abierta"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            NombreTipoPregunta = "Multiple Likkert"
                         });
                 });
 
@@ -730,6 +1128,40 @@ namespace ProyectoIdentity.Migrations
                         .HasForeignKey("CompanyId");
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaArea", b =>
+                {
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Area", "Area")
+                        .WithMany()
+                        .HasForeignKey("AreaId");
+
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Encuesta", "Encuesta")
+                        .WithMany("EncuestaAreas")
+                        .HasForeignKey("EncuestaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Area");
+
+                    b.Navigation("Encuesta");
+                });
+
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaBussines", b =>
+                {
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.BusinessUnit", "BusinessUnit")
+                        .WithMany()
+                        .HasForeignKey("BusinessUnitId");
+
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Encuesta", "Encuesta")
+                        .WithMany("EncuestaBussines")
+                        .HasForeignKey("EncuestaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BusinessUnit");
+
+                    b.Navigation("Encuesta");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaCategoria", b =>
@@ -902,6 +1334,10 @@ namespace ProyectoIdentity.Migrations
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Encuesta", b =>
                 {
                     b.Navigation("Demograficos");
+
+                    b.Navigation("EncuestaAreas");
+
+                    b.Navigation("EncuestaBussines");
 
                     b.Navigation("EncuestaCategorias");
 

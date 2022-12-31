@@ -8,24 +8,49 @@ $(document).ready(function () {
         debugger;
         current_fs = $(this).parent().parent().parent().parent().parent();
         next_fs = $(this).parent().parent().parent().parent().parent().next();
+        let elem = $(".next");
+        let indexNext = $.inArray(this, elem);
         //Add Class Active
         $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
         //show the next fieldset
-        next_fs.show();
-        //hide the current fieldset with style
-        current_fs.animate({ opacity: 0 }, {
-            step: function (now) {
-                // for making fielset appear animation
-                opacity = 1 - now;
-                current_fs.css({
-                    'display': 'none',
-                    'position': 'relative'
+        let showNext = true;
+        let datosPregunta = document.querySelectorAll(".question-list")[indexNext].querySelectorAll("#FilaPregunta");
+        datosPregunta.forEach(function (data) {
+            let opcionp = data.querySelectorAll("#opcionP")
+            if (data.querySelector("#tipoPregunta").value != 5) {
+                opcionp.forEach(function (opcion) {
+                    if (opcion.value == null || opcion.value == "") {
+                        showNext = false;
+                        return;
+                    }
                 });
-                next_fs.css({ 'opacity': opacity });
-            },
-            duration: 600
+            }
         });
+        if (showNext == true) {
+            next_fs.show();
+            current_fs.animate({ opacity: 0 }, {
+                step: function (now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    next_fs.css({ 'opacity': opacity });
+                },
+                duration: 600
+            });
+        }
+        else
+            alert("Todas las preguntas denben tener valores para mostrar al usuarios final por favor verifique que tenag almenos uno");
+        //hide the current fieldset with style
+        
     });
+
+
+
+
+
     $(".previous").click(function () {
         current_fs = $(this).parent().parent().parent().parent().parent();
         previous_fs = $(this).parent().parent().parent().parent().parent().prev();
@@ -129,6 +154,9 @@ btnGuardar.forEach(function (btn) {
             optionAdd.querySelector(".block").innerHTML = i + 1;
             optionAdd.querySelector("#strongly-disagree").innerHTML = newOptions[i].value
             optionAdd.querySelector("#opcionP").value = newOptions[i].value
+            let valuejson = optionAdd.querySelector("#opcionP").name;
+            let newvalue = valuejson.replace("Opciones[0]", "Opciones[" + i + "]");
+            optionAdd.querySelector("#opcionP").name = newvalue;
             options.appendChild(optionAdd);
         }
         console.log(options);

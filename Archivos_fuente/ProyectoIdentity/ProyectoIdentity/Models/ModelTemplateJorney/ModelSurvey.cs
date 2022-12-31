@@ -28,7 +28,8 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                 new Opcion { Id = 1, OpcionName = "Madre"},
                 new Opcion { Id = 1, OpcionName = "Padre"},
                 new Opcion { Id = 1, OpcionName = "Hermano 1, 2, 3"},
-                new Opcion { Id = 1, OpcionName = "Otro"}
+                new Opcion { Id = 1, OpcionName = "Otro"},
+                new Opcion { Id = 1, OpcionName = "Fallecido"}
 
             };
 
@@ -562,86 +563,104 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
             };
             return OpcionesLik;
         }
-
+        
 
         private static List<Pregunta> PreguntaCalidad1()
         {
+            
+
             var Preguntas = new List<Pregunta>
             {
                 new Pregunta {
                     NombrePregunta="¿Se reconoce la importancia del equilibrio entre la vida personal y laboral?",
                     TipoPregunta="Likkert",
+                    IdTipo = 2,
                     NumeroPregunta=1,
                     Opciones=OpcionesLikkert1()},
                 new Pregunta {
                     NombrePregunta="¿La compañía hace esfuerzos por reducir trabajo innecesario?",
                     TipoPregunta="Likkert",
                     NumeroPregunta=2,
+                    IdTipo = 2,
                     Opciones=OpcionesLikkert1()},
                 new Pregunta {
                     NombrePregunta="¿Se espera que los trabajadores NO trabajen en horarios diferentes a los pactados (ejemplo: noches o fines de semana si es el caso)?",
                     TipoPregunta="Likkert",
                     NumeroPregunta = 3,
+                    IdTipo = 2,
                     Opciones=OpcionesLikkert1()},
                 new Pregunta {
                     NombrePregunta="¿Existe una política de calamidad doméstica?",
                     TipoPregunta="Likkert",
+                    IdTipo = 2,
                     NumeroPregunta = 4,
                     Opciones=OpcionesLikkert1()},
                 new Pregunta {
                     NombrePregunta="¿Existen modalidades de trabajo flexible de una manera no tradicional (lugar, tiempo, etc.)?",
                     TipoPregunta="Likkert",
+                    IdTipo = 2,
                     NumeroPregunta = 5,
                     Opciones=OpcionesLikkert1()},
                 new Pregunta {
                     NombrePregunta="¿Respeta las diferencias de sus empleados en términos de raza, género, religión, etc.?",
                     TipoPregunta="Likkert",
+                    IdTipo = 2,
                     NumeroPregunta = 6,
                     Opciones=OpcionesLikkert1()},
                 new Pregunta {
                     NombrePregunta="¿Constantemente le asigna actividades para cumplir en tiempos y plazos razonables?",
                     TipoPregunta="Likkert",
                     NumeroPregunta = 7,
+                    IdTipo = 2,
                     Opciones=OpcionesLikkert1()},
                 new Pregunta {
                     NombrePregunta="¿Valora la calidad de su trabajo más que la cantidad de tiempo que gasta en la oficina?",
                     TipoPregunta="Likkert",
                     NumeroPregunta = 8,
+                    IdTipo = 2,
                     Opciones=OpcionesLikkert1()},
                 new Pregunta {
-                    NombrePregunta="En cuál actividad emplea su tiempo libre? [Seleccione tantas como aplique]",
+                    NombrePregunta="¿En cuál actividad emplea su tiempo libre? (Seleccione tantas como aplique):",
                     TipoPregunta="Selección Multiple",
                     NumeroPregunta=9,
+                    IdTipo = 3,
                     Opciones=optionActividad2()},
                 new Pregunta {
-                    NombrePregunta="Cuáles de las siguientes acciones y recursos le ayudarían a tener mejor salud y mayor bienestar? (Seleccione tantas como aplique):",
+                    NombrePregunta="¿Cuáles de las siguientes acciones y recursos le ayudarían a tener mejor salud y mayor bienestar? (Seleccione tantas como aplique):",
                     TipoPregunta="Selección Multiple",
                     NumeroPregunta=10,
+                    IdTipo = 3,
                     Opciones=optionAcciones3()},
                 new Pregunta {
-                    NombrePregunta="Cuánto tiempo promedio en horas al día consume en actividades domésticas (aseo, preparación de alimentos, otras labores etc.) antes y después de ir a trabajar",
+                    NombrePregunta="¿Cuánto tiempo promedio en horas al día consume en actividades domésticas (aseo, preparación de alimentos, otras labores etc.) antes y después de ir a trabajar",
                     TipoPregunta="Respuesta única",
+                    IdTipo = 1,
                     NumeroPregunta=11,
+
                     Opciones=OpcionTiempo4()},
                 new Pregunta {
-                    NombrePregunta="Cuáles de los siguientes síntomas relacionados con su salud ha presentado",
+                    NombrePregunta="¿Cuáles de los siguientes síntomas relacionados con su salud ha presentado?",
                     TipoPregunta="Selección Multiple",
+                    IdTipo = 3,
                     NumeroPregunta=12,
                     Opciones=OpcionSintomas5()},
                 new Pregunta {
-                    NombrePregunta="Con cuál de las siguientes situaciones o estados de ánimo se siente identificado(a)?",
+                    NombrePregunta="¿Con cuáles de las siguientes situaciones o estados de ánimo se siente identificado(a)?",
                     TipoPregunta="Selección Multiple",
+                    IdTipo = 3,
                     NumeroPregunta=13,
                     Opciones=OpcionAnimo6()},
                 new Pregunta {
-                    NombrePregunta="Con que frecuencia consume medicamentos para aliviar el estrés",
+                    NombrePregunta="¿Con que frecuencia consume medicamentos para aliviar el estrés?",
                     TipoPregunta="Respuesta única",
+                    IdTipo = 1,
                     NumeroPregunta=14,
                     Opciones=OpcionMedicamento7()},
                 //Revisar por que tiene opciones de opciones
                 new Pregunta {
-                    NombrePregunta="Con qué frecuencia consume las siguientes sustancias con el propósito de aliviar la ansiedad o el estrés",
-                    TipoPregunta="Respuesta única",
+                    NombrePregunta="¿Con qué frecuencia consume las siguientes sustancias con el propósito de aliviar la ansiedad o el estrés?",
+                    TipoPregunta="Multiple Likkert",
+                    IdTipo = 6,
                     NumeroPregunta=15,
                     Opciones=OpcionMedicamento8()}
             };
@@ -657,24 +676,28 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                      NombrePregunta="De la siguiente lista enumera de 1 a 10 tus necesidades personales y familiares, siendo 1 la más importante y 10 la menos importante. Por favor verifica que ningún aspecto tenga una calificación repetida y no dejes de llenar ningún aspecto",
                      NumeroPregunta=16,
                      TipoPregunta="Valoracion Multiple",
+                     IdTipo = 4,
                      Opciones=OpcionesLista9()},
                  new Pregunta {
                      NombrePregunta="Evalúa los siguientes beneficios y facilitadores de vida actuales que le ofrece la Compañía (previo entendimiento de la compañía a diagnosticar). ",
                      NumeroPregunta=17,
-                     TipoPregunta="Valoracion Multiple",
-                     Opciones=null
+                     TipoPregunta="Likkert",
+                     IdTipo = 2,
+                     Opciones=OpcionesLikkert1()
                  },
                  new Pregunta {
-                     NombrePregunta="¿Los beneficios son mejores que en la mayoría de las empresas del mercado?",
-                     TipoPregunta="Abierta",
+                     NombrePregunta="18. ¿Los beneficios son mejores que en la mayoría de las empresas del mercado?",
+                     TipoPregunta="Likkert",
+                     IdTipo = 2,
                      NumeroPregunta=18,
-                     Opciones=null
+                     Opciones=OpcionesLikkert1()
                  },
                  new Pregunta {
                      NombrePregunta="¿La distribución de beneficios es equitativa?",
                      TipoPregunta="Abierta",
+                     IdTipo = 5,
                      NumeroPregunta=19,
-                     Opciones=null},
+                     Opciones=OpcionesLikkert1()},
 
             };
             return Preguntas;
@@ -689,17 +712,20 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                      NombrePregunta="¿Cuál es su percepción sobre los siguientes aspectos?",
                      NumeroPregunta=20,
                      TipoPregunta="Likkert Multiple",
+                     IdTipo = 6,
                      Opciones=PreguntaPercepcion10()},
                  new Pregunta {
                      NombrePregunta="¿Cuáles son sus tres (3) prioridades financieras o legales?",
                      NumeroPregunta=21,
                      TipoPregunta="Selección Multiple",
+                     IdTipo = 3,
                      Opciones=PreguntaPrioridades11()
                  },
                  new Pregunta {
                      NombrePregunta="¿Cuáles de los siguientes eventos está experimentando o vislumbra va a experimentar en el siguiente año? (Seleccione tantos como aplique)?",
                      NumeroPregunta=22,
                      TipoPregunta="Selección Multiple",
+                     IdTipo = 3,
                      Opciones=OpcionesEventos12()
                  }
 
@@ -716,11 +742,13 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                      NombrePregunta="¿Cuál es su percepción sobre los siguientes aspectos?",
                      NumeroPregunta=23,
                      TipoPregunta="Multiple Likkert",
+                     IdTipo = 6,
                      Opciones=OpcionPercepcion13()},
                  new Pregunta {
                      NombrePregunta="Tomando en consideración todos los componentes evaluados anteriormente, por favor califica tu nivel de percepción de los siguientes aspectos:",
                      NumeroPregunta=24,
                      TipoPregunta="Multiple Likkert",
+                     IdTipo = 6,
                      Opciones=OpcionConsideracion14()}
             };
             return Preguntas;
@@ -735,36 +763,39 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                      NombrePregunta="¿Nivel en el que la compañía asimila o integra buenas prácticas relacionadas con la administración de los beneficios?",
                       NumeroPregunta=25,
                      TipoPregunta="Multiple Likkert",
+                     IdTipo = 2,
                      Opciones=OpcionesLikkertper15()
                  },
-                 new Pregunta {NombrePregunta = "¿Cuánto gastó su empresa en total en beneficios en el último año fiscal?", NumeroPregunta = 26, TipoPregunta = "Respuesta única", Opciones = OpcionesLikkertper16()},
-                 new Pregunta {NombrePregunta = "¿Los empleados valoran su plan de beneficios?", NumeroPregunta = 27, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿El plan de beneficios mejora la atracción y retención?", NumeroPregunta = 28, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿El plan de beneficios mejora el compromiso del empleado con su trabajo?", NumeroPregunta = 29, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿El plan de beneficios moviliza el desempeño?", NumeroPregunta = 30, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta="¿Beneficios a la carta (escogencia de acuerdo con portafolio de productos)?", NumeroPregunta = 31, TipoPregunta = "Likkert",Opciones=OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿Modelo de compensación flexible?", NumeroPregunta = 32, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
+                 new Pregunta {NombrePregunta = "¿Cuánto gastó su empresa en total en beneficios en el último año fiscal?", NumeroPregunta = 26, TipoPregunta = "Respuesta única", Opciones = OpcionesLikkertper16(),IdTipo = 1},
+                 new Pregunta {NombrePregunta = "¿Los empleados valoran su plan de beneficios?", NumeroPregunta = 27, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
+                 new Pregunta {NombrePregunta = "¿El plan de beneficios mejora la atracción y retención?", NumeroPregunta = 28, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
+                 new Pregunta {NombrePregunta = "¿El plan de beneficios mejora el compromiso del empleado con su trabajo?", NumeroPregunta = 29, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
+                 new Pregunta {NombrePregunta = "¿El plan de beneficios moviliza el desempeño?", NumeroPregunta = 30, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
+                 new Pregunta {NombrePregunta="¿Beneficios a la carta (escogencia de acuerdo con portafolio de productos)?", NumeroPregunta = 31, TipoPregunta = "Likkert",Opciones=OpcionesLikkert1(),IdTipo = 2,},
+                 new Pregunta {NombrePregunta = "¿Modelo de compensación flexible?", NumeroPregunta = 32, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {
                      NombrePregunta="¿Beneficio institucional (ej. Descuento en compra de productos de la compañía o entrega a cero costos?",
                      NumeroPregunta=33,
                      TipoPregunta="Likkert",
+                     IdTipo = 2,
                      Opciones=OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿Planes de ahorro contributivo?", NumeroPregunta = 34, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿Pólizas de Seguros (Vida, Asistencia Médica Domiciliaria, otras)?", NumeroPregunta = 35, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta="¿Tiempo libre recompensado (día de cumpleaños, tarde libre los viernes, 24 / 31 diciembre y miércoles santo?" ,NumeroPregunta = 36, TipoPregunta = "Likkert",Opciones=OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿Vacaciones colectivas?", NumeroPregunta = 37, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿Servicio de restaurante y/o casino?", NumeroPregunta = 38, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿Servicios fondos de empleados o cooperativa?", NumeroPregunta = 39, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿Beneficios para el retiro?", NumeroPregunta = 40, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿Beneficios pares el cuidado de la salud?", NumeroPregunta = 41, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿Seguro de enfermedades críticas?", NumeroPregunta = 42, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿Seguro de vida / muerte accidental?", NumeroPregunta = 43, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿Beneficios por discapacidad?", NumeroPregunta = 44, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
-                 new Pregunta {NombrePregunta = "¿Seguro de mascotas?", NumeroPregunta = 45, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1()},
+                 new Pregunta {NombrePregunta = "¿Planes de ahorro contributivo?", NumeroPregunta = 34, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
+                 new Pregunta {NombrePregunta = "¿Pólizas de Seguros (Vida, Asistencia Médica Domiciliaria, otras)?", NumeroPregunta = 35, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
+                 new Pregunta {NombrePregunta="¿Tiempo libre recompensado (día de cumpleaños, tarde libre los viernes, 24 / 31 diciembre y miércoles santo?" ,NumeroPregunta = 36, TipoPregunta = "Likkert",Opciones=OpcionesLikkert1(), IdTipo = 2},
+                 new Pregunta {NombrePregunta = "¿Vacaciones colectivas?", NumeroPregunta = 37, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2},
+                 new Pregunta {NombrePregunta = "¿Servicio de restaurante y/o casino?", NumeroPregunta = 38, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
+                 new Pregunta {NombrePregunta = "¿Servicios fondos de empleados o cooperativa?", NumeroPregunta = 39, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
+                 new Pregunta {NombrePregunta = "¿Beneficios para el retiro?", NumeroPregunta = 40, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
+                 new Pregunta {NombrePregunta = "¿Beneficios pares el cuidado de la salud?", NumeroPregunta = 41, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
+                 new Pregunta {NombrePregunta = "¿Seguro de enfermedades críticas?", NumeroPregunta = 42, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
+                 new Pregunta {NombrePregunta = "¿Seguro de vida / muerte accidental?", NumeroPregunta = 43, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
+                 new Pregunta {NombrePregunta = "¿Beneficios por discapacidad?", NumeroPregunta = 44, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
+                 new Pregunta {NombrePregunta = "¿Seguro de mascotas?", NumeroPregunta = 45, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
                  new Pregunta {
                      NombrePregunta="¿Qué otros beneficios te gustarían incluir adicionales a los actuales ?",
                      NumeroPregunta=46,
                      TipoPregunta="Abierta",
+                     IdTipo = 5,
                      Opciones=null},
 
             };
@@ -775,13 +806,13 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         {
 
             var categiras = new List<Category> {
-                new Category{Id=0,NombreCategoria="Datos Demograficos",Preguntas=null},
-                new Category{Id=1,NombreCategoria="Datos Demograficos",Preguntas=PreguntasDemograficas()},
-                new Category{Id=2,NombreCategoria="Beneficios de Calidad de Vida",Preguntas=PreguntaCalidad1()},
-                new Category{Id=3,NombreCategoria="Beneficios Monetarios y No Monetarios",Preguntas=PreguntaMonetarios2()},
-                new Category{Id=4,NombreCategoria="Beneficios de Desarrollo Personal",Preguntas=PreguntaDesarrollo3()},
-                new Category{Id=5,NombreCategoria="Beneficios en Herramientas de Trabajo",Preguntas=PreguntaComplementarios4()},
-                new Category{Id=6,NombreCategoria="Beneficios/Madurez",Preguntas=PreguntaMercadeo5()}
+                new Category{Id=1,NombreCategoria="Aspectos Demograficos",Preguntas=null},
+                new Category{Id=2,NombreCategoria="Datos Demograficos",Preguntas=PreguntasDemograficas()},
+                new Category{Id=3,NombreCategoria="Beneficios de Calidad de Vida",Preguntas=PreguntaCalidad1()},
+                new Category{Id=4,NombreCategoria="Beneficios Monetarios y No Monetarios",Preguntas=PreguntaMonetarios2()},
+                new Category{Id=5,NombreCategoria="Beneficios de Desarrollo Personal",Preguntas=PreguntaDesarrollo3()},
+                new Category{Id=6,NombreCategoria="Beneficios en Herramientas de Trabajo",Preguntas=PreguntaComplementarios4()},
+                new Category{Id=7,NombreCategoria="Beneficios/Madurez",Preguntas=PreguntaMercadeo5()}
 
             };
             return categiras;
@@ -794,7 +825,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         public string NombreEncuesta { get; set; }
         public string DescripcionEcuesta { get; set; }
         public string CompanyId { get; set; }
-        public DateTime FechaDeCreacion { get; set; }
+        public DateTime FechaDeCreacion { get; } = DateTime.UtcNow;
 
         public DateTime Fechalimite { get; set; }
         public List<CategoriaR> CategoriaR { get; set; }

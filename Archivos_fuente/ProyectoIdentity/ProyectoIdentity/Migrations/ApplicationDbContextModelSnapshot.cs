@@ -711,6 +711,9 @@ namespace ProyectoIdentity.Migrations
                     b.Property<DateTime>("FechaMaximoPlazo")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NombreEncuesta")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -720,6 +723,52 @@ namespace ProyectoIdentity.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Encuesta");
+                });
+
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaArea", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AreaId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("EncuestaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaId");
+
+                    b.HasIndex("EncuestaId");
+
+                    b.ToTable("EncuestaArea");
+                });
+
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaBussines", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("BusinessUnitId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("EncuestaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessUnitId");
+
+                    b.HasIndex("EncuestaId");
+
+                    b.ToTable("EncuestaBussines");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaCategoria", b =>
@@ -772,8 +821,8 @@ namespace ProyectoIdentity.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Nombre")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("NumeroOpcion")
                         .HasColumnType("int");
@@ -827,8 +876,8 @@ namespace ProyectoIdentity.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("NombrePregunta")
-                        .HasMaxLength(17)
-                        .HasColumnType("nvarchar(17)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("NumeroPregunta")
                         .HasColumnType("int");
@@ -969,6 +1018,11 @@ namespace ProyectoIdentity.Migrations
                         {
                             Id = 5,
                             NombreTipoPregunta = "Abierta"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            NombreTipoPregunta = "Multiple Likkert"
                         });
                 });
 
@@ -1072,6 +1126,40 @@ namespace ProyectoIdentity.Migrations
                         .HasForeignKey("CompanyId");
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaArea", b =>
+                {
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Area", "Area")
+                        .WithMany()
+                        .HasForeignKey("AreaId");
+
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Encuesta", "Encuesta")
+                        .WithMany("EncuestaAreas")
+                        .HasForeignKey("EncuestaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Area");
+
+                    b.Navigation("Encuesta");
+                });
+
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaBussines", b =>
+                {
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.BusinessUnit", "BusinessUnit")
+                        .WithMany()
+                        .HasForeignKey("BusinessUnitId");
+
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Encuesta", "Encuesta")
+                        .WithMany("EncuestaBussines")
+                        .HasForeignKey("EncuestaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BusinessUnit");
+
+                    b.Navigation("Encuesta");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaCategoria", b =>
@@ -1244,6 +1332,10 @@ namespace ProyectoIdentity.Migrations
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Encuesta", b =>
                 {
                     b.Navigation("Demograficos");
+
+                    b.Navigation("EncuestaAreas");
+
+                    b.Navigation("EncuestaBussines");
 
                     b.Navigation("EncuestaCategorias");
 

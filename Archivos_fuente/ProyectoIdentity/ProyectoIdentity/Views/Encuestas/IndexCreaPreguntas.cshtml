@@ -43,7 +43,7 @@
                     <input type="hidden" name="DescripcionEcuesta" class="form-control" value="@ViewBag.Encuesta.DescripcionEncuesta" />
                     <input type="hidden" name="FechaCreacion" class="form-control" value="@ViewBag.Encuesta.FechaDeCreacion" />
                     <input type="hidden" name="Fechalimite" class="form-control" value="@ViewBag.Encuesta.FechaMaximoPlazo" />
-                    <input type="hidden" name="IdCompany" class="form-control" value="@ViewBag.Encuesta.CompanyId" />
+                    <input type="hidden" name="CompanyId" class="form-control" value="@ViewBag.Encuesta.CompanyId" />
 
 
                     @*<input type="submit" name="next" class="next action-button btn btn-success" value="Finalizar" />*@
@@ -268,7 +268,8 @@
 
                                                                     <input type="hidden" name="CategoriaR[@indexCategoria].Preguntas[@indexpreguntas].Nombre" id="PreguntaCa" value="@Html.DisplayFor(p=>pregunta.NombrePregunta)" />
                                                                     <input type="hidden" name="CategoriaR[@indexCategoria].Preguntas[@indexpreguntas].DescripcionPregunta" id="Descripcion" value="" />
-                                                                    <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
+                                                                    <input type="hidden" name="CategoriaR[@indexCategoria].Preguntas[@indexpreguntas].TipoPreguntaId" id="tipoPregunta" value="@Html.DisplayFor(p=>pregunta.IdTipo)"/>
+                                                        <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
 
                                                                     <div class="editDelete">
                                                                         <button type="button" color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">

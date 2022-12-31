@@ -35,10 +35,9 @@ namespace ProyectoIdentity.Datos
 
         public DbSet<City> City { get; set; }
 
+        public DbSet<EncuestaArea> EncuestaArea { get; set; }
 
-
-
-
+        public DbSet<EncuestaBussines> EncuestaBussines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,8 +55,9 @@ namespace ProyectoIdentity.Datos
                     new TipoPregunta{Id=2,NombreTipoPregunta="Likkert"},
                     new TipoPregunta{Id=3,NombreTipoPregunta="Seleccion Multiple"},
                     new TipoPregunta{Id=4,NombreTipoPregunta="Valoracion Multiple"},
-                    new TipoPregunta{Id=5,NombreTipoPregunta="Abierta"}
-        };
+                    new TipoPregunta{Id=5,NombreTipoPregunta="Abierta"},
+                    new TipoPregunta{Id=6,NombreTipoPregunta="Multiple Likkert"}
+            };
 
             List<Country> Paises = new List<Country>
             {

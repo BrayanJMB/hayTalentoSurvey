@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Versioning;
 using ProyectoIdentity.Datos;
 using ProyectoIdentity.Models.ModelsJourney;
 using ProyectoIdentity.Models.ModelTemplateJorney;
 using System.Linq;
+using System.Linq.Expressions;
 using Opcion = ProyectoIdentity.Models.ModelTemplateJorney.Opcion;
 using Pregunta = ProyectoIdentity.Models.ModelTemplateJorney.Pregunta;
 
@@ -16,10 +18,12 @@ namespace ProyectoIdentity.Controllers
     public class EncuestasController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _configuration;
         //private Dictionary<string, string> preguntasBase = new();
-        public EncuestasController(ApplicationDbContext context)
+        public EncuestasController(ApplicationDbContext context,IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         // GET: Encuestas
@@ -117,21 +121,72 @@ namespace ProyectoIdentity.Controllers
             
             if (ModelState.IsValid)
             {
+                //creacion de encuesta
                 Encuesta Encuesta = new Encuesta
                 {
                     CompanyId = encuesta.CompanyId,
-                    DescripcionEncuesta=encuesta.DescripcionEcuesta,
-                    FechaDeCreacion=encuesta.FechaDeCreacion,
-                    FechaMaximoPlazo=encuesta.Fechalimite,
-                    NombreEncuesta=encuesta.NombreEncuesta
-                    
+                    DescripcionEncuesta = encuesta.DescripcionEcuesta,
+                    FechaDeCreacion = encuesta.FechaDeCreacion,
+                    FechaMaximoPlazo = encuesta.Fechalimite,
+                    NombreEncuesta = encuesta.NombreEncuesta                    
                 };
                 var encuestaRes = await _context.Encuesta.AddAsync(Encuesta);
-                //_context.SaveChanges();
+                _context.SaveChanges();
+                encuestaRes.Entity.Link= _configuration.GetValue<string>("LinkSurvey")+"/" +encuestaRes.Entity.CompanyId+"/"+encuestaRes.Entity.Id;
+                _context.Encuesta.Update(encuestaRes.Entity);
+                //demograficos Tablas Area Y negocios                    
+                var datosAreas = encuesta.CategoriaR[0].Preguntas.Where(p=>p.Nombre=="Area").Select(x=>x.Opciones).First().Select(y=>y.NombreOpcion).ToList();
+                List<string> areas = new();
+                if (datosAreas != null)
+                {
+                    List<string> opcionesDatabase = await _context.Area.Select(x=>x.AreaName).ToListAsync();
+                    if (opcionesDatabase.Count > 0)
+                        areas = datosAreas.Except(opcionesDatabase).ToList();
+                    else
+                        areas = datosAreas;
+                }
+
+
+                var datosNegocio = encuesta.CategoriaR[0].Preguntas.Where(p => p.Nombre == "Unidad de Negocio").Select(p => p.Opciones).First().Select(y=>y.NombreOpcion).ToList();
+                List<string> negocios = new();
+                if (datosNegocio != null)
+                {
+                    var opcionesNegocios = await _context.BusinessUnit.Select(a => a.NameBusinnes).ToListAsync();
+                    if (opcionesNegocios.Count > 0)
+                        negocios = datosNegocio.Except(opcionesNegocios).ToList();
+                    else
+                        negocios =datosNegocio;
+                }
+                List<Area> AreasNuevas = new List<Area>();
+                List<BusinessUnit> NegociosNuevos = new();
+                List<EncuestaArea> AreasEncuesta = new();
+                List<EncuestaBussines> negociosEncuesta = new();
+                foreach (var area in areas)
+                {
+                    AreasNuevas.Add(new Area { AreaName = area });
+                    
+                }
+                foreach(var area in datosAreas)
+                {
+                    AreasEncuesta.Add(new EncuestaArea { AreaId = area, EncuestaId = encuestaRes.Entity.Id });
+                }
+                foreach (var negocio in negocios)
+                {
+                    NegociosNuevos.Add(new BusinessUnit { NameBusinnes = negocio });
+                    
+                }
+
+                foreach(var negocio in datosNegocio)
+                {
+                    negociosEncuesta.Add(new EncuestaBussines { BusinessUnitId = negocio, EncuestaId = encuestaRes.Entity.Id });
+                }
+
+                _context.Area.AddRange(AreasNuevas);
+                _context.BusinessUnit.AddRange(NegociosNuevos);
+                _context.EncuestaBussines.AddRange(negociosEncuesta);
+                _context.EncuestaArea.AddRange(AreasEncuesta);
+                _context.SaveChanges();
                 //espacio para demograficos
-                var datosAreas = encuesta.CategoriaR[0].Preguntas.Where(p=>p.Nombre=="Area").Select(x=>x.Opciones).First();
-                //var datosArea2 = datosAreas.Except(_context.Area.Select(a=>a.AreaName).ToList());
-                var datosNegocio = encuesta.CategoriaR[0].Preguntas.Where(p => p.Nombre == "Unidad Negocio").Select(p => p.Opciones).First();
                 var demograficos = encuesta.CategoriaR[1];
                 encuesta.CategoriaR.Remove(demograficos);
                 encuesta.CategoriaR.Remove(encuesta.CategoriaR[0]);
@@ -141,7 +196,7 @@ namespace ProyectoIdentity.Controllers
                 {
                     var preguntaCa=await _context.EncuestaCategoria.AddAsync(new EncuestaCategoria
                     {
-                        CategoriaId = categories.Idcategoria,
+                        CategoriaId = categories.Idcategoria-2,
                         EncuestaId = encuestaRes.Entity.Id
                     });
                     await _context.SaveChangesAsync();
@@ -151,11 +206,10 @@ namespace ProyectoIdentity.Controllers
                         var pregunntap = await _context.Pregunta.AddAsync(new Models.ModelsJourney.Pregunta
                         {
                             NombrePregunta=preguntas.Nombre,
-                            DescripcionPregunta="falta esta parte",
+                            DescripcionPregunta="Sigue Faltando",
                             EncuestaCategoriaId = preguntaCa.Entity.Id,
                             TipoPreguntaId = preguntas.TipoPreguntaId,
                             NumeroPregunta=numeroPregunta
-                            
                         });
                         await _context.SaveChangesAsync();
                         int numeroOpcion = 1;
@@ -176,15 +230,7 @@ namespace ProyectoIdentity.Controllers
                         await _context.SaveChangesAsync();
                     }
                     numeroPregunta++;
-                }
-                
-
-                //agregar las Categorias
-
-                //agregar las preguntas
-
-                //Agregar Opciones Existentes
-
+                }               
                 //Modificar las preguntas
                 //Listado de preguntas una por una
                 //Retornar vistas de preguntas donde el id de la encuasta sea el creado anterioremente
