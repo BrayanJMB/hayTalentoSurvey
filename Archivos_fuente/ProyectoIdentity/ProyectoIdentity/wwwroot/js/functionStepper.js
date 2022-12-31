@@ -1,6 +1,4 @@
 $(document).ready(function () {
-
-
     let current_fs, next_fs, previous_fs; //fieldsets
     let opacity;
     let contador = -1;
@@ -42,11 +40,11 @@ $(document).ready(function () {
         if (select.length > 0 &&  selectdemograficos.length == 0){
             flag= false;
             for(i = 0; i < select.length; i++){
-                if(select[i].value == "Seleccione" || select[i].value == null){
+                if(select[i].value == "Seleccione" ){
                     if (flag == false)
                         select[i].focus();
                     errorDescripcion[i].style.color  = "red" ;
-                    errorDescripcion[i].innerHTML = "Debe seleccionar una opción";
+                    errorDescripcion[i].innerHTML = "Requerido";
                     flag = true;
                 }else{
                     errorDescripcion[i].innerHTML = "";
@@ -112,11 +110,11 @@ $(document).ready(function () {
                 let error = $("fieldset.active .error-demograficos");
                 debugger
                 [...selectdemograficos].forEach((element, index) =>{
-                    if(element.value == "Seleccione" || element.value == null){
+                    if((element.value == "Seleccione" || element.value == null) && element.hasAttribute('disabled')===false){
                         element.style.color = "red";
                         element.style.borderColor = "red";
                         error[index].style.color = "red";
-                        error[index].innerHTML = "Campo Requerido";
+                        error[index].innerHTML = "Requerido";
                         flagSelectDemograficos =  true
                     }else{
                         element.style.color = "";

@@ -329,11 +329,9 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         {
             var OpcionesTiempo = new List<Opcion>
             {
-                new Opcion { Id = 51, OpcionName = "Nunca"},
-                new Opcion { Id = 52, OpcionName = "Entre 1 y 3 veces/mes " },
-                new Opcion { Id = 53, OpcionName = "Entre 4 y 10 veces /mes"},
-                new Opcion { Id = 54, OpcionName = "Más de 10 veces/mes"}
-
+                new Opcion { Id = 51, OpcionName = "Café"},
+                new Opcion { Id = 52, OpcionName = "Cigarrillo" },
+                new Opcion { Id = 53, OpcionName = "Cerveza"},
             };
             return OpcionesTiempo;
         }
@@ -530,39 +528,39 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                     NumeroPregunta = 8, 
                     Opciones=OpcionesLikkert1()},
                 new Pregunta {
-                    NombrePregunta="En cuál actividad emplea su tiempo libre? [Seleccione tantas como aplique]",
+                    NombrePregunta="¿En cuál actividad emplea su tiempo libre? [Seleccione tantas como aplique]",
                     TipoPregunta="Selección Multiple",
                     NumeroPregunta=9,
                     Opciones=optionActividad2()},
                 new Pregunta {
-                    NombrePregunta="Cuáles de las siguientes acciones y recursos le ayudarían a tener mejor salud y mayor bienestar? (Seleccione tantas como aplique):",
+                    NombrePregunta="¿Cuáles de las siguientes acciones y recursos le ayudarían a tener mejor salud y mayor bienestar? (Seleccione tantas como aplique):",
                     TipoPregunta="Selección Multiple",
                     NumeroPregunta=10,
                     Opciones=optionAcciones3()},
                 new Pregunta {
-                    NombrePregunta="Cuánto tiempo promedio en horas al día consume en actividades domésticas (aseo, preparación de alimentos, otras labores etc.) antes y después de ir a trabajar",
+                    NombrePregunta="¿Cuánto tiempo promedio en horas al día consume en actividades domésticas (aseo, preparación de alimentos, otras labores etc.) antes y después de ir a trabajar",
                     TipoPregunta="Selección",
                     NumeroPregunta=11,
                     Opciones=OpcionTiempo4()},
                 new Pregunta {
-                    NombrePregunta="Cuáles de los siguientes síntomas relacionados con su salud ha presentado",
+                    NombrePregunta="¿Cuáles de los siguientes síntomas relacionados con su salud ha presentado?",
                     TipoPregunta="Selección Multiple",
                     NumeroPregunta=12,
                     Opciones=OpcionSintomas5()},
                 new Pregunta {
-                    NombrePregunta="Con cuál de las siguientes situaciones o estados de ánimo se siente identificado(a)?",
+                    NombrePregunta="¿Con cuál de las siguientes situaciones o estados de ánimo se siente identificado(a)?",
                     TipoPregunta="Selección Multiple",
                     NumeroPregunta=13,
                     Opciones=OpcionAnimo6()},
                 new Pregunta {
-                    NombrePregunta="Con que frecuencia consume medicamentos para aliviar el estrés",
+                    NombrePregunta="¿Con que frecuencia consume medicamentos para aliviar el estrés?",
                     TipoPregunta="Selección",
                     NumeroPregunta=14,
                     Opciones=OpcionMedicamento7()},
                 //Revisar por que tiene opciones de opciones
                 new Pregunta {
-                    NombrePregunta="Con qué frecuencia consume las siguientes sustancias con el propósito de aliviar la ansiedad o el estrés",
-                    TipoPregunta="Selección",
+                    NombrePregunta="¿Con qué frecuencia consume las siguientes sustancias con el propósito de aliviar la ansiedad o el estrés?",
+                    TipoPregunta="Valoracion Multiple",
                     NumeroPregunta=15,
                     Opciones=OpcionMedicamento8()}
             };
@@ -697,7 +695,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
             var categiras = new List<Category> {
                 new Category{Id=10, NombreCategoria="Aspectos Demograficos",Preguntas=PreguntasDemograficasInicio()},
                 new Category{Id=1,NombreCategoria="Datos Demograficos",Preguntas=PreguntasDemograficas()},
-                new Category{Id=2,NombreCategoria="Beneficios de Calidad de Vida",Preguntas=PreguntaCalidad1()},
+                //new Category{Id=2,NombreCategoria="Beneficios de Calidad de Vida",Preguntas=PreguntaCalidad1()},
                 new Category{Id=3,NombreCategoria="Beneficios Monetarios y No Monetarios",Preguntas=PreguntaMonetarios2()},
                 new Category{Id=4,NombreCategoria="Beneficios de Desarrollo Personal",Preguntas=PreguntaDesarrollo3()},
                 new Category{Id=5,NombreCategoria="Beneficios en Herramientas de Trabajo",Preguntas=PreguntaComplementarios4()},
