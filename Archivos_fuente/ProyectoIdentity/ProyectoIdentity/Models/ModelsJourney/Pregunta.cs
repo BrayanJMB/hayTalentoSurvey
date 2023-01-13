@@ -10,7 +10,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
         [StringLength(500, ErrorMessage = "El {0} no puede superar los {1} Caracteres")]
         public string NombrePregunta { get; set; }
 
-        public string DescripcionPregunta { get; set; }
+        public string? DescripcionPregunta { get; set; }
         public int NumeroPregunta { get; set; }
 
         //llaves Foraneas

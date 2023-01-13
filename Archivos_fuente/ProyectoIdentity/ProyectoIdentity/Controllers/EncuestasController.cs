@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using NuGet.Versioning;
 using ProyectoIdentity.Datos;
 using ProyectoIdentity.Models.ModelsJourney;
@@ -20,7 +21,7 @@ namespace ProyectoIdentity.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
         //private Dictionary<string, string> preguntasBase = new();
-        public EncuestasController(ApplicationDbContext context,IConfiguration configuration)
+        public EncuestasController(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
@@ -44,19 +45,22 @@ namespace ProyectoIdentity.Controllers
         public async Task<IActionResult> IndexCreaPreguntas(Encuesta encuesta)
         {
             var Model = new ModelSurvey();
-            var preguntas=
+            var preguntas =
             ViewBag.Encuesta = encuesta;
             Model.Categorias = ModelSurvey.Categories();
             //Funcionalidad Paises
-            
-            var paises =await _context.Country.Select(x=>x.CountryName).ToListAsync();
+
+            var paises = await _context.Country.Select(x => x.CountryName).ToListAsync();
+            var areas = await _context.Area.Select(x => x.AreaName).ToListAsync();
+            var negpocios = await _context.BusinessUnit.Select(x => x.NameBusinnes).ToListAsync();
             var opcionespaises = new List<Opcion>();
             int count = 1;
-            foreach(var pais in paises)
+            foreach (var pais in paises)
             {
                 opcionespaises.Add(new Opcion { Id = count, OpcionName = pais });
-                count++;    
+                count++;
             }
+            //agregar las opciones nuevas de areas y Negocios
 
             //funcionalidad Ciudades
             var Ciudades = await _context.City.ToListAsync();
@@ -64,10 +68,10 @@ namespace ProyectoIdentity.Controllers
             var pregunta1 = new List<Pregunta>{
                 new Pregunta {NombrePregunta="Pais",NumeroPregunta=1,TipoPregunta="Respuesta Unica",Opciones=opcionespaises},
                 new Pregunta {NombrePregunta= "Ciudad",NumeroPregunta=2,TipoPregunta="Respuesta Unica"},
-                new Pregunta {NombrePregunta= "Area",NumeroPregunta=3,TipoPregunta= "Respuesta Unica" },
+                new Pregunta {NombrePregunta= "Area",NumeroPregunta=3,TipoPregunta= "Respuesta Unica", },
                 new Pregunta { NombrePregunta = "Unidad de Negocio",NumeroPregunta=4,TipoPregunta= "Respuesta Unica"}
             };
-            Model.Categorias[0].Preguntas=pregunta1;
+            Model.Categorias[0].Preguntas = pregunta1;
 
             return View(Model);
         }
@@ -87,10 +91,10 @@ namespace ProyectoIdentity.Controllers
             {
                 return NotFound();
             }
-            
+
             var cantidadRespondente = (from x in _context.EncuestaRepondente
-                        where x.EncuestaId == id
-                            select x).Count();
+                                       where x.EncuestaId == id
+                                       select x).Count();
             ViewData["respondestesEncuensta"] = cantidadRespondente;
             return View(encuesta);
         }
@@ -118,7 +122,7 @@ namespace ProyectoIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateEncuestas(data encuesta)
         {
-            
+
             if (ModelState.IsValid)
             {
                 //creacion de encuesta
@@ -128,34 +132,34 @@ namespace ProyectoIdentity.Controllers
                     DescripcionEncuesta = encuesta.DescripcionEcuesta,
                     FechaDeCreacion = encuesta.FechaDeCreacion,
                     FechaMaximoPlazo = encuesta.Fechalimite,
-                    NombreEncuesta = encuesta.NombreEncuesta                    
+                    NombreEncuesta = encuesta.NombreEncuesta
                 };
                 var encuestaRes = await _context.Encuesta.AddAsync(Encuesta);
                 _context.SaveChanges();
-                encuestaRes.Entity.Link= _configuration.GetValue<string>("LinkSurvey")+"/" +encuestaRes.Entity.CompanyId+"/"+encuestaRes.Entity.Id;
+                encuestaRes.Entity.Link = _configuration.GetValue<string>("LinkSurvey") + "?idSurvey=" + encuestaRes.Entity.Id;
                 _context.Encuesta.Update(encuestaRes.Entity);
                 //demograficos Tablas Area Y negocios                    
-                var datosAreas = encuesta.CategoriaR[0].Preguntas.Where(p=>p.Nombre=="Area").Select(x=>x.Opciones).First().Select(y=>y.NombreOpcion).ToList();
+                List<string> datosAreas = encuesta.CategoriaR[0].Preguntas.Where(p => p.Nombre == "Area").Select(x => x.Opciones).First().Select(y => y.NombreOpcion.ToLower()).ToList();
                 List<string> areas = new();
                 if (datosAreas != null)
                 {
-                    List<string> opcionesDatabase = await _context.Area.Select(x=>x.AreaName).ToListAsync();
+                    List<string> opcionesDatabase = await _context.Area.Select(x => x.AreaName.ToLower()).ToListAsync();
                     if (opcionesDatabase.Count > 0)
-                        areas = datosAreas.Except(opcionesDatabase).ToList();
+                        areas = datosAreas.Except(opcionesDatabase.Select(x => x.ToLower())).ToList();
                     else
                         areas = datosAreas;
                 }
 
 
-                var datosNegocio = encuesta.CategoriaR[0].Preguntas.Where(p => p.Nombre == "Unidad de Negocio").Select(p => p.Opciones).First().Select(y=>y.NombreOpcion).ToList();
+                var datosNegocio = encuesta.CategoriaR[0].Preguntas.Where(p => p.Nombre == "Unidad de Negocio").Select(p => p.Opciones).First().Select(y => y.NombreOpcion.ToLower()).ToList();
                 List<string> negocios = new();
                 if (datosNegocio != null)
                 {
                     var opcionesNegocios = await _context.BusinessUnit.Select(a => a.NameBusinnes).ToListAsync();
                     if (opcionesNegocios.Count > 0)
-                        negocios = datosNegocio.Except(opcionesNegocios).ToList();
+                        negocios = datosNegocio.Except(opcionesNegocios.Select(x => x.ToLower())).ToList();
                     else
-                        negocios =datosNegocio;
+                        negocios = datosNegocio;
                 }
                 List<Area> AreasNuevas = new List<Area>();
                 List<BusinessUnit> NegociosNuevos = new();
@@ -164,73 +168,51 @@ namespace ProyectoIdentity.Controllers
                 foreach (var area in areas)
                 {
                     AreasNuevas.Add(new Area { AreaName = area });
-                    
+
                 }
-                foreach(var area in datosAreas)
+                foreach (var area in datosAreas)
                 {
                     AreasEncuesta.Add(new EncuestaArea { AreaId = area, EncuestaId = encuestaRes.Entity.Id });
                 }
                 foreach (var negocio in negocios)
                 {
                     NegociosNuevos.Add(new BusinessUnit { NameBusinnes = negocio });
-                    
+
                 }
 
-                foreach(var negocio in datosNegocio)
+                foreach (var negocio in datosNegocio)
                 {
                     negociosEncuesta.Add(new EncuestaBussines { BusinessUnitId = negocio, EncuestaId = encuestaRes.Entity.Id });
                 }
 
                 _context.Area.AddRange(AreasNuevas);
+                _context.SaveChanges();
                 _context.BusinessUnit.AddRange(NegociosNuevos);
                 _context.EncuestaBussines.AddRange(negociosEncuesta);
                 _context.EncuestaArea.AddRange(AreasEncuesta);
-                _context.SaveChanges();
+
                 //espacio para demograficos
                 var demograficos = encuesta.CategoriaR[1];
                 encuesta.CategoriaR.Remove(demograficos);
                 encuesta.CategoriaR.Remove(encuesta.CategoriaR[0]);
+                var beneficios =new List<CategoriaR> {encuesta.CategoriaR.Last()};
+                encuesta.CategoriaR.Remove(encuesta.CategoriaR.Last());
                 //otras dimensiones diferentes a demograficas
-                int numeroPregunta = 1;
-                foreach (var categories in encuesta.CategoriaR)
+                bool exito=await CreateSurvey(encuesta.CategoriaR, encuestaRes.Entity.Id);
+                var EncuestaMadurez = new Encuesta
                 {
-                    var preguntaCa=await _context.EncuestaCategoria.AddAsync(new EncuestaCategoria
-                    {
-                        CategoriaId = categories.Idcategoria-2,
-                        EncuestaId = encuestaRes.Entity.Id
-                    });
-                    await _context.SaveChangesAsync();
-                    foreach(var preguntas in categories.Preguntas)
-                    {
-
-                        var pregunntap = await _context.Pregunta.AddAsync(new Models.ModelsJourney.Pregunta
-                        {
-                            NombrePregunta=preguntas.Nombre,
-                            DescripcionPregunta="Sigue Faltando",
-                            EncuestaCategoriaId = preguntaCa.Entity.Id,
-                            TipoPreguntaId = preguntas.TipoPreguntaId,
-                            NumeroPregunta=numeroPregunta
-                        });
-                        await _context.SaveChangesAsync();
-                        int numeroOpcion = 1;
-                        if (preguntas.Opciones.Count > 0) { 
-                        foreach (var opc in preguntas.Opciones)
-                        {
-                            await _context.Opcion.AddAsync(new Models.ModelsJourney.Opcion
-                            {
-                                Nombre = opc.NombreOpcion,
-                                NumeroOpcion = numeroOpcion,
-                                PreguntaId = pregunntap.Entity.Id,
-                                ValorOpcion = (5 / preguntas.Opciones.Count) * numeroOpcion
-                            });
-                            
-                            numeroOpcion++;
-                        }
-                        }
-                        await _context.SaveChangesAsync();
-                    }
-                    numeroPregunta++;
-                }               
+                    CompanyId = encuesta.CompanyId,
+                    DescripcionEncuesta = encuesta.DescripcionEcuesta,
+                    FechaDeCreacion = encuesta.FechaDeCreacion,
+                    FechaMaximoPlazo = encuesta.Fechalimite,
+                    NombreEncuesta = encuesta.NombreEncuesta + "-Madurez"
+                };
+                var encuestaMadRes = await _context.Encuesta.AddAsync(EncuestaMadurez);
+                await _context.SaveChangesAsync();
+                encuestaMadRes.Entity.Link = _configuration.GetValue<string>("LinkSurveyMadurez") + "?idSurvey=" + encuestaRes.Entity.Id;
+                _context.Encuesta.Update(encuestaMadRes.Entity);
+                //agregar los datos demograficos
+                bool exito2 =await CreateSurvey(beneficios, encuestaMadRes.Entity.Id);
                 //Modificar las preguntas
                 //Listado de preguntas una por una
                 //Retornar vistas de preguntas donde el id de la encuasta sea el creado anterioremente
@@ -327,16 +309,74 @@ namespace ProyectoIdentity.Controllers
             {
                 _context.Encuesta.Remove(encuesta);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EncuestaExists(int id)
         {
-          return _context.Encuesta.Any(e => e.Id == id);
+            return _context.Encuesta.Any(e => e.Id == id);
         }
+
+        private async Task<bool> CreateSurvey(List<CategoriaR>encuesta, int idSurvey)
+        {
+            try
+            {
+                int numeroPregunta = 1;
+
+                foreach (var categories in encuesta)
+                {
+                    var preguntaCa = await _context.EncuestaCategoria.AddAsync(new EncuestaCategoria
+                    {
+                        CategoriaId = categories.Idcategoria - 2,
+                        EncuestaId = idSurvey
+                    }); ;
+                    await _context.SaveChangesAsync();
+                    foreach (var preguntas in categories.Preguntas)
+                    {
+
+                        var pregunntap = await _context.Pregunta.AddAsync(new Models.ModelsJourney.Pregunta
+                        {
+                            NombrePregunta = preguntas.Nombre,
+                            DescripcionPregunta = preguntas.Descripcion,
+                            EncuestaCategoriaId = preguntaCa.Entity.Id,
+                            TipoPreguntaId = preguntas.TipoPreguntaId,
+                            NumeroPregunta = numeroPregunta
+                        });
+                        await _context.SaveChangesAsync();
+                        int numeroOpcion = 1;
+                        if (preguntas.Opciones.Count > 0)
+                        {
+                            foreach (var opc in preguntas.Opciones)
+                            {
+                                await _context.Opcion.AddAsync(new Models.ModelsJourney.Opcion
+                                {
+                                    Nombre = opc.NombreOpcion,
+                                    NumeroOpcion = numeroOpcion,
+                                    PreguntaId = pregunntap.Entity.Id,
+                                    ValorOpcion = (5 / preguntas.Opciones.Count) * numeroOpcion
+                                });
+
+                                numeroOpcion++;
+                            }
+                        }
+                        await _context.SaveChangesAsync();
+                    }
+                    numeroPregunta++;
+                }
+                return true;
+            }
+            catch (Exception Ex)
+            {
+                return false;
+            }
+
+        }
+
     }
 
-    
+
+
+
 }

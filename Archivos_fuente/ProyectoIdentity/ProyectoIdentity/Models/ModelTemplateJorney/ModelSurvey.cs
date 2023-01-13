@@ -844,6 +844,8 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
         public int TipoPreguntaId { get; set; }
 
+        public string? Descripcion { get; set; }
+
         public List<Opciones> Opciones { get; set; }
     }
 
