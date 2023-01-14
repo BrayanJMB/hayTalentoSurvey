@@ -69,6 +69,7 @@ namespace ProyectoIdentity.Controllers
                                    select new Category
                                    {
                                        NombreCategoria = categoria.NombreCategoria,
+                                       Id = categoria.Id,
                                        Preguntas = (from pregunta in _context.Pregunta
                                                     where pregunta.EncuestaCategoriaId == categoria.Id
                                                     select new Models.ModelTemplateJorney.Pregunta
