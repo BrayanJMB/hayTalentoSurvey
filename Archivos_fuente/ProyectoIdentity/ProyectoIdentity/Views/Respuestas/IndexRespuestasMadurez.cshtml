@@ -271,6 +271,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
 
+<<<<<<< HEAD
         (function () {
             'use strict';
             window.addEventListener('load', function () {
@@ -301,6 +302,29 @@
                 e.preventDefault();
                 document.location = '@Url.Action("RedirectIndexRespuestasMadurez","Respuestas")';
             });
+=======
+       (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        let button = document.getElementById("EnviarEncuestaMadurez");
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+              debugger;
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+              let firstInvalid = form.querySelector('[required]:invalid');
+               firstInvalid.focus();
+            }else{
+                event.preventDefault();
+                window.location.href = '@Url.Action("EnvioIndexRespuestasMadurez","Respuestas")';
+            }
+            form.classList.add('was-validated');
+          }, false);
+>>>>>>> 2973cdf3bf4126d0e17fb0d7feb461b304722b05
         });
         let data = document.querySelectorAll("#Seleccione1 select");
         var selectedValues = [null, null, null, null];
