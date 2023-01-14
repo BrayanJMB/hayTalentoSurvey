@@ -21,9 +21,9 @@ namespace ProyectoIdentity.Models.ModelsJourney
 
         public string? BussinesUnitId { get; set; }
 
-        public List<RespondenteDemografico>? RespondenteDemograficos { get; set; }
         public List<EncuestaRepondente>? EncuestaRepondente { get; set; }
         public List<Respuesta>? Respuestas { get; set; }
+        public List<DemograficosName>? DemograficoName { get; set; }
 
         public BusinessUnit? BusinessUnit { get; set; }
 

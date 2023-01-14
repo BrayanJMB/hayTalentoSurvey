@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProyectoIdentity.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class otraMigracion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -393,6 +393,32 @@ namespace ProyectoIdentity.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EncuestaDemografico",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DemograficoId = table.Column<int>(type: "int", nullable: false),
+                    EncuestaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EncuestaDemografico", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EncuestaDemografico_Demograficos_DemograficoId",
+                        column: x => x.DemograficoId,
+                        principalTable: "Demograficos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EncuestaDemografico_Encuesta_EncuestaId",
+                        column: x => x.EncuestaId,
+                        principalTable: "Encuesta",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpcionesDemo",
                 columns: table => new
                 {
@@ -442,6 +468,31 @@ namespace ProyectoIdentity.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DemograficosName",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Parentezco = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sexo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Estadocivil = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NivelEducativo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DependenciaEconomica = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Edad = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RespondenteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DemograficosName", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DemograficosName_Respondente_RespondenteId",
+                        column: x => x.RespondenteId,
+                        principalTable: "Respondente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EncuestaRepondente",
                 columns: table => new
                 {
@@ -460,33 +511,6 @@ namespace ProyectoIdentity.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_EncuestaRepondente_Respondente_RespondenteId",
-                        column: x => x.RespondenteId,
-                        principalTable: "Respondente",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RespondenteDemografico",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RespondenteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DemograficosId = table.Column<int>(type: "int", nullable: false),
-                    Respuesta = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RespondenteDemografico", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RespondenteDemografico_Demograficos_DemograficosId",
-                        column: x => x.DemograficosId,
-                        principalTable: "Demograficos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RespondenteDemografico_Respondente_RespondenteId",
                         column: x => x.RespondenteId,
                         principalTable: "Respondente",
                         principalColumn: "Id",
@@ -712,6 +736,11 @@ namespace ProyectoIdentity.Migrations
                 column: "IdEncuesta");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DemograficosName_RespondenteId",
+                table: "DemograficosName",
+                column: "RespondenteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Encuesta_CompanyId",
                 table: "Encuesta",
                 column: "CompanyId");
@@ -744,6 +773,16 @@ namespace ProyectoIdentity.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_EncuestaCategoria_EncuestaId",
                 table: "EncuestaCategoria",
+                column: "EncuestaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EncuestaDemografico_DemograficoId",
+                table: "EncuestaDemografico",
+                column: "DemograficoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EncuestaDemografico_EncuestaId",
+                table: "EncuestaDemografico",
                 column: "EncuestaId");
 
             migrationBuilder.CreateIndex(
@@ -792,16 +831,6 @@ namespace ProyectoIdentity.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RespondenteDemografico_DemograficosId",
-                table: "RespondenteDemografico",
-                column: "DemograficosId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RespondenteDemografico_RespondenteId",
-                table: "RespondenteDemografico",
-                column: "RespondenteId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Respuesta_RespondenteId",
                 table: "Respuesta",
                 column: "RespondenteId");
@@ -825,10 +854,16 @@ namespace ProyectoIdentity.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "DemograficosName");
+
+            migrationBuilder.DropTable(
                 name: "EncuestaArea");
 
             migrationBuilder.DropTable(
                 name: "EncuestaBussines");
+
+            migrationBuilder.DropTable(
+                name: "EncuestaDemografico");
 
             migrationBuilder.DropTable(
                 name: "EncuestaRepondente");
@@ -838,9 +873,6 @@ namespace ProyectoIdentity.Migrations
 
             migrationBuilder.DropTable(
                 name: "OpcionesDemo");
-
-            migrationBuilder.DropTable(
-                name: "RespondenteDemografico");
 
             migrationBuilder.DropTable(
                 name: "Respuesta");

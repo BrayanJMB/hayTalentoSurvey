@@ -12,8 +12,8 @@ using ProyectoIdentity.Datos;
 namespace ProyectoIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230114021444_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230114045317_otraMigracion")]
+    partial class otraMigracion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -692,6 +692,42 @@ namespace ProyectoIdentity.Migrations
                     b.ToTable("Demograficos");
                 });
 
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.DemograficosName", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("DependenciaEconomica")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Edad")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Estadocivil")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NivelEducativo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Parentezco")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RespondenteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Sexo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RespondenteId");
+
+                    b.ToTable("DemograficosName");
+                });
+
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Encuesta", b =>
                 {
                     b.Property<int>("Id")
@@ -794,6 +830,29 @@ namespace ProyectoIdentity.Migrations
                     b.HasIndex("EncuestaId");
 
                     b.ToTable("EncuestaCategoria");
+                });
+
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaDemografico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("DemograficoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EncuestaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DemograficoId");
+
+                    b.HasIndex("EncuestaId");
+
+                    b.ToTable("EncuestaDemografico");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaRepondente", b =>
@@ -926,32 +985,6 @@ namespace ProyectoIdentity.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Respondente");
-                });
-
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.RespondenteDemografico", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("DemograficosId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("RespondenteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Respuesta")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DemograficosId");
-
-                    b.HasIndex("RespondenteId");
-
-                    b.ToTable("RespondenteDemografico");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Respuesta", b =>
@@ -1121,6 +1154,17 @@ namespace ProyectoIdentity.Migrations
                     b.Navigation("Encuesta");
                 });
 
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.DemograficosName", b =>
+                {
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Respondente", "Respondente")
+                        .WithMany("DemograficoName")
+                        .HasForeignKey("RespondenteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Respondente");
+                });
+
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Encuesta", b =>
                 {
                     b.HasOne("ProyectoIdentity.Models.ModelsJourney.Company", "Company")
@@ -1179,6 +1223,25 @@ namespace ProyectoIdentity.Migrations
                         .IsRequired();
 
                     b.Navigation("Categoria");
+
+                    b.Navigation("Encuesta");
+                });
+
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaDemografico", b =>
+                {
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Demograficos", "Demograficos")
+                        .WithMany("encuestaDemograficos")
+                        .HasForeignKey("DemograficoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Encuesta", "Encuesta")
+                        .WithMany()
+                        .HasForeignKey("EncuestaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Demograficos");
 
                     b.Navigation("Encuesta");
                 });
@@ -1266,25 +1329,6 @@ namespace ProyectoIdentity.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.RespondenteDemografico", b =>
-                {
-                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Demograficos", "Demograficos")
-                        .WithMany("RespondenteDemograficos")
-                        .HasForeignKey("DemograficosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Respondente", "Respondente")
-                        .WithMany("RespondenteDemograficos")
-                        .HasForeignKey("RespondenteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Demograficos");
-
-                    b.Navigation("Respondente");
-                });
-
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Respuesta", b =>
                 {
                     b.HasOne("ProyectoIdentity.Models.ModelsJourney.Pregunta", "Pregunta")
@@ -1328,7 +1372,7 @@ namespace ProyectoIdentity.Migrations
                 {
                     b.Navigation("OpcionesDemo");
 
-                    b.Navigation("RespondenteDemograficos");
+                    b.Navigation("encuestaDemograficos");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Encuesta", b =>
@@ -1358,9 +1402,9 @@ namespace ProyectoIdentity.Migrations
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Respondente", b =>
                 {
-                    b.Navigation("EncuestaRepondente");
+                    b.Navigation("DemograficoName");
 
-                    b.Navigation("RespondenteDemograficos");
+                    b.Navigation("EncuestaRepondente");
 
                     b.Navigation("Respuestas");
                 });

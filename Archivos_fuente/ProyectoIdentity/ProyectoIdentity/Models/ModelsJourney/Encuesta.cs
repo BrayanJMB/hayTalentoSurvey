@@ -29,7 +29,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
         //public List<EncuestaDemografico>? EncuestaDemograficos { get; set; }
         public List<EncuestaCategoria>? EncuestaCategorias { get; set; }
 
-        public List<Demograficos>? Demograficos { get; set; }
+        public List<EncuestaDemografico>? Demograficos { get; set; }
 
         public List<EncuestaRepondente>? EncuestaRepondente { get; set; }
 
