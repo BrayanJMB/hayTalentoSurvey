@@ -874,10 +874,8 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         public string DescripcionEcuesta { get; set; }
         public string CompanyId { get; set; }
         public DateTime FechaDeCreacion { get; } = DateTime.UtcNow;
-
         public DateTime Fechalimite { get; set; }
         public List<CategoriaR> CategoriaR { get; set; }
-
         public List<City> Ciudad { get; set; }
     }
     public class CategoriaR

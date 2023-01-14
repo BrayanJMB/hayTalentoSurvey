@@ -1,4 +1,4 @@
-﻿@model ProyectoIdentity.Models.ModelTemplateJorney.ModelSurvey
+﻿@model ProyectoIdentity.Controllers.SurveyNew
 
 @{
     ViewData["Title"] = "Delete";
@@ -61,8 +61,8 @@
                                         <div class="question-list ">
                                             @if (categori.Preguntas != null)
                                             {
-                                                <h3 class="titulo-dimension">Aspectos Demográficos</h3>
-                                                <p class="descripcion-dimension">País, Ciudad, Unidad de Negocio, Área</p>
+                                                <h3 class="titulo-dimension">@categori.NombreCategoria</h3>
+                                                <p class="descripcion-dimension"></p>
 
                                                 @foreach (var pregunta in categori.Preguntas)
                                                 {
@@ -75,41 +75,24 @@
                                                                     <div class="row ml-2" >
                                                                         @if (pregunta.Opciones != null)
                                                                         {
-                                                                            @if (pregunta.TipoPregunta == "Likkert"){
-                                                                                <div class="col-md-6 col-sm-12">
-                                                                                    <div class="options-multiple-linkert">
-                                                                                        <select  class="form-select form-select-sm likkert" aria-label="Default select example">
-                                                                                            <option selected>Seleccione</option>
-                                                                                            @foreach (var opcionP in pregunta.Opciones)
-                                                                                            {
-                                                                                                <option value="@opcionP.OpcionName">@opcionP.OpcionName</option>
-                                                                                            }
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                                }
-                                                                            else if(pregunta.TipoPregunta == "Selección Multiple"){
-                                                                                @foreach (var opcionP in pregunta.Opciones){
-                                                                                <div class="form-check-inline">
-                                                                                    <div class="col-md-12 col-sm-12">
-                                                                                        <div class="options">
-                                                                                            <input class="form-check-input datacheck" type="checkbox" id="inlineCheckbox1" value="@opcionP.OpcionName">
-                                                                                            <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                }
-                                                                            }    
                                                                             @foreach (var opcionP in pregunta.Opciones)
                                                                             {
                                                                                 @if (pregunta.TipoPregunta == "Likkert")
                                                                                 {
-                                                                                     
+                                                                                     <div class="col-md-6 col-sm-12">
+                                                                                        <div class="options-multiple-linkert">
+                                                                                            <select  class="form-select form-select-sm likkert" aria-label="Default select example">
+                                                                                                <option selected>Seleccione</option>
+                                                                                                @foreach(var option in pregunta.Opciones){
+                                                                                                    <option value="1">@option.OpcionName</option>
+                                                                                                }
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
                                                                                     break;
                                                                                 }
-                                                                                else if(pregunta.TipoPregunta == "Selección Multiple")
+                                                                                else if(pregunta.TipoPregunta == "Seleccion Multiple")
                                                                                 {
-                                                                                    /*
                                                                                     <div class="form-check-inline">
                                                                                         <div class="col-md-12 col-sm-12">
                                                                                             <div class="options">
@@ -117,9 +100,9 @@
                                                                                                 <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                    </div>*/
+                                                                                    </div>
                                                                                 }
-                                                                                else if (pregunta.TipoPregunta == "Selección")
+                                                                                else if (pregunta.TipoPregunta == "Respuesta Unica")
                                                                                 {
                                                                                     @if (categori.NombreCategoria == "Aspectos Demograficos"){
                                                                                         <div class="row">
@@ -155,6 +138,7 @@
                                                                                                     </div>
                                                                                         </div>
                                                                                         <div class="row">
+                    
                                                                                             <div class="col-md-6">
                                                                                                 <p class="error-demograficos"></p>
                                                                                                 <p>Area</p>
@@ -269,18 +253,16 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 }
-                                                                                else if (pregunta.TipoPregunta == "Likkert Multiple" || pregunta.TipoPregunta == "Multiple Likkert")
+                                                                                else if (pregunta.TipoPregunta == "Multiple Likkert")
                                                                                 {
                                                                                     <div class="col-md-6 col-sm-12">
                                                                                         <div class="options-multiple-linkert">
                                                                                               <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
                                                                                               <select  class="form-select form-select-sm escala" aria-label="Default select example">
                                                                                                 <option selected>Seleccione</option>
-                                                                                                <option value="1">No aplica</option>
-                                                                                                <option value="2">No cumple las expectativas</option>
-                                                                                                <option value="3">Necesita algunas mejoras</option>
-                                                                                                <option value="4">Cumple las expectativas</option>
-                                                                                                <option value="5">Supera las expectativas</option>
+                                                                                                @foreach(var option in pregunta.Opciones){
+                                                                                                    <option value="1">@option.OpcionName</option>
+                                                                                                }
                                                                                             </select>
                                                                                         </div>
                                                                                     </div>

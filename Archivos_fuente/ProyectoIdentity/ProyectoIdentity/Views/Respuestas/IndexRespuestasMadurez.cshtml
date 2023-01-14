@@ -1,4 +1,4 @@
-﻿@model ProyectoIdentity.Models.ModelTemplateJorney.ModelSurvey
+﻿@model ProyectoIdentity.Controllers.SurveyNew
 
 @{
     ViewData["Title"] = "Delete";
@@ -79,169 +79,59 @@
                                                                                 {
                                                                                      <div class="col-md-6 col-sm-12">
                                                                                         <div class="options-multiple-linkert">
-                                                                                            <select  class="form-select form-select-sm likkert" aria-label="Default select example">
-                                                                                                <option selected>Seleccione</option>
-                                                                                                <option value="1">No aplica</option>
-                                                                                                <option value="2">No cumple las expectativas</option>
-                                                                                                <option value="3">Necesita algunas mejoras</option>
-                                                                                                <option value="4">Cumple las expectativas</option>
-                                                                                                <option value="5">Supera las expectativas</option>
+                                                                                                <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
+                                                                                                <option value="" selected>Seleccione</option>
+                                                                                                @foreach(var option in pregunta.Opciones){
+                                                                                                    <option value="1">@option.OpcionName</option>
+                                                                                                }
                                                                                             </select>
+                                                                                            <div class="invalid-feedback">
+                                                                                                Requerido.
+                                                                                              </div>
                                                                                         </div>
                                                                                     </div>
                                                                                     break;
                                                                                 }
-                                                                                else if(pregunta.TipoPregunta == "Selección Multiple")
+                                                                                else if (pregunta.TipoPregunta == "Seleccion Multiple")
                                                                                 {
                                                                                     string negrita = opcionP.OpcionName.Split(":")[0];
                                                                                     string otro = opcionP.OpcionName.Split(":")[1];
                                                                                     <div class="form-check-inline">
                                                                                         <div class="col-md-12 col-sm-12">
                                                                                             <div class="options">
-                                                                                                <input class="form-check-input datacheck" type="radio" id="inlineCheckbox1" value="@opcionP.OpcionName">
+                                                                                                <input class="form-check-input datacheck" type="radio" name="radio" id="inlineCheckbox1" value="@opcionP.OpcionName" required>
                                                                                                 <div class="block-text ml-2 minimo" id="strongly-disagree"  name="strongly-disagree"><i class="fw-bold">@negrita</i> @otro</div>
                                                                                             </div>
+                                                                                            
                                                                                         </div>
+                                                                                        <div class="invalid-feedback">
+                                                                                            You must agree before submitting.
+                                                                                      </div>
                                                                                     </div>
                                                                                 }
-                                                                                else if (pregunta.TipoPregunta == "Selección")
+                                                                                else if (pregunta.TipoPregunta == "Seleccion")
                                                                                 {
-                                                                                    @if (categori.NombreCategoria == "Aspectos Demograficos"){
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-6">
-                                                                                                        <p class="error-demograficos"></p>
-                                                                                                        <p>Pais</p>
-                                                                                                        <select class="form-select form-select-sm  select-demograficos"  >
-                                                                                                            <option selected>Seleccione</option>
-                                                                                                            <option value="value2">Colombia</option>
-                                                                                                            <option value="value2">Estados Unidos</option>
-                                                                                                        </select>
-                                                                                                    </div>
-                                                                                                    <div class="col-md-6">
-                                                                                                        <p class="error-demograficos"></p>
-                                                                                                        <p>Ciudad</p>
-                                                                                                        <select class="form-select form-select-sm select-aspectos-demograficos"  >
-                                                                                                                <option selected>Seleccione</option>
-                                                                                                                <option value="Arauca">Arauca</option>
-                                                                                                                <option value="Armenia">Armenia</option>
-                                                                                                                <option value="Barranquilla">Barranquilla</option>
-                                                                                                                <option value="Bogotá">Bogotá</option>
-                                                                                                                <option value="Bucaramanga">Bucaramanga</option>
-                                                                                                                <option value="Cali">Cali</option>
-                                                                                                                <option value="Cartagena">Cartagena</option>
-                                                                                                                <option value="Cúcuta">Cúcuta</option>
-                                                                                                                <option value="Florencia">Florencia</option>
-                                                                                                                <option value="Ibagué">Ibagué</option>
-                                                                                                                <option value="Leticia">Leticia</option>
-                                                                                                                <option value="Manizales">Manizales</option>
-                                                                                                                <option value="Medellín">Medellín</option>
-                                                                                                                <option value="Mitú">Mitú</option>
-                                                                                                                <option value="Mocoa">Mocoa</option>
-                                                                                                                <option value="Montería">Montería</option>
-                                                                                                                <option value="Neiva">Neiva</option>
-                                                                                                                <option value="Pasto">Pasto</option>
-                                                                                                                <option value="Pereira">Pereira</option>
-                                                                                                                <option value="Popayán">Popayán</option>
-                                                                                                                <option value="Puerto Carreño">Puerto Carreño</option>
-                                                                                                                <option value="Puerto Inírida">Puerto Inírida</option>
-                                                                                                                <option value="Quibdó">Quibdó</option>
-                                                                                                                <option value="Riohacha">Riohacha</option>
-                                                                                                                <option value="San Andrés">San Andrés</option>
-                                                                                                                <option value="San José del Guaviare">San José del Guaviare</option>
-                                                                                                                <option value="Santa Marta">Santa Marta</option>
-                                                                                                                <option value="Sincelejo">Sincelejo</option>
-                                                                                                                <option value="Tunja">Tunja</option>
-                                                                                                                <option value="Valledupar">Valledupar</option>
-                                                                                                                <option value="Villavicencio">Villavicencio</option>
-                                                                                                                <option value="Yopal">Yopal</option>
-                                                                                                        </select>
-                                                                                                    </div>
+                                                                                    <div class="col-md-4 col-sm-12">
+                                                                                        <div class="options">
+                                                                                            <select value="" class="form-select form-select-sm escala" aria-label="Default select example">
+                                                                                                <option selected>Seleccione</option>
+                                                                                                @foreach (var item in pregunta.Opciones)
+                                                                                                {
+                                                                                                    <option value="@item.OpcionName">@item.OpcionName</option>
+                                                                                                }
+                                                                                            </select>
+                                                                                            <div class="invalid-feedback">
+                                                                                                Requerido.
+                                                                                              </div>
                                                                                         </div>
-                                                                                        <div class="row">
-                    
-                                                                                            <div class="col-md-6">
-                                                                                                <p class="error-demograficos"></p>
-                                                                                                <p>Area</p>
-                                                                                                <select class="form-select form-select-sm  select-demograficos">
-                                                                                                    <option selected>Seleccione</option>
-                                                                                                    <option value="value1">Area</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                            <div class="col-md-6">
-                                                                                                <p class="error-demograficos"></p>
-                                                                                                <p>Unidad Negocio</p>
-                                                                                                <select class="form-select form-select-sm  select-demograficos">
-                                                                                                    <option selected>Seleccione</option>
-                                                                                                    <option value="value1">Unidad de Negocio</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    }
-                                                                                    else if (categori.NombreCategoria == "Datos Demograficos")
-                                                                                        {
-                                                                                            <table class="table">
-                                                                                                <thead>
-                                                                                                    <tr class="title-table">
-                                                                                                        <th scope="col-sm-12">Parentezco</th>
-                                                                                                        <th scope="col">Sexo</th>
-                                                                                                        <th scope="col">Estado Civil</th>
-                                                                                                        <th scope="col">Nivel Educativo</th>
-                                                                                                        <th style="width: 0px;">¿Dependiente Economicamente?</th>
-                                                                                                        <th scope="col">Edad</th>
-                                                                                                    </tr>
-                                                                                                </thead>
-                                                                                                <tbody class="title-table">
-                                                                                                    <tr class="demograficos colaborador">
-                                                                                                        <th scope="row">Colaborador</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos conyugue">
-                                                                                                        <th scope="row">Conyugue</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos-multiple">
-                                                                                                        <th style="width: 10%;" scope="row">Hijos <input class="multiselect" id="hijos" style="width: 50%;" type="number"
-                                                                                                                name="quantity" min="0" max="10"></th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos">
-                                                                                                        <th scope="row">Madre</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos">
-                                                                                                        <th scope="row">Padre</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos-multiple">
-                                                                                                        <th style="width: 10%;" scope="row">Hermanos <input class="multiselect" id="hermanos" style="width: 50%;" type="number"
-                                                                                                            name="quantity" min="0" max="10"></th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos">
-                                                                                                        <th scope="row">Otros</th>
-                                                                                                    </tr>
-
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                                <!-- View Mobile-->
-                                                                                                <div class="container-fluid" id="mobile">
-                                                                                                    <div class="accordion" id="accordionExample">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                        }else{
-                                                                                        <div class="col-md-4 col-sm-12">
-                                                                                            <div class="options">
-                                                                                                <select  class="form-select form-select-sm escala" aria-label="Default select example">
-                                                                                                    <option selected>Seleccione</option>
-                                                                                                    @foreach (var item in pregunta.Opciones)
-                                                                                                    {
-                                                                                                        <option value="@item.OpcionName">@item.OpcionName</option>
-                                                                                                    }
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        break;
-                                                                                        }
+                                                                                    </div>
+                                                                                    break;
                                                                                 }
                                                                                 else if (pregunta.TipoPregunta == "Valoracion Multiple")
                                                                                 {
                                                                                     <div class="col-md-6 col-sm-12">
                                                                                         <div class="options">
-                                                                                                <select  class="form-select form-select-sm escala" aria-label="Default select example">
+                                                                                                <select value="" class="form-select form-select-sm escala" aria-label="Default select example">
                                                                                                     <option selected>Seleccione</option>
                                                                                                     <option value="1">1</option>
                                                                                                     <option value="2">2</option>
@@ -263,7 +153,7 @@
                                                                                     <div class="col-md-6 col-sm-12">
                                                                                         <div class="options-multiple-linkert">
                                                                                               <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
-                                                                                              <select  class="form-select form-select-sm escala" aria-label="Default select example">
+                                                                                              <select  value="" class="form-select form-select-sm escala" aria-label="Default select example">
                                                                                                 <option selected>Seleccione</option>
                                                                                                 <option value="1">No aplica</option>
                                                                                                 <option value="2">No cumple las expectativas</option>
@@ -274,6 +164,17 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 }
+                                                                                else
+                                                                                {
+                                                                                   <div style="height:50px;" class="mt-2">
+                                                                                  <input type="text" class="form-control" required >
+                                                                                  <div class="invalid-feedback">
+                                                                                                Requerido.
+                                                                                              </div>
+
+                                                                                </div>
+                                                                           
+                                                                                }
                                                                             }
                                                                             opcion++;
                                                                         }
@@ -281,7 +182,9 @@
                                                                         {
                                                                             <div style="height:50px;" class="mt-2">
                                                                                   <input type="text" class="form-control" >
+                                                                                  <p> ajsdksajdklsajdskaldjsakljdsaljsa</p>
                                                                             </div>
+                                                                           
                                                                         }
                                                                     </div>
                                                                 </div>
@@ -306,7 +209,7 @@
                                             @if (categori.Id==Model.Categorias.Last().Id)
                                             {
                                                 <input type="button" name="previous" id="Anterior" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
-                                                <input type="submit" name="next" id="EnviarEncuestaMadurez" class="next action-button btn btn-success" value="Enviar Encuesta" />
+                                                <input type="submit" name="next" id="EnviarEncuestaMadurez" class="action-button btn btn-success" value="Enviar Encuesta" />
                                             }
                                             else
                                             {
@@ -338,24 +241,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
 
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
+            (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        let button = document.getElementById("EnviarEncuestaMadurez");
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+              debugger;
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+              
+            }else{
                 event.preventDefault();
-                event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-            });
-        }, false);
-        })();
+                window.location.href = '@Url.Action("EnvioIndexRespuestasMadurez","Respuestas")';
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+
 
     $(function(){
         $("#Anterior").click(function (e) {
