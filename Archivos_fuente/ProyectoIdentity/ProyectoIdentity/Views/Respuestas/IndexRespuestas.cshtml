@@ -27,7 +27,7 @@
     <div class="row justify-content-center mt-0">
         <div class="row">
             <div class="col-md-12 mx-0">
-                <form id="msform">
+                <form id="msform" class="needs-validation" novalidate>
                     <!-- progressbar -->
                     <ul id="progressbar">
                         <div class="row d-flex justify-content-between">
@@ -111,8 +111,8 @@
                                                                                             <div class="col-md-6">
                                                                                                         <p class="error-demograficos"></p>
                                                                                                         <p>Pais</p>
-                                                                                                        <select class="form-select form-select-sm  select-aspectos-demograficos" id="paises"  >
-                                                                                                            <option selected>Seleccione</option>
+                                                                                                        <select class="form-select form-select-sm  select-aspectos-demograficos" id="paises"  id="validationCustom01" required>
+                                                                                                            <option selected disabled value="">Choose...</option>
                                                                                                             <option value="Colombia">Colombia</option>
                                                                                                             <option value="Estados Unidos">Estados Unidos</option>
                                                                                                             <option value="Argentina">Argentina</option>
@@ -127,12 +127,15 @@
                                                                                                             <option value="Venezuela">Venezuela</option>
                                                                                                             <option value="México">México</option>
                                                                                                         </select>
+                                                                                                        <div class="invalid-feedback">
+                                                                                                            Requerido
+                                                                                                        </div>
                                                                                                     </div>
                                                                                                     <div class="col-md-6">
                                                                                                         <p class="error-demograficos"></p>
                                                                                                         <p>Ciudad</p>
-                                                                                                        <select class="form-select form-select-sm select-aspectos-demograficos" id="capitales">
-
+                                                                                                        <select class="form-select form-select-sm select-aspectos-demograficos" id="capitales"  required>
+                                                                                                                <option selected disabled value="">Choose...</option>
                                                                                                         </select>
                                                                                                     </div>
                                                                                         </div>
@@ -141,10 +144,13 @@
                                                                                             <div class="col-md-6">
                                                                                                 <p class="error-demograficos"></p>
                                                                                                 <p>Area</p>
-                                                                                                <select class="form-select form-select-sm  select-aspectos-demograficos">
-                                                                                                    <option selected>Seleccione</option>
+                                                                                                <select class="form-select form-select-sm  select-aspectos-demograficos" id="validationCustom05">
+                                                                                                    <option selected disabled value="">Seleccione</option>
                                                                                                     <option value="value1">Area</option>
                                                                                                 </select>
+                                                                                                <div class="invalid-feedback">
+                                                                                                            Requerido
+                                                                                                        </div>
                                                                                             </div>
                                                                                             <div class="col-md-6">
                                                                                                 <p class="error-demograficos"></p>
@@ -309,7 +315,7 @@
                                                 {
                                                     <input type="button" onclick="history.back()" class="btn btn-dark mr-2" value="Anterior" />
                                                 }
-                                                <input type="button" name="next" class="next action-button btn btn-primary" value="Siguiente" />
+                                                <input type="button" id="siguiente" name="next" class="next action-button btn btn-primary" value="Siguiente" />
                                             }
                                         </div>
                                     </div>
@@ -330,6 +336,29 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    // Add event listener for the "next" button
+                    var nextButton = document.getElementById("siguiente");
+                    nextButton.addEventListener('click', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            form.classList.add('was-validated');
+                        } else {
+                            // Move to next step of form
+                            // (You can add the logic here)
+                        }
+                    }, false);
+                });
+            }, false);
+        })();
+
         let paises = document.getElementById("paises");
         let capitales = [
             {"pais":"Argentina", "capital":"Buenos Aires"},

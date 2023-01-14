@@ -20,7 +20,7 @@ $(document).ready(function () {
     ]
 
     $("fieldset").first().addClass('active');
-    $(".next").click(function () {
+    $(".next").click(function () {/*
         debugger;
         let selectAspectosDemograficos = $("fieldset.active .select-aspectos-demograficos");
         let selectdemograficos = $("fieldset.active .select-demograficos");
@@ -101,7 +101,6 @@ $(document).ready(function () {
             } catch (error) {
                 console.log(error)
             }
-
           }
           
         if ($("fieldset.active .select-demograficos").parent().parent().parent().parent().hasClass("desktop")){
@@ -191,7 +190,7 @@ $(document).ready(function () {
         $("#EnviarEncuestaMadurez").click(function (e) {
             e.preventDefault();
             document.location = '@Url.Action("EnvioIndexRespuestasMadurez","Respuestas")';
-        });
+        });*/
 
         contador +=1
         current_fs = $(this).parent().parent().parent().parent().parent();
