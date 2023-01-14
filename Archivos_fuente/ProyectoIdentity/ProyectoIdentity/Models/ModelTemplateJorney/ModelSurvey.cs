@@ -23,12 +23,12 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "Colaborador"},
-                new Opcion { Id = 1, OpcionName = "Conyugue"},
-                new Opcion { Id = 1, OpcionName = "Hijo"},
-                new Opcion { Id = 1, OpcionName = "Madre"},
-                new Opcion { Id = 1, OpcionName = "Padre"},
-                new Opcion { Id = 1, OpcionName = "Hermano"},
-                new Opcion { Id = 1, OpcionName = "Otros"},
+                new Opcion { Id = 2, OpcionName = "Conyugue"},
+                new Opcion { Id = 3, OpcionName = "Hijo"},
+                new Opcion { Id = 4, OpcionName = "Madre"},
+                new Opcion { Id = 5, OpcionName = "Padre"},
+                new Opcion { Id = 6, OpcionName = "Hermano"},
+                new Opcion { Id = 7, OpcionName = "Otros"},
             };
 
             return OpcionesLik;
@@ -40,7 +40,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "Masculino"},
-                new Opcion { Id = 1, OpcionName = "Femenino"}
+                new Opcion { Id = 2, OpcionName = "Femenino"}
             };
 
             return OpcionesLik;
@@ -51,13 +51,13 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "Soltero(a)"},
-                new Opcion { Id = 1, OpcionName = "Unión Libre 2 o más años"},
-                new Opcion { Id = 1, OpcionName = "Unión Libre < a 2 años"},
-                new Opcion { Id = 1, OpcionName = "Casado(a)"},
-                new Opcion { Id = 1, OpcionName = "Separado(a)"},
-                new Opcion { Id = 1, OpcionName = "Divorciado (a)"},
-                new Opcion { Id = 1, OpcionName = "Viudo(a)"},
-                new Opcion { Id = 1, OpcionName = "Fallecido"}
+                new Opcion { Id = 2, OpcionName = "Unión Libre 2 o más años"},
+                new Opcion { Id = 3, OpcionName = "Unión Libre < a 2 años"},
+                new Opcion { Id = 4, OpcionName = "Casado(a)"},
+                new Opcion { Id = 5, OpcionName = "Separado(a)"},
+                new Opcion { Id = 6, OpcionName = "Divorciado (a)"},
+                new Opcion { Id = 7, OpcionName = "Viudo(a)"},
+                new Opcion { Id = 8, OpcionName = "Fallecido"}
 
             };
 
@@ -69,14 +69,14 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "Ninguno"},
-                new Opcion { Id = 1, OpcionName = "Preescolar"},
-                new Opcion { Id = 1, OpcionName = "Primaria"},
-                new Opcion { Id = 1, OpcionName = "Bachillerato"},
-                new Opcion { Id = 1, OpcionName = "Técnico/Tecnól."},
-                new Opcion { Id = 1, OpcionName = "Pregrado"},
-                new Opcion { Id = 1, OpcionName = "Especialización"},
-                new Opcion { Id = 1, OpcionName = "Maestría"},
-                new Opcion { Id = 1, OpcionName = "Doctorado"}
+                new Opcion { Id = 2, OpcionName = "Preescolar"},
+                new Opcion { Id = 3, OpcionName = "Primaria"},
+                new Opcion { Id = 4, OpcionName = "Bachillerato"},
+                new Opcion { Id = 5, OpcionName = "Técnico/Tecnól."},
+                new Opcion { Id = 6, OpcionName = "Pregrado"},
+                new Opcion { Id = 7, OpcionName = "Especialización"},
+                new Opcion { Id = 8, OpcionName = "Maestría"},
+                new Opcion { Id = 9, OpcionName = "Doctorado"}
             };
 
             return OpcionesLik;
@@ -87,7 +87,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "Sí" },
-                new Opcion { Id = 1, OpcionName = "No" },
+                new Opcion { Id = 2, OpcionName = "No" },
             };
 
             return OpcionesLik;
@@ -98,13 +98,13 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "De 0 a 7 años"},
-                new Opcion { Id = 1, OpcionName = "De 7 a 11 años "},
-                new Opcion { Id = 1, OpcionName = "De 12 a 17 años"},
-                new Opcion { Id = 1, OpcionName = "De 18 a 25 años"},
-                new Opcion { Id = 1, OpcionName = "De 26 a 35 años"},
-                new Opcion { Id = 1, OpcionName = "De 36 a 45 años"},
-                new Opcion { Id = 1, OpcionName = "De 46 a 55 años"},
-                new Opcion { Id = 1, OpcionName = "55 años o más"}
+                new Opcion { Id = 2, OpcionName = "De 7 a 11 años "},
+                new Opcion { Id = 3, OpcionName = "De 12 a 17 años"},
+                new Opcion { Id = 4, OpcionName = "De 18 a 25 años"},
+                new Opcion { Id = 5, OpcionName = "De 26 a 35 años"},
+                new Opcion { Id = 6, OpcionName = "De 36 a 45 años"},
+                new Opcion { Id = 7, OpcionName = "De 46 a 55 años"},
+                new Opcion { Id = 8, OpcionName = "55 años o más"}
 
             };
 
@@ -118,7 +118,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "Si" },
-                new Opcion { Id = 1, OpcionName = "No" }
+                new Opcion { Id = 2, OpcionName = "No" }
 
             };
 
@@ -129,8 +129,8 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         {
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "Propia" },
-                new Opcion { Id = 1, OpcionName = "Arrendada" },
-                new Opcion { Id = 1, OpcionName = "Familiar " },
+                new Opcion { Id = 2, OpcionName = "Arrendada" },
+                new Opcion { Id = 3, OpcionName = "Familiar " },
 
             };
 
@@ -141,12 +141,12 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         {
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "1" },
-                new Opcion { Id = 1, OpcionName = "2" },
-                new Opcion { Id = 1, OpcionName = "3" },
-                new Opcion { Id = 1, OpcionName = "4" },
-                new Opcion { Id = 1, OpcionName = "5" },
-                new Opcion { Id = 1, OpcionName = "6" },
-                new Opcion { Id = 1, OpcionName = "7" }
+                new Opcion { Id = 2, OpcionName = "2" },
+                new Opcion { Id = 3, OpcionName = "3" },
+                new Opcion { Id = 4, OpcionName = "4" },
+                new Opcion { Id = 5, OpcionName = "5" },
+                new Opcion { Id = 6, OpcionName = "6" },
+                new Opcion { Id = 7, OpcionName = "7" }
             };
 
             return OpcionesLik;
@@ -156,10 +156,10 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         {
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "Falta de acceso a créditos por capacidad de pago" },
-                new Opcion { Id = 1, OpcionName = "No ha logrado reunir el valor de la cuota inicial" },
-                new Opcion { Id = 1, OpcionName = "Por reporte en centrales de riesgo" },
-                new Opcion { Id = 1, OpcionName = "No tiene interés en adquirir vivienda actualmente" },
-                new Opcion { Id = 1, OpcionName = "Otro, ¿Cuál?" }
+                new Opcion { Id = 2, OpcionName = "No ha logrado reunir el valor de la cuota inicial" },
+                new Opcion { Id = 3, OpcionName = "Por reporte en centrales de riesgo" },
+                new Opcion { Id = 4, OpcionName = "No tiene interés en adquirir vivienda actualmente" },
+                new Opcion { Id = 5, OpcionName = "Otro, ¿Cuál?" }
             };
             return OpcionesLik;
 
@@ -169,7 +169,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "No"},
-                new Opcion { Id = 1, OpcionName = "Sí (especifica si es carro, moto u otro):"}
+                new Opcion { Id = 2, OpcionName = "Sí (especifica si es carro, moto u otro):"}
             };
 
             return OpcionesLik;
@@ -181,8 +181,8 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "Gato"},
-                new Opcion { Id = 1, OpcionName = "Perro"},
-                new Opcion { Id = 1, OpcionName = "Otra ¿Cuál?"}
+                new Opcion { Id = 2, OpcionName = "Perro"},
+                new Opcion { Id = 3, OpcionName = "Otra ¿Cuál?"}
             };
 
             return OpcionesLik;
@@ -196,7 +196,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
             List<Pregunta> Demograficos = new List<Pregunta> {
             new Pregunta
             {
-                NombrePregunta = "",
+                NombrePregunta = "Parentezco",
                 TipoPregunta = "Selección",
                 Opciones = Demo1(),
             }
@@ -208,72 +208,84 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
             List<Pregunta> Demograficos = new List<Pregunta> {
             new Pregunta
             {
+                NumeroPregunta=1,
                 NombrePregunta = "Parentesco",
                 TipoPregunta = "Selección",
                 Opciones = Demo1(),
             },
             new Pregunta
             {
+                NumeroPregunta=2,
                 NombrePregunta = "Sexo",
                 TipoPregunta = "Selección",
                 Opciones = Demo2(),
             },
             new Pregunta
             {
+                NumeroPregunta=3,
                 NombrePregunta = "Estado Civil",
                 TipoPregunta = "Selección",
                 Opciones = Demo3(),
             },
             new Pregunta
             {
+                NumeroPregunta=4,
                 NombrePregunta = "Nivel Educativo",
                 TipoPregunta = "Selección",
                 Opciones = Demo4(),
             },
             new Pregunta
             {
+                NumeroPregunta=5,
                 NombrePregunta = "Dependencia EConomica",
                 TipoPregunta = "Selección",
                 Opciones = Demo5(),
             },
             new Pregunta
             {
+                NumeroPregunta=6,
                 NombrePregunta = "Edad",
                 TipoPregunta = "Selección",
                 Opciones = Demo6(),
             },
             new Pregunta
             {
+                NumeroPregunta=7,
                 NombrePregunta = "¿Existe otro ingreso en tu hogar?",
                 TipoPregunta = "Selección",
                 Opciones = Demo7(),
             },
             new Pregunta
             {
+                NumeroPregunta=8,
                 NombrePregunta = "Tu vivienda es",
                 TipoPregunta = "Selección",
                 Opciones = Demo8(),
             },
             new Pregunta
             {
+                NumeroPregunta=9,
                 NombrePregunta = "Tu vivienda es estrato",
                 TipoPregunta = "Selección",
                 Opciones = Demo9(),
             },
             new Pregunta
             {
+                NumeroPregunta=10,
                 NombrePregunta = "En caso de NO tener vivienda propia, explica el motivo",
                 TipoPregunta = "Selección",
                 Opciones = Demo10(),
             },
             new Pregunta
             {
+                NumeroPregunta=11,
                 NombrePregunta = "¿Tienes vehículo propio?",
                 TipoPregunta = "Selección",
                 Opciones = Demo11(),
             },
             new Pregunta
             {
+                NumeroPregunta=12,
                 NombrePregunta = "¿Tiene mascotas?",
                 TipoPregunta = "Selección",
                 Opciones = Demo12(),
@@ -778,7 +790,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                      IdTipo = 2,
                      Opciones=OpcionesLikkertper15()
                  },
-                 new Pregunta {NombrePregunta = "¿Cuánto gastó su empresa en total en beneficios en el último año fiscal?", NumeroPregunta = 26, TipoPregunta = "Respuesta única", Opciones = OpcionesLikkertper16(),IdTipo = 1},
+                 new Pregunta {NombrePregunta = "¿Cuánto gastó su empresa en total en beneficios en el último año fiscal?", NumeroPregunta = 26, TipoPregunta = "Likkert", Opciones = OpcionesLikkertper16(),IdTipo = 1},
                  new Pregunta {NombrePregunta = "¿Los empleados valoran su plan de beneficios?", NumeroPregunta = 27, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {NombrePregunta = "¿El plan de beneficios mejora la atracción y retención?", NumeroPregunta = 28, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {NombrePregunta = "¿El plan de beneficios mejora el compromiso del empleado con su trabajo?", NumeroPregunta = 29, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
@@ -787,7 +799,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                  new Pregunta {NombrePregunta = "¿Modelo de compensación flexible?", NumeroPregunta = 32, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {
                      NombrePregunta="¿Beneficio institucional (ej. Descuento en compra de productos de la compañía o entrega a cero costos?",
-                     NumeroPregunta=9,
+                     NumeroPregunta=33,
                      TipoPregunta="Likkert",
                      IdTipo = 2,
                      Opciones=OpcionesLikkert1()},
