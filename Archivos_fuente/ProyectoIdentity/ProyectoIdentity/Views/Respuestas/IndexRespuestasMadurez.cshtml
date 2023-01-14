@@ -79,12 +79,15 @@
                                                                                 {
                                                                                      <div class="col-md-6 col-sm-12">
                                                                                         <div class="options-multiple-linkert">
-                                                                                                                    <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
-                                                                                                <option selected>Seleccione</option>
+                                                                                                <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
+                                                                                                <option value="" selected>Seleccione</option>
                                                                                                 @foreach(var option in pregunta.Opciones){
                                                                                                     <option value="1">@option.OpcionName</option>
                                                                                                 }
                                                                                             </select>
+                                                                                            <div class="invalid-feedback">
+                                                                                                Requerido.
+                                                                                              </div>
                                                                                         </div>
                                                                                     </div>
                                                                                     break;
@@ -94,25 +97,32 @@
                                                                                     string negrita = opcionP.OpcionName.Split(":")[0];
                                                                                     string otro = opcionP.OpcionName.Split(":")[1];
                                                                                     <div class="form-check-inline">
-                                                                                        <div class="col-md-12 col-sm-12" required>
+                                                                                        <div class="col-md-12 col-sm-12">
                                                                                             <div class="options">
-                                                                                                <input class="form-check-input datacheck" type="radio" name="radio" id="inlineCheckbox1" value="@opcionP.OpcionName">
+                                                                                                <input class="form-check-input datacheck" type="radio" name="radio" id="inlineCheckbox1" value="@opcionP.OpcionName" required>
                                                                                                 <div class="block-text ml-2 minimo" id="strongly-disagree"  name="strongly-disagree"><i class="fw-bold">@negrita</i> @otro</div>
                                                                                             </div>
+                                                                                            
                                                                                         </div>
+                                                                                        <div class="invalid-feedback">
+                                                                                            You must agree before submitting.
+                                                                                      </div>
                                                                                     </div>
                                                                                 }
                                                                                 else if (pregunta.TipoPregunta == "Seleccion")
                                                                                 {
                                                                                     <div class="col-md-4 col-sm-12">
                                                                                         <div class="options">
-                                                                                            <select  class="form-select form-select-sm escala" aria-label="Default select example">
+                                                                                            <select value="" class="form-select form-select-sm escala" aria-label="Default select example">
                                                                                                 <option selected>Seleccione</option>
                                                                                                 @foreach (var item in pregunta.Opciones)
                                                                                                 {
                                                                                                     <option value="@item.OpcionName">@item.OpcionName</option>
                                                                                                 }
                                                                                             </select>
+                                                                                            <div class="invalid-feedback">
+                                                                                                Requerido.
+                                                                                              </div>
                                                                                         </div>
                                                                                     </div>
                                                                                     break;
@@ -121,7 +131,7 @@
                                                                                 {
                                                                                     <div class="col-md-6 col-sm-12">
                                                                                         <div class="options">
-                                                                                                <select  class="form-select form-select-sm escala" aria-label="Default select example">
+                                                                                                <select value="" class="form-select form-select-sm escala" aria-label="Default select example">
                                                                                                     <option selected>Seleccione</option>
                                                                                                     <option value="1">1</option>
                                                                                                     <option value="2">2</option>
@@ -143,7 +153,7 @@
                                                                                     <div class="col-md-6 col-sm-12">
                                                                                         <div class="options-multiple-linkert">
                                                                                               <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
-                                                                                              <select  class="form-select form-select-sm escala" aria-label="Default select example">
+                                                                                              <select  value="" class="form-select form-select-sm escala" aria-label="Default select example">
                                                                                                 <option selected>Seleccione</option>
                                                                                                 <option value="1">No aplica</option>
                                                                                                 <option value="2">No cumple las expectativas</option>
@@ -154,6 +164,17 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 }
+                                                                                else
+                                                                                {
+                                                                                   <div style="height:50px;" class="mt-2">
+                                                                                  <input type="text" class="form-control" required >
+                                                                                  <div class="invalid-feedback">
+                                                                                                Requerido.
+                                                                                              </div>
+
+                                                                                </div>
+                                                                           
+                                                                                }
                                                                             }
                                                                             opcion++;
                                                                         }
@@ -161,7 +182,9 @@
                                                                         {
                                                                             <div style="height:50px;" class="mt-2">
                                                                                   <input type="text" class="form-control" >
+                                                                                  <p> ajsdksajdklsajdskaldjsakljdsaljsa</p>
                                                                             </div>
+                                                                           
                                                                         }
                                                                     </div>
                                                                 </div>
@@ -186,7 +209,7 @@
                                             @if (categori.Id==Model.Categorias.Last().Id)
                                             {
                                                 <input type="button" name="previous" id="Anterior" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
-                                                <input type="submit" name="next" id="EnviarEncuestaMadurez" class="next action-button btn btn-success" value="Enviar Encuesta" />
+                                                <input type="submit" name="next" id="EnviarEncuestaMadurez" class="action-button btn btn-success" value="Enviar Encuesta" />
                                             }
                                             else
                                             {
@@ -224,11 +247,17 @@
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
         var forms = document.getElementsByClassName('needs-validation');
         // Loop over them and prevent submission
+        let button = document.getElementById("EnviarEncuestaMadurez");
         var validation = Array.prototype.filter.call(forms, function(form) {
           form.addEventListener('submit', function(event) {
+              debugger;
             if (form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
+              
+            }else{
+                event.preventDefault();
+                window.location.href = '@Url.Action("EnvioIndexRespuestasMadurez","Respuestas")';
             }
             form.classList.add('was-validated');
           }, false);
