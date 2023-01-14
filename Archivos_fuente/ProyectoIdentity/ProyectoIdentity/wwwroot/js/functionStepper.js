@@ -20,7 +20,8 @@ $(document).ready(function () {
     ]
 
     $("fieldset").first().addClass('active');
-    $(".next").click(function () {/*
+    $(".next").click(function () {
+        /*
         debugger;
         let selectAspectosDemograficos = $("fieldset.active .select-aspectos-demograficos");
         let selectdemograficos = $("fieldset.active .select-demograficos");
@@ -196,6 +197,7 @@ $(document).ready(function () {
         current_fs = $(this).parent().parent().parent().parent().parent();
         next_fs = $(this).parent().parent().parent().parent().parent().next();
         let elem = $(".next");
+        console.log(elem)
         let indexNext = $.inArray(this, elem);
         //Add Class Active
         $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");

@@ -1,4 +1,4 @@
-﻿@model ProyectoIdentity.Models.ModelTemplateJorney.ModelSurvey
+﻿@model ProyectoIdentity.Models.ModelsJourney.Encuesta
 
 @{
     ViewData["Title"] = "Delete";
@@ -29,12 +29,12 @@
                 <img  src="~/imagenes/LogoHayTalento.png" alt="Logo hay talento">
             </div>
             <div>
-                <h1>Bienvenido a la Encuesta de HayTalento</h1>
-                <h6 class="text-justify">Nos interesa conocer tu percepción acerca de los Beneficios Generales y Reconocimientos monetarios y no monetarios que te brinda la compañía, así como algunos aspectos sociodemográficos que nos permitan proporcionar informaciòn relevante para adecuar y modernizar nuestros modelos de reconocimientos y beneficios acorde con tu actual momento de vida. 
-                <br><br>Esta información es confidencial y se utilizará para fines estrictamente estadísticos e informativos. Tu valoración y comentarios serán una referencia y no implican ningún compromiso presente ni futuro para la Compañía.
+                <h1>@Model.NombreEncuesta</h1>
+                <h6 class="text-justify">
+                    @Model.DescripcionEncuesta
                 </h6>
                 <div class="text-right">
-                    <input type="button" name="next" id="redirect" class="next action-button btn btn-primary" value="Comenzar Encuesta" />
+                    <input type="button" name="next" id="redirect" class=" action-button btn btn-primary" value="Comenzar Encuesta" />
                 </div>
             </div>
         </div>
