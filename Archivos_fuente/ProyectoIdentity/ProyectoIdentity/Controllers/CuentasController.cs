@@ -118,13 +118,21 @@ namespace ProyectoIdentity.Controllers
         }
 
         //Salir o cerrar sesión de la aplicacion (logout)
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> SalirAplicacion()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            ViewBag.Message = "Login";
+            return LocalRedirect("~/");
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> SalirAplicacion(int id)
+        //{
+        //    await _signInManager.SignOutAsync();
+            
+        //    return View();
+        //}
 
         //Método para olvido de contraseña
         [HttpGet]

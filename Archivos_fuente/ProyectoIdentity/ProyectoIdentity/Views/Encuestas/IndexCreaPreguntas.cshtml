@@ -74,6 +74,7 @@
                     @{
                         int indexCategoria = 0;
                         int indexpreguntas = 0;
+                        int indexModal = 1;
                     }
                     @foreach (var categori in Model.Categorias)
                     {
@@ -91,9 +92,10 @@
                                             }
                                             @if (categori.Preguntas != null)
                                             {
+
                                                 @foreach (var pregunta in categori.Preguntas)
                                                 {
-                                                    <div class="modal fade" id="exampleModal_@pregunta.NumeroPregunta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="exampleModal_@indexModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -248,8 +250,8 @@
                                                                             </div>
                                                                         }
                                                                         <div>
-                                                                            <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
-                                                                            <button type="button" id="GuardaPregunta" class="btn btn-primary mr-1" data-dismiss="modal">Guardar</button>
+                                                                            <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                                                            <button type="button" id="GuardaPregunta" class="btn btn-primary mr-1" data-dismiss="modal" aria-label="Close">Guardar</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -271,10 +273,11 @@
                                                                     <input type="hidden" name="CategoriaR[@indexCategoria].Preguntas[@indexpreguntas].TipoPreguntaId" id="tipoPregunta" value="@Html.DisplayFor(p=>pregunta.IdTipo)"/>
                                                         <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
 
+
                                                                     <div class="editDelete">
                                                                         <button type="button" color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">
                                                                             <span class="sc-fEXmlR kowIqE">
-                                                                                <i class="bi-pencil-square" data-toggle="modal" data-target="#exampleModal_@pregunta.NumeroPregunta"></i>
+                                                                                <i class="bi-pencil-square" data-toggle="modal" data-target="#exampleModal_@indexModal"></i>
                                                                             </span>
                                                                         </button>
                                                                         @if (categori.NombreCategoria != "Datos Demograficos")
@@ -336,6 +339,7 @@
                                                                 </div>
                                                             </div>
                                                             @{
+                                                                indexModal++;
                                                                 indexpreguntas++;
                                                             }
                                                         </div>
@@ -381,8 +385,6 @@
                         </fieldset>
                         indexCategoria++;
                     }
-                    }
-
                 </form>
             </div>
         </div>

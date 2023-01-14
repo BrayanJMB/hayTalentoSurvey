@@ -237,7 +237,7 @@ namespace ProyectoIdentity.Controllers
                 };
                 var encuestaMadRes = await _context.Encuesta.AddAsync(EncuestaMadurez);
                 await _context.SaveChangesAsync();
-                encuestaMadRes.Entity.Link = _configuration.GetValue<string>("LinkSurveyMadurez") + "?idSurvey=" + encuestaRes.Entity.Id;
+                encuestaMadRes.Entity.Link = _configuration.GetValue<string>("LinkSurveyMadurez") + "?idSurvey=" + encuestaMadRes.Entity.Id;
                 _context.Encuesta.Update(encuestaMadRes.Entity);
                 //agregar los datos demograficos
                 bool exito2 =await CreateSurvey(beneficios, encuestaMadRes.Entity.Id);
