@@ -8,11 +8,12 @@ namespace ProyectoIdentity.Models.ModelsJourney
     {
         public int Id { get; set; }
         [Display(Name = "Opcion")]
-        [StringLength(50, ErrorMessage = "El {0} no puede superar los {1} Caracteres")]
+        [StringLength(500, ErrorMessage = "El {0} no puede superar los {1} Caracteres")]
         public string Nombre { get; set; }
         [Display(Name = "Numero Opcion")]
         [RegularExpression(@"^[0-9]{1,2}?$")]
         public int NumeroOpcion { get; set; }
+        public float ValorOpcion { get; set; }
         [ForeignKey("Pregunta")]
         [JsonIgnore]
         [Display(Name = "Pregunta Numero")]

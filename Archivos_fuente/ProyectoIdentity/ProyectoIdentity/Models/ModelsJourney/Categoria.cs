@@ -11,7 +11,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
         public string NombreCategoria { get; set; }
         [StringLength(300, ErrorMessage = "El {0} no puede superar los {1} Caracteres")]
         public string Descripcion { get; set; }
-        public List<Pregunta>? Preguntas { get; set; }
+        
         public List<EncuestaCategoria>? EncuestaCategoria { get; set; }
     }
 }

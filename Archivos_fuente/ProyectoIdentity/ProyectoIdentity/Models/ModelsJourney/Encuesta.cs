@@ -13,6 +13,8 @@ namespace ProyectoIdentity.Models.ModelsJourney
         [Display(Name = "Descripcion de la Encuesta")]
         public string DescripcionEncuesta { get; set; }
 
+        public string? Link { get; set; }
+
         public DateTime FechaDeCreacion { get; set; } = DateTime.Now;
 
         public DateTime FechaMaximoPlazo { get; set; }
@@ -24,8 +26,15 @@ namespace ProyectoIdentity.Models.ModelsJourney
         public Company? Company { get; set; }
 
         //tablas de referencia
+        //public List<EncuestaDemografico>? EncuestaDemograficos { get; set; }
         public List<EncuestaCategoria>? EncuestaCategorias { get; set; }
 
-        public List<EncuestaRepondente>? Versions { get; set; }
+        public List<Demograficos>? Demograficos { get; set; }
+
+        public List<EncuestaRepondente>? EncuestaRepondente { get; set; }
+
+        public List<EncuestaBussines>? EncuestaBussines { get; set; }
+
+        public List<EncuestaArea>? EncuestaAreas { get; set; }
     }
 }

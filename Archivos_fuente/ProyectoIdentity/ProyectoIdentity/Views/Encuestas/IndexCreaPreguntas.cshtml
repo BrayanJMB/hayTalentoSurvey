@@ -1,16 +1,17 @@
 ﻿@model ProyectoIdentity.Models.ModelTemplateJorney.ModelSurvey
-
 @{
     ViewData["Title"] = "CreateEncuestas";
     bool Active = true;
     string firstSteper = "js-active";
     int opcion = 1;
-    string[] iconStepper = {"","bi bi-globe-americas",
+    string[] iconStepper = {"bi bi-globe-americas","bi bi-globe-americas",
+                            "bi bi-globe-americas",
                             "bi bi-heart-pulse",
                             "bi bi-piggy-bank-fill",
                             "bi bi-person-check-fill",
                             "bi bi-tools",
                             "bi bi-shield-lock-fill" };
+    var paises =Model.Categorias[0].Preguntas.Where(x => x.NombrePregunta == "Pais").Select(x => x.Opciones).First();
 }
 
 
@@ -38,9 +39,15 @@
             <div class="col-md-12 mx-0">
 
                 <form id="msform" asp-action="CreateEncuestas" asp-controller="Encuestas" method="post">
-                @*    <input type="text" name="data" class="form-control" />
-                    <input type="submit" name="next" class="next action-button btn btn-success" value="Finalizar" />
-                </form>    *@
+                    <input type="hidden" name="NombreEncuesta" class="form-control" value="@ViewBag.Encuesta.NombreEncuesta" />
+                    <input type="hidden" name="DescripcionEcuesta" class="form-control" value="@ViewBag.Encuesta.DescripcionEncuesta" />
+                    <input type="hidden" name="FechaCreacion" class="form-control" value="@ViewBag.Encuesta.FechaDeCreacion" />
+                    <input type="hidden" name="Fechalimite" class="form-control" value="@ViewBag.Encuesta.FechaMaximoPlazo" />
+                    <input type="hidden" name="CompanyId" class="form-control" value="@ViewBag.Encuesta.CompanyId" />
+
+
+                    @*<input type="submit" name="next" class="next action-button btn btn-success" value="Finalizar" />*@
+
                     <!-- progressbar -->
 
                     <ul id="progressbar">
@@ -59,19 +66,29 @@
                             opcion++;
                         }
                         @{
-                            opcion=1;
+                            opcion = 1;
                         }
                     </ul>
 
                     <!-- fieldsets -->
+                    @{
+                        int indexCategoria = 0;
+                        int indexpreguntas = 0;
+                    }
                     @foreach (var categori in Model.Categorias)
                     {
                         <fieldset>
                             <div class="w-100 mt-4 shadow p-4 rounded bg-white">
+                                <input type="hidden" name="CategoriaR[@indexCategoria].IdCategoria" value="@categori.Id" />
+
+
                                 <h3>@Html.DisplayFor(c=>categori.NombreCategoria)</h3>
                                 <div class="form-card">
                                     <div class="addQuestion mt-2">
                                         <div class="question-list ">
+                                            @{
+                                                indexpreguntas = 0;
+                                            }
                                             @if (categori.Preguntas != null)
                                             {
                                                 @foreach (var pregunta in categori.Preguntas)
@@ -93,9 +110,10 @@
                                                                     <div class="d-flex w-100 align-items-center mb-2">
                                                                         <div class="common-sub-title mr-2">@pregunta.NumeroPregunta</div>
                                                                         <div class="w-100">
-                                                                            <textarea class="form-control custom-survey-input w-100" placeholder="Añadir Pregunta" type="text" data-val="true" data-val-length="Ha excedido el tamaño maximo del Nombre" data-val-length-max="100" id="NombreEncuesta" rows="2" maxlength="200" name="NombreEncuesta" >@pregunta.NombrePregunta</textarea>
+                                                                            <textarea class="form-control custom-survey-input w-100" placeholder="Añadir Pregunta" type="text" data-val="true" data-val-length="Ha excedido el tamaño maximo del Nombre" data-val-length-max="100" id="NombreEncuesta" rows="2" maxlength="200" name="NombreEncuesta">@pregunta.NombrePregunta</textarea>
                                                                         </div>
                                                                     </div>
+                                                                    @{if(pregunta.NombrePregunta!="Ciudad" && pregunta.NombrePregunta!="Pais"){
                                                                     <div>
 
                                                                         <label class="control-label" for="NombreEncuesta">Descripcion de la Pregunta</label>
@@ -111,14 +129,65 @@
                                                                         </div>
                                                                         <div class="sc-eeMvmM cYRtHo">0/250</div>
                                                                     </div>
+                                                                        }
+                                                                    }
+                                                                    @if (pregunta.NombrePregunta == "Ciudad")
+                                                                    {
+                                                                        <div>
+                                                                            <label class="control-label" for="NombreEncuesta">Pais</label>
+                                                                            <select id="paises">
+                                                                                <option value="" selected>Seleccione...</option>
+                                                                                
+                                                                                @foreach(var pais in paises)
+                                                                                {
+                                                                                    <option value="@pais.OpcionName">@pais.OpcionName</option>
+                                                                                }
+                                                                            </select>
+                                                                        </div>
+                                                                    }
                                                                     @if (pregunta.TipoPregunta != "Abierta")
                                                                     {
                                                                         <div class="row mt-2" id="Opciones">
-                                                                            @if (pregunta.Opciones != null)
+                                                                            @if (pregunta.Opciones != null || pregunta.NombrePregunta == "Ciudad")
+
                                                                             {
+                                                                                string Invisible= "block";
+                                                                                if (pregunta.NombrePregunta == "Ciudad" || pregunta.NombrePregunta == "Pais")
+                                                                                {
+                                                                                   Invisible = "none";
+                                                                                }
+
+                                                                                if (pregunta.NombrePregunta == "Ciudad")
+                                                                                {
+                                                                                    foreach (var opcionP in Model.Ciudades)
+                                                                                    {
+                                                                                        <div class="col-6 text-limit mb-1" id="OpcionPregunta" style="display:@Invisible">
+                                                                                            <div class="sc-cwSeag iHLect">
+                                                                                                <div class="sc-lllmON eEvYeb">
+                                                                                                    <textarea id="with-placeholder" maxlength="150" placeholder="Añadir opción..." autocomplete="off" class="sc-iJnaPW fjyQZj">@opcionP.CityName</textarea>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="sc-ezOQGI bQftdk">
+                                                                                                <div class="sc-bYMpWt eGMbIs">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-12"></div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                @if (pregunta.TipoPregunta != "Likkert")
+                                                                                                {
+                                                                                                    <div class="sc-kMjNwy jtBNGv" id="EliminaOpcion" onclick="EliminaOpcionOne(this)">Eliminar</div>
+                                                                                                }
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        opcion++;
+                                                                                    }
+                                                                                }else{
                                                                                 foreach (var opcionP in pregunta.Opciones)
                                                                                 {
-                                                                                    <div class="col-6 text-limit mb-1" id="OpcionPregunta">
+                                                                                    
+                                                                                    <div class="col-6 text-limit mb-1" id="OpcionPregunta" style="display:@Invisible">
                                                                                         <div class="sc-cwSeag iHLect">
                                                                                             <div class="sc-lllmON eEvYeb">
                                                                                                 <textarea id="with-placeholder" maxlength="150" placeholder="Añadir opción..." autocomplete="off" class="sc-iJnaPW fjyQZj">@opcionP.OpcionName</textarea>
@@ -130,45 +199,57 @@
                                                                                                     <div class="col-12"></div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div class="sc-kMjNwy jtBNGv" id="EliminaOpcion" onclick="EliminaOpcionOne(this)">Eliminar</div>
+                                                                                            @if (pregunta.TipoPregunta != "Likkert")
+                                                                                            {
+                                                                                                <div class="sc-kMjNwy jtBNGv" id="EliminaOpcion" onclick="EliminaOpcionOne(this)">Eliminar</div>
+                                                                                            }
+                                                                                            
                                                                                         </div>
                                                                                     </div>
 
                                                                                     opcion++;
                                                                                 }
+                                                                                }
                                                                             }
                                                                             else
                                                                             {
                                                                                 <div class="col-6 text-limit mb-1" id="OpcionPregunta">
-                                                                                    <div class="sc-cwSeag iHLect">
-                                                                                        <div class="sc-lllmON eEvYeb">
-                                                                                            <textarea id="with-placeholder" maxlength="150" placeholder="Añadir opción..." autocomplete="off" class="sc-iJnaPW fjyQZj"></textarea>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="sc-ezOQGI bQftdk">
-                                                                                        <div class="sc-bYMpWt eGMbIs">
-                                                                                            <div class="row">
-                                                                                                <div class="col-12"></div>
+                                                                                        <div class="sc-cwSeag iHLect">
+                                                                                            <div class="sc-lllmON eEvYeb">
+                                                                                                <textarea id="with-placeholder" maxlength="150" placeholder="Añadir opción..." autocomplete="off" class="sc-iJnaPW fjyQZj"></textarea>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div class="sc-kMjNwy jtBNGv" id="EliminaOpcion" onclick="EliminaOpcionOne(this)">Eliminar</div>
+                                                                                        <div class="sc-ezOQGI bQftdk">
+                                                                                            <div class="sc-bYMpWt eGMbIs">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-12"></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            @if (pregunta.TipoPregunta != "Likkert")
+                                                                                            {
+                                                                                                <div class="sc-kMjNwy jtBNGv" id="EliminaOpcion" onclick="EliminaOpcionOne(this)">Eliminar</div>
+                                                                                            }
+                                                                                            
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
                                                                             }
                                                                             @{
                                                                                 opcion = 1;
                                                                             }
-                                                                            
+
                                                                         </div>
                                                                     }
-                                                                    
+
                                                                     <div class="modal-footer justify-content-start">
-                                                                        <div class="justify-content-center w-75">
-                                                                            <button type="button" class="btn btn-outline-success" id="AgregaOpcion"><i class="bi bi-plus-circle"></i> Agregar Opcion</button>
-                                                                        </div>
+                                                                        @if (pregunta.TipoPregunta != "Likkert")
+                                                                        {
+                                                                            <div class="justify-content-center w-75">
+                                                                                <button type="button" class="btn btn-outline-success" id="AgregaOpcion"><i class="bi bi-plus-circle"></i> Agregar Opcion</button>
+                                                                            </div>
+                                                                        }
                                                                         <div>
                                                                             <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
-                                                                            <button type="button" id="GuardaPregunta" class="btn btn-primary mr-1">Guardar</button>
+                                                                            <button type="button" id="GuardaPregunta" class="btn btn-primary mr-1" data-dismiss="modal">Guardar</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -179,48 +260,84 @@
                                                     <div class="row" id="FilaPregunta">
                                                         <div class="col-md-12">
                                                             <div class="showEditDelete">
-                                                                @if(categori.NombreCategoria!="Datos Demograficos"){
+
                                                                 <div class="question_number mt-1"><span class="ques-no">@pregunta.NumeroPregunta </span></div>
-                                                                }
+                                                                
                                                                 <div class="question_data">
                                                                     <div id="mandatory-or-not" name="mandatory-or-not" class="mandatory-block"> @pregunta.TipoPregunta </div>
-                                                                    <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
+
+                                                                    <input type="hidden" name="CategoriaR[@indexCategoria].Preguntas[@indexpreguntas].Nombre" id="PreguntaCa" value="@Html.DisplayFor(p=>pregunta.NombrePregunta)" />
+                                                                    <input type="hidden" name="CategoriaR[@indexCategoria].Preguntas[@indexpreguntas].Descripcion" id="Descripcion" value="" />
+                                                                    <input type="hidden" name="CategoriaR[@indexCategoria].Preguntas[@indexpreguntas].TipoPreguntaId" id="tipoPregunta" value="@Html.DisplayFor(p=>pregunta.IdTipo)"/>
+                                                        <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
 
                                                                     <div class="editDelete">
-                                                                        <button type="button"  color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">
+                                                                        <button type="button" color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">
                                                                             <span class="sc-fEXmlR kowIqE">
                                                                                 <i class="bi-pencil-square" data-toggle="modal" data-target="#exampleModal_@pregunta.NumeroPregunta"></i>
                                                                             </span>
                                                                         </button>
-                                                                        @if(categori.NombreCategoria!="Datos Demograficos"){
-                                                                        <button type="button" id="DeletQuestion"  color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">
-                                                                            
+                                                                        @if (categori.NombreCategoria != "Datos Demograficos")
+                                                                        {
+                                                                            <button type="button" id="DeletQuestion" color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">
+
                                                                                 <i class="bi bi-trash3-fill"></i>
-                                                                        </button>
+                                                                            </button>
                                                                         }
                                                                     </div>
                                                                     <div class="row">
-                                                                        @if (pregunta.Opciones != null)
+                                                                        @{int indexOpcion = 0;}
+                                                                        @if (pregunta.NombrePregunta == "Ciudad")
                                                                         {
+                                                                            foreach (var opcionP in Model.Ciudades)
+                                                                            {
+                                                                                <div class="col-4 optionsQue">
+                                                                                    <div class="options">
+                                                                                        <div class="block">@opcion</div>
+                                                                                        <input type="hidden" id="opcionP" name="Ciudad[@indexOpcion].CityName" value="@opcionP.CityName" />
+                                                                                        <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree" data-Country="@opcionP.CountryId"> @opcionP.CityName </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                indexOpcion++;
+                                                                                opcion++;
+                                                                            }
+                                                                            indexOpcion = 0;
+                                                                        }
+                                                                        else if (pregunta.Opciones != null)
+                                                                        {
+                                                                            
                                                                             foreach (var opcionP in pregunta.Opciones)
                                                                             {
                                                                                 <div class="col-4 optionsQue">
                                                                                     <div class="options">
                                                                                         <div class="block">@opcion</div>
+                                                                                        <input type="hidden" id="opcionP" name="CategoriaR[@indexCategoria].Preguntas[@indexpreguntas].Opciones[@indexOpcion].NombreOpcion" value="@Html.DisplayFor(o=>opcionP.OpcionName)" />
                                                                                         <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
                                                                                     </div>
                                                                                 </div>
                                                                                 opcion++;
+                                                                                indexOpcion++;
                                                                             }
+                                                                            indexOpcion = 0;
                                                                         }
                                                                         else
                                                                         {
-                                                                            <div style="height:50px;"></div>
+                                                                            <div class="col-4 optionsQue" style="height:50px;">
+                                                                                <div class="options">
+                                                                                <div class="block"></div>
+                                                                                    <input type="hidden" id="opcionP" name="CategoriaR[@indexCategoria].Preguntas[@indexpreguntas].Opciones[0].NombreOpcion"  value="" />
+                                                                                <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            
                                                                         }
 
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            @{
+                                                                indexpreguntas++;
+                                                            }
                                                         </div>
                                                     </div>
 
@@ -228,8 +345,6 @@
                                                         <hr class="mb-0 mt-0">
                                                     </div>
                                                     opcion = 1;
-
-
                                                 }
                                             }
                                         </div>
@@ -241,7 +356,7 @@
 
                                     <div class="col-md-12">
                                         <div class="text-right">
-                                            @if (categori.Id==Model.Categorias.Last().Id)
+                                            @if (categori.Id == Model.Categorias.Last().Id)
                                             {
                                                 <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
                                                 <input type="submit" name="next" id="Enviar" class="next action-button btn btn-success" value="Finalizar" />
@@ -258,13 +373,16 @@
                                                 }
                                                 <input type="button" name="next" class="next action-button btn btn-primary" value="Siguiente" />
                                             }
-                                            
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </fieldset>
+                        indexCategoria++;
                     }
+                    }
+
                 </form>
             </div>
         </div>
