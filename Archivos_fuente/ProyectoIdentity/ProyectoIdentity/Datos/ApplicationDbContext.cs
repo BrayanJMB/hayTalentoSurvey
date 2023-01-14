@@ -18,16 +18,17 @@ namespace ProyectoIdentity.Datos
         public DbSet<Opcion> Opcion { get; set; }
         public DbSet<Pregunta> Pregunta { get; set; }
 
+        public DbSet<DemograficosName> DemograficosName { get; set; }
+
         public DbSet<Respondente> Respondente { get; set; }
         public DbSet<Respuesta> Respuesta { get; set; }
         public DbSet<TipoPregunta> TipoPregunta { get; set; }
         public DbSet<EncuestaRepondente> EncuestaRepondente { get; set; }
         public DbSet<Company> Company { get; set; }
-        public DbSet<RespondenteDemografico> RespondenteDemografico { get; set; }
         public DbSet<OpcionesDemo> OpcionesDemo { get; set; }
         public DbSet<Demograficos> Demograficos { get; set; }
         public DbSet<EncuestaCategoria> EncuestaCategoria { get; set; }
-        //public DbSet<EncuestaDemografico> EncuestaDemografico { get; set; }
+        public DbSet<EncuestaDemografico> EncuestaDemografico { get; set; }
         public DbSet<Area> Area { get; set; }
 
         public DbSet<Country> Country { get; set; }

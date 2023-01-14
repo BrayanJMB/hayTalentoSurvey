@@ -24,12 +24,11 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "Colaborador"},
                 new Opcion { Id = 1, OpcionName = "Conyugue"},
-                new Opcion { Id = 1, OpcionName = "Hijo 1, 2, 3…"},
+                new Opcion { Id = 1, OpcionName = "Hijo"},
                 new Opcion { Id = 1, OpcionName = "Madre"},
                 new Opcion { Id = 1, OpcionName = "Padre"},
-                new Opcion { Id = 1, OpcionName = "Hermano 1, 2, 3"},
-                new Opcion { Id = 1, OpcionName = "Otro"},
-                new Opcion { Id = 1, OpcionName = "Fallecido"}
+                new Opcion { Id = 1, OpcionName = "Hermano"},
+                new Opcion { Id = 1, OpcionName = "Otros"},
             };
 
             return OpcionesLik;
@@ -57,7 +56,8 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                 new Opcion { Id = 1, OpcionName = "Casado(a)"},
                 new Opcion { Id = 1, OpcionName = "Separado(a)"},
                 new Opcion { Id = 1, OpcionName = "Divorciado (a)"},
-                new Opcion { Id = 1, OpcionName = "Viudo(a)"}
+                new Opcion { Id = 1, OpcionName = "Viudo(a)"},
+                new Opcion { Id = 1, OpcionName = "Fallecido"}
 
             };
 
@@ -200,6 +200,86 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                 TipoPregunta = "Selección",
                 Opciones = Demo1(),
             }
+            };
+            return Demograficos;
+        }
+        private static List<Pregunta> PreguntasDemograficas1()
+        {
+            List<Pregunta> Demograficos = new List<Pregunta> {
+            new Pregunta
+            {
+                NombrePregunta = "Parentesco",
+                TipoPregunta = "Selección",
+                Opciones = Demo1(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Sexo",
+                TipoPregunta = "Selección",
+                Opciones = Demo2(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Estado Civil",
+                TipoPregunta = "Selección",
+                Opciones = Demo3(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Nivel Educativo",
+                TipoPregunta = "Selección",
+                Opciones = Demo4(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Dependencia EConomica",
+                TipoPregunta = "Selección",
+                Opciones = Demo5(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Edad",
+                TipoPregunta = "Selección",
+                Opciones = Demo6(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "¿Existe otro ingreso en tu hogar?",
+                TipoPregunta = "Selección",
+                Opciones = Demo7(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Tu vivienda es",
+                TipoPregunta = "Selección",
+                Opciones = Demo8(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "Tu vivienda es estrato",
+                TipoPregunta = "Selección",
+                Opciones = Demo9(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "En caso de NO tener vivienda propia, explica el motivo",
+                TipoPregunta = "Selección",
+                Opciones = Demo10(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "¿Tienes vehículo propio?",
+                TipoPregunta = "Selección",
+                Opciones = Demo11(),
+            },
+            new Pregunta
+            {
+                NombrePregunta = "¿Tiene mascotas?",
+                TipoPregunta = "Selección",
+                Opciones = Demo12(),
+            },
+
+
             };
             return Demograficos;
         }
@@ -750,8 +830,23 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
             return categiras;
         }
 
+        public static List<Category> Categories2()
+        {
+            var categiras = new List<Category> {
+                new Category{Id=1, NombreCategoria="Aspectos Demograficos",Preguntas=PreguntasDemograficasInicio()},
+                new Category{Id=2,NombreCategoria="Datos Demograficos",Preguntas=PreguntasDemograficas1()},
+                new Category{Id=3,NombreCategoria="Beneficios de Calidad de Vida",Preguntas=PreguntaCalidad1()},
+                new Category{Id=4,NombreCategoria="Beneficios Monetarios y No Monetarios",Preguntas=PreguntaMonetarios2()},
+                new Category{Id=5,NombreCategoria="Beneficios de Desarrollo Personal",Preguntas=PreguntaDesarrollo3()},
+                new Category{Id=6,NombreCategoria="Beneficios en Herramientas de Trabajo",Preguntas=PreguntaComplementarios4()},
+                new Category{Id=7,NombreCategoria="Beneficios/Madurez",Preguntas=PreguntaMercadeo5()}
 
-        public  static List<Category> CategoriesMadurez() {
+            };
+            return categiras;
+
+        }
+
+            public static List<Category> CategoriesMadurez() {
 
             var categiras = new List<Category> {
                 new Category{Id=6,NombreCategoria="Beneficios/Madurez",Preguntas=PreguntaMercadeo5()}

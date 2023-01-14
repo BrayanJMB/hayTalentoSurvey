@@ -47,7 +47,7 @@ namespace ProyectoIdentity.Controllers
             var Model = new ModelSurvey();
             var preguntas =
             ViewBag.Encuesta = encuesta;
-            Model.Categorias = ModelSurvey.Categories();
+            Model.Categorias = ModelSurvey.Categories2();
             //Funcionalidad Paises
 
             var paises = await _context.Country.Select(x => x.CountryName).ToListAsync();
@@ -197,6 +197,34 @@ namespace ProyectoIdentity.Controllers
                 encuesta.CategoriaR.Remove(encuesta.CategoriaR[0]);
                 var beneficios =new List<CategoriaR> {encuesta.CategoriaR.Last()};
                 encuesta.CategoriaR.Remove(encuesta.CategoriaR.Last());
+                //crear los demograficos
+                int index = 1;
+                foreach(var demografico in demograficos.Preguntas)
+                {
+                    var demo=_context.Demograficos.Add(new Demograficos
+                    {
+                        NumeroDemografico=index,
+                        Nombre=demografico.Nombre,
+                        
+                    });
+                    _context.SaveChanges();
+                    _context.EncuestaDemografico.Add(new EncuestaDemografico
+                    {
+                        DemograficoId = demo.Entity.Id,
+                        EncuestaId= encuestaRes.Entity.Id
+                    });
+                    index++;
+                    foreach(var opciones  in demografico.Opciones)
+                    {
+                        _context.OpcionesDemo.Add(new OpcionesDemo
+                        {
+                            DemograficoId = demo.Entity.Id,
+                            Name = opciones.NombreOpcion
+
+                        });
+                    }
+                    await _context.SaveChangesAsync();
+                }
                 //otras dimensiones diferentes a demograficas
                 bool exito=await CreateSurvey(encuesta.CategoriaR, encuestaRes.Entity.Id);
                 var EncuestaMadurez = new Encuesta
