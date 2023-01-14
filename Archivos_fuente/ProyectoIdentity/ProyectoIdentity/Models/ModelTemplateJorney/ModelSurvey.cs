@@ -778,7 +778,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                      IdTipo = 2,
                      Opciones=OpcionesLikkertper15()
                  },
-                 new Pregunta {NombrePregunta = "¿Cuánto gastó su empresa en total en beneficios en el último año fiscal?", NumeroPregunta = 26, TipoPregunta = "Respuesta única", Opciones = OpcionesLikkertper16(),IdTipo = 1},
+                 new Pregunta {NombrePregunta = "¿Cuánto gastó su empresa en total en beneficios en el último año fiscal?", NumeroPregunta = 26, TipoPregunta = "Likkert", Opciones = OpcionesLikkertper16(),IdTipo = 1},
                  new Pregunta {NombrePregunta = "¿Los empleados valoran su plan de beneficios?", NumeroPregunta = 27, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {NombrePregunta = "¿El plan de beneficios mejora la atracción y retención?", NumeroPregunta = 28, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {NombrePregunta = "¿El plan de beneficios mejora el compromiso del empleado con su trabajo?", NumeroPregunta = 29, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},

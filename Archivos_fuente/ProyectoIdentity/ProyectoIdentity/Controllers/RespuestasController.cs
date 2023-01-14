@@ -75,7 +75,10 @@ namespace ProyectoIdentity.Controllers
                                                     {
                                                         NombrePregunta = pregunta.NombrePregunta,
                                                         IdTipo = pregunta.TipoPreguntaId,
-                                                        NumeroPregunta = pregunta.NumeroPregunta,
+                                                        NumeroPregunta = pregunta.Id,
+                                                        TipoPregunta = (from tipoPregunta in _context.TipoPregunta
+                                                                        where pregunta.TipoPreguntaId == tipoPregunta.Id
+                                                                        select tipoPregunta.NombreTipoPregunta).FirstOrDefault(),
                                                         Opciones = (from opciones in _context.Opcion
                                                                     where pregunta.Id == opciones.PreguntaId
                                                                     select new Models.ModelTemplateJorney.Opcion
@@ -94,12 +97,12 @@ namespace ProyectoIdentity.Controllers
             return View(query);
         }
 
-        public async Task<IActionResult> RedirectIndexRespuestas(string idSurvey)
+        public async Task<IActionResult> RedirectIndexRespuestas(int idSurvey)
         {
 
             ViewBag.Message = "EnvioRedirectRespuestas";
             var query = (from encuesta in _context.Encuesta
-                         where encuesta.Id == int.Parse(idSurvey)
+                         where encuesta.Id == idSurvey
                          select new Encuesta
                          {
                              NombreEncuesta = encuesta.NombreEncuesta,
@@ -117,18 +120,61 @@ namespace ProyectoIdentity.Controllers
 
         ////////////Encuesta Madurez//////////////////////////
 
-        public async Task<IActionResult> IndexRespuestasMadurez()
+        public async Task<IActionResult> IndexRespuestasMadurez(int idSurvey)
         {
             ViewBag.Message = "Login";
-            var Model = new ModelSurvey();
-            Model.Categorias = ModelSurvey.CategoriesMadurez();
-            return View(Model);
+            var query = await
+                            (from encuesta in _context.Encuesta
+                             join encuestaCate in _context.EncuestaCategoria
+                             on encuesta.Id equals encuestaCate.EncuestaId
+                             join categoria in _context.Categoria
+                             on encuestaCate.CategoriaId equals categoria.Id
+                             where encuesta.Id == idSurvey
+                             select new SurveyNew
+                             {
+                                 NombreEncuesta = encuesta.NombreEncuesta,
+                                 Id = encuesta.Id,
+                                 DescripcionEncuesta = encuesta.DescripcionEncuesta,
+                                 Categorias = (from encuestaCate in _context.EncuestaCategoria
+                                               join categoria in _context.Categoria
+                                               on encuestaCate.CategoriaId equals categoria.Id
+                                               where encuestaCate.EncuestaId == idSurvey
+                                               select new Category
+                                               {
+                                                   NombreCategoria = categoria.NombreCategoria,
+                                                   Preguntas = (from pregunta in _context.Pregunta
+                                                                where pregunta.EncuestaCategoriaId == categoria.Id
+                                                                select new Models.ModelTemplateJorney.Pregunta
+                                                                {
+                                                                    NombrePregunta = pregunta.NombrePregunta,
+                                                                    IdTipo = pregunta.TipoPreguntaId,
+                                                                    NumeroPregunta = pregunta.Id,
+                                                                    TipoPregunta = (from tipoPregunta in _context.TipoPregunta
+                                                                                    where pregunta.TipoPreguntaId == tipoPregunta.Id
+                                                                                    select tipoPregunta.NombreTipoPregunta).FirstOrDefault(),
+                                                                    Opciones = (from opciones in _context.Opcion
+                                                                                where pregunta.Id == opciones.PreguntaId
+                                                                                select new Models.ModelTemplateJorney.Opcion
+                                                                                {
+                                                                                    OpcionName = opciones.Nombre
+                                                                                }).ToList()
+                                                                }).ToList()
+                                               }).ToList()
+                             }).FirstOrDefaultAsync();
+            return View(query);
         }
 
-        public async Task<IActionResult> RedirectIndexRespuestasMadurez()
+        public async Task<IActionResult> RedirectIndexRespuestasMadurez(int idSurvey)
         {
             ViewBag.Message = "EnvioRedirectRespuestasMadurez";
-            return View();
+            var query = (from encuesta in _context.Encuesta
+                         where encuesta.Id == idSurvey
+                         select new Encuesta
+                         {
+                             NombreEncuesta = encuesta.NombreEncuesta,
+                             DescripcionEncuesta = encuesta.DescripcionEncuesta
+                         }).FirstOrDefault();
+            return View(query);
         }
 
         public async Task<IActionResult> EnvioIndexRespuestasMadurez()
