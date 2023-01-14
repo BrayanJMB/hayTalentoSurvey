@@ -81,8 +81,8 @@
                                                                                 {
                                                                                      <div class="col-md-6 col-sm-12">
                                                                                         <div class="options-multiple-linkert">
-                                                                                            <select  class="form-select form-select-sm likkert" aria-label="Default select example">
-                                                                                                <option selected>Seleccione</option>
+                                                                                            <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
+                                                                                                <option value="" selected>Seleccione</option>
                                                                                                 @foreach(var option in pregunta.Opciones){
                                                                                                     <option value="1">@option.OpcionName</option>
                                                                                                 }
@@ -93,14 +93,7 @@
                                                                                 }
                                                                                 else if(pregunta.TipoPregunta == "Seleccion Multiple")
                                                                                 {
-                                                                                    <div class="form-check-inline">
-                                                                                        <div class="col-md-12 col-sm-12">
-                                                                                            <div class="options">
-                                                                                                <input class="form-check-input datacheck" type="checkbox" id="inlineCheckbox1" value="@opcionP.OpcionName">
-                                                                                                <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    
                                                                                 }
                                                                                 else if (pregunta.TipoPregunta == "Respuesta Unica")
                                                                                 {
@@ -109,7 +102,7 @@
                                                                                             <div class="col-md-6">
                                                                                                         <p class="error-demograficos"></p>
                                                                                                         <p>Pais</p>
-                                                                                                        <select class="form-select form-select-sm  select-aspectos-demograficos" id="paises"  id="validationCustom01" required>
+                                                                                                        <select value="" class="form-select form-select-sm  select-aspectos-demograficos" id="paises"  required>
                                                                                                             <option selected disabled value="">Choose...</option>
                                                                                                             <option value="Colombia">Colombia</option>
                                                                                                             <option value="Estados Unidos">Estados Unidos</option>
@@ -142,7 +135,7 @@
                                                                                             <div class="col-md-6">
                                                                                                 <p class="error-demograficos"></p>
                                                                                                 <p>Area</p>
-                                                                                                <select class="form-select form-select-sm  select-aspectos-demograficos" id="validationCustom05">
+                                                                                                <select class="form-select form-select-sm  select-aspectos-demograficos" id="validationCustom05" required>
                                                                                                     <option selected disabled value="">Seleccione</option>
                                                                                                     <option value="value1">Area</option>
                                                                                                 </select>
@@ -153,8 +146,8 @@
                                                                                             <div class="col-md-6">
                                                                                                 <p class="error-demograficos"></p>
                                                                                                 <p>Unidad Negocio</p>
-                                                                                                <select class="form-select form-select-sm  select-aspectos-demograficos">
-                                                                                                    <option selected>Seleccione</option>
+                                                                                                <select class="form-select form-select-sm  select-aspectos-demograficos" require>
+                                                                                                    <option value="" selected>Seleccione</option>
                                                                                                     <option value="value1">Unidad de Negocio</option>
                                                                                                 </select>
                                                                                             </div>
@@ -209,8 +202,8 @@
                                                                                         }else{
                                                                                         <div class="col-md-6 col-sm-12">
                                                                                             <div class="options">
-                                                                                                <select  class="form-select form-select-sm escala" aria-label="Default select example">
-                                                                                                    <option selected>Seleccione</option>
+                                                                                                <select  class="form-select form-select-sm escala" aria-label="Default select example" required>
+                                                                                                    <option value="" selected>Seleccione</option>
                                                                                                     @foreach (var item in pregunta.Opciones)
                                                                                                     {
                                                                                                         <option value="@item.OpcionName">@item.OpcionName</option>
@@ -227,16 +220,16 @@
                                                                                         <div class="options">
                                                                                             
                                                                                             @if (opcionP.OpcionName == "Café" || opcionP.OpcionName == "Cigarrillo" || opcionP.OpcionName == "Cerveza"){
-                                                                                                <select  class="form-select form-select-sm escala" aria-label="Default select example">
-                                                                                                    <option selected>Seleccione</option>
+                                                                                                <select class="form-select form-select-sm escala" aria-label="Default select example" required>
+                                                                                                    <option value="" selected>Seleccione</option>
                                                                                                     <option value="1">Nunca</option>
                                                                                                     <option value="2">Entre 1 y 3 veces/mes</option>
                                                                                                     <option value="3">Entre 4 y 10 veces /mes</option>
                                                                                                     <option value="4">Más de 10 veces/mes</option>
                                                                                             </select>
                                                                                             }else{
-                                                                                                <select  class="form-select form-select-sm escala" aria-label="Default select example">
-                                                                                                    <option selected>Seleccione</option>
+                                                                                                <select  value="" class="form-select form-select-sm escala" aria-label="Default select example" required>
+                                                                                                    <option value="" selected>Seleccione</option>
                                                                                                     <option value="1">1</option>
                                                                                                     <option value="2">2</option>
                                                                                                     <option value="3">3</option>
@@ -258,8 +251,8 @@
                                                                                     <div class="col-md-6 col-sm-12">
                                                                                         <div class="options-multiple-linkert">
                                                                                               <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
-                                                                                              <select  class="form-select form-select-sm escala" aria-label="Default select example">
-                                                                                                <option selected>Seleccione</option>
+                                                                                              <select class="form-select form-select-sm escala" aria-label="Default select example" required>
+                                                                                                <option value="" selected>Seleccione</option>
                                                                                                 @foreach(var option in pregunta.Opciones){
                                                                                                     <option value="1">@option.OpcionName</option>
                                                                                                 }
@@ -299,7 +292,7 @@
                                             @if (categori.Id==Model.Categorias.Last().Id)
                                             {
                                                 <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
-                                                <input type="submit" name="next" id="EnviarEncuesta" class="next action-button btn btn-success" value="Enviar Encuesta" />
+                                                <input type="submit" name="next" id="EnviarEncuesta" class="action-button btn btn-success" value="Enviar Encuesta" />
                                             }
                                             else
                                             {
@@ -332,86 +325,88 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-        (function() {
-            'use strict';
-            window.addEventListener('load', function() {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    // Add event listener for the "next" button
-                    var nextButton = document.getElementById("siguiente");
-                    nextButton.addEventListener('click', function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                            form.classList.add('was-validated');
-                        } else {
-                            // Move to next step of form
-                            // (You can add the logic here)
-                        }
-                    }, false);
-                });
-            }, false);
-        })();
+        //(function() {
+        //    'use strict';
+        //    window.addEventListener('load', function() {
+        //        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        //        var forms = document.getElementsByClassName('needs-validation');
+        //        // Loop over them and prevent submission
+        //        var validation = Array.prototype.filter.call(forms, function(form) {
+        //            // Add event listener for the "next" button
+        //            var nextButton = document.getElementById("siguiente");
+        //            nextButton.addEventListener('click', function(event) {
+        //                if (form.checkValidity() === false) {
+        //                    event.preventDefault();
+        //                    event.stopPropagation();
+        //                    let firstInvalid = form.querySelector('[required]:invalid');
+        //                    firstInvalid.focus();
+        //                } else {
+        //                    // Move to next step of form
+        //                    // (You can add the logic here)
+        //                }
+        //                form.classList.add('was-validated');
+        //            }, false);
+        //        });
+        //    }, false);
+        //})();
 
-        let paises = document.getElementById("paises");
-        let capitales = [
-            {"pais":"Argentina", "capital":"Buenos Aires"},
-            {"pais":"Bolivia", "capital":"La Paz"},
-            {"pais":"Brasil", "capital":"Brasilia"},
-            {"pais":"Chile", "capital":"Santiago de Chile"},
-            {"pais":"Ecuador", "capital":"Quito"},
-            {"pais":"Paraguay", "capital":"Asunción"},
-            {"pais":"Perú", "capital":"Lima"},
-            {"pais":"Surinam", "capital":"Parabarimo"},
-            {"pais":"Trinidad y Tobago", "capital":"Puerto España"},
-            {"pais":"Uruguay", "capital":"Montevideo"},
-            {"pais":"Venezuela", "capital":"Caracas"},
-            {"pais":"Estados Unidos", "capital":"Washinton D.C" },
-            {"pais":"México", "capital":"Ciudad de México"},
-            {"pais":"Colombia","capital":["Arauca", "Armenia","Barranquilla", "Bogotá",
-               "Bucaramanga","Cali", "Cartagena", "Cúcuta", "Florencia", "Ibagué",
-               "Leticia", "Manizales","Medellín","Mitú","Mocoa","Montería","Neiva",
-               "Pasto","Pereria","Popayán","Puerto Carreño", "Puerto Inírida",
-               "Quibdó","Riohacha","San Andrés", "San José del Guaviare","Santa Marta",
-               "Sincelejo","Tunja","Valledupar","Villavicencio","Yopal"
-            ]}
-        ]
-        paises.onchange = function(){
-            filtrarCapitales();
-        };
+        //let paises = document.getElementById("paises");
+        //let capitales = [
+        //    {"pais":"Argentina", "capital":"Buenos Aires"},
+        //    {"pais":"Bolivia", "capital":"La Paz"},
+        //    {"pais":"Brasil", "capital":"Brasilia"},
+        //    {"pais":"Chile", "capital":"Santiago de Chile"},
+        //    {"pais":"Ecuador", "capital":"Quito"},
+        //    {"pais":"Paraguay", "capital":"Asunción"},
+        //    {"pais":"Perú", "capital":"Lima"},
+        //    {"pais":"Surinam", "capital":"Parabarimo"},
+        //    {"pais":"Trinidad y Tobago", "capital":"Puerto España"},
+        //    {"pais":"Uruguay", "capital":"Montevideo"},
+        //    {"pais":"Venezuela", "capital":"Caracas"},
+        //    {"pais":"Estados Unidos", "capital":"Washinton D.C" },
+        //    {"pais":"México", "capital":"Ciudad de México"},
+        //    {"pais":"Colombia","capital":["Arauca", "Armenia","Barranquilla", "Bogotá",
+        //       "Bucaramanga","Cali", "Cartagena", "Cúcuta", "Florencia", "Ibagué",
+        //       "Leticia", "Manizales","Medellín","Mitú","Mocoa","Montería","Neiva",
+        //       "Pasto","Pereria","Popayán","Puerto Carreño", "Puerto Inírida",
+        //       "Quibdó","Riohacha","San Andrés", "San José del Guaviare","Santa Marta",
+        //       "Sincelejo","Tunja","Valledupar","Villavicencio","Yopal"
+        //    ]}
+        //]
+        //paises.onchange = function(){
+        //    filtrarCapitales();
+        //};
 
-        function filtrarCapitales() {
-            var paisSeleccionado = paises.value;
-            var capitalesFiltradas = capitales.filter(function(capital) {
-                return capital.pais === paisSeleccionado;
-            });
-            actualizarSelectCapitales(capitalesFiltradas);
-        };
+        //function filtrarCapitales() {
+        //    var paisSeleccionado = paises.value;
+        //    var capitalesFiltradas = capitales.filter(function(capital) {
+        //        return capital.pais === paisSeleccionado;
+        //    });
+        //    actualizarSelectCapitales(capitalesFiltradas);
+        //};
 
-        function actualizarSelectCapitales(capitales) {
-            var select = document.querySelector("#capitales");
-            select.innerHTML = "";
+        //function actualizarSelectCapitales(capitales) {
+        //    var select = document.querySelector("#capitales");
+        //    select.innerHTML = "";
 
-            // Si las capitales están guardadas en un array
-            capitales.forEach(function(capital) {
-                if (capital.pais != "Colombia"){
-                    var option = document.createElement("option");
-                    option.value = capital.capital;
-                    option.text = capital.capital;
-                    select.appendChild(option);
-                }else{
-                    capital.capital.forEach((element)=>{
-                        console.log(element)
-                        var option = document.createElement("option");
-                        option.value = element;
-                        option.text = element;
-                        select.appendChild(option);
-                    })
-                }
-            });
-        };
+        //    // Si las capitales están guardadas en un array
+        //    capitales.forEach(function(capital) {
+        //        if (capital.pais != "Colombia"){
+        //            var option = document.createElement("option");
+        //            option.value = capital.capital;
+        //            option.text = capital.capital;
+        //            select.appendChild(option);
+        //        }else{
+        //            capital.capital.forEach((element)=>{
+        //                console.log(element)
+        //                var option = document.createElement("option");
+        //                option.value = element;
+        //                option.text = element;
+        //                select.appendChild(option);
+        //            })
+        //        }
+        //    });
+        //};
 
 ///////////////////////////////////////////////////////7
 
