@@ -247,7 +247,7 @@ namespace ProyectoIdentity.Controllers
                 return RedirectToAction(nameof(Index1));
             }
             //ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
-            return View(encuesta);
+            return RedirectToAction(nameof(Index1));
         }
 
         // GET: Encuestas/Edit/5
