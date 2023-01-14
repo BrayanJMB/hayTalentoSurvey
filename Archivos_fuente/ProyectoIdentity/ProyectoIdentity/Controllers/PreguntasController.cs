@@ -22,8 +22,8 @@ namespace ProyectoIdentity.Controllers
         // GET: Preguntas
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Pregunta.Include(p => p.Categoria).Include(p => p.TipoPregunta);
-            return View(await appDbContext.ToListAsync());
+            //var appDbContext = _context.Pregunta.Include(p => p.Categoria).Include(p => p.TipoPregunta);
+            return View(/*await appDbContext.ToListAsync()*/);
         }
 
         // GET: Preguntas/Details/5
@@ -34,16 +34,16 @@ namespace ProyectoIdentity.Controllers
                 return NotFound();
             }
 
-            var pregunta = await _context.Pregunta
-                .Include(p => p.Categoria)
-                .Include(p => p.TipoPregunta)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (pregunta == null)
-            {
-                return NotFound();
-            }
+            //var pregunta = await _context.Pregunta
+            //    .Include(p => p.Categoria)
+            //    .Include(p => p.TipoPregunta)
+            //    .FirstOrDefaultAsync(m => m.Id == id);
+            //if (pregunta == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View(pregunta);
+            return View(/*pregunta*/);
         }
 
         // GET: Preguntas/Create
@@ -67,7 +67,6 @@ namespace ProyectoIdentity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Id", pregunta.CategoriaId);
             ViewData["TipoPreguntaId"] = new SelectList(_context.TipoPregunta, "Id", "Id", pregunta.TipoPreguntaId);
             return View(pregunta);
         }
@@ -85,7 +84,6 @@ namespace ProyectoIdentity.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Id", pregunta.CategoriaId);
             ViewData["TipoPreguntaId"] = new SelectList(_context.TipoPregunta, "Id", "Id", pregunta.TipoPreguntaId);
             return View(pregunta);
         }
@@ -95,7 +93,7 @@ namespace ProyectoIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NombrePregunta,TipoPreguntaId,CategoriaId")] Pregunta pregunta)
+        public async Task<IActionResult> Edit(int id,  Pregunta pregunta)
         {
             if (id != pregunta.Id)
             {
@@ -122,7 +120,6 @@ namespace ProyectoIdentity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Id", pregunta.CategoriaId);
             ViewData["TipoPreguntaId"] = new SelectList(_context.TipoPregunta, "Id", "Id", pregunta.TipoPreguntaId);
             return View(pregunta);
         }
@@ -135,16 +132,16 @@ namespace ProyectoIdentity.Controllers
                 return NotFound();
             }
 
-            var pregunta = await _context.Pregunta
-                .Include(p => p.Categoria)
-                .Include(p => p.TipoPregunta)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (pregunta == null)
-            {
-                return NotFound();
-            }
+            //var pregunta = await _context.Pregunta
+            //    .Include(p => p.Categoria)
+            //    .Include(p => p.TipoPregunta)
+            //    .FirstOrDefaultAsync(m => m.Id == id);
+            //if (pregunta == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View(pregunta);
+            return View(/*pregunta*/);
         }
 
         // POST: Preguntas/Delete/5

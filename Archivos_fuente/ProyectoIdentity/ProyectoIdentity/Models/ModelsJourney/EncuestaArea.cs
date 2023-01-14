@@ -2,14 +2,15 @@
 
 namespace ProyectoIdentity.Models.ModelsJourney
 {
-    public class EncuestaDemografico
+    public class EncuestaArea
     {
         public int Id { get; set; }
         [ForeignKey("Encuesta")]
-        public int IdEncuesta { get; set; }
+        public int EncuestaId { get; set; }
+        [ForeignKey("Area")]
+        public string AreaId { get; set; }
+
+        public Area? Area { get; set; }
         public Encuesta? Encuesta { get; set; }
-        [ForeignKey("Demografico")]
-        public int IdDemografico { get; set; }
-        public Demograficos? Demografico { get; set; }
     }
 }

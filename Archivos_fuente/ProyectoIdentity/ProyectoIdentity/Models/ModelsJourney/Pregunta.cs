@@ -7,16 +7,20 @@ namespace ProyectoIdentity.Models.ModelsJourney
     {
         public int Id { get; set; }
         [Display(Name = "Pregunta")]
-        [StringLength(17, ErrorMessage = "El {0} no puede superar los {1} Caracteres")]
+        [StringLength(500, ErrorMessage = "El {0} no puede superar los {1} Caracteres")]
         public string NombrePregunta { get; set; }
+
+        public string? DescripcionPregunta { get; set; }
+        public int NumeroPregunta { get; set; }
+
         //llaves Foraneas
         [ForeignKey("TipoPregunta")]
         [Display(Name = "Clase de Pregunta")]
         public int TipoPreguntaId { get; set; }
         public TipoPregunta?  TipoPregunta { get; set; }
-        [ForeignKey("Categoria")]
-        public int CategoriaId { get; set; }
-        public Categoria? Categoria { get; set; }
+        [ForeignKey("EncuestaCategoria")]
+        public int EncuestaCategoriaId { get; set; }
+        public EncuestaCategoria? EncuestaCategoria { get; set; }
 
         //
         public List<Respuesta>?  Respuestas { get; set; }
