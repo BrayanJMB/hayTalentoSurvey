@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.Extensions.Logging;
 using ProyectoIdentity.Models.ModelsJourney;
 
@@ -30,6 +30,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                 new Opcion { Id = 1, OpcionName = "Hermano 1, 2, 3"},
                 new Opcion { Id = 1, OpcionName = "Otro"},
                 new Opcion { Id = 1, OpcionName = "Fallecido"}
+
 
             };
 
@@ -197,91 +198,26 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
             List<Pregunta> Demograficos = new List<Pregunta> {
             new Pregunta
             {
-                NombrePregunta = "Parentesco",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 47,
+                NombrePregunta = "",
+                TipoPregunta = "Selección",
                 Opciones = Demo1(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Sexo",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 48,
-                Opciones = Demo2(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Estado civil",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 49,
-                Opciones = Demo3(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Nivel educativo",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 50,
-                Opciones = Demo4(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "¿Dependiente económicamente?",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 51,
-                Opciones = Demo5(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Edad",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 52,
-                Opciones = Demo6(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Existe otro ingreso en tu hogar",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 53,
-                Opciones = Demo7(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Tu vivienda es",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 54,
-                Opciones = Demo8(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Tu vivienda es estrato",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 55,
-                Opciones = Demo9(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "En caso de NO tener vivienda propia, explica el motivo",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 56,
-                Opciones = Demo10(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Tienes vehículo propio",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 57,
-                Opciones = Demo11(),
-            },
-            new Pregunta
-            {
-                NombrePregunta = "Tiene mascotas",
-                TipoPregunta = "Respuesta única",
-                NumeroPregunta = 58,
-                Opciones = Demo12(),
-            },
+            }
             };
             return Demograficos;
+        }
 
+
+        private static List<Pregunta> PreguntasDemograficasInicio()
+        {
+            List<Pregunta> Demograficos = new List<Pregunta> {
+            new Pregunta
+            {
+                NombrePregunta = "",
+                TipoPregunta = "Selección",
+                Opciones = Demo1(),
+            }
+            };
+            return Demograficos;
         }
 
 
@@ -407,11 +343,9 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         {
             var OpcionesTiempo = new List<Opcion>
             {
-                new Opcion { Id = 51, OpcionName = "Nunca"},
-                new Opcion { Id = 52, OpcionName = "Entre 1 y 3 veces/mes " },
-                new Opcion { Id = 53, OpcionName = "Entre 4 y 10 veces /mes"},
-                new Opcion { Id = 54, OpcionName = "Más de 10 veces/mes"}
-
+                new Opcion { Id = 51, OpcionName = "Café"},
+                new Opcion { Id = 52, OpcionName = "Cigarrillo" },
+                new Opcion { Id = 53, OpcionName = "Cerveza"},
             };
             return OpcionesTiempo;
         }
@@ -620,6 +554,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                     IdTipo = 2,
                     Opciones=OpcionesLikkert1()},
                 new Pregunta {
+
                     NombrePregunta="¿En cuál actividad emplea su tiempo libre? (Seleccione tantas como aplique):",
                     TipoPregunta="Selección Multiple",
                     NumeroPregunta=9,
@@ -698,7 +633,6 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                      IdTipo = 5,
                      NumeroPregunta=19,
                      Opciones=OpcionesLikkert1()},
-
             };
             return Preguntas;
         }
@@ -775,7 +709,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                  new Pregunta {NombrePregunta = "¿Modelo de compensación flexible?", NumeroPregunta = 32, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {
                      NombrePregunta="¿Beneficio institucional (ej. Descuento en compra de productos de la compañía o entrega a cero costos?",
-                     NumeroPregunta=33,
+                     NumeroPregunta=9,
                      TipoPregunta="Likkert",
                      IdTipo = 2,
                      Opciones=OpcionesLikkert1()},
@@ -793,7 +727,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                  new Pregunta {NombrePregunta = "¿Seguro de mascotas?", NumeroPregunta = 45, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
                  new Pregunta {
                      NombrePregunta="¿Qué otros beneficios te gustarían incluir adicionales a los actuales ?",
-                     NumeroPregunta=46,
+                     NumeroPregunta=22,
                      TipoPregunta="Abierta",
                      IdTipo = 5,
                      Opciones=null},
@@ -806,14 +740,23 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         {
 
             var categiras = new List<Category> {
-                new Category{Id=1,NombreCategoria="Aspectos Demograficos",Preguntas=null},
+                new Category{Id=1, NombreCategoria="Aspectos Demograficos",Preguntas=PreguntasDemograficasInicio()},
                 new Category{Id=2,NombreCategoria="Datos Demograficos",Preguntas=PreguntasDemograficas()},
                 new Category{Id=3,NombreCategoria="Beneficios de Calidad de Vida",Preguntas=PreguntaCalidad1()},
                 new Category{Id=4,NombreCategoria="Beneficios Monetarios y No Monetarios",Preguntas=PreguntaMonetarios2()},
                 new Category{Id=5,NombreCategoria="Beneficios de Desarrollo Personal",Preguntas=PreguntaDesarrollo3()},
                 new Category{Id=6,NombreCategoria="Beneficios en Herramientas de Trabajo",Preguntas=PreguntaComplementarios4()},
-                new Category{Id=7,NombreCategoria="Beneficios/Madurez",Preguntas=PreguntaMercadeo5()}
+                //new Category{Id=6,NombreCategoria="Beneficios/Madurez",Preguntas=PreguntaMercadeo5()}
 
+            };
+            return categiras;
+        }
+
+
+        public  static List<Category> CategoriesMadurez() {
+
+            var categiras = new List<Category> {
+                new Category{Id=6,NombreCategoria="Beneficios/Madurez",Preguntas=PreguntaMercadeo5()}
             };
             return categiras;
         }

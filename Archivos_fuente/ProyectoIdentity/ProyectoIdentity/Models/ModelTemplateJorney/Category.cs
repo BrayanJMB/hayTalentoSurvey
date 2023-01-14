@@ -6,5 +6,6 @@
         public string NombreCategoria { get; set; }
 
         public List<Pregunta> Preguntas { get; set; }
+        public List<PreguntaDemografica> PreguntaDemografica { get; set; }
     }
 }
