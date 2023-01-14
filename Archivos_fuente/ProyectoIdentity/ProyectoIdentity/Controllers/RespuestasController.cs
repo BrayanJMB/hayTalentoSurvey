@@ -46,9 +46,9 @@ namespace ProyectoIdentity.Controllers
             var Bussinee = await _context.EncuestaBussines.Where(x => x.EncuestaId == idSurvey).
                 Include(b => b.BusinessUnit).Select(b => b.BusinessUnit).ToListAsync();
             //demograficos de la encuesta
-            var demograficos = _context.Demograficos
-                    .Include(d => d.OpcionesDemo)
-                    .Where(d => d.IdEncuesta == idSurvey).ToList();
+            //var demograficos = _context.Demograficos
+            //        .Include(d => d.OpcionesDemo)
+            //        .Where(d => d.IdEncuesta == idSurvey).ToList();
 
             var query = await
                 (from encuesta in _context.Encuesta
@@ -75,6 +75,7 @@ namespace ProyectoIdentity.Controllers
                                                     {
                                                         NombrePregunta = pregunta.NombrePregunta,
                                                         IdTipo = pregunta.TipoPreguntaId,
+                                                        NumeroPregunta = pregunta.NumeroPregunta,
                                                         Opciones = (from opciones in _context.Opcion
                                                                     where pregunta.Id == opciones.PreguntaId
                                                                     select new Models.ModelTemplateJorney.Opcion
@@ -85,7 +86,7 @@ namespace ProyectoIdentity.Controllers
                                    }).ToList()
                  }).FirstOrDefaultAsync();
 
-            query.Demograficos = demograficos;
+            //query.Demograficos = demograficos;
             query.Paises = Country;
             query.Area = area;
             query.Negocios = Bussinee;
