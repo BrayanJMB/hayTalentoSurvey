@@ -216,8 +216,7 @@ $(document).ready(function () {
                 next_fs.css({ 'opacity': opacity });
                 current_fs.removeClass("active");
                 next_fs.addClass("active");
-            },
-            duration: 600
+            }
         });
         if (showNext == true) {
             next_fs.show();

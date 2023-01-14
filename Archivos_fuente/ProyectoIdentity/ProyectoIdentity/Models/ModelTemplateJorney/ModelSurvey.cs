@@ -30,8 +30,6 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                 new Opcion { Id = 1, OpcionName = "Hermano 1, 2, 3"},
                 new Opcion { Id = 1, OpcionName = "Otro"},
                 new Opcion { Id = 1, OpcionName = "Fallecido"}
-
-
             };
 
             return OpcionesLik;

@@ -12,8 +12,8 @@ using ProyectoIdentity.Datos;
 namespace ProyectoIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221231051238_AddDemographic4")]
-    partial class AddDemographic4
+    [Migration("20230114021444_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -712,6 +712,9 @@ namespace ProyectoIdentity.Migrations
 
                     b.Property<DateTime>("FechaMaximoPlazo")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NombreEncuesta")
                         .HasMaxLength(100)

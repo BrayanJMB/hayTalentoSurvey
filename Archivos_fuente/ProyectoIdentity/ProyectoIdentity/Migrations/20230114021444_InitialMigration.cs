@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProyectoIdentity.Migrations
 {
-    public partial class AddDemographic1 : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -228,6 +228,7 @@ namespace ProyectoIdentity.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NombreEncuesta = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     DescripcionEncuesta = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
+                    Link = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaMaximoPlazo = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CompanyId = table.Column<string>(type: "nvarchar(450)", nullable: true)
@@ -417,7 +418,7 @@ namespace ProyectoIdentity.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NombrePregunta = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: true),
+                    NombrePregunta = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     DescripcionPregunta = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NumeroPregunta = table.Column<int>(type: "int", nullable: false),
                     TipoPreguntaId = table.Column<int>(type: "int", nullable: false),
@@ -498,7 +499,7 @@ namespace ProyectoIdentity.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Nombre = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     NumeroOpcion = table.Column<int>(type: "int", nullable: false),
                     ValorOpcion = table.Column<float>(type: "real", nullable: false),
                     PreguntaId = table.Column<int>(type: "int", nullable: false)
