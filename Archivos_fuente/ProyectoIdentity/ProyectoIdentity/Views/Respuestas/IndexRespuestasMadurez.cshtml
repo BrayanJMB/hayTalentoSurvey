@@ -35,12 +35,12 @@
                         {
                             if (Active)
                             {
-                                    <li class="col-md-2 active @iconStepper[opcion]" id="account"><strong>@categori.NombreCategoria</strong></li>
+                                    <li class="col-md-2 active @iconStepper[opcion]" id="account"><strong>@opcion .@categori.NombreCategoria</strong></li>
                                     Active = false;
                             }
                             else
                             {
-                                <li class="col-md-2 @iconStepper[opcion]" id="personal"><strong>@categori.NombreCategoria</strong></li>
+                                <li class="col-md-2 @iconStepper[opcion]" id="personal"><strong>@opcion .@categori.NombreCategoria</strong></li>
                             }
                             opcion++;
                         }
@@ -93,11 +93,13 @@
                                                                                 }
                                                                                 else if(pregunta.TipoPregunta == "Selección Multiple")
                                                                                 {
+                                                                                    string negrita = opcionP.OpcionName.Split(":")[0];
+                                                                                    string otro = opcionP.OpcionName.Split(":")[1];
                                                                                     <div class="form-check-inline">
                                                                                         <div class="col-md-12 col-sm-12">
                                                                                             <div class="options">
-                                                                                                <input class="form-check-input datacheck" type="checkbox" id="inlineCheckbox1" value="@opcionP.OpcionName">
-                                                                                                <div class="block-text ml-2 minimo" id="strongly-disagree"  name="strongly-disagree"> <b>@opcionP.OpcionName</b> </div>
+                                                                                                <input class="form-check-input datacheck" type="radio" id="inlineCheckbox1" value="@opcionP.OpcionName">
+                                                                                                <div class="block-text ml-2 minimo" id="strongly-disagree"  name="strongly-disagree"><i class="fw-bold">@negrita</i> @otro</div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -327,8 +329,6 @@
                 </form>
             </div>
         </div>
-
-
     </div>
 </div>
 
@@ -337,23 +337,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-    $(document).ready(function() {
-        let contador = 0;
-        let texto = document.getElementsByClassName("datacheck");
-        [...texto].forEach((element, index) =>{
-            element.onchange = function(){
-                if (element.checked){
-                    contador+=1
-                }
-            }
-        })
-    });
-        $(function(){
-            $("#Anterior").click(function (e) {
-                e.preventDefault();
-                document.location = '@Url.Action("RedirectIndexRespuestasMadurez","Respuestas")';
-            });
+    $(function(){
+        $("#Anterior").click(function (e) {
+            e.preventDefault();
+            document.location = '@Url.Action("RedirectIndexRespuestasMadurez","Respuestas")';
         });
+    });
 
 
 </script>

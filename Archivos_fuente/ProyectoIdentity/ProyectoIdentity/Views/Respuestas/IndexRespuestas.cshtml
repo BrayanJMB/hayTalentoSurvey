@@ -35,12 +35,12 @@
                         {
                             if (Active)
                             {
-                                    <li class="col-md-2 active @iconStepper[opcion]" id="account"><strong>@categori.NombreCategoria</strong></li>
+                                    <li class="col-md-2 active @iconStepper[opcion]" id="account"><strong>@opcion .@categori.NombreCategoria</strong></li>
                                     Active = false;
                             }
                             else
                             {
-                                <li class="col-md-2 @iconStepper[opcion]" id="personal"><strong>@categori.NombreCategoria</strong></li>
+                                <li class="col-md-2 @iconStepper[opcion]" id="personal"><strong>@opcion .@categori.NombreCategoria</strong></li>
                             }
                             opcion++;
                         }
@@ -111,49 +111,28 @@
                                                                                             <div class="col-md-6">
                                                                                                         <p class="error-demograficos"></p>
                                                                                                         <p>Pais</p>
-                                                                                                        <select class="form-select form-select-sm  select-aspectos-demograficos"  >
+                                                                                                        <select class="form-select form-select-sm  select-aspectos-demograficos" id="paises"  >
                                                                                                             <option selected>Seleccione</option>
-                                                                                                            <option value="value2">Colombia</option>
-                                                                                                            <option value="value2">Estados Unidos</option>
+                                                                                                            <option value="Colombia">Colombia</option>
+                                                                                                            <option value="Estados Unidos">Estados Unidos</option>
+                                                                                                            <option value="Argentina">Argentina</option>
+                                                                                                            <option value="Bolivia">Bolivia</option>
+                                                                                                            <option value="Brasil">Brasil</option>
+                                                                                                            <option value="Ecuador">Ecuador</option>
+                                                                                                            <option value="Paraguay">Paraguay</option>
+                                                                                                            <option value="Perú">Perú</option>
+                                                                                                            <option value="Surinam">Surinam</option>
+                                                                                                            <option value="Trinidad y Tobago">Trinidad y Tobago</option>
+                                                                                                            <option value="Uruguay">Uruguay</option>
+                                                                                                            <option value="Venezuela">Venezuela</option>
+                                                                                                            <option value="México">México</option>
                                                                                                         </select>
                                                                                                     </div>
                                                                                                     <div class="col-md-6">
                                                                                                         <p class="error-demograficos"></p>
                                                                                                         <p>Ciudad</p>
-                                                                                                        <select class="form-select form-select-sm select-aspectos-demograficos"  >
-                                                                                                                <option selected>Seleccione</option>
-                                                                                                                <option value="Arauca">Arauca</option>
-                                                                                                                <option value="Armenia">Armenia</option>
-                                                                                                                <option value="Barranquilla">Barranquilla</option>
-                                                                                                                <option value="Bogotá">Bogotá</option>
-                                                                                                                <option value="Bucaramanga">Bucaramanga</option>
-                                                                                                                <option value="Cali">Cali</option>
-                                                                                                                <option value="Cartagena">Cartagena</option>
-                                                                                                                <option value="Cúcuta">Cúcuta</option>
-                                                                                                                <option value="Florencia">Florencia</option>
-                                                                                                                <option value="Ibagué">Ibagué</option>
-                                                                                                                <option value="Leticia">Leticia</option>
-                                                                                                                <option value="Manizales">Manizales</option>
-                                                                                                                <option value="Medellín">Medellín</option>
-                                                                                                                <option value="Mitú">Mitú</option>
-                                                                                                                <option value="Mocoa">Mocoa</option>
-                                                                                                                <option value="Montería">Montería</option>
-                                                                                                                <option value="Neiva">Neiva</option>
-                                                                                                                <option value="Pasto">Pasto</option>
-                                                                                                                <option value="Pereira">Pereira</option>
-                                                                                                                <option value="Popayán">Popayán</option>
-                                                                                                                <option value="Puerto Carreño">Puerto Carreño</option>
-                                                                                                                <option value="Puerto Inírida">Puerto Inírida</option>
-                                                                                                                <option value="Quibdó">Quibdó</option>
-                                                                                                                <option value="Riohacha">Riohacha</option>
-                                                                                                                <option value="San Andrés">San Andrés</option>
-                                                                                                                <option value="San José del Guaviare">San José del Guaviare</option>
-                                                                                                                <option value="Santa Marta">Santa Marta</option>
-                                                                                                                <option value="Sincelejo">Sincelejo</option>
-                                                                                                                <option value="Tunja">Tunja</option>
-                                                                                                                <option value="Valledupar">Valledupar</option>
-                                                                                                                <option value="Villavicencio">Villavicencio</option>
-                                                                                                                <option value="Yopal">Yopal</option>
+                                                                                                        <select class="form-select form-select-sm select-aspectos-demograficos" id="capitales">
+
                                                                                                         </select>
                                                                                                     </div>
                                                                                         </div>
@@ -351,6 +330,66 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+        let paises = document.getElementById("paises");
+        let capitales = [
+            {"pais":"Argentina", "capital":"Buenos Aires"},
+            {"pais":"Bolivia", "capital":"La Paz"},
+            {"pais":"Brasil", "capital":"Brasilia"},
+            {"pais":"Chile", "capital":"Santiago de Chile"},
+            {"pais":"Ecuador", "capital":"Quito"},
+            {"pais":"Paraguay", "capital":"Asunción"},
+            {"pais":"Perú", "capital":"Lima"},
+            {"pais":"Surinam", "capital":"Parabarimo"},
+            {"pais":"Trinidad y Tobago", "capital":"Puerto España"},
+            {"pais":"Uruguay", "capital":"Montevideo"},
+            {"pais":"Venezuela", "capital":"Caracas"},
+            {"pais":"Estados Unidos", "capital":"Washinton D.C" },
+            {"pais":"México", "capital":"Ciudad de México"},
+            {"pais":"Colombia","capital":["Arauca", "Armenia","Barranquilla", "Bogotá",
+               "Bucaramanga","Cali", "Cartagena", "Cúcuta", "Florencia", "Ibagué",
+               "Leticia", "Manizales","Medellín","Mitú","Mocoa","Montería","Neiva",
+               "Pasto","Pereria","Popayán","Puerto Carreño", "Puerto Inírida",
+               "Quibdó","Riohacha","San Andrés", "San José del Guaviare","Santa Marta",
+               "Sincelejo","Tunja","Valledupar","Villavicencio","Yopal"
+            ]}
+        ]
+        paises.onchange = function(){
+            filtrarCapitales();
+        };
+
+        function filtrarCapitales() {
+            var paisSeleccionado = paises.value;
+            var capitalesFiltradas = capitales.filter(function(capital) {
+                return capital.pais === paisSeleccionado;
+            });
+            actualizarSelectCapitales(capitalesFiltradas);
+        };
+
+        function actualizarSelectCapitales(capitales) {
+            var select = document.querySelector("#capitales");
+            select.innerHTML = "";
+
+            // Si las capitales están guardadas en un array
+            capitales.forEach(function(capital) {
+                if (capital.pais != "Colombia"){
+                    var option = document.createElement("option");
+                    option.value = capital.capital;
+                    option.text = capital.capital;
+                    select.appendChild(option);
+                }else{
+                    capital.capital.forEach((element)=>{
+                        console.log(element)
+                        var option = document.createElement("option");
+                        option.value = element;
+                        option.text = element;
+                        select.appendChild(option);
+                    })
+                }
+            });
+        };
+
+///////////////////////////////////////////////////////7
+
         let titles = ["Colaborador", "Conyugue", "Madre", "Padre", "Hijos", "Hermanos", "Otros Familiares"]
         let demograficos_multiple_title = ["Hijos", "Hermanos", "Otro Familiar"]
         let title = document.getElementsByClassName("title");
