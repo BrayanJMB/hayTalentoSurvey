@@ -13,9 +13,15 @@ using System.Linq;
 using System.Linq.Expressions;
 using Opcion = ProyectoIdentity.Models.ModelTemplateJorney.Opcion;
 using Pregunta = ProyectoIdentity.Models.ModelTemplateJorney.Pregunta;
+using PreguntDB= ProyectoIdentity.Models.ModelsJourney.Pregunta;
 
 namespace ProyectoIdentity.Controllers
 {
+    public class EditPreguntas
+    {
+        public Encuesta Encuesta { get; set; }
+        public List<PreguntDB> preguntas { get; set; }
+    }
     public class EncuestasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -135,7 +141,19 @@ namespace ProyectoIdentity.Controllers
                     NombreEncuesta = encuesta.NombreEncuesta
                 };
                 var encuestaRes = await _context.Encuesta.AddAsync(Encuesta);
+                
                 _context.SaveChanges();
+                _context.EncuestaCategoria.Add(new EncuestaCategoria
+                {
+                    CategoriaId = encuesta.CategoriaR[0].Idcategoria,
+                    EncuestaId=encuestaRes.Entity.Id
+                });
+                _context.EncuestaCategoria.Add(new EncuestaCategoria
+                {
+                    CategoriaId = encuesta.CategoriaR[1].Idcategoria,
+                    EncuestaId = encuestaRes.Entity.Id
+                });
+                await _context.SaveChangesAsync();
                 encuestaRes.Entity.Link = _configuration.GetValue<string>("LinkSurvey") + "?idSurvey=" + encuestaRes.Entity.Id;
                 _context.Encuesta.Update(encuestaRes.Entity);
                 //demograficos Tablas Area Y negocios                    
@@ -250,21 +268,19 @@ namespace ProyectoIdentity.Controllers
             return RedirectToAction(nameof(Index1));
         }
 
-        // GET: Encuestas/Edit/5
+        //Ir a la vista para editar las encuestas
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Encuesta == null)
             {
                 return NotFound();
             }
-
-            var encuesta = await _context.Encuesta.FindAsync(id);
-            if (encuesta == null)
-            {
-                return NotFound();
-            }
+            var encuesta =await _context.Encuesta.Where(d => d.Id == id).FirstOrDefaultAsync();
+            var preguntas = await _context.Pregunta.Where(p => p.EncuestaCategoria.EncuestaId == id).ToListAsync();
+            EditPreguntas data = new EditPreguntas { Encuesta = encuesta, preguntas = preguntas };
+            
             //ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "CompanyId", encuesta.CompanyId);
-            return View(encuesta);
+            return View(data);
         }
 
         // POST: Encuestas/Edit/5
@@ -346,7 +362,7 @@ namespace ProyectoIdentity.Controllers
         {
             return _context.Encuesta.Any(e => e.Id == id);
         }
-
+        //Metodo para crar la encuesta
         private async Task<bool> CreateSurvey(List<CategoriaR>encuesta, int idSurvey)
         {
             try
@@ -357,7 +373,7 @@ namespace ProyectoIdentity.Controllers
                 {
                     var preguntaCa = await _context.EncuestaCategoria.AddAsync(new EncuestaCategoria
                     {
-                        CategoriaId = categories.Idcategoria - 2,
+                        CategoriaId = categories.Idcategoria,
                         EncuestaId = idSurvey
                     }); ;
                     await _context.SaveChangesAsync();
@@ -390,8 +406,9 @@ namespace ProyectoIdentity.Controllers
                             }
                         }
                         await _context.SaveChangesAsync();
+                        numeroPregunta++;
                     }
-                    numeroPregunta++;
+                    
                 }
                 return true;
             }

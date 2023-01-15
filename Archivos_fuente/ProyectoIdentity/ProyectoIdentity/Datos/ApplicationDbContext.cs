@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using ProyectoIdentity.Models.ModelsJourney;
 
+using System.Security.Cryptography.Xml;
+
 
 namespace ProyectoIdentity.Datos
 {
@@ -44,12 +46,24 @@ namespace ProyectoIdentity.Datos
         {
 
             List<Categoria> categorias = new List<Categoria> {
-                    new Categoria{Id=1,NombreCategoria="Beneficios de Calidad de Vida" },
-                    new Categoria{Id=2,NombreCategoria="Beneficios Monetarios y No Monetarios" },
-                    new Categoria{Id=3,NombreCategoria="Beneficios de Desarrollo Personal" },
-                    new Categoria{Id=4,NombreCategoria="Beneficios en Herramientas de Trabajo" },
-                    new Categoria{Id=5,NombreCategoria="Beneficios/Madurez" }
-        };
+                    new Categoria{Id=1,NombreCategoria="Beneficios de Calidad de Vida",
+                        Descripcion="Aspectos relacionados con las condiciones favorables en la relación laboral y el ambiente de trabajo."
+                    },
+                    new Categoria{Id=2,NombreCategoria="Beneficios Monetarios y No Monetarios",
+                        Descripcion="Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales."
+                    },
+                    new Categoria{Id=3,NombreCategoria="Beneficios de Desarrollo Personal",
+                    Descripcion="Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales"
+
+                    },
+                    new Categoria{Id=4,NombreCategoria="Beneficios en Herramientas de Trabajo",
+                        Descripcion="Acciones de largo plazo que apuestan por el crecimiento personal, potencializar el talento y transformar la organización"
+                    },
+                    new Categoria{Id=5,NombreCategoria="Beneficios/Madurez",
+                    Descripcion="Elementos útiles para una adecuada realización de la labor"
+
+                    }
+            };
 
             List<TipoPregunta> tipoPreguntas = new List<TipoPregunta> {
                     new TipoPregunta{Id=1,NombreTipoPregunta="Respuesta Unica"},
@@ -140,9 +154,40 @@ namespace ProyectoIdentity.Datos
                 new City{CountryId="Colombia",CityName="Turbo"},
                 new City{CountryId="Colombia",CityName="Maicao"},
                 new City{CountryId="Colombia",CityName="Piedecuesta"},
-                new City{CountryId="Colombia",CityName="Yopal"}
+                new City{CountryId="Colombia",CityName="Yopal"},
+                new City{CountryId="Antigua y Barbuda",CityName="Saint John"},
+                new City{CountryId="Argentina",CityName="Buenos Aires"},
+                new City{CountryId="Bahamas",CityName="Nasáu"},
+                new City{CountryId="Barbados",CityName="Bridgetown"},
+                new City{CountryId="Belice",CityName="Belmopán"},
+                new City{CountryId="Bolivia",CityName="Sucre"},
+                new City{CountryId="Brasil",CityName="Brasilia"},
+                new City{CountryId="Canadá",CityName="Ottawa"},
+                new City{CountryId="Chile",CityName="Santiago"},
+                new City{CountryId="Costa Rica",CityName="San José"},
+                new City{CountryId="Cuba",CityName="La Habana"},
+                new City{CountryId="Dominica",CityName="Roseau"},
+                new City{CountryId="Ecuador",CityName="Quito"},
+                new City{CountryId="El Salvador",CityName="San Salvador"},
+                new City{CountryId="Estados Unidos",CityName="Washington"},
+                new City{CountryId="Granada",CityName="Granada"},
+                new City{CountryId="Guatemala",CityName="Ciudad de Guatemala"},
+                new City{CountryId="Guyana",CityName="Georgetown"},
+                new City{CountryId="Haití",CityName="Puerto Príncipe"},
+                new City{CountryId="Honduras",CityName="Tegucigalpa"},
+                new City{CountryId="Jamaica",CityName="Kingston"},
+                new City{CountryId="México",CityName="Ciudad de México"},
+                new City{CountryId="Nicaragua",CityName="Managua"},
+                new City{CountryId="Panamá",CityName="Ciudad de Panamá"},
+                new City{CountryId="Paraguay",CityName="Paraguay"},
+                new City{CountryId="Perú",CityName="Lima"},
+                new City{CountryId="República Dominicana",CityName="Santo Domingo"},
+                new City{CountryId="San Cristóbal y Nieves",CityName="Basseterre"},
+                new City{CountryId="Uruguay",CityName="Montevideo"},
+                new City{CountryId="Venezuela",CityName="Caracas"}
+
             };
-            
+
             modelBuilder.Entity<Respuesta>().HasKey(r => new { r.PreguntaId, r.RespondenteId });
             modelBuilder.Entity<EncuestaRepondente>().HasKey(r => new { r.EncuestaId, r.RespondenteId });
             modelBuilder.Entity<Categoria>().HasData(categorias);
