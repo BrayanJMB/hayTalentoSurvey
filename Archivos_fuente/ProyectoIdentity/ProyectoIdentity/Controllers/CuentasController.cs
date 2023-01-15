@@ -8,6 +8,7 @@ using System.Security.Claims;
 
 namespace ProyectoIdentity.Controllers
 {
+    
     public class CuentasController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;

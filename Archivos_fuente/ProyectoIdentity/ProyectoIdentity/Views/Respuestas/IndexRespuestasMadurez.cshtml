@@ -30,209 +30,210 @@
                 <form id="msform" class="needs-validation" novalidate>
                     <!-- progressbar -->
                     <ul id="progressbar">
-                        <div class="row d-flex justify-content-center align-items-center">
-                        @foreach (var categori in Model.Categorias)
-                        {
-                            if (Active)
+                        
+                            @foreach (var categori in Model.Categorias)
                             {
-                                    <li class="col-md-2 active @iconStepper[opcion]" id="account"><strong>@opcion .@categori.NombreCategoria</strong></li>
+                                if (Active)
+                                {
+                                <li class="col-md-2 active @iconStepper[opcion]" id="account"><strong>@opcion .@categori.NombreCategoria</strong></li>
                                     Active = false;
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 <li class="col-md-2 @iconStepper[opcion]" id="personal"><strong>@opcion .@categori.NombreCategoria</strong></li>
+                                }
+                                opcion++;
                             }
-                            opcion++;
-                        }
-                        @{
-                            opcion=1;
-                        }
-                        </div>
-                    </ul>
+                            @{
+                                opcion = 1;
+                            }
+           
+            </ul>
 
-                    <!-- fieldsets -->
-
+            <!-- fieldsets -->
                     @foreach (var categori in Model.Categorias)
                     {
-                        <fieldset>
-                            <div class="w-100 mt-4 shadow p-4 rounded bg-white">
-                                <div >
-                                    <div class="addQuestion mt-2">
-                                        <div class="question-list ">
+                <fieldset>
+                    <div class="w-100 mt-4 shadow p-4 rounded bg-white">
+                        <div>
+                            <div class="addQuestion mt-2">
+                                <div class="question-list ">
                                             @if (categori.Preguntas != null)
                                             {
-                                                <h3 class="titulo-dimension">Beneficios y Madurez</h3>
+                                        <h3 class="titulo-dimension">Beneficios y Madurez</h3>
+                                        
                                                 @foreach (var pregunta in categori.Preguntas)
                                                 {
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="showEditDelete">
-                                                                <div>
-                                                                    <p class="error-description"></p>
-                                                                    <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(x => pregunta.NumeroPregunta).&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
-                                                                    <div class="row ml-2" >
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="showEditDelete">
+                                                        <div>
+                                                            <p class="error-description"></p>
+                                                            <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(x => pregunta.NumeroPregunta).&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
+                                                            <div class="row ml-2">
                                                                         @if (pregunta.Opciones != null)
                                                                         {
                                                                             @foreach (var opcionP in pregunta.Opciones)
                                                                             {
                                                                                 @if (pregunta.TipoPregunta == "Likkert")
                                                                                 {
-                                                                                     <div class="col-md-6 col-sm-12">
-                                                                                        <div class="options-multiple-linkert">
-                                                                                                <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
-                                                                                                <option value="" selected>Seleccione</option>
-                                                                                                @foreach(var option in pregunta.Opciones){
-                                                                                                    <option value="1">@option.OpcionName</option>
+                                                                            <div class="col-md-6 col-sm-12">
+                                                                                <div class="options-multiple-linkert">
+                                                                                    <select class="form-select form-select-sm likkert" aria-label="Default select example" required>
+                                                                                        <option value="" selected>Seleccione</option>
+                                                                                                @foreach (var option in pregunta.Opciones)
+                                                                                                {
+                                                                                            <option value="1">@option.OpcionName</option>
                                                                                                 }
-                                                                                            </select>
-                                                                                            <div class="invalid-feedback">
-                                                                                                Requerido.
-                                                                                              </div>
-                                                                                        </div>
+                                                                                    </select>
+                                                                                    <div class="invalid-feedback">
+                                                                                        Requerido.
                                                                                     </div>
+                                                                                </div>
+                                                                            </div>
                                                                                     break;
                                                                                 }
                                                                                 else if (pregunta.TipoPregunta == "Seleccion Multiple")
                                                                                 {
                                                                                     string negrita = opcionP.OpcionName.Split(":")[0];
                                                                                     string otro = opcionP.OpcionName.Split(":")[1];
-                                                                                    <div class="form-check-inline">
-                                                                                        <div class="col-md-12 col-sm-12">
-                                                                                            <div class="options">
-                                                                                                <input class="form-check-input datacheck" type="radio" name="radio" id="inlineCheckbox1" value="@opcionP.OpcionName" required>
-                                                                                                <div class="block-text ml-2 minimo" id="strongly-disagree"  name="strongly-disagree"><i class="fw-bold">@negrita</i> @otro</div>
-                                                                                            </div>
-                                                                                            
-                                                                                        </div>
-                                                                                        <div class="invalid-feedback">
-                                                                                            You must agree before submitting.
-                                                                                      </div>
+                                                                            <div class="form-check-inline">
+                                                                                <div class="col-md-12 col-sm-12">
+                                                                                    <div class="options">
+                                                                                        <input class="form-check-input datacheck" type="radio" name="radio" id="inlineCheckbox1" value="@opcionP.OpcionName" required>
+                                                                                        <div class="block-text ml-2 minimo" id="strongly-disagree" name="strongly-disagree"><i class="fw-bold">@negrita</i> @otro</div>
                                                                                     </div>
+
+                                                                                </div>
+                                                                                <div class="invalid-feedback">
+                                                                                    You must agree before submitting.
+                                                                                </div>
+                                                                            </div>
                                                                                 }
                                                                                 else if (pregunta.TipoPregunta == "Seleccion")
                                                                                 {
-                                                                                    <div class="col-md-4 col-sm-12">
-                                                                                        <div class="options">
-                                                                                            <select value="" class="form-select form-select-sm escala" aria-label="Default select example">
-                                                                                                <option selected>Seleccione</option>
+                                                                            <div class="col-md-4 col-sm-12">
+                                                                                <div class="options">
+                                                                                    <select value="" class="form-select form-select-sm escala" aria-label="Default select example">
+                                                                                        <option selected>Seleccione</option>
                                                                                                 @foreach (var item in pregunta.Opciones)
                                                                                                 {
-                                                                                                    <option value="@item.OpcionName">@item.OpcionName</option>
+                                                                                            <option value="@item.OpcionName">@item.OpcionName</option>
                                                                                                 }
-                                                                                            </select>
-                                                                                            <div class="invalid-feedback">
-                                                                                                Requerido.
-                                                                                              </div>
-                                                                                        </div>
+                                                                                    </select>
+                                                                                    <div class="invalid-feedback">
+                                                                                        Requerido.
                                                                                     </div>
+                                                                                </div>
+                                                                            </div>
                                                                                     break;
                                                                                 }
                                                                                 else if (pregunta.TipoPregunta == "Valoracion Multiple")
                                                                                 {
-                                                                                    <div class="col-md-6 col-sm-12">
-                                                                                        <div class="options">
-                                                                                                <select value="" class="form-select form-select-sm escala" aria-label="Default select example">
-                                                                                                    <option selected>Seleccione</option>
-                                                                                                    <option value="1">1</option>
-                                                                                                    <option value="2">2</option>
-                                                                                                    <option value="3">3</option>
-                                                                                                    <option value="4">4</option>
-                                                                                                    <option value="5">5</option>
-                                                                                                    <option value="6">6</option>
-                                                                                                    <option value="7">7</option>
-                                                                                                    <option value="8">8</option>
-                                                                                                    <option value="9">9</option>
-                                                                                                    <option value="10">10</option>
-                                                                                            </select>
-                                                                                        <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
-                                                                                        </div>
-                                                                                    </div>
+                                                                            <div class="col-md-6 col-sm-12">
+                                                                                <div class="options">
+                                                                                    <select value="" class="form-select form-select-sm escala" aria-label="Default select example">
+                                                                                        <option selected>Seleccione</option>
+                                                                                        <option value="1">1</option>
+                                                                                        <option value="2">2</option>
+                                                                                        <option value="3">3</option>
+                                                                                        <option value="4">4</option>
+                                                                                        <option value="5">5</option>
+                                                                                        <option value="6">6</option>
+                                                                                        <option value="7">7</option>
+                                                                                        <option value="8">8</option>
+                                                                                        <option value="9">9</option>
+                                                                                        <option value="10">10</option>
+                                                                                    </select>
+                                                                                    <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
+                                                                                </div>
+                                                                            </div>
                                                                                 }
                                                                                 else if (pregunta.TipoPregunta == "Likkert Multiple" || pregunta.TipoPregunta == "Multiple Likkert")
                                                                                 {
-                                                                                    <div class="col-md-6 col-sm-12">
-                                                                                        <div class="options-multiple-linkert">
-                                                                                              <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
-                                                                                              <select  value="" class="form-select form-select-sm escala" aria-label="Default select example">
-                                                                                                <option selected>Seleccione</option>
-                                                                                                <option value="1">No aplica</option>
-                                                                                                <option value="2">No cumple las expectativas</option>
-                                                                                                <option value="3">Necesita algunas mejoras</option>
-                                                                                                <option value="4">Cumple las expectativas</option>
-                                                                                                <option value="5">Supera las expectativas</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
+                                                                            <div class="col-md-6 col-sm-12">
+                                                                                <div class="options-multiple-linkert">
+                                                                                    <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
+                                                                                    <select value="" class="form-select form-select-sm escala" aria-label="Default select example">
+                                                                                        <option selected>Seleccione</option>
+                                                                                        <option value="1">No aplica</option>
+                                                                                        <option value="2">No cumple las expectativas</option>
+                                                                                        <option value="3">Necesita algunas mejoras</option>
+                                                                                        <option value="4">Cumple las expectativas</option>
+                                                                                        <option value="5">Supera las expectativas</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                                   <div style="height:50px;" class="mt-2">
-                                                                                  <input type="text" class="form-control" required >
-                                                                                  <div class="invalid-feedback">
-                                                                                                Requerido.
-                                                                                              </div>
-
+                                                                            <div style="height:50px;" class="mt-2">
+                                                                                <input type="text" class="form-control" required>
+                                                                                <div class="invalid-feedback">
+                                                                                    Requerido.
                                                                                 </div>
-                                                                           
+
+                                                                            </div>
+
                                                                                 }
                                                                             }
                                                                             opcion++;
                                                                         }
                                                                         else
                                                                         {
-                                                                            <div style="height:50px;" class="mt-2">
-                                                                                  <input type="text" class="form-control" >
-                                                                                  <p> ajsdksajdklsajdskaldjsakljdsaljsa</p>
-                                                                            </div>
-                                                                           
-                                                                        }
+                                                                    <div style="height:50px;" class="mt-2">
+                                                                        <input type="text" class="form-control">
+                                                                        <p> ajsdksajdklsajdskaldjsakljdsaljsa</p>
                                                                     </div>
-                                                                </div>
+
+                                                                        }
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
 
-                                                    <div style="padding-left: 28px; padding-right: 28px;">
-                                                        <hr class="mb-0 mt-0">
-                                                    </div>
+                                            <div style="padding-left: 28px; padding-right: 28px;">
+                                                <hr class="mb-0 mt-0">
+                                            </div>
                                                     opcion = 1;
                                                 }
                                             }
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="sc-xWrgk lssbs steppeActionBlock">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="text-right">
-                                            @if (categori.Id==Model.Categorias.Last().Id)
+                        </div>
+                    </div>
+                    <div class="sc-xWrgk lssbs steppeActionBlock">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-right">
+                                            @if (categori.Id == Model.Categorias.Last().Id)
                                             {
-                                                <input type="button" name="previous" id="Anterior" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
-                                                <input type="submit" name="next" id="EnviarEncuestaMadurez" class="action-button btn btn-success" value="Enviar Encuesta" />
+                                        <input type="button" name="previous" id="Anterior" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                        <input type="submit" name="next" id="EnviarEncuestaMadurez" class="action-button btn btn-success" value="Enviar Encuesta" />
                                             }
                                             else
                                             {
                                                 if (categori.Id != Model.Categorias.First().Id)
                                                 {
-                                                    <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                            <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
                                                 }
                                                 else
                                                 {
-                                                    <input type="button" onclick="history.back()" class="btn btn-dark mr-2" value="Anterior" />
+                                            <input type="button" onclick="history.back()" class="btn btn-dark mr-2" value="Anterior" />
                                                 }
-                                                <input type="button" name="next" class="next action-button btn btn-primary" value="Siguiente" />
+                                        <input type="button" name="next" class="next action-button btn btn-primary" value="Siguiente" />
                                             }
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                        </fieldset>
+                        </div>
+                    </div>
+                </fieldset>
                     }
-                </form>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
 
 
@@ -241,40 +242,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="~/js/functionValidation.js" asp-append-version="true" />
     <script>
+    let data = document.querySelectorAll("#Seleccione1 select");
+        var selectedValues = [null, null, null, null];
+        data.forEach((option) => {
 
-       (function() {
-      'use strict';
-      window.addEventListener('load', function() {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        let button = document.getElementById("EnviarEncuestaMadurez");
-        var validation = Array.prototype.filter.call(forms, function(form) {
-          form.addEventListener('submit', function(event) {
-              debugger;
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-              let firstInvalid = form.querySelector('[required]:invalid');
-               firstInvalid.focus();
-            }else{
-                event.preventDefault();
-                window.location.href = '@Url.Action("EnvioIndexRespuestasMadurez","Respuestas")';
-            }
-            form.classList.add('was-validated');
-          }, false);
+            option.addEventListener("change", () => {
+                let elementSelected = Array.prototype.indexOf.call(data, option);
+                index = option.selectedIndex;
+                if (option[option.selectedIndex].value != "seleccione") {
+
+                    data.forEach((optionDisabled) => {
+                        if (optionDisabled !== option)
+                            optionDisabled[index].disabled = true;
+                        if (selectedValues[elementSelected] != null)
+                            optionDisabled[selectedValues[elementSelected]].disabled = false;
+                    });
+                    selectedValues[elementSelected] = option[option.selectedIndex].value;
+                } else if (option[option.selectedIndex].value == "seleccione" && selectedValues[elementSelected] != null) {
+
+                    data.forEach((optionDisabled) => {
+                        optionDisabled[selectedValues[elementSelected]].disabled = false;
+                    });
+                    selectedValues[elementSelected] = null;
+                }
+
+            });
         });
-      }, false);
-    })();
-
-
-    $(function(){
-        $("#Anterior").click(function (e) {
-            e.preventDefault();
-            document.location = '@Url.Action("RedirectIndexRespuestasMadurez","Respuestas")';
-        });
-    });
-
-
-</script>
-    }
+}
