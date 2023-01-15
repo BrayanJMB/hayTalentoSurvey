@@ -1,22 +1,13 @@
 $(document).ready(function () {
     let current_fs, next_fs, previous_fs; //fieldsets
     let opacity;
-    let contador = -1;
-    
     $("fieldset").first().addClass('active');
-
     $(".next").click(function () {
-   
-        contador +=1
         current_fs = $(this).parent().parent().parent().parent().parent();
         next_fs = $(this).parent().parent().parent().parent().parent().next();
         let elem = $(".next");
         console.log(elem)
         let indexNext = $.inArray(this, elem);
-        //Add Class Active
-        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-        $(".titulo-dimension").text(tituloDimension[contador]);
-        $(".descripcion-dimension").text(descripcionDimension[contador]);
         //show the next fieldset
         let showNext = true;
         let datosPregunta = document.querySelectorAll(".question-list")[indexNext].querySelectorAll("#FilaPregunta");
@@ -35,6 +26,8 @@ $(document).ready(function () {
             }
         });
         if (showNext == true) {
+          //Add Class Active
+          $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
             next_fs.show();
             current_fs.animate({ opacity: 0 }, {
                 step: function (now) {
@@ -86,11 +79,6 @@ $(document).ready(function () {
             },
             duration: 600
         });
-    });
-
-    $('.radio-group .radio').click(function () {
-        $(this).parent().find('.radio').removeClass('selected');
-        $(this).addClass('selected');
     });
 });
 //eliminar Preguntas
@@ -179,6 +167,3 @@ btnGuardar.forEach(function (btn) {
     })
 
 });
-
-
-
