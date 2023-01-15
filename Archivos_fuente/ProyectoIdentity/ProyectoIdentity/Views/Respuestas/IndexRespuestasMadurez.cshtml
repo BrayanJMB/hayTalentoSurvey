@@ -242,30 +242,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="~/js/functionValidation.js" asp-append-version="true" />
     <script>
-    let data = document.querySelectorAll("#Seleccione1 select");
-        var selectedValues = [null, null, null, null];
-        data.forEach((option) => {
-
-            option.addEventListener("change", () => {
-                let elementSelected = Array.prototype.indexOf.call(data, option);
-                index = option.selectedIndex;
-                if (option[option.selectedIndex].value != "seleccione") {
-
-                    data.forEach((optionDisabled) => {
-                        if (optionDisabled !== option)
-                            optionDisabled[index].disabled = true;
-                        if (selectedValues[elementSelected] != null)
-                            optionDisabled[selectedValues[elementSelected]].disabled = false;
-                    });
-                    selectedValues[elementSelected] = option[option.selectedIndex].value;
-                } else if (option[option.selectedIndex].value == "seleccione" && selectedValues[elementSelected] != null) {
-
-                    data.forEach((optionDisabled) => {
-                        optionDisabled[selectedValues[elementSelected]].disabled = false;
-                    });
-                    selectedValues[elementSelected] = null;
+           (function() {
+          'use strict';
+          window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            let button = document.getElementById("EnviarEncuestaMadurez");
+            var validation = Array.prototype.filter.call(forms, function(form) {
+              form.addEventListener('submit', function(event) {
+                  debugger;
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  let firstInvalid = form.querySelector('[required]:invalid');
+                   firstInvalid.focus();
+                }else{
+                    event.preventDefault();
+                    window.location.href = '@Url.Action("EnvioIndexRespuestasMadurez","Respuestas")';
                 }
-
+                form.classList.add('was-validated');
+              }, false);
             });
+          }, false);
+        })();
+
+
+    $(function(){
+        $("#Anterior").click(function (e) {
+            e.preventDefault();
+            document.location = '@Url.Action("RedirectIndexRespuestasMadurez","Respuestas")';
         });
+    });
+</script>
 }

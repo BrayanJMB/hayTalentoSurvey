@@ -42,14 +42,20 @@ namespace ProyectoIdentity.Controllers
             ViewBag.Message = "Login";
 
             var Country = await _context.Country.Include(p => p.Cities).ToListAsync();
-            var area =await _context.EncuestaArea.Where(e => e.EncuestaId == idSurvey).Include(p => p.Area).Select(p => p.Area).ToListAsync();
+            var area = await _context.EncuestaArea.Where(e => e.EncuestaId == idSurvey).Include(p => p.Area).Select(p => p.Area).ToListAsync();
             var Bussinee = await _context.EncuestaBussines.Where(x => x.EncuestaId == idSurvey).
                 Include(b => b.BusinessUnit).Select(b => b.BusinessUnit).ToListAsync();
             //demograficos de la encuesta
-            //var demograficos = _context.Demograficos
-            //        .Include(d => d.OpcionesDemo)
-            //        .Where(d => d.IdEncuesta == idSurvey).ToList();
+            var demograficos = await _context.EncuestaDemografico
+                .Where(ed => ed.EncuestaId == idSurvey)
+                .Include(ed => ed.Demograficos.OpcionesDemo)
+                .Select(ed => ed.Demograficos)
+                .ToListAsync();
 
+            //var demo = _context.Demograficos
+            //    .Include(d => d.OpcionesDemo)
+            //    .Where(demografico => demografico.encuestaDemograficos
+            //    .Where(d=>d.EncuestaId == idSurvey))
             var query = await
                 (from encuesta in _context.Encuesta
                  join encuestaCate in _context.EncuestaCategoria
@@ -90,10 +96,10 @@ namespace ProyectoIdentity.Controllers
                                    }).ToList()
                  }).FirstOrDefaultAsync();
 
-            //query.Demograficos = demograficos;
-            query.Paises = Country;
-            query.Area = area;
-            query.Negocios = Bussinee;
+            query.Demograficos = demograficos;
+            query.Paises= Country;
+            query.Area=area;
+            query.Negocios= Bussinee;
 
             return View(query);
         }
