@@ -72,7 +72,7 @@
                                                             <p class="error-description"></p>
                                                             <div class="bold-questions d-inline-flex mb-0">@indexPregunta.&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
                                                             <div class="row ml-2">
-                                                                        @if (pregunta.Opciones != null)
+                                                                        @if (pregunta.Opciones != null) 
                                                                         {
                                                                             @foreach (var opcionP in pregunta.Opciones)
                                                                             {
@@ -96,13 +96,13 @@
                                                                                 }
                                                                                 else if (pregunta.TipoPregunta == "Seleccion Multiple")
                                                                                 {
-                                                                                    string negrita = opcionP.OpcionName.Split(":")[0];
-                                                                                    string otro = opcionP.OpcionName.Split(":")[1];
+                                                                                    //string negrita = opcionP.OpcionName.Split(":")[0];
+                                                                                    //string otro = opcionP.OpcionName.Split(":")[1];
                                                                             <div class="form-check-inline">
                                                                                 <div class="col-md-12 col-sm-12">
                                                                                     <div class="options">
                                                                                         <input class="form-check-input datacheck" type="radio" name="radio" id="inlineCheckbox1" value="@opcionP.OpcionName" required>
-                                                                                        <div class="block-text ml-2 minimo" id="strongly-disagree" name="strongly-disagree"><i class="fw-bold">@negrita</i> @otro</div>
+                                                                                        <div class="block-text ml-2 minimo" id="strongly-disagree" name="strongly-disagree"><i class="fw-bold"></i> @opcionP.OpcionName</div>
                                                                                     </div>
 
                                                                                 </div>
@@ -261,7 +261,7 @@
                    firstInvalid.focus();
                 }else{
                     event.preventDefault();
-                    window.location.href = '@Url.Action("EnvioIndexRespuestasMadurez","Respuestas")';
+                    window.location.href = '@Url.Action("EnvioIndexRespuestasMadurez","Respuestas",Model.Id)';
                 }
                 form.classList.add('was-validated');
               }, false);

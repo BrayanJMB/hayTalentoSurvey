@@ -133,6 +133,7 @@ namespace ProyectoIdentity.Controllers
 
         public async Task<IActionResult> IndexRespuestasMadurez(int idSurvey)
         {
+            idSurvey = 2;
             ViewBag.Message = "Login";
             var query = await
                             (from encuesta in _context.Encuesta
@@ -172,6 +173,12 @@ namespace ProyectoIdentity.Controllers
                                                                 }).ToList()
                                                }).ToList()
                              }).FirstOrDefaultAsync();
+            query.Categorias[0].Preguntas[0].IdTipo = 3;
+            query.Categorias[0].Preguntas[0].TipoPregunta = "Seleccion Multiple";
+            query.Categorias[0].Preguntas[1].IdTipo = 2;
+            query.Categorias[0].Preguntas[1].TipoPregunta = "Likkert";
+
+
             return View(query);
         }
 
@@ -180,8 +187,9 @@ namespace ProyectoIdentity.Controllers
             ViewBag.Message = "EnvioRedirectRespuestasMadurez";
             var query = (from encuesta in _context.Encuesta
                          where encuesta.Id == idSurvey
-                         select new Models.ModelsJourney.Encuesta
-                         {   Id = idSurvey,
+                         select new Encuesta
+                         {
+                             Id=idSurvey,
                              NombreEncuesta = encuesta.NombreEncuesta,
                              DescripcionEncuesta = encuesta.DescripcionEncuesta
                          }).FirstOrDefault();
