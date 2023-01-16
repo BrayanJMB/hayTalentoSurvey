@@ -1,4 +1,4 @@
-﻿@model ProyectoIdentity.Models.ModelTemplateJorney.ModelSurvey
+﻿@model ProyectoIdentity.Models.ModelsJourney.Encuesta
 
 @{
     ViewData["Title"] = "Delete";
@@ -23,6 +23,9 @@
 
 
 <div class="container">
+    <form asp-action="IndexRespuestasMadurez" asp-controller="Respuestas">
+        <input type="hidden" name="idSurvey" value="@Model.Id"></input>
+    
     <div class="d-flex justify-content-center align-items-center vh-100"  >
         <div class="mt-4 shadow p-4 rounded bg-white">
             <div style="width: 300px;">
@@ -34,11 +37,12 @@
                     Beneficios Mercado y Madurez
                 </h6>
                 <div class="text-right">
-                    <input type="button" name="next" id="redirect2" class="next action-button btn btn-primary" value="Comenzar Encuesta" />
+                    <input type="submit" name="next" id="redirect2" class="next action-button btn btn-primary" value="Comenzar Encuesta" />
                 </div>
             </div>
         </div>
     </div>
+    </form>
 </div>
 
 

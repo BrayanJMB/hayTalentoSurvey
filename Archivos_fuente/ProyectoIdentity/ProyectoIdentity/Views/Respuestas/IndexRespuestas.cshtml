@@ -150,10 +150,10 @@
                                                             {
                                                                  <tr class="demograficos" id="@option.Name">
                                                                                      
-                                                                    @if(option.Name=="Hijo" || option.Name == "Otros")
+                                                                    @if(option.Name=="Hijo" || option.Name == "Otros" || option.Name == "Hermano" )
                                                                     {
                                                                         int cant = 0;
-                                                                        if (option.Name == "Hijo")
+                                                                        if (option.Name == "Hijo" || option.Name == "Hermano")
                                                                             cant = 10;
                                                                         else
                                                                             cant = 3;
@@ -274,13 +274,62 @@
                                                                     <div class="row ml-2" >
                                                                         @if (pregunta.Opciones != null)
                                                                         {
+
                                                                             @foreach (var opcionP in pregunta.Opciones)
                                                                             {
                                                                                 @if (pregunta.TipoPregunta == "Likkert")
                                                                                 {
                                                                                     if (pregunta.NumeroPregunta == 17)
                                                                                     {
-                                                                                        <p>esta es la 17</p>
+                                                                                        <table class="table">
+                                                                                            <thead>
+                                                                                                    <tr class="title-table">
+                                                                                                        <th scope="col-sm-12">Concepto</th>
+                                                                                                        <th scope="col">Conoces el beneficio</th>
+                                                                                                        <th scope="col">Que tan atractivo te parece el beneficio</th>
+                                                                                                        <th scope="col">como ha funcionado el beneficio</th>
+                                                                                                        
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    
+                                                                                                    @foreach(var option in pregunta.Opciones){
+                                                                                                       <tr>
+                                                                                                        <th>@option.OpcionName</th>
+                                                                                                        <td>
+                                                                                                            <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
+                                                                                                                <option value="" selected>Seleccione</option>
+                                                                                                                <option value="" >Si</option>
+                                                                                                                <option value="" >No</option>
+                                                                                                            </select>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
+                                                                                                                <option value="" selected>Seleccione</option>
+                                                                                                                <option value="" >1</option>
+                                                                                                                <option value="" >2</option>
+                                                                                                                <option value="" >3</option>
+                                                                                                                <option value="" >4</option>
+                                                                                                            </select>
+
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
+                                                                                                                <option value="" selected>Seleccione</option>
+                                                                                                                <option value="" >1</option>
+                                                                                                                <option value="" >2</option>
+                                                                                                                <option value="" >3</option>
+                                                                                                                <option value="" >4</option>
+                                                                                                            </select>
+                                                                                                        </td>
+                                                                                                        </tr>
+                                                                                                    
+                                                                                                    }
+                                                                                                    
+                                                                                                </tbody>
+                                                                                                
+                                                                                        </table>
+                                                                                        
                                                                                     }else{
                                                                                         <div class="col-md-6 col-sm-12">
                                                                                         <div class="options-multiple-linkert">
@@ -291,10 +340,10 @@
                                                                                                 }
                                                                                             </select>
                                                                                         </div>
-                                                                                       </div>
+                                                                                        </div>
                                                                                     }
-                                                                                    
-                                                                                    
+
+                                                                                    break;
                                                                                 }
                                                                                 else if(pregunta.TipoPregunta == "Seleccion Multiple")
                                                                                 {

@@ -6,7 +6,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 {
     public class ModelSurvey
     {
-
+        public int id  { get; set; }
         public List<Category> Categorias { get; set; }
 
         private List<Opcion> OpcionesIniciales { get; set; }
@@ -719,7 +719,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                  },
                  new Pregunta {
                      NombrePregunta="¿La distribución de beneficios es equitativa?",
-                     TipoPregunta="Abierta",
+                     TipoPregunta="Likkert",
                      IdTipo = 5,
                      NumeroPregunta=19,
                      Opciones=OpcionesLikkert1()},
@@ -786,7 +786,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                  new Pregunta {
                      NombrePregunta="¿Nivel en el que la compañía asimila o integra buenas prácticas relacionadas con la administración de los beneficios?",
                       NumeroPregunta=25,
-                     TipoPregunta="Multiple Likkert",
+                     TipoPregunta="Seleccion Multiple",
                      IdTipo = 2,
                      Opciones=OpcionesLikkertper15()
                  },

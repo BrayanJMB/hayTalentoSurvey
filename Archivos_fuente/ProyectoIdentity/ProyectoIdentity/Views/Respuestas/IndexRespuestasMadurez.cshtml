@@ -11,6 +11,7 @@
                             "bi bi-person-check-fill",
                             "bi bi-tools",
                             "bi bi-shield-lock-fill" };
+    int indexPregunta = 1;
 }
 
 
@@ -69,7 +70,7 @@
                                                     <div class="showEditDelete">
                                                         <div>
                                                             <p class="error-description"></p>
-                                                            <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(x => pregunta.NumeroPregunta).&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
+                                                            <div class="bold-questions d-inline-flex mb-0">@indexPregunta.&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
                                                             <div class="row ml-2">
                                                                         @if (pregunta.Opciones != null)
                                                                         {
@@ -195,8 +196,9 @@
 
                                             <div style="padding-left: 28px; padding-right: 28px;">
                                                 <hr class="mb-0 mt-0">
-                                            </div>
+                                                    </div>
                                                     opcion = 1;
+                                                    indexPregunta++;
                                                 }
                                             }
                                 </div>

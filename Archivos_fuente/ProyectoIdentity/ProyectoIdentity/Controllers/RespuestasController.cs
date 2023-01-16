@@ -180,8 +180,8 @@ namespace ProyectoIdentity.Controllers
             ViewBag.Message = "EnvioRedirectRespuestasMadurez";
             var query = (from encuesta in _context.Encuesta
                          where encuesta.Id == idSurvey
-                         select new Encuesta
-                         {
+                         select new Models.ModelsJourney.Encuesta
+                         {   Id = idSurvey,
                              NombreEncuesta = encuesta.NombreEncuesta,
                              DescripcionEncuesta = encuesta.DescripcionEncuesta
                          }).FirstOrDefault();
