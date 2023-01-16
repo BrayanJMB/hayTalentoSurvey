@@ -11,6 +11,7 @@
                             "bi bi-person-check-fill",
                             "bi bi-tools",
                             "bi bi-shield-lock-fill" };
+   
 }
 
 
@@ -63,6 +64,204 @@
                                             {
                                                 <h3 class="titulo-dimension">@categori.NombreCategoria</h3>
                                                 <p class="descripcion-dimension"></p>
+                                                @if (categori.NombreCategoria == "Aspectos Demograficos")
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="showEditDelete">
+                                                                <div>
+                                                                    <p class="error-description"></p>
+                                                                    <div class="row ml-2" >
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <p>Paises</p>
+                                                                            <select  class="form-select form-select-sm likkert" aria-label="Default select example" id="paises" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                @foreach (var option in Model.Paises)
+                                                                                {
+                                                                                    <option value="@option.CountryName">@option.CountryName</option>
+                                                                                }
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Requerido.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <p>Ciudades</p>
+                                                                            <select  class="form-select form-select-sm likkert" aria-label="Default select example" id="capitales"required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                @foreach (var option in Model.Paises)
+                                                                                {
+                                                                                    @foreach (var option2 in option.Cities)
+                                                                                    {
+                                                                                        <option value="@option2.Country.CountryName">@option2.CityName</option>
+                                                                                    }
+                                                                                }
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Requerido.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <p>Negocio</p>
+                                                                            <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                @foreach (var option in Model.Negocios)
+                                                                                {
+                                                                                    <option value="1">@option.NameBusinnes</option>
+                                                                                }
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Requerido.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <p>Área</p>
+                                                                            <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                @foreach (var option in Model.Area)
+                                                                                {
+                                                                                    <option value="1">@option.AreaName</option>
+                                                                                }
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Requerido.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                } else if (categori.NombreCategoria == "Datos Demograficos")
+                                                                                        {
+                                                                                            <table class="table">
+                                                                                                <thead>
+                                                                                                    <tr class="title-table">
+                                                                                                        <th scope="col-sm-12">Parentezco</th>
+                                                                                                        <th scope="col">Sexo</th>
+                                                                                                        <th scope="col">Estado Civil</th>
+                                                                                                        <th scope="col">Nivel Educativo</th>
+                                                                                                        <th style="width: 0px;">¿Dependencia Economica?</th>
+                                                                                                        <th scope="col">Edad</th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody class="title-table">
+                                                            @foreach(var option in Model.Demograficos[0].OpcionesDemo)
+                                                            {
+                                                                 <tr class="demograficos" id="@option.Name">
+                                                                                     
+                                                                    @if(option.Name=="Hijo" || option.Name == "Otros")
+                                                                    {
+                                                                        int cant = 0;
+                                                                        if (option.Name == "Hijo")
+                                                                            cant = 10;
+                                                                        else
+                                                                            cant = 3;
+                                                                        <th style="width: 10%;" scope="row"><p>@option.Name</p> 
+                                                                            <input class="multiselect" id="MultipleRegister" style="width: 50%;" type="number"
+                                                                                                                name="quantity" min="0" max="@cant">
+                                                                        </th>
+                                                                        
+                                                                    }else{
+                                                                        <th scope="row">@option.Name</th>
+                                                                    <td>
+                                                                                      <select class="form-select form-select-sm select-demograficos"   name="select" required>
+                                                                            @if (option.Name == "Madre")
+                                                                            {
+                                                                                <option value="Femenino" selected>Femenino</option>
+                                                                            }else if (option.Name == "Padre")
+                                                                            {
+                                                                                <option value="Masculino" selected>Masculino</option>
+                                                                            }else{
+                                                                            <option selected value="">Seleccione</option>
+                                                                                            @foreach(var select in Model.Demograficos[1].OpcionesDemo){
+                                                                                                <option value="@select.Name">@select.Name</option>
+                                                                                            }
+                                                                            }
+                                                                                        </select>
+                                                                                       </td>
+                                                                                       <td>
+                                                                                        <select class="form-select form-select-sm select-demograficos"  name="select" onchange="block(this)" required>
+                                                                                            <option selected value="" >Seleccione</option>
+                                                                                            @foreach(var select in Model.Demograficos[2].OpcionesDemo){
+                                                                                    if(option.Name=="Colaborador" && select.Name=="Fallecido"){ continue; }
+
+                                                                                                <option value="@select.Name">@select.Name</option>
+                                                                                            }
+                                                                                        </select>
+                                                                                       </td>
+                                                                                       <td>
+                                                                                        <select class="form-select form-select-sm select-demograficos"  name="select" required>
+                                                                                            <option selected value="">Seleccione</option>
+                                                                                            @foreach(var select in Model.Demograficos[3].OpcionesDemo){
+                                                                                                <option value="@select.Name">@select.Name</option>
+                                                                                            }
+                                                                                        </select>
+                                                                                       </td>
+                                                                                       <td>
+                                                                                           @if(option.Name!="Colaborador"){  
+                                                                                        <select class="form-select form-select-sm select-demograficos"  name="select" required>
+                                                                                            <option selected value="">Seleccione</option>
+                                                                                            @foreach(var select in Model.Demograficos[4].OpcionesDemo){
+                                                                                                <option value="@select.Name">@select.Name</option>
+                                                                                            }
+                                                                                        </select>
+                                                                                        }
+                                                                                       </td>
+                                                                                       <td>
+                                                                                           
+                                                                                        <select class="form-select form-select-sm select-demograficos"  name="select" required>
+                                                                                            
+                                                                                            <option selected value="">Seleccione</option>
+                                                                                            @foreach(var select in Model.Demograficos[5].OpcionesDemo){
+                                                                                                
+                                                                                                <option value="@select.Name">@select.Name</option>
+                                                                                            }
+                                                                                        </select>
+                                                                                       </td>
+                                                                   }                   
+                                                                 </tr>
+                                                                 
+                                                                
+                                                            }
+
+                                                                                                </tbody>
+
+                                                                                                </table>
+                                                                                                @*</thead>
+                                                                                                
+                                                                                                   
+                                                                                                    <tr class="demograficos conyugue">
+                                                                                                        <th scope="row">Conyugue</th>
+                                                                                                    </tr>
+                                                                                                    <tr class="demograficos-multiple">
+                                                                                                        <th style="width: 10%;" scope="row">Hijos <input class="multiselect" id="hijos" style="width: 50%;" type="number"
+                                                                                                                name="quantity" min="0" max="10"></th>
+                                                                                                    </tr>
+                                                                                                    <tr class="demograficos">
+                                                                                                        <th scope="row">Madre</th>
+                                                                                                    </tr>
+                                                                                                    <tr class="demograficos">
+                                                                                                        <th scope="row">Padre</th>
+                                                                                                    </tr>
+                                                                                                    <tr class="demograficos-multiple">
+                                                                                                        <th style="width: 10%;" scope="row">Hermanos <input class="multiselect" id="hermanos" style="width: 50%;" type="number"
+                                                                                                            name="quantity" min="0" max="10"></th>
+                                                                                                    </tr>
+                                                                                                    <tr class="demograficos-multiple">
+                                                                                                        <th scope="row">Otros Familiares<input class="multiselect" id="otros-familiares" style="width: 50%;" type="number"
+                                                                                                            name="quantity" min="0" max="3"></th>
+                                                                                                    </tr>
+
+                                                                                                
+                                                                                            </table>
+                                                                                                <!-- View Mobile-->
+                                                                                                <div class="container-fluid" id="mobile">
+                                                                                                    <div class="accordion" id="accordionExample">
+                                                                                                    </div>
+                                                                                                </div>*@
+                                                                                        }
+
 
                                                 @foreach (var pregunta in categori.Preguntas)
                                                 {
@@ -79,7 +278,11 @@
                                                                             {
                                                                                 @if (pregunta.TipoPregunta == "Likkert")
                                                                                 {
-                                                                                     <div class="col-md-6 col-sm-12">
+                                                                                    if (pregunta.NumeroPregunta == 17)
+                                                                                    {
+                                                                                        <p>esta es la 17</p>
+                                                                                    }else{
+                                                                                        <div class="col-md-6 col-sm-12">
                                                                                         <div class="options-multiple-linkert">
                                                                                             <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
                                                                                                 <option value="" selected>Seleccione</option>
@@ -88,8 +291,10 @@
                                                                                                 }
                                                                                             </select>
                                                                                         </div>
-                                                                                    </div>
-                                                                                    break;
+                                                                                       </div>
+                                                                                    }
+                                                                                    
+                                                                                    
                                                                                 }
                                                                                 else if(pregunta.TipoPregunta == "Seleccion Multiple")
                                                                                 {
@@ -164,53 +369,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                     }
-                                                                                    else if (categori.NombreCategoria == "Datos Demograficos")
-                                                                                        {
-                                                                                            @*<table class="table">
-                                                                                                <thead>
-                                                                                                    <tr class="title-table">
-                                                                                                        <th scope="col-sm-12">Parentezco</th>
-                                                                                                        <th scope="col">Sexo</th>
-                                                                                                        <th scope="col">Estado Civil</th>
-                                                                                                        <th scope="col">Nivel Educativo</th>
-                                                                                                        <th style="width: 0px;">¿Dependencia Economica?</th>
-                                                                                                        <th scope="col">Edad</th>
-                                                                                                    </tr>
-                                                                                                </thead>
-                                                                                                <tbody class="title-table">
-                                                                                                    <tr class="demograficos colaborador">
-                                                                                                        <th scope="row">Colaborador</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos conyugue">
-                                                                                                        <th scope="row">Conyugue</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos-multiple">
-                                                                                                        <th style="width: 10%;" scope="row">Hijos <input class="multiselect" id="hijos" style="width: 50%;" type="number"
-                                                                                                                name="quantity" min="0" max="10"></th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos">
-                                                                                                        <th scope="row">Madre</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos">
-                                                                                                        <th scope="row">Padre</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos-multiple">
-                                                                                                        <th style="width: 10%;" scope="row">Hermanos <input class="multiselect" id="hermanos" style="width: 50%;" type="number"
-                                                                                                            name="quantity" min="0" max="10"></th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos-multiple">
-                                                                                                        <th scope="row">Otros Familiares<input class="multiselect" id="otros-familiares" style="width: 50%;" type="number"
-                                                                                                            name="quantity" min="0" max="3"></th>
-                                                                                                    </tr>
-
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                                <!-- View Mobile-->
-                                                                                                <div class="container-fluid" id="mobile">
-                                                                                                    <div class="accordion" id="accordionExample">
-                                                                                                    </div>
-                                                                                                </div>*@
-                                                                                        }else{
+                                                                                   else{
                                                                                         <div class="col-md-6 col-sm-12">
                                                                                             <div class="options">
                                                                                                 <select  class="form-select form-select-sm escala" aria-label="Default select example" required>
@@ -332,683 +491,134 @@
     <script src="~/js/functionValidation.js" asp-append-version="true"></script>
     <script src="~/js/functionDeleteOptionSelect.js" asp-append-version="true"></script>
     <script>
+        var capitales = [];
+        var capitalesColo = "@String.Join(",",Model.CapitalesColombia).Replace("&#xE1;", "á").Replace("&#xED;", "í").Replace("&#xE9;", "é").Replace("&#xFA;", "ú").Replace("&#xF3;", "ó").Replace("&#xFC;", "ü")";
+        capitalesColo = capitalesColo.replaceAll("&#xE1;", "á").replaceAll("&#xED;", "í").replaceAll("&#xE9;", "é").replaceAll("&#xFA;", "ú").replaceAll("&#xF3;", "ó").replaceAll("&#xFC;", "ü");
+        var capitalesColombia=capitalesColo.split(",");
+        document.querySelectorAll("#MultipleRegister")[0].onkeyup = function(){}
+        document.querySelectorAll("#MultipleRegister")[1].onkeyup = function(){}
+        @foreach(var pais in Model.Paises){
+            @foreach (var ciudad in pais.Cities)
+            {
+                if (pais.CountryName != "Colombia"){
+                <text> capitales.push({"pais":"@pais.CountryName".replace("&#xE1;","á").replace("&#xED;","í").replace("&#xE9;","é").replace("&#xFA;","ú").replace("&#xF3;","ó").replace("&#xFC;","ü"),
+                "capital":"@ciudad.CityName".replace("&#xE1;","á").replace("&#xED;","í").replace("&#xE9;","é").replace("&#xFA;","ú").replace("&#xF3;","ó").replace("&#xFC;","ü")}); </text>
+                }       
+            }
+        }
+        paises.onchange = function(){
+            filtrarCapitales();
+        };
 
-        //let some= document.querySelector("filese")
-     //function showNextTab(tabId) {
-     //   var currentTab = document.querySelector('.tab-pane.active');
-     //   if (currentTab.checkValidity()) {
-     //     document.querySelector('.tab-pane.active').classList.remove('active');
-     //     document.getElementById(tabId).classList.add('active');
-     //   } else {
-     //     currentTab.classList.add('was-validated');
-     //   }
-     // }
-     // function showPrevTab(tabId) {
-     //   document.querySelector('.tab-pane.active').classList.remove('active');
-     //   document.getElementById(tabId).classList.add('active');
-     // }
-     // (function() {
-     //   'use strict';
-     //   window.addEventListener('load', function() {
-     //     var form = document.getElementById('multistep-form');
-     //     form.addEventListener('submit', function(event) {
-     //       if (form.checkValidity() === false) {
-     //         event.preventDefault();
-     //         event.stopPropagation();
-     //       }
-     //       form.classList.add('was-validated');
-     //     }, false);
-     //   }, false);
-     // })();
+        function filtrarCapitales() {
+            var paisSeleccionado = paises.value;
+            if(paisSeleccionado=="Colombia"){
+                capitalesFiltradas=capitalesColombia;
+                actualizarSelectCapitales(capitalesFiltradas,"Colombia");
+            }else{
+            var capitalesFiltradas = capitales.filter(function(capital) {
+                return capital.pais === paisSeleccionado;
 
-        //let paises = document.getElementById("paises");
-        //let capitales = [
-        //    {"pais":"Argentina", "capital":"Buenos Aires"},
-        //    {"pais":"Bolivia", "capital":"La Paz"},
-        //    {"pais":"Brasil", "capital":"Brasilia"},
-        //    {"pais":"Chile", "capital":"Santiago de Chile"},
-        //    {"pais":"Ecuador", "capital":"Quito"},
-        //    {"pais":"Paraguay", "capital":"Asunción"},
-        //    {"pais":"Perú", "capital":"Lima"},
-        //    {"pais":"Surinam", "capital":"Parabarimo"},
-        //    {"pais":"Trinidad y Tobago", "capital":"Puerto España"},
-        //    {"pais":"Uruguay", "capital":"Montevideo"},
-        //    {"pais":"Venezuela", "capital":"Caracas"},
-        //    {"pais":"Estados Unidos", "capital":"Washinton D.C" },
-        //    {"pais":"México", "capital":"Ciudad de México"},
-        //    {"pais":"Colombia","capital":["Arauca", "Armenia","Barranquilla", "Bogotá",
-        //       "Bucaramanga","Cali", "Cartagena", "Cúcuta", "Florencia", "Ibagué",
-        //       "Leticia", "Manizales","Medellín","Mitú","Mocoa","Montería","Neiva",
-        //       "Pasto","Pereria","Popayán","Puerto Carreño", "Puerto Inírida",
-        //       "Quibdó","Riohacha","San Andrés", "San José del Guaviare","Santa Marta",
-        //       "Sincelejo","Tunja","Valledupar","Villavicencio","Yopal"
-        //    ]}
-        //]
-        //paises.onchange = function(){
-        //    filtrarCapitales();
-        //};
-
-        //function filtrarCapitales() {
-        //    var paisSeleccionado = paises.value;
-        //    var capitalesFiltradas = capitales.filter(function(capital) {
-        //        return capital.pais === paisSeleccionado;
-        //    });
-        //    actualizarSelectCapitales(capitalesFiltradas);
-        //};
-
-        //function actualizarSelectCapitales(capitales) {
-        //    var select = document.querySelector("#capitales");
-        //    select.innerHTML = "";
-
-        //    // Si las capitales están guardadas en un array
-        //    capitales.forEach(function(capital) {
-        //        if (capital.pais != "Colombia"){
-        //            var option = document.createElement("option");
-        //            option.value = capital.capital;
-        //            option.text = capital.capital;
-        //            select.appendChild(option);
-        //        }else{
-        //            capital.capital.forEach((element)=>{
-        //                console.log(element)
-        //                var option = document.createElement("option");
-        //                option.value = element;
-        //                option.text = element;
-        //                select.appendChild(option);
-        //            })
-        //        }
-        //    });
-        //};
-
-///////////////////////////////////////////////////////7
-
-    //    let titles = ["Colaborador", "Conyugue", "Madre", "Padre", "Hijos", "Hermanos", "Otros Familiares"]
-    //    let demograficos_multiple_title = ["Hijos", "Hermanos", "Otro Familiar"]
-    //    let title = document.getElementsByClassName("title");
-    //    let demograficos = document.getElementsByClassName("demograficos");
-    //    let multiselect = document.getElementsByClassName("multiselect");
-    //    let colaborador  = document.getElementsByClassName("select-demograficos");
-    //    let demograficos_multiple = document.getElementsByClassName("demograficos-multiple");
-    //    let hmtlDesktopView = `<td>
-    //                    <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                        <option selected>Seleccione</option>
-    //                        <option value="value1">Masculino</option>
-    //                        <option value="value2">Femenino</option>
-    //                    </select>
-    //                </td>
-    //                <td>            
-    //                    <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                        <option selected>Seleccione</option>
-    //                        <option value="value1">Soltero(a)</option>
-    //                        <option value="value2">Unión Libre 2 o más años</option>
-    //                        <option value="value2">Unión Libre < a 2 años</option>
-    //                        <option value="value2">Casado(a)</option>
-    //                        <option value="value2">Separado(a)</option>
-    //                        <option value="value2">Divorciado (a)</option>
-    //                        <option value="value2">Viudo(a)</option>
-    //                        <option value="Fallecido">Fallecido</option>
-    //                    </select>
-    //                </td>
-    //                <td>
-    //                    <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                        <option selected>Seleccione</option>
-    //                        <option value="value1">Ninguno</option>
-    //                        <option value="value1">Preescolar</option>
-    //                        <option value="value1">Primaria</option>
-    //                        <option value="value1">Bachillerato</option>
-    //                        <option value="value1">Técnico/Tecnól.</option>
-    //                        <option value="value1">Pregrado</option>
-    //                        <option value="value1">Especialización</option>
-    //                        <option value="value1">Maestría</option>
-    //                        <option value="value1">Doctorado</option>
-                            
-    //                    </select>
-    //                </td>
-    //                <td>
-    //                    <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                        <option selected>Seleccione</option>
-    //                        <option value="value1">Si</option>
-    //                        <option value="value2">No</option>
-    //                    </select>
-    //                </td>
-    //                <td>
-    //                    <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                        <option selected>Seleccione</option>
-    //                        <option value="value1">De 0 a 7 años</option>
-    //                        <option value="value1">De 7 a 11 años</option>
-    //                        <option value="value1">De 12 a 17 años</option>
-    //                        <option value="value1">De 18 a 25 años</option>
-    //                        <option value="value1">De 26 a 35 años</option>
-    //                        <option value="value1">De 36 a 45 años</option>
-    //                        <option value="value1">De 46 a 55 años</option>
-    //                        <option value="value1">55 años o más</option>
-    //                    </select>
-    //                </td>`;
-
-    //    let hmtlDesktopViewOtroFamiliar = `<td>
-    //                    <p class="error-demograficos"></p>
-    //                    <input class="select-demograficos">
-    //                </td>
-    //                <td>            
-    //                    <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                        <option selected>Seleccione</option>
-    //                        <option value="value1">Soltero(a)</option>
-    //                        <option value="value2">Unión Libre 2 o más años</option>
-    //                        <option value="value2">Unión Libre < a 2 años</option>
-    //                        <option value="value2">Casado(a)</option>
-    //                        <option value="value2">Separado(a)</option>
-    //                        <option value="value2">Divorciado (a)</option>
-    //                        <option value="value2">Viudo(a)</option>
-    //                        <option value="Fallecido">Fallecido</option>
-    //                    </select>
-    //                </td>
-    //                <td>
-    //                    <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                        <option selected>Seleccione</option>
-    //                        <option value="value1">Ninguno</option>
-    //                        <option value="value1">Preescolar</option>
-    //                        <option value="value1">Primaria</option>
-    //                        <option value="value1">Bachillerato</option>
-    //                        <option value="value1">Técnico/Tecnól.</option>
-    //                        <option value="value1">Pregrado</option>
-    //                        <option value="value1">Especialización</option>
-    //                        <option value="value1">Maestría</option>
-    //                        <option value="value1">Doctorado</option>
-                            
-    //                    </select>
-    //                </td>
-    //                <td>
-    //                    <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                        <option selected>Seleccione</option>
-    //                        <option value="value1">Si</option>
-    //                        <option value="value2">No</option>
-    //                    </select>
-    //                </td>
-    //                <td>
-    //                    <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                        <option selected>Seleccione</option>
-    //                        <option value="value1">De 0 a 7 años</option>
-    //                        <option value="value1">De 7 a 11 años</option>
-    //                        <option value="value1">De 12 a 17 años</option>
-    //                        <option value="value1">De 18 a 25 años</option>
-    //                        <option value="value1">De 26 a 35 años</option>
-    //                        <option value="value1">De 36 a 45 años</option>
-    //                        <option value="value1">De 46 a 55 años</option>
-    //                        <option value="value1">55 años o más</option>
-    //                    </select>
-    //                </td>`;
-
-        
-    //    [...demograficos].forEach((element , index) => {
-    //        if (index == 0) {
-    //        $(element).append(`<td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">Masculino</option>
-    //                <option value="value2">Femenino</option>
-    //            </select>
-    //        </td>
-    //        <td>            
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="soltero">Soltero(a)</option>
-    //                <option value="value2">Unión Libre 2 o más años</option>
-    //                <option value="value2">Unión Libre < a 2 años</option>
-    //                <option value="value2">Casado(a)</option>
-    //                <option value="value2">Separado(a)</option>
-    //                <option value="value2">Divorciado (a)</option>
-    //                <option value="value2">Viudo(a)</option>
-    //            </select>
-    //        </td>
-    //        <td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">Ninguno</option>
-    //                <option value="value1">Preescolar</option>
-    //                <option value="value1">Primaria</option>
-    //                <option value="value1">Bachillerato</option>
-    //                <option value="value1">Técnico/Tecnól.</option>
-    //                <option value="value1">Pregrado</option>
-    //                <option value="value1">Especialización</option>
-    //                <option value="value1">Maestría</option>
-    //                <option value="value1">Doctorado</option>
-    //            </select>
-    //        </td>
-    //        <td>
-    //            <p></p>
-    //        </td>
-    //        <td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">De 0 a 7 años</option>
-    //                <option value="value1">De 7 a 11 años</option>
-    //                <option value="value1">De 12 a 17 años</option>
-    //                <option value="value1">De 18 a 25 años</option>
-    //                <option value="value1">De 26 a 35 años</option>
-    //                <option value="value1">De 36 a 45 años</option>
-    //                <option value="value1">De 46 a 55 años</option>
-    //                <option value="value1">55 años o más</option>
-    //            </select>
-    //        </td>`)}
-    //        else if(index == 2){
-    //            $(element).append(`<td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected value="value2">Femenino</option>
-    //            </select>
-    //        </td>
-    //        <td>            
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="soltero">Soltero(a)</option>
-    //                <option value="value2">Unión Libre 2 o más años</option>
-    //                <option value="value2">Unión Libre < a 2 años</option>
-    //                <option value="value2">Casado(a)</option>
-    //                <option value="value2">Separado(a)</option>
-    //                <option value="value2">Divorciado (a)</option>
-    //                <option value="value2">Viudo(a)</option>
-    //                <option value="Fallecido">Fallecido</option>
-    //            </select>
-    //        </td>
-    //        <td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">Ninguno</option>
-    //                <option value="value1">Preescolar</option>
-    //                <option value="value1">Primaria</option>
-    //                <option value="value1">Bachillerato</option>
-    //                <option value="value1">Técnico/Tecnól.</option>
-    //                <option value="value1">Pregrado</option>
-    //                <option value="value1">Especialización</option>
-    //                <option value="value1">Maestría</option>
-    //                <option value="value1">Doctorado</option>
-    //            </select>
-    //        </td>
-    //        <td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">Si</option>
-    //                <option value="value2">No</option>
-    //            </select>
-    //        </td>
-    //        <td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">De 0 a 7 años</option>
-    //                <option value="value1">De 7 a 11 años</option>
-    //                <option value="value1">De 12 a 17 años</option>
-    //                <option value="value1">De 18 a 25 años</option>
-    //                <option value="value1">De 26 a 35 años</option>
-    //                <option value="value1">De 36 a 45 años</option>
-    //                <option value="value1">De 46 a 55 años</option>
-    //                <option value="value1">55 años o más</option>
-    //            </select>
-    //        </td>`)
-    //        }
-    //        else if(index == 3){
-    //            $(element).append(`<td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected value="value2">Masculino</option>
-    //            </select>
-    //        </td>
-    //        <td>            
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="soltero">Soltero(a)</option>
-    //                <option value="value2">Unión Libre 2 o más años</option>
-    //                <option value="value2">Unión Libre < a 2 años</option>
-    //                <option value="value2">Casado(a)</option>
-    //                <option value="value2">Separado(a)</option>
-    //                <option value="value2">Divorciado (a)</option>
-    //                <option value="value2">Viudo(a)</option>
-    //                <option value="Fallecido">Fallecido</option>
-    //            </select>
-    //        </td>
-    //        <td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">Ninguno</option>
-    //                <option value="value1">Preescolar</option>
-    //                <option value="value1">Primaria</option>
-    //                <option value="value1">Bachillerato</option>
-    //                <option value="value1">Técnico/Tecnól.</option>
-    //                <option value="value1">Pregrado</option>
-    //                <option value="value1">Especialización</option>
-    //                <option value="value1">Maestría</option>
-    //                <option value="value1">Doctorado</option>
-    //            </select>
-    //        </td>
-    //        <td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">Si</option>
-    //                <option value="value2">No</option>
-    //            </select>
-    //        </td>
-    //        <td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">De 0 a 7 años</option>
-    //                <option value="value1">De 7 a 11 años</option>
-    //                <option value="value1">De 12 a 17 años</option>
-    //                <option value="value1">De 18 a 25 años</option>
-    //                <option value="value1">De 26 a 35 años</option>
-    //                <option value="value1">De 36 a 45 años</option>
-    //                <option value="value1">De 46 a 55 años</option>
-    //                <option value="value1">55 años o más</option>
-    //            </select>
-    //        </td>`)
-    //        }
+            });
+            actualizarSelectCapitales(capitalesFiltradas,"");
+            }
             
-    //        else{
-    //            $(element).append(`<td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">Masculino</option>
-    //                <option value="value2">Femenino</option>
-    //            </select>
-    //        </td>
-    //        <td>            
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="soltero">Soltero(a)</option>
-    //                <option value="value2">Unión Libre 2 o más años</option>
-    //                <option value="value2">Unión Libre < a 2 años</option>
-    //                <option value="value2">Casado(a)</option>
-    //                <option value="value2">Separado(a)</option>
-    //                <option value="value2">Divorciado (a)</option>
-    //                <option value="value2">Viudo(a)</option>
-    //                <option value="Fallecido">Fallecido</option>
-    //            </select>
-    //        </td>
-    //        <td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">Ninguno</option>
-    //                <option value="value1">Preescolar</option>
-    //                <option value="value1">Primaria</option>
-    //                <option value="value1">Bachillerato</option>
-    //                <option value="value1">Técnico/Tecnól.</option>
-    //                <option value="value1">Pregrado</option>
-    //                <option value="value1">Especialización</option>
-    //                <option value="value1">Maestría</option>
-    //                <option value="value1">Doctorado</option>
-    //            </select>
-    //        </td>
-    //        <td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">Si</option>
-    //                <option value="value2">No</option>
-    //            </select>
-    //        </td>
-    //        <td>
-    //            <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                <option selected>Seleccione</option>
-    //                <option value="value1">De 0 a 7 años</option>
-    //                <option value="value1">De 7 a 11 años</option>
-    //                <option value="value1">De 12 a 17 años</option>
-    //                <option value="value1">De 18 a 25 años</option>
-    //                <option value="value1">De 26 a 35 años</option>
-    //                <option value="value1">De 36 a 45 años</option>
-    //                <option value="value1">De 46 a 55 años</option>
-    //                <option value="value1">55 años o más</option>
-    //            </select>
-    //        </td>`)
-    //        }
-    //        const selects = [];
-    //        debugger;
-    //        [...demograficos].forEach(tr => {
-    //            selects.push(tr.querySelectorAll('.select-demograficos'));
-    //        });
-    //        for(let index = 0; index < selects.length; index++){
-    //            for(let index2 = 0; index2 < selects[index].length; index2++){
-    //                if(index2 == 0){
-    //                    continue;
-    //                }
-    //                selects[index][index2].onchange =function(){
-    //                    if (selects[index][index2].value == "Fallecido"){
-    //                        selects[index][index2+1].disabled = true;
-    //                        selects[index][index2+2].disabled = true;
-    //                        selects[index][index2+3].disabled = true;
-    //                    }else{
-    //                        selects[index][index2+1].disabled = false;
-    //                        selects[index][index2+2].disabled = false;
-    //                        selects[index][index2+3].disabled = false;
-    //                    }
-    //                }
-    //            } 
-    //        };  
-    //        colaborador[1].classList.add("colaborador");
-    //         $('#hermanos, #hijos').bind("paste keydown keyup",function(e) {
-    //            e.preventDefault();});
-    //        });
+        };
 
-    //    let conyugue = document.getElementsByClassName("colaborador");
-    //    let conyugue_ = document.getElementsByClassName("conyugue");
-    //    conyugue[1].onchange = function(){
-    //        if (conyugue[1].value == "soltero"){
-    //            conyugue_[0].remove();
-    //        }else{
-    //            debugger;
-    //            let conyugue_ = document.getElementsByClassName("conyugue");
-    //            if(conyugue_.length == 0 && conyugue[1].value != "Soltero(a)"){
-    //            $(`
-    //            <tr class="demograficos conyugue">
-    //                <th scope="row">Conyugue</th>
-    //            <td>
-    //                <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                    <option selected>Seleccione</option>
-    //                    <option value="value1">Masculino</option>
-    //                    <option value="value2">Femenino</option>
-    //                </select>
-    //            </td>
-    //            <td>            
-    //                <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                    <option selected>Seleccione</option>
-    //                    <option value="value1">Soltero(a)</option>
-    //                    <option value="value2">Unión Libre 2 o más años</option>
-    //                    <option value="value2">Unión Libre < a 2 años</option>
-    //                    <option value="value2">Casado(a)</option>
-    //                    <option value="value2">Separado(a)</option>
-    //                    <option value="value2">Divorciado (a)</option>
-    //                    <option value="value2">Viudo(a)</option>
-    //                    <option value="Fallecido">Fallecido</option>
-    //                </select>
-    //            </td>
-    //            <td>
-    //                <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                    <option selected>Seleccione</option>
-    //                    <option value="value1">Ninguno</option>
-    //                    <option value="value1">Preescolar</option>
-    //                    <option value="value1">Primaria</option>
-    //                    <option value="value1">Bachillerato</option>
-    //                    <option value="value1">Técnico/Tecnól.</option>
-    //                    <option value="value1">Pregrado</option>
-    //                    <option value="value1">Especialización</option>
-    //                    <option value="value1">Maestría</option>
-    //                    <option value="value1">Doctorado</option>
-    //                </select>
-    //            </td>
-    //            <td>
-    //                <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                    <option selected>Seleccione</option>
-    //                    <option value="value1">Si</option>
-    //                    <option value="value2">No</option>
-    //                </select>
-    //            </td>
-    //            <td>
-    //                <p class="error-demograficos"></p><select class="form-select form-select-sm select-demograficos"  name="select">
-    //                    <option selected>Seleccione</option>
-    //                    <option value="value1">De 0 a 7 años</option>
-    //                    <option value="value1">De 7 a 11 años</option>
-    //                    <option value="value1">De 12 a 17 años</option>
-    //                    <option value="value1">De 18 a 25 años</option>
-    //                    <option value="value1">De 26 a 35 años</option>
-    //                    <option value="value1">De 36 a 45 años</option>
-    //                    <option value="value1">De 46 a 55 años</option>
-    //                    <option value="value1">55 años o más</option>
-    //                </select>
-    //            </td>
-    //        </tr>`).insertAfter(".colaborador:eq(0)");
-    //        }
-    //        const selects = [];
-    //        debugger;
-    //        [...demograficos].forEach(tr => {
-    //            selects.push(tr.querySelectorAll('.select-demograficos'));
-    //        });
-    //        for(let index = 0; index < selects.length; index++){
-    //            for(let index2 = 0; index2 < selects[index].length; index2++){
-    //                if(index2 == 0){
-    //                    continue;
-    //                }
-    //                selects[index][index2].onchange =function(){
-    //                    if (selects[index][index2].value == "Fallecido"){
-    //                        selects[index][index2+1].disabled = true;
-    //                        selects[index][index2+2].disabled = true;
-    //                        selects[index][index2+3].disabled = true;
-    //                    }else{
-    //                        selects[index][index2+1].disabled = false;
-    //                        selects[index][index2+2].disabled = false;
-    //                        selects[index][index2+3].disabled = false;
-    //                    }
-    //                }
-    //            } 
-    //        }; 
-    //    }
-    //    };
+        function actualizarSelectCapitales(capitales,pais) {
+            var select = document.querySelector("#capitales");
+            select.innerHTML = "";
+            console.log(capitales)
+            // Si las capitales están guardadas en un array
+            capitales.forEach(function(capital) {
+                if (pais!="Colombia"){
+                    var option = document.createElement("option");
+                    option.value = capital.capital;
+                    option.text = capital.capital;
+                    select.appendChild(option);
+                }else{
+                        var option = document.createElement("option");
+                        option.value = capital;
+                        option.text = capital;
+                        select.appendChild(option);
+                
+                }
+            });
+        };
+        let FilasMultiples=document.querySelectorAll("#MultipleRegister")
+        FilasMultiples.forEach((option)=>{
+            option.onchange=()=>{
+                let cantidad=option.value;
+                let cantidadTotal=0;
+                var trPadre=option.parentNode.parentNode;
+                var trCopy = trPadre.previousElementSibling.cloneNode(true);
+                if(option.previousElementSibling.textContent=="Hijo"){
+                    trCopy.id=option.previousElementSibling.textContent+"Add";
+                    cantidadTotal=document.querySelectorAll("#HijoAdd").length;
+                }else{
+                    trCopy.id=option.previousElementSibling.textContent+"Add";
+                    cantidadTotal=document.querySelectorAll("#OtrosAdd").length;
+                    
+                }
+                 
+                if(cantidad>cantidadTotal){
+                    if(option.previousElementSibling.textContent=="Otros")
+                        trCopy.firstElementChild.innerHTML="<input type='text' class='form-control' required />"
+                    else
+                    trCopy.firstElementChild.innerHTML=option.previousElementSibling.textContent
+                    block(trCopy.children[2].children[0]);
+                    trPadre.insertAdjacentElement("afterend", trCopy);
+                }else if(cantidad<=cantidadTotal && document.querySelectorAll("#"+option.previousElementSibling.textContent+"Add").length>0){
+                    const elements = document.querySelectorAll("#"+option.previousElementSibling.textContent+"Add");
+                    const lastElement = elements[elements.length-1];
+                    lastElement.remove();
+                }
+                
+            }
+        })
 
-    //    const selects2 = [];
-    //    [...multiselect].forEach((element, index) =>{
-    //        element.onchange = function(){
-    //            debugger;
-    //            valorInput= element.value;
-    //            contador = element.value;
-    //            $(`.demograficos-multiple-dinamico${index}`).empty();
-    //            for (let i = 0; i < valorInput; i++) {
-    //                debugger;
-    //                if (demograficos_multiple_title[index] != "Otro Familiar"){
-    //                $(` <tr class="demograficos-multiple-dinamico${index}">
-    //                    <th scope="row"> ${demograficos_multiple_title[index]} ${contador}</th> 
-    //                    ${hmtlDesktopView}
-    //            </tr>`).insertAfter(`.demograficos-multiple:eq(${index})`);
-    //                }else{
-    //                $(` <tr class="demograficos-multiple-dinamico${index}">
-    //                    <th scope="row"> ${demograficos_multiple_title[index]} ${contador}</th> 
-    //                    ${hmtlDesktopViewOtroFamiliar}
-    //                </tr>`).insertAfter(`.demograficos-multiple:eq(${index})`);
-    //                }
-    //            contador--;
-    //            }
-    //        let demograficos_multiple_ = document.getElementsByClassName(`demograficos-multiple-dinamico${index}`);
-    //        [...demograficos_multiple_].forEach(tr => {
-    //            selects2.push(tr.querySelectorAll('.select-demograficos'));
-    //        });
-    //        for(let index = 0; index < selects2.length; index++){
-    //            for(let index2 = 0; index2 < selects2[index].length; index2++){
-    //                if (index2 == 0){
-    //                    continue;
-    //                }
-    //                selects2[index][index2].onchange =function(){
+        function block(element){
+            let td=element.parentNode.parentNode;
+            if(element.value=="Fallecido"){
+                td.children[3].children[0].disabled=true;
+                td.children[4].children[0].disabled=true;
+                td.children[5].children[0].disabled=true;
+            }else{
+                td.children[1].children[0].disabled=false;
+                td.children[2].children[0].disabled=false;
+                td.children[3].children[0].disabled=false;
+                td.children[4].children[0].disabled=false;
+                td.children[5].children[0].disabled=false;
+            }
+        }
 
-    //                    debugger;   
-    //                    if (selects2[index][index2].value == "Fallecido"){
-    //                        selects2[index][index2+1].disabled = true;
-    //                        selects2[index][index2+2].disabled = true;
-    //                        selects2[index][index2+3].disabled = true;
-    //                    }else{
-    //                        selects2[index][index2+1].disabled = false;
-    //                        selects2[index][index2+2].disabled = false;
-    //                        selects2[index][index2+3].disabled = false;
-    //                    }
-    //                }
-    //            } 
-    //        };  
-    //        }
-    //    });
+        let colaborador=document.getElementById("Colaborador");
+        colaborador.children[2].children[0].onchange=(element)=>{
+            if(element.target.value.includes("Viudo") || element.target.value.includes("Soltero") || element.target.value.includes("Divorciado")){
+                   let td=element.target.parentNode.parentNode;
+                   let nextTd=td.nextElementSibling;
+                   console.log(nextTd);
+                   nextTd.children[1].children[0].disabled=true;
+                   nextTd.children[2].children[0].disabled=true;
+                   nextTd.children[3].children[0].disabled=true;
+                   nextTd.children[4].children[0].disabled=true;
+                   nextTd.children[5].children[0].disabled=true;
+            }else{
+                let td=element.target.parentNode.parentNode;
+                   let nextTd=td.nextElementSibling;
+                   console.log(nextTd);
+                   nextTd.children[1].children[0].disabled=false;
+                   nextTd.children[2].children[0].disabled=false;
+                   nextTd.children[3].children[0].disabled=false;
+                   nextTd.children[4].children[0].disabled=false;
+                   nextTd.children[5].children[0].disabled=false;
+            }
+            
+        }
 
-    ////View Mobile
-    //let htmlMobileView = `<div class="mb-5">
-    //                                <p>Sexo</p>
-    //                                <p class="error-demograficos-mobile"></p><select class="form-select form-select-sm select-demograficos-mobile"  name="select">
-    //                                    <option selected>Seleccione</option>
-    //                                    <option value="value1">Masculino</option>
-    //                                    <option value="value2">Femenino</option>
-    //                                </select>
-    //                            </div>
-    //                            <div class="mb-5">
-    //                                <p>Estado Civil</p>
-    //                                <p class="error-demograficos-mobile"></p><select class="form-select form-select-sm select-demograficos-mobile"  name="select">
-    //                                    <option selected>Seleccione</option>
-    //                                    <option value="value1">Soltero(a)</option>
-    //                                    <option value="value2">Unión Libre 2 o más años</option>
-    //                                    <option value="value2">Unión Libre < a 2 años</option>
-    //                                    <option value="value2">Casado(a)</option>
-    //                                    <option value="value2">Separado(a)</option>
-    //                                    <option value="value2">Divorciado (a)</option>
-    //                                    <option value="value2">Viudo(a)</option>
-    //                                </select>
-    //                            </div>
-    //                            <div class="mb-5">
-    //                                <p>Nivel Educativo</p>
-    //                                <p class="error-demograficos-mobile"></p><select class="form-select form-select-sm select-demograficos-mobile"  name="select">
-    //                                    <option selected>Seleccione</option>
-    //                                    <option value="value1">Ninguno</option>
-    //                                    <option value="value1">Preescolar</option>
-    //                                    <option value="value1">Primaria</option>
-    //                                    <option value="value1">Bachillerato</option>
-    //                                    <option value="value1">Técnico/Tecnól.</option>
-    //                                    <option value="value1">Pregrado</option>
-    //                                    <option value="value1">Especialización</option>
-    //                                    <option value="value1">Maestría</option>
-    //                                    <option value="value1">Doctorado</option>
-                                        
-    //                                </select>
-    //                            </div>
-    //                            <div class="mb-5">
-    //                                <p>¿Dependiente Economicamente?</p>
-    //                                <p class="error-demograficos-mobile"></p><select class="form-select form-select-sm select-demograficos-mobile"  name="select">
-    //                                    <option selected>Seleccione</option>
-    //                                    <option value="value1">Si</option>
-    //                                    <option value="value2">No</option>
-    //                                </select>
-    //                            </div>
-    //                            <div class="mb-5">
-    //                                <p>Edad</p>
-    //                                <p class="error-demograficos-mobile"></p><select class="form-select form-select-sm select-demograficos-mobile"  name="select">
-    //                                    <option selected>Seleccione</option>
-    //                                    <option value="value1">De 0 a 7 años</option>
-    //                                    <option value="value1">De 7 a 11 años</option>
-    //                                    <option value="value1">De 12 a 17 años</option>
-    //                                    <option value="value1">De 18 a 25 años</option>
-    //                                    <option value="value1">De 26 a 35 años</option>
-    //                                    <option value="value1">De 36 a 45 años</option>
-    //                                    <option value="value1">De 46 a 55 años</option>
-    //                                    <option value="value1">55 años o más</option>
-    //                                </select>
-    //                            </div>`
-    // let validate = (titles, index) =>{
-    //    let html =`
-    //    <div class="card">
-    //            <div class="card-header" id="headingOne">
-    //                <h2 class="mb-0">
-    //                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-    //                    ${titles[index]}
-    //                </button>
-    //                </h2>
-    //            </div>
-    //            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-    //                <div class="card-body">
-    //                    <div>
-    //                        <div class="d-flex flex-column">
-    //                            ${htmlMobileView}
-    //                        </div>
-    //                        <button type="button" class="btn btn-primary mobile-button">Siguiente</button>
-    //                    </div>
-    //                </div>
-    //            </div>
-    //        </div>`
-        
-    //        return html;
-    //}
+        //Funciones condicionales
+
+ 
     //window.onload = function () {
     //    for (i = 0; i < titles.length; i++) {
     //        if (i == 0) {

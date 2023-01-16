@@ -22,6 +22,7 @@ namespace ProyectoIdentity.Controllers
 
         public List<BusinessUnit> Negocios { get; set; }
         public List<Demograficos> Demograficos { get; set; }
+        public string[] CapitalesColombia { get; set; }
 
         public List<Category> Categorias { get; set; }
 
@@ -40,6 +41,7 @@ namespace ProyectoIdentity.Controllers
         public async Task<IActionResult> IndexRespuestas(int idSurvey)
         {
             ViewBag.Message = "Login";
+            idSurvey = 3;
 
             var Country = await _context.Country.Include(p => p.Cities).ToListAsync();
             var area = await _context.EncuestaArea.Where(e => e.EncuestaId == idSurvey).Include(p => p.Area).Select(p => p.Area).ToListAsync();
@@ -51,11 +53,8 @@ namespace ProyectoIdentity.Controllers
                 .Include(ed => ed.Demograficos.OpcionesDemo)
                 .Select(ed => ed.Demograficos)
                 .ToListAsync();
-
-            //var demo = _context.Demograficos
-            //    .Include(d => d.OpcionesDemo)
-            //    .Where(demografico => demografico.encuestaDemograficos
-            //    .Where(d=>d.EncuestaId == idSurvey))
+            string[] capitales = _context.City.Where(p => p.CountryId == "Colombia").Select(x=>x.CityName).ToArray();
+            
             var query = await
                 (from encuesta in _context.Encuesta
                  join encuestaCate in _context.EncuestaCategoria
@@ -95,12 +94,16 @@ namespace ProyectoIdentity.Controllers
                                                     }).ToList()
                                    }).ToList()
                  }).FirstOrDefaultAsync();
+            try { 
+                query.Demograficos = demograficos;
+                query.Paises= Country;
+                query.Area=area;
+                query.Negocios= Bussinee;
+                query.CapitalesColombia = capitales;
+            }catch(Exception ex)
+            {
 
-            query.Demograficos = demograficos;
-            query.Paises= Country;
-            query.Area=area;
-            query.Negocios= Bussinee;
-
+            }
             return View(query);
         }
 
@@ -112,6 +115,7 @@ namespace ProyectoIdentity.Controllers
                          where encuesta.Id == idSurvey
                          select new Encuesta
                          {
+                             Id = idSurvey,
                              NombreEncuesta = encuesta.NombreEncuesta,
                              DescripcionEncuesta = encuesta.DescripcionEncuesta
                          }).FirstOrDefault();

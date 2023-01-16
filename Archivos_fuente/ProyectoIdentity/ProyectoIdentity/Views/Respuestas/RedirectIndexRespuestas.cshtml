@@ -23,6 +23,8 @@
 
 
 <div class="container">
+    <form asp-action="IndexRespuestas" asp-controller="Respuestas">
+    <input type="hidden" value="@Model.Id" id="Survey"/>
     <div class="d-flex justify-content-center align-items-center vh-100"  >
         <div class="mt-4 shadow p-4 rounded bg-white">
             <div style="width: 300px;">
@@ -34,11 +36,12 @@
                     @Model.DescripcionEncuesta
                 </h6>
                 <div class="text-right">
-                    <input type="button" name="next" id="redirect" class=" action-button btn btn-primary" value="Comenzar Encuesta" />
+                    <input type="submit" name="next" id="redirect" class=" action-button btn btn-primary" value="Comenzar Encuesta" />
                 </div>
             </div>
         </div>
     </div>
+    </form>
 </div>
 
 
@@ -47,7 +50,7 @@
     $(function(){
         $("#redirect").click(function (e) {
             e.preventDefault();
-            document.location = '@Url.Action("IndexRespuestas","Respuestas")';
+            document.location = '@Url.Action("IndexRespuestas","Respuestas",Model.Id)';
         });
         });
 </script>
