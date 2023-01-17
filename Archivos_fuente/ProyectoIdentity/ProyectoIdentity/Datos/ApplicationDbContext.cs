@@ -46,20 +46,27 @@ namespace ProyectoIdentity.Datos
         {
 
             List<Categoria> categorias = new List<Categoria> {
-                    new Categoria{Id=1,NombreCategoria="Beneficios de Calidad de Vida",
+                new Categoria{Id=1,NombreCategoria="Aspectos Demográficos",
+                        Descripcion="País, Ciudad, Unidad de Negocio, Área Diligencie la información de acuerdo con tus datos actuales"
+                    },
+                new Categoria{Id=2,NombreCategoria="Datos Demográficosa",
+                        Descripcion="Diligencia la siguiente información acorde con tu actualidad y la de tu núcleo familiar"
+                    },
+
+                    new Categoria{Id=3,NombreCategoria="Beneficios de Calidad de Vida",
                         Descripcion="Aspectos relacionados con las condiciones favorables en la relación laboral y el ambiente de trabajo."
                     },
-                    new Categoria{Id=2,NombreCategoria="Beneficios Monetarios y No Monetarios",
+                    new Categoria{Id=4,NombreCategoria="Beneficios Monetarios y No Monetarios",
                         Descripcion="Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales."
                     },
-                    new Categoria{Id=3,NombreCategoria="Beneficios de Desarrollo Personal",
+                    new Categoria{Id=5,NombreCategoria="Beneficios de Desarrollo Personal",
                     Descripcion="Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales"
 
                     },
-                    new Categoria{Id=4,NombreCategoria="Beneficios en Herramientas de Trabajo",
+                    new Categoria{Id=6,NombreCategoria="Beneficios en Herramientas de Trabajo",
                         Descripcion="Acciones de largo plazo que apuestan por el crecimiento personal, potencializar el talento y transformar la organización"
                     },
-                    new Categoria{Id=5,NombreCategoria="Beneficios/Madurez",
+                    new Categoria{Id=7,NombreCategoria="Beneficios/Madurez",
                     Descripcion="Elementos útiles para una adecuada realización de la labor"
 
                     }

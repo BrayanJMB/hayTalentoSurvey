@@ -56,6 +56,7 @@
                     @foreach (var categori in Model.Categorias)
                     {
                         <fieldset>
+                            
                             <div class="w-100 mt-4 shadow p-4 rounded bg-white">
                                 <div >
                                     <div class="addQuestion mt-2">
@@ -63,7 +64,7 @@
                                             @if (categori.Preguntas != null)
                                             {
                                                 <h3 class="titulo-dimension">@categori.NombreCategoria</h3>
-                                                <p class="descripcion-dimension"></p>
+                                                <p class="descripcion-dimension">@categori.Description</p>
                                                 @if (categori.NombreCategoria == "Aspectos Demograficos")
                                                 {
                                                     <div class="row">
@@ -73,7 +74,7 @@
                                                                     <p class="error-description"></p>
                                                                     <div class="row ml-2" >
                                                                         <div class="col-md-6 col-sm-12">
-                                                                            <p>Paises</p>
+                                                                            <p>Páises</p>
                                                                             <select  class="form-select form-select-sm likkert" aria-label="Default select example" id="paises" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 @foreach (var option in Model.Paises)
@@ -141,7 +142,7 @@
                                                                                                         <th scope="col">Sexo</th>
                                                                                                         <th scope="col">Estado Civil</th>
                                                                                                         <th scope="col">Nivel Educativo</th>
-                                                                                                        <th style="width: 0px;">¿Dependencia Economica?</th>
+                                                                                                        <th style="width: 0px;">Dependencia Economica</th>
                                                                                                         <th scope="col">Edad</th>
                                                                                                     </tr>
                                                                                                 </thead>
@@ -228,38 +229,7 @@
                                                                                                 </tbody>
 
                                                                                                 </table>
-                                                                                                @*</thead>
                                                                                                 
-                                                                                                   
-                                                                                                    <tr class="demograficos conyugue">
-                                                                                                        <th scope="row">Conyugue</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos-multiple">
-                                                                                                        <th style="width: 10%;" scope="row">Hijos <input class="multiselect" id="hijos" style="width: 50%;" type="number"
-                                                                                                                name="quantity" min="0" max="10"></th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos">
-                                                                                                        <th scope="row">Madre</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos">
-                                                                                                        <th scope="row">Padre</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos-multiple">
-                                                                                                        <th style="width: 10%;" scope="row">Hermanos <input class="multiselect" id="hermanos" style="width: 50%;" type="number"
-                                                                                                            name="quantity" min="0" max="10"></th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos-multiple">
-                                                                                                        <th scope="row">Otros Familiares<input class="multiselect" id="otros-familiares" style="width: 50%;" type="number"
-                                                                                                            name="quantity" min="0" max="3"></th>
-                                                                                                    </tr>
-
-                                                                                                
-                                                                                            </table>
-                                                                                                <!-- View Mobile-->
-                                                                                                <div class="container-fluid" id="mobile">
-                                                                                                    <div class="accordion" id="accordionExample">
-                                                                                                    </div>
-                                                                                                </div>*@
                                                                                         }
 
 
@@ -285,9 +255,9 @@
                                                                                             <thead>
                                                                                                     <tr class="title-table">
                                                                                                         <th scope="col-sm-12">Concepto</th>
-                                                                                                        <th scope="col">Conoces el beneficio</th>
-                                                                                                        <th scope="col">Que tan atractivo te parece el beneficio</th>
-                                                                                                        <th scope="col">como ha funcionado el beneficio</th>
+                                                                                                        <th scope="col">¿Conoces el beneficio?</th>
+                                                                                                        <th scope="col">¿Qué tan atractivo te parece el beneficio?</th>
+                                                                                                        <th scope="col">¿Cómo ha funcionado el beneficio?</th>
                                                                                                         
                                                                                                     </tr>
                                                                                                 </thead>
@@ -306,20 +276,20 @@
                                                                                                         <td>
                                                                                                             <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
                                                                                                                 <option value="" selected>Seleccione</option>
-                                                                                                                <option value="" >1</option>
-                                                                                                                <option value="" >2</option>
-                                                                                                                <option value="" >3</option>
-                                                                                                                <option value="" >4</option>
+                                                                                                                <option value="1.25" >1.Bajo</option>
+                                                                                                                <option value="2.50" >2.Regular</option>
+                                                                                                                <option value="3.75" >3.Medio</option>
+                                                                                                                <option value="5.00" >4.Alto</option>
                                                                                                             </select>
 
                                                                                                         </td>
                                                                                                         <td>
                                                                                                             <select  class="form-select form-select-sm likkert" aria-label="Default select example" required>
                                                                                                                 <option value="" selected>Seleccione</option>
-                                                                                                                <option value="" >1</option>
-                                                                                                                <option value="" >2</option>
-                                                                                                                <option value="" >3</option>
-                                                                                                                <option value="" >4</option>
+                                                                                                                <option value="1.25" >1.Bajo</option>
+                                                                                                                <option value="2.50" >2.Regular</option>
+                                                                                                                <option value="3.75" >3.Medio</option>
+                                                                                                                <option value="5.00" >4.Alto</option>
                                                                                                             </select>
                                                                                                         </td>
                                                                                                         </tr>
@@ -362,63 +332,6 @@
                                                                                 }
                                                                                 else if (pregunta.TipoPregunta == "Respuesta Unica")
                                                                                 {
-                                                                                    @if (categori.NombreCategoria == "Aspectos Demograficos"){
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-6">
-                                                                                                        <p class="error-demograficos"></p>
-                                                                                                        <p>Pais</p>
-                                                                                                        <select value="" class="form-select form-select-sm  select-aspectos-demograficos" id="paises"  required>
-                                                                                                            <option selected disabled value="">Choose...</option>
-                                                                                                            <option value="Colombia">Colombia</option>
-                                                                                                            <option value="Estados Unidos">Estados Unidos</option>
-                                                                                                            <option value="Argentina">Argentina</option>
-                                                                                                            <option value="Bolivia">Bolivia</option>
-                                                                                                            <option value="Brasil">Brasil</option>
-                                                                                                            <option value="Ecuador">Ecuador</option>
-                                                                                                            <option value="Paraguay">Paraguay</option>
-                                                                                                            <option value="Perú">Perú</option>
-                                                                                                            <option value="Surinam">Surinam</option>
-                                                                                                            <option value="Trinidad y Tobago">Trinidad y Tobago</option>
-                                                                                                            <option value="Uruguay">Uruguay</option>
-                                                                                                            <option value="Venezuela">Venezuela</option>
-                                                                                                            <option value="México">México</option>
-                                                                                                        </select>
-                                                                                                        <div class="invalid-feedback">
-                                                                                                            Requerido
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="col-md-6">
-                                                                                                        <p class="error-demograficos"></p>
-                                                                                                        <p>Ciudad</p>
-                                                                                                        <select class="form-select form-select-sm select-aspectos-demograficos" id="capitales"  required>
-                                                                                                                <option selected disabled value="">Choose...</option>
-                                                                                                        </select>
-                                                                                                    </div>
-                                                                                        </div>
-                                                                                        <div class="row">
-                    
-                                                                                            <div class="col-md-6">
-                                                                                                <p class="error-demograficos"></p>
-                                                                                                <p>Area</p>
-                                                                                                <select class="form-select form-select-sm  select-aspectos-demograficos" id="validationCustom05" required>
-                                                                                                    <option selected disabled value="">Seleccione</option>
-                                                                                                    <option value="value1">Area</option>
-                                                                                                </select>
-                                                                                                <div class="invalid-feedback">
-                                                                                                            Requerido
-                                                                                                        </div>
-                                                                                            </div>
-                                                                                            <div class="col-md-6">
-                                                                                                <p class="error-demograficos"></p>
-                                                                                                <p>Unidad Negocio</p>
-                                                                                                <select class="form-select form-select-sm  select-aspectos-demograficos" require>
-                                                                                                    <option value="" selected>Seleccione</option>
-                                                                                                    <option value="value1">Unidad de Negocio</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    }
-                                                                                   else{
                                                                                         <div class="col-md-6 col-sm-12">
                                                                                             <div class="options">
                                                                                                 <select  class="form-select form-select-sm escala" aria-label="Default select example" required>
@@ -431,7 +344,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         break;
-                                                                                        }
+                                                                                        
                                                                                 }
                                                                                 else if (pregunta.TipoPregunta == "Valoracion Multiple")
                                                                                 {
@@ -454,10 +367,21 @@
                                                                                         <div class="options-multiple-linkert">
                                                                                               <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
                                                                                               <select class="form-select form-select-sm escala" aria-label="Default select example" required>
-                                                                                                <option value="" selected>Seleccione</option>
-                                                                                                @foreach(var option in pregunta.Opciones){
-                                                                                                    <option value="1">@option.OpcionName</option>
-                                                                                                }
+                                                                                                @if(pregunta.NumeroPregunta != 15 ){
+                                                                                                    <option value="" selected>Seleccione</option>
+                                                                                                    <option value="1">No Aplica</option>
+                                                                                                    <option value="2">No cumple las expectativas</option>
+                                                                                                    <option value="3">Necesita algunas mejoras</option>
+                                                                                                    <option value="4">Cumple las expectativas</option>
+                                                                                                    <option value="5">Supera las expectativas</option>                                                                                                    
+                                                                                                }else if(pregunta.NumeroPregunta == 15){
+                                                                                                    <option value="" selected>Seleccione</option>
+                                                                                                    <option value="1.25">Nunca (Ninguna)</option>
+                                                                                                    <option value="2.50">1 y 3 veces/mes (Baja)</option>
+                                                                                                    <option value="3.75">Entre 4 y 10 veces/mes (Media)</option>
+                                                                                                    <option value="5.00">Más de 10 veces/mes (Alta)</option>
+                                                                                                    }
+                                                                                                
                                                                                             </select>
                                                                                         </div>
                                                                                     </div>
@@ -539,7 +463,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="~/js/functionValidation.js" asp-append-version="true"></script>
     <script src="~/js/functionDeleteOptionSelect.js" asp-append-version="true"></script>
+    <script src="~/js/popper.min.js"></script>
     <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
+
+        
         var capitales = [];
         var capitalesColo = "@String.Join(",",Model.CapitalesColombia).Replace("&#xE1;", "á").Replace("&#xED;", "í").Replace("&#xE9;", "é").Replace("&#xFA;", "ú").Replace("&#xF3;", "ó").Replace("&#xFC;", "ü")";
         capitalesColo = capitalesColo.replaceAll("&#xE1;", "á").replaceAll("&#xED;", "í").replaceAll("&#xE9;", "é").replaceAll("&#xFA;", "ú").replaceAll("&#xF3;", "ó").replaceAll("&#xFC;", "ü");
@@ -600,7 +530,7 @@
                 let cantidad=option.value;
                 let cantidadTotal=0;
                 var trPadre=option.parentNode.parentNode;
-                var trCopy = trPadre.previousElementSibling.cloneNode(true);
+                var trCopy = document.getElementById("Conyugue").cloneNode(true);
                 if(option.previousElementSibling.textContent=="Hijo"){
                     trCopy.id=option.previousElementSibling.textContent+"Add";
                     cantidadTotal=document.querySelectorAll("#HijoAdd").length;
@@ -611,8 +541,14 @@
                 }
                  
                 if(cantidad>cantidadTotal){
-                    if(option.previousElementSibling.textContent=="Otros")
-                        trCopy.firstElementChild.innerHTML="<input type='text' class='form-control' required />"
+                    if(option.previousElementSibling.textContent=="Otros"){
+                        trCopy.firstElementChild.innerHTML='<input type="text"  data-toggle="tooltip" title="Ingresa el parentezo"/>';
+                        $(document).on('mouseover', '[data-toggle="tooltip"]', function() {
+                          $(this).tooltip();
+                        });
+                    
+                    }
+                        
                     else
                     trCopy.firstElementChild.innerHTML=option.previousElementSibling.textContent
                     block(trCopy.children[2].children[0]);
@@ -668,76 +604,7 @@
         //Funciones condicionales
 
  
-    //window.onload = function () {
-    //    for (i = 0; i < titles.length; i++) {
-    //        if (i == 0) {
-    //            $(".accordion").append(`
-    //                ${validate(titles, i)}
-    //            `);
-    //        }
-    //        else if (i == titles.length - 1) {
-    //            $(".accordion").append(`
-    //                ${validate(titles, i)}
-    //            `);
-    //        }
-    //        else if (titles[i] == "Hijos" || (titles[i] == "Hermanos")) {
-    //            $(".accordion").append(`
-    //            <div class="card">
-    //                <div class="card-header" id="headingOne${i}">
-    //                    <h2 class="mb-0">
-    //                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne${i}" aria-expanded="false" aria-controls="collapseOne">
-    //                        ${titles[i]}
-    //                    </button>
-    //                    </h2>
-    //                </div>
-    //                <div id="collapseOne${i}" class="collapse" aria-labelledby="headingOne${i}" data-parent="#accordionExample" >
-    //                    <div class="card-body">
-    //                        <div>
-    //                            <p> Ingrese la cantidad de ${titles[i].toLowerCase()}</p>
-    //                            <input class="mobile-select" style="width: 50%;" type="number" name="quantity" min="0" max="10">
-    //                            <div class="data">
-    //                            </div>
-    //                            <button type="button" class="btn btn-primary mobile-button">Siguiente</button>
-    //                        </div>
-    //                    </div>
-    //                </div>
-    //            </div>`);
-    //        } else {
-    //            $(".accordion").append(`
-    //            ${validate(titles, i)}
-    //        `);
-    //        }
-    //        $('.mobile-select').bind("paste keydown keyup",function(e) {
-    //            e.preventDefault();
-    //        });
-    //    }
-
-    //    let mobileButtons = document.getElementsByClassName("mobile-button")
-    //    let collapse = document.getElementsByClassName("collapse")
-
-    //    for (let index = 0; index < mobileButtons.length; index++) {
-    //        mobileButtons[index].onclick = function () {
-    //            collapse[index].classList.remove("show")
-    //            collapse[index + 1].classList.add("show")
-    //        }
-    //    }
-    //    let some = document.getElementsByClassName("mobile-select")
-    //    let some_ = document.getElementsByClassName("mobile-select").length + 1
-    //    for (let index = 0; index < some.length; index++) {
-    //        document.getElementsByClassName("mobile-select")[index].onchange = function () {
-    //            let value = document.getElementsByClassName("mobile-select")[index].value
-    //            let value_ = 1
-    //            $(`.data:eq(${[index]})`).empty();
-    //            for (let index_ = 0; index_ < value; index_++) {
-    //                $(`.data:eq(${[index]})`).append(`<div class="d-flex flex-column">
-    //                <h6 class="mb-5"> ${demograficos_multiple_title[index]} ${value_}</h6>
-    //                ${htmlMobileView}
-    //                </div>`)
-    //                value_++;
-    //            };
-    //        }
-    //    }
-    //}
+    
 
 </script>
     }

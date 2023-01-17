@@ -41,7 +41,7 @@ namespace ProyectoIdentity.Controllers
         public async Task<IActionResult> IndexRespuestas(int idSurvey)
         {
             ViewBag.Message = "Login";
-            idSurvey = 3;
+           
 
             var Country = await _context.Country.Include(p => p.Cities).ToListAsync();
             var area = await _context.EncuestaArea.Where(e => e.EncuestaId == idSurvey).Include(p => p.Area).Select(p => p.Area).ToListAsync();
@@ -75,6 +75,7 @@ namespace ProyectoIdentity.Controllers
                                    {
                                        NombreCategoria = categoria.NombreCategoria,
                                        Id = categoria.Id,
+                                       Description=categoria.Descripcion,
                                        Preguntas = (from pregunta in _context.Pregunta
                                                     where pregunta.EncuestaCategoriaId == categoria.Id
                                                     select new Models.ModelTemplateJorney.Pregunta
@@ -154,6 +155,7 @@ namespace ProyectoIdentity.Controllers
                                                select new Category
                                                {
                                                    NombreCategoria = categoria.NombreCategoria,
+                                                   Description=categoria.Descripcion,
                                                    Preguntas = (from pregunta in _context.Pregunta
                                                                 where pregunta.EncuestaCategoriaId == categoria.Id
                                                                 select new Models.ModelTemplateJorney.Pregunta

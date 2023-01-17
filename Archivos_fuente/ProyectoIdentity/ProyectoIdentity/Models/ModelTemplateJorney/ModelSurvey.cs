@@ -23,12 +23,12 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "Colaborador"},
-                new Opcion { Id = 2, OpcionName = "Conyugue"},
+                new Opcion { Id = 2, OpcionName = "Cónyugue"},
                 new Opcion { Id = 3, OpcionName = "Hijo"},
                 new Opcion { Id = 4, OpcionName = "Madre"},
                 new Opcion { Id = 5, OpcionName = "Padre"},
                 new Opcion { Id = 6, OpcionName = "Hermano"},
-                new Opcion { Id = 7, OpcionName = "Otros"},
+                new Opcion { Id = 7, OpcionName = "Otros,"},
             };
 
             return OpcionesLik;
@@ -72,7 +72,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                 new Opcion { Id = 2, OpcionName = "Preescolar"},
                 new Opcion { Id = 3, OpcionName = "Primaria"},
                 new Opcion { Id = 4, OpcionName = "Bachillerato"},
-                new Opcion { Id = 5, OpcionName = "Técnico/Tecnól."},
+                new Opcion { Id = 5, OpcionName = "Técnico/Tecnólogo."},
                 new Opcion { Id = 6, OpcionName = "Pregrado"},
                 new Opcion { Id = 7, OpcionName = "Especialización"},
                 new Opcion { Id = 8, OpcionName = "Maestría"},
@@ -237,7 +237,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
             new Pregunta
             {
                 NumeroPregunta=5,
-                NombrePregunta = "Dependencia EConomica",
+                NombrePregunta = "Dependencia Economica",
                 TipoPregunta = "Selección",
                 Opciones = Demo5(),
             },
@@ -711,7 +711,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                      Opciones=OpcionesLikkert1()
                  },
                  new Pregunta {
-                     NombrePregunta="18. ¿Los beneficios son mejores que en la mayoría de las empresas del mercado?",
+                     NombrePregunta="¿Los beneficios son mejores que en la mayoría de las empresas del mercado?",
                      TipoPregunta="Likkert",
                      IdTipo = 2,
                      NumeroPregunta=18,
@@ -787,10 +787,10 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                      NombrePregunta="¿Nivel en el que la compañía asimila o integra buenas prácticas relacionadas con la administración de los beneficios?",
                       NumeroPregunta=25,
                      TipoPregunta="Seleccion Multiple",
-                     IdTipo = 2,
+                     IdTipo = 3,
                      Opciones=OpcionesLikkertper15()
                  },
-                 new Pregunta {NombrePregunta = "¿Cuánto gastó su empresa en total en beneficios en el último año fiscal?", NumeroPregunta = 26, TipoPregunta = "Likkert", Opciones = OpcionesLikkertper16(),IdTipo = 1},
+                 new Pregunta {NombrePregunta = "¿Cuánto gastó su empresa en total en beneficios en el último año fiscal?", NumeroPregunta = 26, TipoPregunta = "Likkert", Opciones = OpcionesLikkertper16(),IdTipo = 2},
                  new Pregunta {NombrePregunta = "¿Los empleados valoran su plan de beneficios?", NumeroPregunta = 27, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {NombrePregunta = "¿El plan de beneficios mejora la atracción y retención?", NumeroPregunta = 28, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {NombrePregunta = "¿El plan de beneficios mejora el compromiso del empleado con su trabajo?", NumeroPregunta = 29, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
