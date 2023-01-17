@@ -103,7 +103,7 @@ namespace ProyectoIdentity.Controllers
                 query.CapitalesColombia = capitales;
             }catch(Exception ex)
             {
-
+                return RedirectToAction("Error", "Cuentas");
             }
             return View(query);
         }
@@ -112,6 +112,7 @@ namespace ProyectoIdentity.Controllers
         {
 
             ViewBag.Message = "EnvioRedirectRespuestas";
+            
             var query = (from encuesta in _context.Encuesta
                          where encuesta.Id == idSurvey
                          select new Encuesta
@@ -120,6 +121,10 @@ namespace ProyectoIdentity.Controllers
                              NombreEncuesta = encuesta.NombreEncuesta,
                              DescripcionEncuesta = encuesta.DescripcionEncuesta
                          }).FirstOrDefault();
+            if (query == null)
+            {
+                return View("Error");
+            }
             return View(query);
         }
 
@@ -134,7 +139,7 @@ namespace ProyectoIdentity.Controllers
 
         public async Task<IActionResult> IndexRespuestasMadurez(int idSurvey)
         {
-            idSurvey = 2;
+            
             ViewBag.Message = "Login";
             var query = await
                             (from encuesta in _context.Encuesta

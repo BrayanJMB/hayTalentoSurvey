@@ -64,28 +64,38 @@ $(document).ready(function () {
     function checkboxGroupValidation() {
         let checkbox = $("fieldset.active .datacheck").parent().parent().parent().parent();
         if (checkbox.length > 0) {
-            flagCheck = false;
+            flagCheck = true;
             for (j = 0; j < checkbox.length; j++) {
                 let errorP = checkbox[j].previousSibling.previousSibling.previousSibling.previousSibling;
                 errorP.classList.add("checkbox");
+                let validateGroup=false;
                 let option = checkbox[j];
+                let countCant=0;
+                let nextCant=errorP.nextElementSibling.textContent;
+                nextCant=nextCant.includes("(3)");    
+                let councantValida=nextCant==true?3:0;
                 let listCheckBoxes = option.querySelectorAll(".datacheck");
                 listCheckBoxes.forEach(element => {
-                        if (element.checked) {
-                            flagCheck = true;
-                            errorP.innerHTML = "";
+                        if (element.checked ) {
+                            countCant++
+                            if( countCant>=councantValida){
+                                validateGroup = true;
+                                errorP.innerHTML = "";
+                            }
                         }
+                    
                 });
-                if (!flagCheck) {
+                if (!validateGroup) {
+                    flagCheck=false;
                     errorP.style.color = "red";
                     errorP.innerHTML = "Debe seleccionar una opción";
+                    errorP.nextElementSibling.focus();
                 }
             }
         } else
         {
             flagCheck = true;
         }
-        console.log(flagCheck)
         return flagCheck;
     };
 

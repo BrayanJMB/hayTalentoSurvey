@@ -28,7 +28,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                 new Opcion { Id = 4, OpcionName = "Madre"},
                 new Opcion { Id = 5, OpcionName = "Padre"},
                 new Opcion { Id = 6, OpcionName = "Hermano"},
-                new Opcion { Id = 7, OpcionName = "Otros,"},
+                new Opcion { Id = 7, OpcionName = "Otros"},
             };
 
             return OpcionesLik;
@@ -248,48 +248,48 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                 TipoPregunta = "Selección",
                 Opciones = Demo6(),
             },
-            new Pregunta
-            {
-                NumeroPregunta=7,
-                NombrePregunta = "¿Existe otro ingreso en tu hogar?",
-                TipoPregunta = "Selección",
-                Opciones = Demo7(),
-            },
-            new Pregunta
-            {
-                NumeroPregunta=8,
-                NombrePregunta = "Tu vivienda es",
-                TipoPregunta = "Selección",
-                Opciones = Demo8(),
-            },
-            new Pregunta
-            {
-                NumeroPregunta=9,
-                NombrePregunta = "Tu vivienda es estrato",
-                TipoPregunta = "Selección",
-                Opciones = Demo9(),
-            },
-            new Pregunta
-            {
-                NumeroPregunta=10,
-                NombrePregunta = "En caso de NO tener vivienda propia, explica el motivo",
-                TipoPregunta = "Selección",
-                Opciones = Demo10(),
-            },
-            new Pregunta
-            {
-                NumeroPregunta=11,
-                NombrePregunta = "¿Tienes vehículo propio?",
-                TipoPregunta = "Selección",
-                Opciones = Demo11(),
-            },
-            new Pregunta
-            {
-                NumeroPregunta=12,
-                NombrePregunta = "¿Tiene mascotas?",
-                TipoPregunta = "Selección",
-                Opciones = Demo12(),
-            },
+            //new Pregunta
+            //{
+            //    NumeroPregunta=7,
+            //    NombrePregunta = "¿Existe otro ingreso en tu hogar?",
+            //    TipoPregunta = "Selección",
+            //    Opciones = Demo7(),
+            //},
+            //new Pregunta
+            //{
+            //    NumeroPregunta=8,
+            //    NombrePregunta = "Tu vivienda es",
+            //    TipoPregunta = "Selección",
+            //    Opciones = Demo8(),
+            //},
+            //new Pregunta
+            //{
+            //    NumeroPregunta=9,
+            //    NombrePregunta = "Tu vivienda es estrato",
+            //    TipoPregunta = "Selección",
+            //    Opciones = Demo9(),
+            //},
+            //new Pregunta
+            //{
+            //    NumeroPregunta=10,
+            //    NombrePregunta = "En caso de NO tener vivienda propia, explica el motivo",
+            //    TipoPregunta = "Selección",
+            //    Opciones = Demo10(),
+            //},
+            //new Pregunta
+            //{
+            //    NumeroPregunta=11,
+            //    NombrePregunta = "¿Tienes vehículo propio?",
+            //    TipoPregunta = "Selección",
+            //    Opciones = Demo11(),
+            //},
+            //new Pregunta
+            //{
+            //    NumeroPregunta=12,
+            //    NombrePregunta = "¿Tiene mascotas?",
+            //    TipoPregunta = "Selección",
+            //    Opciones = Demo12(),
+            //},
 
 
             };
@@ -720,7 +720,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                  new Pregunta {
                      NombrePregunta="¿La distribución de beneficios es equitativa?",
                      TipoPregunta="Likkert",
-                     IdTipo = 5,
+                     IdTipo = 2,
                      NumeroPregunta=19,
                      Opciones=OpcionesLikkert1()},
             };

@@ -260,6 +260,7 @@
                   let firstInvalid = form.querySelector('[required]:invalid');
                    firstInvalid.focus();
                 }else{
+                    //Revisar
                     event.preventDefault();
                     window.location.href = '@Url.Action("EnvioIndexRespuestasMadurez","Respuestas",Model.Id)';
                 }

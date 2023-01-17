@@ -24,10 +24,10 @@ builder.Services.ConfigureApplicationCookie(options =>
 //Estas son opciones de configuraci�n del identity
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    options.Password.RequiredLength = 5;
-    options.Password.RequireLowercase = true;
+    options.Password.RequiredLength = 4;
+    options.Password.RequireLowercase = false;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
-    options.Lockout.MaxFailedAccessAttempts = 3;
+    options.Lockout.MaxFailedAccessAttempts = 10;
 });
 
 

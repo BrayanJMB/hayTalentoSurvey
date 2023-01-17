@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.DescripcionEncuesta)
             </td>
             <td>
-                    <a href="@Html.DisplayFor(modelItem => item.Link)">Ir a la encuesta</a>
+                    <a href="#" onclick="copyLink('@Html.DisplayFor(modelItem => item.Link)')"><i class="bi bi-clipboard"></i></a>
             </td>
             <td>
                     <a asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
@@ -66,6 +66,16 @@
             );
 
         } );
+
+        function copyLink(link) {
+    var tempInput = document.createElement("input");
+    tempInput.value = link;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert("enlace copiado-Enlace:" + link);
+}
     </script>
 }
 

@@ -37,12 +37,17 @@
                                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                             <div class="form-group ">
                                                 <label asp-for="NombreEncuesta" class="control-label"></label>
-                                                <input asp-for="NombreEncuesta " class="form-control sc-lllmON eEvYeb" />
+                                                <input asp-for="NombreEncuesta " class="form-control sc-lllmON eEvYeb" value="Bienvenido a la encuesta Hay Talento" />
                                                 <span asp-validation-for="NombreEncuesta" class="text-danger"></span>
                                             </div>
                                             <div class="form-group">
-                                                <label asp-for="DescripcionEncuesta" class="control-label"></label>
-                                                <textarea asp-for="DescripcionEncuesta" class="form-control sc-lllmON eEvYeb" rows="6"></textarea>
+                                                <label asp-for="DescripcionEncuesta" class="control-label">                                               
+                                                </label>
+                                                <textarea asp-for="DescripcionEncuesta" class="form-control sc-lllmON eEvYeb" rows="6">
+                                                   Nos interesa conocer tu percepción acerca de los Beneficios Generales y Reconocimientos monetarios y no monetarios que te brinda la compañía, así como algunos aspectos sociodemográficos que nos permitan proporcionar informaciòn relevante para adecuar y modernizar nuestros modelos de reconocimientos y beneficios acorde con tu actual momento de vida.
+                                                   Esta información es confidencial y se utilizará para fines estrictamente estadísticos e informativos. Tu valoración y comentarios serán una referencia y no implican ningún compromiso presente ni futuro para la Compañía.
+                                                   Por favor responde con naturalidad y califique los conceptos relacionados con base en la escala de valoración que se presenta a continuación (tomar en consideración el último año de labor):
+                                                </textarea>
                                                 <span asp-validation-for="DescripcionEncuesta" class="text-danger"></span>
                                             </div>
                                             <div class="form-group w-25"> 

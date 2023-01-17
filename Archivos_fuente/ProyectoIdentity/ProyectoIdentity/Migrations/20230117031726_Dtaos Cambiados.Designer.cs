@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoIdentity.Datos;
 
@@ -11,9 +12,10 @@ using ProyectoIdentity.Datos;
 namespace ProyectoIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230117031726_Dtaos Cambiados")]
+    partial class DtaosCambiados
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,7 +279,7 @@ namespace ProyectoIdentity.Migrations
                         {
                             Id = 2,
                             Descripcion = "Diligencia la siguiente información acorde con tu actualidad y la de tu núcleo familiar",
-                            NombreCategoria = "Datos Demográficos"
+                            NombreCategoria = "Datos Demográficosa"
                         },
                         new
                         {
@@ -900,8 +902,8 @@ namespace ProyectoIdentity.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DescripcionEncuesta")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                        .HasMaxLength(350)
+                        .HasColumnType("nvarchar(350)");
 
                     b.Property<DateTime>("FechaDeCreacion")
                         .HasColumnType("datetime2");

@@ -65,7 +65,7 @@
                                             {
                                                 <h3 class="titulo-dimension">@categori.NombreCategoria</h3>
                                                 <p class="descripcion-dimension">@categori.Description</p>
-                                                @if (categori.NombreCategoria == "Aspectos Demograficos")
+                                                @if (categori.NombreCategoria == "Aspectos Demográficos")
                                                 {
                                                     <div class="row">
                                                         <div class="col-md-12">
@@ -133,7 +133,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                } else if (categori.NombreCategoria == "Datos Demograficos")
+                                                } else if (categori.NombreCategoria == "Datos Demográficos")
                                                                                         {
                                                                                             <table class="table">
                                                                                                 <thead>
@@ -229,7 +229,38 @@
                                                                                                 </tbody>
 
                                                                                                 </table>
+                                                                                                @*</thead>
                                                                                                 
+                                                                                                   
+                                                                                                    <tr class="demograficos conyugue">
+                                                                                                        <th scope="row">Conyugue</th>
+                                                                                                    </tr>
+                                                                                                    <tr class="demograficos-multiple">
+                                                                                                        <th style="width: 10%;" scope="row">Hijos <input class="multiselect" id="hijos" style="width: 50%;" type="number"
+                                                                                                                name="quantity" min="0" max="10"></th>
+                                                                                                    </tr>
+                                                                                                    <tr class="demograficos">
+                                                                                                        <th scope="row">Madre</th>
+                                                                                                    </tr>
+                                                                                                    <tr class="demograficos">
+                                                                                                        <th scope="row">Padre</th>
+                                                                                                    </tr>
+                                                                                                    <tr class="demograficos-multiple">
+                                                                                                        <th style="width: 10%;" scope="row">Hermanos <input class="multiselect" id="hermanos" style="width: 50%;" type="number"
+                                                                                                            name="quantity" min="0" max="10"></th>
+                                                                                                    </tr>
+                                                                                                    <tr class="demograficos-multiple">
+                                                                                                        <th scope="row">Otros Familiares<input class="multiselect" id="otros-familiares" style="width: 50%;" type="number"
+                                                                                                            name="quantity" min="0" max="3"></th>
+                                                                                                    </tr>
+
+                                                                                                
+                                                                                            </table>
+                                                                                                <!-- View Mobile-->
+                                                                                                <div class="container-fluid" id="mobile">
+                                                                                                    <div class="accordion" id="accordionExample">
+                                                                                                    </div>
+                                                                                                </div>*@
                                                                                         }
 
 
@@ -319,7 +350,12 @@
                                                                                 {
                                                                                     <div class="form-check-inline">
                                                                                         <div class="col-md-12 col-sm-12">
-                                                                                            <div class="options">
+                                                                                            @{int countCheck=1;}
+                                                                                            @if (pregunta.NumeroPregunta == 21)
+                                                                                            {
+                                                                                                countCheck = 3;
+                                                                                            }
+                                                                                            <div class="options" data-Count="@countCheck">
                                                                                                 <input class="form-check-input datacheck" type="checkbox" id="inlineCheckbox1" value="@opcionP.OpcionName" readonly>
                                                                                                 <div class="block-text ml-2 minimo" id="strongly-disagree"  name="strongly-disagree">@opcionP.OpcionName</div>
                                                                                             </div>
@@ -530,10 +566,10 @@
                 let cantidad=option.value;
                 let cantidadTotal=0;
                 var trPadre=option.parentNode.parentNode;
-                var trCopy = document.getElementById("Conyugue").cloneNode(true);
-                if(option.previousElementSibling.textContent=="Hijo"){
+                var trCopy = document.getElementById("Cónyugue").cloneNode(true);
+                if(option.previousElementSibling.textContent=="Hijo" || option.previousElementSibling.textContent=="Hermano"){
                     trCopy.id=option.previousElementSibling.textContent+"Add";
-                    cantidadTotal=document.querySelectorAll("#HijoAdd").length;
+                    cantidadTotal=document.querySelectorAll("#"+option.previousElementSibling.textContent+"Add").length;
                 }else{
                     trCopy.id=option.previousElementSibling.textContent+"Add";
                     cantidadTotal=document.querySelectorAll("#OtrosAdd").length;
@@ -541,22 +577,26 @@
                 }
                  
                 if(cantidad>cantidadTotal){
-                    if(option.previousElementSibling.textContent=="Otros"){
-                        trCopy.firstElementChild.innerHTML='<input type="text"  data-toggle="tooltip" title="Ingresa el parentezo"/>';
-                        $(document).on('mouseover', '[data-toggle="tooltip"]', function() {
-                          $(this).tooltip();
-                        });
-                    
-                    }
-                        
-                    else
-                    trCopy.firstElementChild.innerHTML=option.previousElementSibling.textContent
                     block(trCopy.children[2].children[0]);
-                    trPadre.insertAdjacentElement("afterend", trCopy);
+                    for(let i=cantidadTotal;i<cantidad;i++ ){
+                        let nuevoTr=trCopy;
+                        if(option.previousElementSibling.textContent=="Otros"){
+                            trCopy.firstElementChild.innerHTML='<input type="text" class="form-control"  data-toggle="tooltip" title="Ingresa el parentezo"/>';
+                            $(document).on('mouseover', '[data-toggle="tooltip"]', function() {
+                              $(this).tooltip();
+                            });                    
+                        }else{
+                            nuevoTr.firstElementChild.innerHTML=option.previousElementSibling.textContent
+                        }
+                        
+                        trPadre.insertAdjacentElement("afterend", nuevoTr.cloneNode(true));
+                    }
                 }else if(cantidad<=cantidadTotal && document.querySelectorAll("#"+option.previousElementSibling.textContent+"Add").length>0){
-                    const elements = document.querySelectorAll("#"+option.previousElementSibling.textContent+"Add");
-                    const lastElement = elements[elements.length-1];
-                    lastElement.remove();
+                    for(let i=cantidadTotal;i>cantidad;i--){
+                        const elements = document.querySelectorAll("#"+option.previousElementSibling.textContent+"Add");
+                        const lastElement = elements[elements.length-1];
+                        lastElement.remove();
+                    }
                 }
                 
             }
@@ -579,7 +619,7 @@
 
         let colaborador=document.getElementById("Colaborador");
         colaborador.children[2].children[0].onchange=(element)=>{
-            if(element.target.value.includes("Viudo") || element.target.value.includes("Soltero") || element.target.value.includes("Divorciado")){
+            if(element.target.value.includes("Viudo") || element.target.value.includes("Soltero") || element.target.value.includes("Divorciado")|| element.target.value.includes("Separado")){
                    let td=element.target.parentNode.parentNode;
                    let nextTd=td.nextElementSibling;
                    console.log(nextTd);
@@ -600,6 +640,23 @@
             }
             
         }
+
+        let groupCheck=document.querySelectorAll(".options");
+        let groupMax=groupCheck.querySelector("[data-Count='3']");
+        let checkMax=groupMax.querySelectorAll("checkbox");
+        
+        checkMax.onchange=(event)=>{
+            let checkeds=[];
+            debugger;
+            checkMax.forEach(option){
+                if(option.checked){
+                    checkeds.push(option);
+                    if(checkeds.length>3)
+                        checkeds[0].checked=false;
+                }
+            }
+        }
+        
 
         //Funciones condicionales
 
