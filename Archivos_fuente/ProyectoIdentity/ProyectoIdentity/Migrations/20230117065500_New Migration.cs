@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProyectoIdentity.Migrations
 {
-    public partial class otraMigracion : Migration
+    public partial class NewMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -98,6 +98,20 @@ namespace ProyectoIdentity.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Country", x => x.CountryName);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Demograficos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NumeroDemografico = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Demograficos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -227,7 +241,7 @@ namespace ProyectoIdentity.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NombreEncuesta = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    DescripcionEncuesta = table.Column<string>(type: "nvarchar(350)", maxLength: 350, nullable: true),
+                    DescripcionEncuesta = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
                     Link = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaMaximoPlazo = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -261,22 +275,21 @@ namespace ProyectoIdentity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Demograficos",
+                name: "OpcionesDemo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdEncuesta = table.Column<int>(type: "int", nullable: false),
-                    NumeroDemografico = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DemograficoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Demograficos", x => x.Id);
+                    table.PrimaryKey("PK_OpcionesDemo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Demograficos_Encuesta_IdEncuesta",
-                        column: x => x.IdEncuesta,
-                        principalTable: "Encuesta",
+                        name: "FK_OpcionesDemo_Demograficos_DemograficoId",
+                        column: x => x.DemograficoId,
+                        principalTable: "Demograficos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -358,6 +371,32 @@ namespace ProyectoIdentity.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EncuestaDemografico",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DemograficoId = table.Column<int>(type: "int", nullable: false),
+                    EncuestaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EncuestaDemografico", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EncuestaDemografico_Demograficos_DemograficoId",
+                        column: x => x.DemograficoId,
+                        principalTable: "Demograficos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EncuestaDemografico_Encuesta_EncuestaId",
+                        column: x => x.EncuestaId,
+                        principalTable: "Encuesta",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Respondente",
                 columns: table => new
                 {
@@ -390,52 +429,6 @@ namespace ProyectoIdentity.Migrations
                         column: x => x.CountryId,
                         principalTable: "Country",
                         principalColumn: "CountryName");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EncuestaDemografico",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DemograficoId = table.Column<int>(type: "int", nullable: false),
-                    EncuestaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EncuestaDemografico", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EncuestaDemografico_Demograficos_DemograficoId",
-                        column: x => x.DemograficoId,
-                        principalTable: "Demograficos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EncuestaDemografico_Encuesta_EncuestaId",
-                        column: x => x.EncuestaId,
-                        principalTable: "Encuesta",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OpcionesDemo",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DemograficoId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OpcionesDemo", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OpcionesDemo_Demograficos_DemograficoId",
-                        column: x => x.DemograficoId,
-                        principalTable: "Demograficos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -570,11 +563,13 @@ namespace ProyectoIdentity.Migrations
                 columns: new[] { "Id", "Descripcion", "NombreCategoria" },
                 values: new object[,]
                 {
-                    { 1, null, "Beneficios de Calidad de Vida" },
-                    { 2, null, "Beneficios Monetarios y No Monetarios" },
-                    { 3, null, "Beneficios de Desarrollo Personal" },
-                    { 4, null, "Beneficios en Herramientas de Trabajo" },
-                    { 5, null, "Beneficios/Madurez" }
+                    { 1, "País, Ciudad, Unidad de Negocio, Área Diligencie la información de acuerdo con tus datos actuales", "Aspectos Demográficos" },
+                    { 2, "Diligencia la siguiente información acorde con tu actualidad y la de tu núcleo familiar", "Datos Demográficos" },
+                    { 3, "Aspectos relacionados con las condiciones favorables en la relación laboral y el ambiente de trabajo.", "Beneficios de Calidad de Vida" },
+                    { 4, "Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales.", "Beneficios Monetarios y No Monetarios" },
+                    { 5, "Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales", "Beneficios de Desarrollo Personal" },
+                    { 6, "Acciones de largo plazo que apuestan por el crecimiento personal, potencializar el talento y transformar la organización", "Beneficios en Herramientas de Trabajo" },
+                    { 7, "Elementos útiles para una adecuada realización de la labor", "Beneficios/Madurez" }
                 });
 
             migrationBuilder.InsertData(
@@ -625,14 +620,7 @@ namespace ProyectoIdentity.Migrations
                 values: new object[,]
                 {
                     { 1, null, "Respuesta Unica" },
-                    { 2, null, "Likkert" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "TipoPregunta",
-                columns: new[] { "Id", "Descripcion", "NombreTipoPregunta" },
-                values: new object[,]
-                {
+                    { 2, null, "Likkert" },
                     { 3, null, "Seleccion Multiple" },
                     { 4, null, "Valoracion Multiple" },
                     { 5, null, "Abierta" },
@@ -647,42 +635,79 @@ namespace ProyectoIdentity.Migrations
                     { "Apartadó", "Colombia" },
                     { "Barrancabermeja", "Colombia" },
                     { "Barranquilla", "Colombia" },
+                    { "Basseterre", "San Cristóbal y Nieves" },
                     { "Bello", "Colombia" },
+                    { "Belmopán", "Belice" },
                     { "Bogotá", "Colombia" },
+                    { "Brasilia", "Brasil" },
+                    { "Bridgetown", "Barbados" },
                     { "Bucaramanga", "Colombia" },
                     { "Buenaventura", "Colombia" },
+                    { "Buenos Aires", "Argentina" },
                     { "Cali", "Colombia" },
+                    { "Caracas", "Venezuela" },
                     { "Cartagena", "Colombia" },
+                    { "Ciudad de Guatemala", "Guatemala" },
+                    { "Ciudad de México", "México" },
+                    { "Ciudad de Panamá", "Panamá" },
                     { "Cúcuta", "Colombia" },
                     { "Dosquebradas", "Colombia" },
                     { "Envigado", "Colombia" },
                     { "Florencia", "Colombia" },
                     { "Floridablanca", "Colombia" },
+                    { "Georgetown", "Guyana" },
                     { "Girón", "Colombia" },
+                    { "Granada", "Granada" },
                     { "Ibagué", "Colombia" },
                     { "Itagüí", "Colombia" },
+                    { "Kingston", "Jamaica" },
+                    { "La Habana", "Cuba" },
+                    { "Lima", "Perú" },
                     { "Maicao", "Colombia" },
+                    { "Managua", "Nicaragua" },
                     { "Manizales", "Colombia" },
                     { "Medellín", "Colombia" },
                     { "Montería", "Colombia" },
+                    { "Montevideo", "Uruguay" },
+                    { "Nasáu", "Bahamas" },
                     { "Neiva", "Colombia" },
+                    { "Ottawa", "Canadá" },
                     { "Palmira", "Colombia" },
+                    { "Paraguay", "Paraguay" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "City",
+                columns: new[] { "CityName", "CountryId" },
+                values: new object[,]
+                {
                     { "Pasto", "Colombia" },
                     { "Pereira", "Colombia" },
                     { "Piedecuesta", "Colombia" },
                     { "Popayán", "Colombia" },
+                    { "Puerto Príncipe", "Haití" },
+                    { "Quito", "Ecuador" },
                     { "Riohacha", "Colombia" },
+                    { "Roseau", "Dominica" },
+                    { "Saint John", "Antigua y Barbuda" },
                     { "San Andrés de Tumaco", "Colombia" },
+                    { "San José", "Costa Rica" },
+                    { "San Salvador", "El Salvador" },
                     { "Santa Marta", "Colombia" },
+                    { "Santiago", "Chile" },
+                    { "Santo Domingo", "República Dominicana" },
                     { "Sincelejo", "Colombia" },
                     { "Soacha", "Colombia" },
                     { "Soledad", "Colombia" },
+                    { "Sucre", "Bolivia" },
+                    { "Tegucigalpa", "Honduras" },
                     { "Tuluá", "Colombia" },
                     { "Tunja", "Colombia" },
                     { "Turbo", "Colombia" },
                     { "Uribia", "Colombia" },
                     { "Valledupar", "Colombia" },
                     { "Villavicencio", "Colombia" },
+                    { "Washington", "Estados Unidos" },
                     { "Yopal", "Colombia" }
                 });
 
@@ -729,11 +754,6 @@ namespace ProyectoIdentity.Migrations
                 name: "IX_City_CountryId",
                 table: "City",
                 column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Demograficos_IdEncuesta",
-                table: "Demograficos",
-                column: "IdEncuesta");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DemograficosName_RespondenteId",

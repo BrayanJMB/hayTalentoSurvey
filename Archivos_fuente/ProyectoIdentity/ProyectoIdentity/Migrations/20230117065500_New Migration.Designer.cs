@@ -12,8 +12,8 @@ using ProyectoIdentity.Datos;
 namespace ProyectoIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230114045317_otraMigracion")]
-    partial class otraMigracion
+    [Migration("20230117065500_New Migration")]
+    partial class NewMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -272,26 +272,43 @@ namespace ProyectoIdentity.Migrations
                         new
                         {
                             Id = 1,
-                            NombreCategoria = "Beneficios de Calidad de Vida"
+                            Descripcion = "País, Ciudad, Unidad de Negocio, Área Diligencie la información de acuerdo con tus datos actuales",
+                            NombreCategoria = "Aspectos Demográficos"
                         },
                         new
                         {
                             Id = 2,
-                            NombreCategoria = "Beneficios Monetarios y No Monetarios"
+                            Descripcion = "Diligencia la siguiente información acorde con tu actualidad y la de tu núcleo familiar",
+                            NombreCategoria = "Datos Demográficos"
                         },
                         new
                         {
                             Id = 3,
-                            NombreCategoria = "Beneficios de Desarrollo Personal"
+                            Descripcion = "Aspectos relacionados con las condiciones favorables en la relación laboral y el ambiente de trabajo.",
+                            NombreCategoria = "Beneficios de Calidad de Vida"
                         },
                         new
                         {
                             Id = 4,
-                            NombreCategoria = "Beneficios en Herramientas de Trabajo"
+                            Descripcion = "Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales.",
+                            NombreCategoria = "Beneficios Monetarios y No Monetarios"
                         },
                         new
                         {
                             Id = 5,
+                            Descripcion = "Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales",
+                            NombreCategoria = "Beneficios de Desarrollo Personal"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Descripcion = "Acciones de largo plazo que apuestan por el crecimiento personal, potencializar el talento y transformar la organización",
+                            NombreCategoria = "Beneficios en Herramientas de Trabajo"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Descripcion = "Elementos útiles para una adecuada realización de la labor",
                             NombreCategoria = "Beneficios/Madurez"
                         });
                 });
@@ -512,6 +529,156 @@ namespace ProyectoIdentity.Migrations
                         {
                             CityName = "Yopal",
                             CountryId = "Colombia"
+                        },
+                        new
+                        {
+                            CityName = "Saint John",
+                            CountryId = "Antigua y Barbuda"
+                        },
+                        new
+                        {
+                            CityName = "Buenos Aires",
+                            CountryId = "Argentina"
+                        },
+                        new
+                        {
+                            CityName = "Nasáu",
+                            CountryId = "Bahamas"
+                        },
+                        new
+                        {
+                            CityName = "Bridgetown",
+                            CountryId = "Barbados"
+                        },
+                        new
+                        {
+                            CityName = "Belmopán",
+                            CountryId = "Belice"
+                        },
+                        new
+                        {
+                            CityName = "Sucre",
+                            CountryId = "Bolivia"
+                        },
+                        new
+                        {
+                            CityName = "Brasilia",
+                            CountryId = "Brasil"
+                        },
+                        new
+                        {
+                            CityName = "Ottawa",
+                            CountryId = "Canadá"
+                        },
+                        new
+                        {
+                            CityName = "Santiago",
+                            CountryId = "Chile"
+                        },
+                        new
+                        {
+                            CityName = "San José",
+                            CountryId = "Costa Rica"
+                        },
+                        new
+                        {
+                            CityName = "La Habana",
+                            CountryId = "Cuba"
+                        },
+                        new
+                        {
+                            CityName = "Roseau",
+                            CountryId = "Dominica"
+                        },
+                        new
+                        {
+                            CityName = "Quito",
+                            CountryId = "Ecuador"
+                        },
+                        new
+                        {
+                            CityName = "San Salvador",
+                            CountryId = "El Salvador"
+                        },
+                        new
+                        {
+                            CityName = "Washington",
+                            CountryId = "Estados Unidos"
+                        },
+                        new
+                        {
+                            CityName = "Granada",
+                            CountryId = "Granada"
+                        },
+                        new
+                        {
+                            CityName = "Ciudad de Guatemala",
+                            CountryId = "Guatemala"
+                        },
+                        new
+                        {
+                            CityName = "Georgetown",
+                            CountryId = "Guyana"
+                        },
+                        new
+                        {
+                            CityName = "Puerto Príncipe",
+                            CountryId = "Haití"
+                        },
+                        new
+                        {
+                            CityName = "Tegucigalpa",
+                            CountryId = "Honduras"
+                        },
+                        new
+                        {
+                            CityName = "Kingston",
+                            CountryId = "Jamaica"
+                        },
+                        new
+                        {
+                            CityName = "Ciudad de México",
+                            CountryId = "México"
+                        },
+                        new
+                        {
+                            CityName = "Managua",
+                            CountryId = "Nicaragua"
+                        },
+                        new
+                        {
+                            CityName = "Ciudad de Panamá",
+                            CountryId = "Panamá"
+                        },
+                        new
+                        {
+                            CityName = "Paraguay",
+                            CountryId = "Paraguay"
+                        },
+                        new
+                        {
+                            CityName = "Lima",
+                            CountryId = "Perú"
+                        },
+                        new
+                        {
+                            CityName = "Santo Domingo",
+                            CountryId = "República Dominicana"
+                        },
+                        new
+                        {
+                            CityName = "Basseterre",
+                            CountryId = "San Cristóbal y Nieves"
+                        },
+                        new
+                        {
+                            CityName = "Montevideo",
+                            CountryId = "Uruguay"
+                        },
+                        new
+                        {
+                            CityName = "Caracas",
+                            CountryId = "Venezuela"
                         });
                 });
 
@@ -676,9 +843,6 @@ namespace ProyectoIdentity.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("IdEncuesta")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
@@ -686,8 +850,6 @@ namespace ProyectoIdentity.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdEncuesta");
 
                     b.ToTable("Demograficos");
                 });
@@ -740,8 +902,8 @@ namespace ProyectoIdentity.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DescripcionEncuesta")
-                        .HasMaxLength(350)
-                        .HasColumnType("nvarchar(350)");
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("FechaDeCreacion")
                         .HasColumnType("datetime2");
@@ -1143,17 +1305,6 @@ namespace ProyectoIdentity.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Demograficos", b =>
-                {
-                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Encuesta", "Encuesta")
-                        .WithMany("Demograficos")
-                        .HasForeignKey("IdEncuesta")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Encuesta");
-                });
-
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.DemograficosName", b =>
                 {
                     b.HasOne("ProyectoIdentity.Models.ModelsJourney.Respondente", "Respondente")
@@ -1236,7 +1387,7 @@ namespace ProyectoIdentity.Migrations
                         .IsRequired();
 
                     b.HasOne("ProyectoIdentity.Models.ModelsJourney.Encuesta", "Encuesta")
-                        .WithMany()
+                        .WithMany("Demograficos")
                         .HasForeignKey("EncuestaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

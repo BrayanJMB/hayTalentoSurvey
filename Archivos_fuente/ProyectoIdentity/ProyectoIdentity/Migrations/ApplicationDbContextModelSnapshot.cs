@@ -900,8 +900,8 @@ namespace ProyectoIdentity.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DescripcionEncuesta")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("FechaDeCreacion")
                         .HasColumnType("datetime2");

@@ -45,7 +45,7 @@ namespace ProyectoIdentity.Controllers
             if (encuestallegada != null) { 
 
             var Country = await _context.Country.Include(p => p.Cities).ToListAsync();
-            var area = await _context.EncuestaArea.Where(e => e.EncuestaId == idSurvey).Include(p => p.Area).Select(p => p.Area).ToListAsync();
+            var area =  _context.EncuestaArea.Where(e => e.EncuestaId == idSurvey).Include(p => p.Area).Select(p => p.Area).ToList();
             var Bussinee = await _context.EncuestaBussines.Where(x => x.EncuestaId == idSurvey).
                 Include(b => b.BusinessUnit).Select(b => b.BusinessUnit).ToListAsync();
             //demograficos de la encuesta
@@ -96,6 +96,7 @@ namespace ProyectoIdentity.Controllers
                                                     }).ToList()
                                    }).ToList()
                  }).FirstOrDefaultAsync();
+
             try { 
                 query.Demograficos = demograficos;
                 query.Paises= Country;
@@ -106,6 +107,7 @@ namespace ProyectoIdentity.Controllers
             {
                 return RedirectToAction("Error", "Cuentas");
             }
+#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
             return View(query);
             }
             else
