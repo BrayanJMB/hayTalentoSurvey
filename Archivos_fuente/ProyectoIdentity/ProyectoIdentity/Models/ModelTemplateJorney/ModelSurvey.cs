@@ -816,8 +816,8 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                  new Pregunta {NombrePregunta = "¿Beneficios por discapacidad?", NumeroPregunta = 44, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
                  new Pregunta {NombrePregunta = "¿Seguro de mascotas?", NumeroPregunta = 45, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(), IdTipo = 2},
                  new Pregunta {
-                     NombrePregunta="¿Qué otros beneficios te gustarían incluir adicionales a los actuales ?",
-                     NumeroPregunta=22,
+                     NombrePregunta="¿Qué otros beneficios te gustarían incluir adicionales a los actuales ? (Ingrese cada Opción deseada separada por coma)",
+                     NumeroPregunta=46,
                      TipoPregunta="Abierta",
                      IdTipo = 5,
                      Opciones=null},

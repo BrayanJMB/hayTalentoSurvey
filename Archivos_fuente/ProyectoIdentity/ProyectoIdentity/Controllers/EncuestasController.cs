@@ -203,11 +203,11 @@ namespace ProyectoIdentity.Controllers
                     negociosEncuesta.Add(new EncuestaBussines { BusinessUnitId = negocio, EncuestaId = encuestaRes.Entity.Id });
                 }
 
-                _context.Area.AddRange(AreasNuevas);
-                _context.SaveChanges();
-                _context.BusinessUnit.AddRange(NegociosNuevos);
-                _context.EncuestaBussines.AddRange(negociosEncuesta);
-                _context.EncuestaArea.AddRange(AreasEncuesta);
+                await _context.Area.AddRangeAsync(AreasNuevas);
+                await _context.SaveChangesAsync();
+                await _context.BusinessUnit.AddRangeAsync(NegociosNuevos);
+                await _context.EncuestaBussines.AddRangeAsync(negociosEncuesta);
+                await _context.EncuestaArea.AddRangeAsync(AreasEncuesta);
 
                 //espacio para demograficos
                 var demograficos = encuesta.CategoriaR[1];
@@ -225,8 +225,8 @@ namespace ProyectoIdentity.Controllers
                         Nombre=demografico.Nombre,
                         
                     });
-                    _context.SaveChanges();
-                    _context.EncuestaDemografico.Add(new EncuestaDemografico
+                    await _context.SaveChangesAsync();
+                    await _context.EncuestaDemografico.AddAsync(new EncuestaDemografico
                     {
                         DemograficoId = demo.Entity.Id,
                         EncuestaId= encuestaRes.Entity.Id
@@ -234,7 +234,7 @@ namespace ProyectoIdentity.Controllers
                     index++;
                     foreach(var opciones  in demografico.Opciones)
                     {
-                        _context.OpcionesDemo.Add(new OpcionesDemo
+                        await _context.OpcionesDemo.AddAsync(new OpcionesDemo
                         {
                             DemograficoId = demo.Entity.Id,
                             Name = opciones.NombreOpcion

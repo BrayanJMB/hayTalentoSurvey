@@ -9,7 +9,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
         [Display(Name = "Nombre de la Encuesta")]
         [StringLength(100,ErrorMessage ="Ha excedido el tamaño maximo del Nombre")]
         public string NombreEncuesta { get; set; }
-        [StringLength(2000, ErrorMessage = "Ha excedido el tamaño maximo del Nombre")]
+        [StringLength(int.MaxValue, ErrorMessage = "Ha excedido el tamaño maximo del Nombre")]
         [Display(Name = "Descripcion de la Encuesta")]
         public string DescripcionEncuesta { get; set; }
 

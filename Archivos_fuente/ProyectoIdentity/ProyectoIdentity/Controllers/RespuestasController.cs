@@ -41,7 +41,8 @@ namespace ProyectoIdentity.Controllers
         public async Task<IActionResult> IndexRespuestas(int idSurvey)
         {
             ViewBag.Message = "Login";
-           
+            var encuestallegada =await _context.Encuesta.Where(x => x.Id == idSurvey).FirstOrDefaultAsync();
+            if (encuestallegada != null) { 
 
             var Country = await _context.Country.Include(p => p.Cities).ToListAsync();
             var area = await _context.EncuestaArea.Where(e => e.EncuestaId == idSurvey).Include(p => p.Area).Select(p => p.Area).ToListAsync();
@@ -106,6 +107,11 @@ namespace ProyectoIdentity.Controllers
                 return RedirectToAction("Error", "Cuentas");
             }
             return View(query);
+            }
+            else
+            {
+                return RedirectToAction("Error", "Cuentas");
+            }
         }
 
         public async Task<IActionResult> RedirectIndexRespuestas(int idSurvey)
@@ -180,12 +186,6 @@ namespace ProyectoIdentity.Controllers
                                                                 }).ToList()
                                                }).ToList()
                              }).FirstOrDefaultAsync();
-            query.Categorias[0].Preguntas[0].IdTipo = 3;
-            query.Categorias[0].Preguntas[0].TipoPregunta = "Seleccion Multiple";
-            query.Categorias[0].Preguntas[1].IdTipo = 2;
-            query.Categorias[0].Preguntas[1].TipoPregunta = "Likkert";
-
-
             return View(query);
         }
 

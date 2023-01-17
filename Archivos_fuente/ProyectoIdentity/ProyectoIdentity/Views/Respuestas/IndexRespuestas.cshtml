@@ -269,7 +269,14 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="showEditDelete">
-                                                                <div>
+                                                                @{
+                                                                    string classCheck = "";
+                                                                }
+                                                                @if (pregunta.NumeroPregunta == 21)
+                                                                {
+                                                                    classCheck = "options-check";
+                                                                }
+                                                                <div class="@classCheck">
                                                                     <p class="error-description"></p>
                                                                     <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(x => pregunta.NumeroPregunta).&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
                                                                     <div class="row ml-2" >
@@ -641,20 +648,19 @@
             
         }
 
-        let groupCheck=document.querySelectorAll(".options");
-        let groupMax=groupCheck.querySelector("[data-Count='3']");
-        let checkMax=groupMax.querySelectorAll("checkbox");
+        let groupCheck=document.querySelector(".options-check");
+        let checkMax=groupCheck.querySelectorAll("#inlineCheckbox1");
         
         checkMax.onchange=(event)=>{
             let checkeds=[];
             debugger;
-            checkMax.forEach(option){
+            checkMax.forEach((option)=>{
                 if(option.checked){
                     checkeds.push(option);
                     if(checkeds.length>3)
                         checkeds[0].checked=false;
                 }
-            }
+            });
         }
         
 
