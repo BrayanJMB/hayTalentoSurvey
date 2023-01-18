@@ -27,7 +27,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 4;
     options.Password.RequireLowercase = false;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
-    options.Lockout.MaxFailedAccessAttempts = 10;
+    options.Lockout.MaxFailedAccessAttempts = 20;
 });
 
 

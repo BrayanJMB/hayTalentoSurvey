@@ -19,14 +19,6 @@ namespace ProyectoIdentity.Controllers
             _context = context;
         }
 
-        // GET: Opcions
-        public async Task<IActionResult> Index()
-        {
-            var appDbContext = _context.Opcion.Include(o => o.Pregunta);
-            return View(await appDbContext.ToListAsync());
-        }
-
-        // GET: Opcions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Opcion == null)
@@ -45,13 +37,7 @@ namespace ProyectoIdentity.Controllers
             return View(opcion);
         }
 
-        // GET: Opcions/Create
-        public IActionResult Create()
-        {
-            ViewData["PreguntaId"] = new SelectList(_context.Pregunta, "Id", "Id");
-            return View();
-        }
-
+        
         // POST: Opcions/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -69,24 +55,7 @@ namespace ProyectoIdentity.Controllers
             return View(opcion);
         }
 
-        // GET: Opcions/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Opcion == null)
-            {
-                return NotFound();
-            }
-
-            var opcion = await _context.Opcion.FindAsync(id);
-            if (opcion == null)
-            {
-                return NotFound();
-            }
-            ViewData["PreguntaId"] = new SelectList(_context.Pregunta, "Id", "Id", opcion.PreguntaId);
-            return View(opcion);
-        }
-
-        // POST: Opcions/Edit/5
+                // POST: Opcions/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

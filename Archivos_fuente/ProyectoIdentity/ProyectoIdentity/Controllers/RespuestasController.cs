@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,7 @@ namespace ProyectoIdentity.Controllers
         public List<Category> Categorias { get; set; }
 
     }
+    
     public class RespuestasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -107,7 +109,6 @@ namespace ProyectoIdentity.Controllers
             {
                 return RedirectToAction("Error", "Cuentas");
             }
-#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
             return View(query);
             }
             else

@@ -1,11 +1,8 @@
 ﻿
-using Mailjet.Client.Resources.SMS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using NuGet.Versioning;
 using ProyectoIdentity.Datos;
 using ProyectoIdentity.Models.ModelsJourney;
 using ProyectoIdentity.Models.ModelTemplateJorney;
@@ -22,6 +19,7 @@ namespace ProyectoIdentity.Controllers
         public Encuesta Encuesta { get; set; }
         public List<PreguntDB> preguntas { get; set; }
     }
+    [Authorize]
     public class EncuestasController : Controller
     {
         private readonly ApplicationDbContext _context;

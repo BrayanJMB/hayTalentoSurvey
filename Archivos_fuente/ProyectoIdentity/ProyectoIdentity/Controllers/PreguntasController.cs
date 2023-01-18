@@ -26,68 +26,9 @@ namespace ProyectoIdentity.Controllers
             return View(/*await appDbContext.ToListAsync()*/);
         }
 
-        // GET: Preguntas/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Pregunta == null)
-            {
-                return NotFound();
-            }
-
-            //var pregunta = await _context.Pregunta
-            //    .Include(p => p.Categoria)
-            //    .Include(p => p.TipoPregunta)
-            //    .FirstOrDefaultAsync(m => m.Id == id);
-            //if (pregunta == null)
-            //{
-            //    return NotFound();
-            //}
-
-            return View(/*pregunta*/);
-        }
-
-        // GET: Preguntas/Create
-        public IActionResult Create()
-        {
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Id");
-            ViewData["TipoPreguntaId"] = new SelectList(_context.TipoPregunta, "Id", "Id");
-            return View();
-        }
-
-        // POST: Preguntas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NombrePregunta,TipoPreguntaId,CategoriaId")] Pregunta pregunta)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(pregunta);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TipoPreguntaId"] = new SelectList(_context.TipoPregunta, "Id", "Id", pregunta.TipoPreguntaId);
-            return View(pregunta);
-        }
-
-        // GET: Preguntas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Pregunta == null)
-            {
-                return NotFound();
-            }
-
-            var pregunta = await _context.Pregunta.FindAsync(id);
-            if (pregunta == null)
-            {
-                return NotFound();
-            }
-            ViewData["TipoPreguntaId"] = new SelectList(_context.TipoPregunta, "Id", "Id", pregunta.TipoPreguntaId);
-            return View(pregunta);
-        }
-
+       
+      
+      
         // POST: Preguntas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
