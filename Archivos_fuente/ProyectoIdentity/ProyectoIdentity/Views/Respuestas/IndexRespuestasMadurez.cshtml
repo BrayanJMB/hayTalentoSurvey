@@ -63,6 +63,7 @@
                                             @if (categori.Preguntas != null)
                                             {
                                         <h3 class="titulo-dimension">Beneficios y Madurez</h3>
+                                                <p class="error-description text-center">@categori.Description</p>
                                         
                                                 @foreach (var pregunta in categori.Preguntas)
                                                 {
@@ -70,7 +71,7 @@
                                                 <div class="col-md-12">
                                                     <div class="showEditDelete">
                                                         <div>
-                                                            <p class="error-description text-center" >@categori.Description</p>
+                                                            
                                                             <div class="bold-questions d-inline-flex mb-0">@indexPregunta.&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
                                                             <div class="row ml-2">
                                                                         @if (pregunta.Opciones != null) 
