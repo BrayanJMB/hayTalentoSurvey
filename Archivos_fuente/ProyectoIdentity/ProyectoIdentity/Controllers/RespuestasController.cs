@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Versioning;
 using ProyectoIdentity.Datos;
 using ProyectoIdentity.Models;
+using ProyectoIdentity.Models.ModelosRespuestas;
 using ProyectoIdentity.Models.ModelsJourney;
 using ProyectoIdentity.Models.ModelTemplateJorney;
 
@@ -176,6 +178,7 @@ namespace ProyectoIdentity.Controllers
                                                                 {
                                                                     NombrePregunta = pregunta.NombrePregunta,
                                                                     IdTipo = pregunta.TipoPreguntaId,
+                                                                    IdPregunta=pregunta.Id,
                                                                     NumeroPregunta = pregunta.Id,
                                                                     TipoPregunta = (from tipoPregunta in _context.TipoPregunta
                                                                                     where pregunta.TipoPreguntaId == tipoPregunta.Id
@@ -205,9 +208,10 @@ namespace ProyectoIdentity.Controllers
                          }).FirstOrDefault();
             return View(query);
         }
-
-        public async Task<IActionResult> EnvioIndexRespuestasMadurez()
+        
+        public async Task<IActionResult> EnvioIndexRespuestasMadurez(int IdEncuesta, List<int> IdPregunta,List<int> ValueRespuesta,string LabelRespuesta)
         {
+            var Respuesta = IdPregunta;
             ViewBag.Message = "Login";
             return View();
         }
