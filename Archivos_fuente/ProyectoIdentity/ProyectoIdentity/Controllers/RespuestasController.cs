@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Versioning;
 using ProyectoIdentity.Datos;
-using ProyectoIdentity.Models;
-using ProyectoIdentity.Models.ModelosRespuestas;
 using ProyectoIdentity.Models.ModelsJourney;
 using ProyectoIdentity.Models.ModelTemplateJorney;
 
@@ -211,7 +202,42 @@ namespace ProyectoIdentity.Controllers
         
         public async Task<IActionResult> EnvioIndexRespuestasMadurez(int IdEncuesta, List<int> IdPregunta,List<int> ValueRespuesta,string LabelRespuesta)
         {
-            var Respuesta = IdPregunta;
+            var Respouestas =new List<RespuestaMadurezcs>();
+            int index = 0;
+            var encuestaRespo =await _context.EncuestaRepondente.AddAsync(new EncuestaRepondente
+            {
+                EncuestaId = IdEncuesta,
+                RespuestasMadurez = Respouestas,
+                PonderadoRespuesta = (ValueRespuesta.Sum() / ValueRespuesta.Count())
+            });
+            await _context.SaveChangesAsync();
+
+            foreach (var respuesta in ValueRespuesta)
+            {
+                Respouestas.Add(new RespuestaMadurezcs
+                {
+                    PreguntaId = IdPregunta[index],
+                    Valor=respuesta,
+                    EncuestaRespondenteID=encuestaRespo.Entity.Id
+
+                });
+                index++;
+            }
+            Respouestas.Add(new RespuestaMadurezcs
+            {
+                DescripcionRespuesta = LabelRespuesta,
+                PreguntaId = IdPregunta[index],
+                EncuestaRespondenteID = encuestaRespo.Entity.Id
+
+            });
+
+            await _context.AddRangeAsync(Respouestas);
+            await _context.SaveChangesAsync();
+            //Guardar el repondente
+
+
+
+
             ViewBag.Message = "Login";
             return View();
         }

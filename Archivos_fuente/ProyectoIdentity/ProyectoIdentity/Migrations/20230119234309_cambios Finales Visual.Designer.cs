@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoIdentity.Datos;
 
@@ -11,9 +12,10 @@ using ProyectoIdentity.Datos;
 namespace ProyectoIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230119234309_cambios Finales Visual")]
+    partial class cambiosFinalesVisual
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,7 +272,7 @@ namespace ProyectoIdentity.Migrations
                         new
                         {
                             Id = 1,
-                            Descripcion = "Diligencie la información de acuerdo con sus datos actuales",
+                            Descripcion = "Diligencie la información de acuerdo con tus datos actuales",
                             NombreCategoria = "Aspectos Demográficos"
                         },
                         new
@@ -833,42 +835,6 @@ namespace ProyectoIdentity.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.DemograficoPersonal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("DependenciaEconomica")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Edad")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstadoCivil")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NivelEducativo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Parentesco")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("RespondenteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Sexo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RespondenteId");
-
-                    b.ToTable("DemograficoPersonal");
-                });
-
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Demograficos", b =>
                 {
                     b.Property<int>("Id")
@@ -886,6 +852,42 @@ namespace ProyectoIdentity.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Demograficos");
+                });
+
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.DemograficosName", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("DependenciaEconomica")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Edad")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Estadocivil")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NivelEducativo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Parentezco")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RespondenteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Sexo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RespondenteId");
+
+                    b.ToTable("DemograficosName");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Encuesta", b =>
@@ -1017,27 +1019,16 @@ namespace ProyectoIdentity.Migrations
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaRepondente", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<int>("EncuestaId")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("RespondenteId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("FechaRespuesta")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PonderadoRespuesta")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("RespondenteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EncuestaId");
+                    b.HasKey("EncuestaId", "RespondenteId");
 
                     b.HasIndex("RespondenteId");
 
@@ -1163,49 +1154,33 @@ namespace ProyectoIdentity.Migrations
                     b.Property<int>("PreguntaId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("RespondenteId")
+                    b.Property<Guid>("RespondenteId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DescripcionRespuesta")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EncuestaMadurez")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EncuestaRepondenteEncuestaId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("EncuestaRepondenteRespondenteId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<float?>("Valor")
                         .HasColumnType("real");
 
                     b.HasKey("PreguntaId", "RespondenteId");
 
+                    b.HasIndex("EncuestaMadurez");
+
                     b.HasIndex("RespondenteId");
 
+                    b.HasIndex("EncuestaRepondenteEncuestaId", "EncuestaRepondenteRespondenteId");
+
                     b.ToTable("Respuesta");
-                });
-
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.RespuestaMadurezcs", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("DescripcionRespuesta")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EncuestaRespondenteID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PreguntaId")
-                        .HasColumnType("int");
-
-                    b.Property<float?>("Valor")
-                        .HasColumnType("real");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EncuestaRespondenteID");
-
-                    b.HasIndex("PreguntaId");
-
-                    b.ToTable("RespuestaMadurezcs");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.TipoPregunta", b =>
@@ -1343,11 +1318,13 @@ namespace ProyectoIdentity.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.DemograficoPersonal", b =>
+            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.DemograficosName", b =>
                 {
                     b.HasOne("ProyectoIdentity.Models.ModelsJourney.Respondente", "Respondente")
-                        .WithMany("Fammilia")
-                        .HasForeignKey("RespondenteId");
+                        .WithMany("DemograficoName")
+                        .HasForeignKey("RespondenteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Respondente");
                 });
@@ -1435,19 +1412,17 @@ namespace ProyectoIdentity.Migrations
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.EncuestaRepondente", b =>
                 {
-                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Encuesta", "Encuesta")
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Encuesta", null)
                         .WithMany("EncuestaRepondente")
                         .HasForeignKey("EncuestaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Respondente", "Respondente")
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Respondente", null)
                         .WithMany("EncuestaRepondente")
-                        .HasForeignKey("RespondenteId");
-
-                    b.Navigation("Encuesta");
-
-                    b.Navigation("Respondente");
+                        .HasForeignKey("RespondenteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Opcion", b =>
@@ -1522,38 +1497,21 @@ namespace ProyectoIdentity.Migrations
                 {
                     b.HasOne("ProyectoIdentity.Models.ModelsJourney.Pregunta", "Pregunta")
                         .WithMany("Respuestas")
-                        .HasForeignKey("PreguntaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EncuestaMadurez");
 
                     b.HasOne("ProyectoIdentity.Models.ModelsJourney.Respondente", "Respondente")
-                        .WithMany()
+                        .WithMany("Respuestas")
                         .HasForeignKey("RespondenteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.EncuestaRepondente", null)
+                        .WithMany("RespuestasMadurez")
+                        .HasForeignKey("EncuestaRepondenteEncuestaId", "EncuestaRepondenteRespondenteId");
+
                     b.Navigation("Pregunta");
 
                     b.Navigation("Respondente");
-                });
-
-            modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.RespuestaMadurezcs", b =>
-                {
-                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.EncuestaRepondente", "EncuestaRepondente")
-                        .WithMany("RespuestasMadurez")
-                        .HasForeignKey("EncuestaRespondenteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProyectoIdentity.Models.ModelsJourney.Pregunta", "Pregunta")
-                        .WithMany()
-                        .HasForeignKey("PreguntaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("EncuestaRepondente");
-
-                    b.Navigation("Pregunta");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Area", b =>
@@ -1615,9 +1573,11 @@ namespace ProyectoIdentity.Migrations
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.Respondente", b =>
                 {
+                    b.Navigation("DemograficoName");
+
                     b.Navigation("EncuestaRepondente");
 
-                    b.Navigation("Fammilia");
+                    b.Navigation("Respuestas");
                 });
 
             modelBuilder.Entity("ProyectoIdentity.Models.ModelsJourney.TipoPregunta", b =>

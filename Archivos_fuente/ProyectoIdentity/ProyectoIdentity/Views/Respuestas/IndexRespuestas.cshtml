@@ -74,7 +74,7 @@
                                                                     <p class="error-description"></p>
                                                                     <div class="row ml-2" >
                                                                         <div class="col-md-6 col-sm-12">
-                                                                            <p>Páises</p>
+                                                                            <p>Países</p>
                                                                             <select  class="form-select form-select-sm likkert" aria-label="Default select example" id="paises" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 @foreach (var option in Model.Paises)
@@ -138,11 +138,11 @@
                                                                                             <table class="table">
                                                                                                 <thead>
                                                                                                     <tr class="title-table">
-                                                                                                        <th scope="col-sm-12">Parentezco</th>
+                                                                                                        <th scope="col-sm-12">Parentesco</th>
                                                                                                         <th scope="col">Sexo</th>
                                                                                                         <th scope="col">Estado Civil</th>
                                                                                                         <th scope="col">Nivel Educativo</th>
-                                                                                                        <th style="width: 0px;">Dependencia Economica</th>
+                                                                                                        <th style="width: 0px;">Dependencia Económica</th>
                                                                                                         <th scope="col">Edad</th>
                                                                                                     </tr>
                                                                                                 </thead>
@@ -229,38 +229,7 @@
                                                                                                 </tbody>
 
                                                                                                 </table>
-                                                                                                @*</thead>
                                                                                                 
-                                                                                                   
-                                                                                                    <tr class="demograficos conyugue">
-                                                                                                        <th scope="row">Conyugue</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos-multiple">
-                                                                                                        <th style="width: 10%;" scope="row">Hijos <input class="multiselect" id="hijos" style="width: 50%;" type="number"
-                                                                                                                name="quantity" min="0" max="10"></th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos">
-                                                                                                        <th scope="row">Madre</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos">
-                                                                                                        <th scope="row">Padre</th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos-multiple">
-                                                                                                        <th style="width: 10%;" scope="row">Hermanos <input class="multiselect" id="hermanos" style="width: 50%;" type="number"
-                                                                                                            name="quantity" min="0" max="10"></th>
-                                                                                                    </tr>
-                                                                                                    <tr class="demograficos-multiple">
-                                                                                                        <th scope="row">Otros Familiares<input class="multiselect" id="otros-familiares" style="width: 50%;" type="number"
-                                                                                                            name="quantity" min="0" max="3"></th>
-                                                                                                    </tr>
-
-                                                                                                
-                                                                                            </table>
-                                                                                                <!-- View Mobile-->
-                                                                                                <div class="container-fluid" id="mobile">
-                                                                                                    <div class="accordion" id="accordionExample">
-                                                                                                    </div>
-                                                                                                </div>*@
                                                                                         }
 
 
@@ -588,7 +557,7 @@
                     for(let i=cantidadTotal;i<cantidad;i++ ){
                         let nuevoTr=trCopy;
                         if(option.previousElementSibling.textContent=="Otros"){
-                            trCopy.firstElementChild.innerHTML='<input type="text" class="form-control"  data-toggle="tooltip" title="Ingresa el parentezo"/>';
+                            trCopy.firstElementChild.innerHTML='<input type="text" class="form-control"  data-toggle="tooltip" title="Ingresa el parentesco"/>';
                             $(document).on('mouseover', '[data-toggle="tooltip"]', function() {
                               $(this).tooltip();
                             });                    

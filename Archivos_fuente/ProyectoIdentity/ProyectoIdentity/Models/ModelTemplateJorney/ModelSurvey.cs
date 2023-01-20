@@ -435,7 +435,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
             {
                 new Opcion { Id = 51, OpcionName = "Café"},
                 new Opcion { Id = 52, OpcionName = "Cigarrillo" },
-                new Opcion { Id = 53, OpcionName = "Cerveza"},
+                new Opcion { Id = 53, OpcionName = "Licor"},
             };
             return OpcionesTiempo;
         }
@@ -793,8 +793,8 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                  new Pregunta {NombrePregunta = "¿Cuánto gastó su empresa en total en beneficios en el último año fiscal?", NumeroPregunta = 26, TipoPregunta = "Likkert", Opciones = OpcionesLikkertper16(),IdTipo = 2},
                  new Pregunta {NombrePregunta = "¿Los empleados valoran su plan de beneficios?", NumeroPregunta = 27, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {NombrePregunta = "¿El plan de beneficios mejora la atracción y retención?", NumeroPregunta = 28, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
-                 new Pregunta {NombrePregunta = "¿El plan de beneficios mejora el compromiso del empleado con su trabajo?", NumeroPregunta = 29, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
-                 new Pregunta {NombrePregunta = "¿El plan de beneficios moviliza el desempeño?", NumeroPregunta = 30, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
+                 new Pregunta {NombrePregunta = "¿El plan de beneficios mejora el compromiso del empleado con su trabajo?.(De la siguiente lista de beneficios que ofrece el mercado, por favor especifique si aplican en la compañía o el nivel de percepción.)", NumeroPregunta = 29, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
+                 new Pregunta {NombrePregunta = "¿El plan de beneficios moviliza el desempeño?.(De la siguiente lista de beneficios que ofrece el\r\nmercado, por favor especifique si aplican en la compañía o el nivel de percepción.)", NumeroPregunta = 30, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {NombrePregunta="¿Beneficios a la carta (escogencia de acuerdo con portafolio de productos)?", NumeroPregunta = 31, TipoPregunta = "Likkert",Opciones=OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {NombrePregunta = "¿Modelo de compensación flexible?", NumeroPregunta = 32, TipoPregunta = "Likkert", Opciones = OpcionesLikkert1(),IdTipo = 2,},
                  new Pregunta {

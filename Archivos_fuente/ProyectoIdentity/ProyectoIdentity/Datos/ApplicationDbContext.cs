@@ -20,7 +20,7 @@ namespace ProyectoIdentity.Datos
         public DbSet<Opcion> Opcion { get; set; }
         public DbSet<Pregunta> Pregunta { get; set; }
 
-        public DbSet<DemograficosName> DemograficosName { get; set; }
+        public DbSet<DemograficoPersonal> DemograficoPersonal { get; set; }
 
         public DbSet<Respondente> Respondente { get; set; }
         public DbSet<Respuesta> Respuesta { get; set; }
@@ -42,12 +42,15 @@ namespace ProyectoIdentity.Datos
 
         public DbSet<EncuestaBussines> EncuestaBussines { get; set; }
 
+        public DbSet<RespuestaMadurezcs> RespuestaMadurezcs { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             List<Categoria> categorias = new List<Categoria> {
                 new Categoria{Id=1,NombreCategoria="Aspectos Demográficos",
-                        Descripcion="País, Ciudad, Unidad de Negocio, Área Diligencie la información de acuerdo con tus datos actuales"
+                        Descripcion="Diligencie la información de acuerdo con sus datos actuales"
                     },
                 new Categoria{Id=2,NombreCategoria="Datos Demográficos",
                         Descripcion="Diligencia la siguiente información acorde con tu actualidad y la de tu núcleo familiar"
@@ -60,14 +63,14 @@ namespace ProyectoIdentity.Datos
                         Descripcion="Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales."
                     },
                     new Categoria{Id=5,NombreCategoria="Beneficios de Desarrollo Personal",
-                    Descripcion="Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales"
+                    Descripcion="“Acciones de largo plazo que apuestan por el crecimiento personal, potencializar el talento y transformar la organización”."
 
                     },
                     new Categoria{Id=6,NombreCategoria="Beneficios en Herramientas de Trabajo",
-                        Descripcion="Acciones de largo plazo que apuestan por el crecimiento personal, potencializar el talento y transformar la organización"
+                        Descripcion="“Elementos útiles para una adecuada realización de la labor”."
                     },
                     new Categoria{Id=7,NombreCategoria="Beneficios/Madurez",
-                    Descripcion="Elementos útiles para una adecuada realización de la labor"
+                    Descripcion="“Nivel en el que la compañía asimila o integra buenas prácticas relacionadas con la administración de los\r\nbeneficios”"
 
                     }
             };
@@ -196,7 +199,6 @@ namespace ProyectoIdentity.Datos
             };
 
             modelBuilder.Entity<Respuesta>().HasKey(r => new { r.PreguntaId, r.RespondenteId });
-            modelBuilder.Entity<EncuestaRepondente>().HasKey(r => new { r.EncuestaId, r.RespondenteId });
             modelBuilder.Entity<Categoria>().HasData(categorias);
             modelBuilder.Entity<TipoPregunta>().HasData(tipoPreguntas);
             modelBuilder.Entity<Country>().HasData(Paises);
