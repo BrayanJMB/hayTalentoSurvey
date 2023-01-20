@@ -63,14 +63,14 @@ namespace ProyectoIdentity.Datos
                         Descripcion="Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales."
                     },
                     new Categoria{Id=5,NombreCategoria="Beneficios de Desarrollo Personal",
-                    Descripcion="“Acciones de largo plazo que apuestan por el crecimiento personal, potencializar el talento y transformar la organización”."
+                    Descripcion="Acciones de largo plazo que apuestan por el crecimiento personal, potencializar el talento y transformar la organización."
 
                     },
                     new Categoria{Id=6,NombreCategoria="Beneficios en Herramientas de Trabajo",
-                        Descripcion="“Elementos útiles para una adecuada realización de la labor”."
+                        Descripcion="Elementos útiles para una adecuada realización de la labor."
                     },
                     new Categoria{Id=7,NombreCategoria="Beneficios/Madurez",
-                    Descripcion="“Nivel en el que la compañía asimila o integra buenas prácticas relacionadas con la administración de los\r\nbeneficios”"
+                    Descripcion="Nivel en el que la compañía asimila o integra buenas prácticas relacionadas con la administración de los beneficios"
 
                     }
             };

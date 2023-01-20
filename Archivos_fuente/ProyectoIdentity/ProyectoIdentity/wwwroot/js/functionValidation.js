@@ -11,7 +11,6 @@ $(document).ready(function () {
         var validation = Array.prototype.filter.call(forms, function (form) {
             elemento.forEach((element) => {
                 element.addEventListener('click', function (event) {
-                    debugger;
                     let activeFieldset = document.querySelector('fieldset.active');
                     let formElements = activeFieldset.querySelectorAll('[required]');
                     form.classList.add('was-validated');
@@ -100,7 +99,7 @@ $(document).ready(function () {
     };
 
     $(".previous").click(function () {
-        debugger;
+        
         current_fs = $(this).parent().parent().parent().parent().parent();
         previous_fs = $(this).parent().parent().parent().parent().parent().prev();
         //Remove class active
