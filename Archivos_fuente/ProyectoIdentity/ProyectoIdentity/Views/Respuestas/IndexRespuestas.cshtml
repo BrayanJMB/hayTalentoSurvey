@@ -17,9 +17,9 @@
 
 @section Styles{
 
-    <link rel="stylesheet" href="~/css/styleStepper.css">
-    <link rel="stylesheet" href="~/css/Preguntas.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="~/css/styleStepper.css">
+<link rel="stylesheet" href="~/css/Preguntas.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 }
 
@@ -36,6 +36,7 @@
                             {
                                 if (Active)
                                 {
+
                                 <li class="col-md-2 active @iconStepper[opcion]" id="account"><strong>@opcion .@categori.NombreCategoria</strong></li>
                                     Active = false;
                                 }
@@ -66,93 +67,96 @@
                                         <p class="descripcion-dimension">@categori.Description</p>
                                                 @if (categori.NombreCategoria == "Aspectos Demográficos")
                                                 {
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="showEditDelete">
-                                                        <div>
-                                                            <p class="error-description"></p>
-                                                            <div class="row ml-2">
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <p>Países</p>
-                                                                    <select class="form-select form-select-sm likkert" name="Country" aria-label="Default select example" id="paises" required>
-                                                                        <option value="" selected>Seleccione</option>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="showEditDelete">
+                                                                <div>
+                                                                    <p class="error-description"></p>
+                                                                    <div class="row ml-2">
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <p>Países</p>
+                                                                            <select class="form-select form-select-sm likkert" name="Country" aria-label="Default select example" id="paises" required>
+                                                                                <option value="" selected>Seleccione</option>
                                                                                 @foreach (var option in Model.Paises)
                                                                                 {
-                                                                            <option value="@option.CountryName">@option.CountryName</option>
+                                                                                    <option value="@option.CountryName">@option.CountryName</option>
                                                                                 }
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Requerido.
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <p>Ciudades</p>
-                                                                    <select class="form-select form-select-sm likkert" name="City" aria-label="Default select example" id="capitales" required>
-                                                                        <option value="" selected>Seleccione</option>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Requerido.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <p>Ciudades</p>
+                                                                            <select class="form-select form-select-sm likkert" name="City" aria-label="Default select example" id="capitales" required>
+                                                                                <option value="" selected>Seleccione</option>
                                                                                 @foreach (var option in Model.Paises)
                                                                                 {
                                                                                     @foreach (var option2 in option.Cities)
                                                                                     {
-                                                                                <option value="@option2.Country.CountryName">@option2.CityName</option>
+                                                                                        <option value="@option2.Country.CountryName">@option2.CityName</option>
                                                                                     }
                                                                                 }
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Requerido.
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <p>Negocio</p>
-                                                                    <select class="form-select form-select-sm likkert" name="BussinesUnit" aria-label="Default select example" required>
-                                                                        <option value="" selected>Seleccione</option>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Requerido.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <p>Negocio</p>
+                                                                            <select class="form-select form-select-sm likkert" name="BussinesUnit" aria-label="Default select example" required>
+                                                                                <option value="" selected>Seleccione</option>
                                                                                 @foreach (var option in Model.Negocios)
                                                                                 {
-                                                                            <option value="1">@option.NameBusinnes</option>
+                                                                                    <option value="1">@option.NameBusinnes</option>
                                                                                 }
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Requerido.
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <p>Área</p>
-                                                                    <select class="form-select form-select-sm likkert" name="Area" aria-label="Default select example" required>
-                                                                        <option value="" selected>Seleccione</option>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Requerido.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <p>Área</p>
+                                                                            <select class="form-select form-select-sm likkert" name="Area" aria-label="Default select example" required>
+                                                                                <option value="" selected>Seleccione</option>
                                                                                 @foreach (var option in Model.Area)
                                                                                 {
-                                                                            <option value="1">@option.AreaName</option>
+                                                                                    <option value="1">@option.AreaName</option>
                                                                                 }
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Requerido.
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Requerido.
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
                                                 }
                                                 else if (categori.NombreCategoria == "Datos Demográficos")
                                                 {
-                                            <table class="table">
-                                                <thead>
-                                                    <tr class="title-table">
-                                                        <th scope="col-sm-12">Parentesco</th>
-                                                        <th scope="col">Sexo</th>
-                                                        <th scope="col">Estado Civil</th>
-                                                        <th scope="col">Nivel Educativo</th>
-                                                        <th style="width: 0px;">Dependencia Económica</th>
-                                                        <th scope="col">Edad</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="title-table">
-                                                            @{int indexModelo=0;}
+                                                    //View Desktop
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr class="title-table">
+                                                                <th scope="col-sm-12">Parentesco</th>
+                                                                <th scope="col">Sexo</th>
+                                                                <th scope="col">Estado Civil</th>
+                                                                <th scope="col">Nivel Educativo</th>
+                                                                <th style="width: 0px;">Dependencia Económica</th>
+                                                                <th scope="col">Edad</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="title-table">
+                                                            @{
+                                                                int indexModelo = 0;
+                                                            }
                                                             @foreach (var option in Model.Demograficos[0].OpcionesDemo)
                                                             {
-                                                        
-                                                            <tr class="demograficos" id="@option.Name">
-                                                            
+
+                                                                <tr class="demograficos" id="@option.Name">
+
                                                                     @if (option.Name == "Hijo" || option.Name == "Otros" || option.Name == "Hermano")
                                                                     {
                                                                         int cant = 0;
@@ -160,95 +164,213 @@
                                                                             cant = 10;
                                                                         else
                                                                             cant = 3;
-                                                                <th style="width: 10%;" scope="row">
-                                                                    <p>@option.Name</p>
-                                                                    <input class="multiselect" id="MultipleRegister"  style="width: 50%;" type="number" min="0" max="@cant">
+                                                                        <th style="width: 10%;" scope="row">
+                                                                            <p>@option.Name</p>
+                                                                            <input class="multiselect" id="MultipleRegister" style="width: 50%;" type="number" min="0" max="@cant">
                                                                         </th>
                                                                         indexModelo--;
 
                                                                     }
                                                                     else
                                                                     {
-                                                                <input type="hidden" name="Fammilia[@indexModelo].Parentesco" id="ParentescoInput" value="@option.Name">
-                                                                <th scope="row">@option.Name</th>
-                                                                <td>
-                                                                    <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].Sexo" required>
+                                                                        <input type="hidden" name="Fammilia[@indexModelo].Parentesco" id="ParentescoInput" value="@option.Name">
+                                                                        <th scope="row">@option.Name</th>
+                                                                        <td>
+                                                                            <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].Sexo" required>
                                                                                 @if (option.Name == "Madre")
                                                                                 {
-                                                                            <option value="Femenino" selected>Femenino</option>
+                                                                                    <option value="Femenino" selected>Femenino</option>
                                                                                 }
                                                                                 else if (option.Name == "Padre")
                                                                                 {
-                                                                            <option value="Masculino" selected>Masculino</option>
+                                                                                    <option value="Masculino" selected>Masculino</option>
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                            <option selected value="">Seleccione</option>
+                                                                                    <option selected value="">Seleccione</option>
                                                                                     @foreach (var select in Model.Demograficos[1].OpcionesDemo)
                                                                                     {
-                                                                                <option value="@select.Name">@select.Name</option>
+                                                                                        <option value="@select.Name">@select.Name</option>
                                                                                     }
                                                                                 }
-                                                                    </select>
-                                                                </td>
-                                                                <td>
-                                                                    <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].EstadoCivil" onchange="block(this)" required>
-                                                                        <option selected value="">Seleccione</option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].EstadoCivil" onchange="block(this)" required>
+                                                                                <option selected value="">Seleccione</option>
                                                                                 @foreach (var select in Model.Demograficos[2].OpcionesDemo)
                                                                                 {
                                                                                     if (option.Name == "Colaborador" && select.Name == "Fallecido") { continue; }
 
-                                                                            <option value="@select.Name">@select.Name</option>
+                                                                                    <option value="@select.Name">@select.Name</option>
                                                                                 }
-                                                                    </select>
-                                                                </td>
-                                                                <td>
-                                                                    <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].NivelEducativo" required>
-                                                                        <option selected value="">Seleccione</option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].NivelEducativo" required>
+                                                                                <option selected value="">Seleccione</option>
                                                                                 @foreach (var select in Model.Demograficos[3].OpcionesDemo)
                                                                                 {
-                                                                            <option value="@select.Name">@select.Name</option>
+                                                                                    <option value="@select.Name">@select.Name</option>
                                                                                 }
-                                                                    </select>
-                                                                </td>
-                                                                <td>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
                                                                             @if (option.Name != "Colaborador")
                                                                             {
-                                                                        <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].DependenciaEconomica" required>
-                                                                            <option selected value="">Seleccione</option>
+                                                                                <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].DependenciaEconomica" required>
+                                                                                    <option selected value="">Seleccione</option>
                                                                                     @foreach (var select in Model.Demograficos[4].OpcionesDemo)
                                                                                     {
-                                                                                <option value="@select.Name">@select.Name</option>
+                                                                                        <option value="@select.Name">@select.Name</option>
                                                                                     }
-                                                                        </select>
+                                                                                </select>
                                                                             }
-                                                                </td>
-                                                                <td>
+                                                                        </td>
+                                                                        <td>
 
-                                                                    <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].Edad" required>
+                                                                            <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].Edad" required>
 
-                                                                        <option selected value="">Seleccione</option>
+                                                                                <option selected value="">Seleccione</option>
                                                                                 @foreach (var select in Model.Demograficos[5].OpcionesDemo)
                                                                                 {
 
-                                                                            <option value="@select.Name">@select.Name</option>
+                                                                                    <option value="@select.Name">@select.Name</option>
                                                                                 }
-                                                                    </select>
-                                                                </td>
+                                                                            </select>
+                                                                        </td>
                                                                     }
                                                                 </tr>
-                                                        
                                                                 indexModelo++;
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                    //Mobile View
+                                                  
+                                                    int indexModeloMobile = 0;
+                                                   
+                                                    @foreach (var option in Model.Demograficos[0].OpcionesDemo)
+                                                    {
+                                                        <div id="accordion">
+                                                            <div class="card">
+                                                                <div class="card-header" id="headingOne">
+                                                                    <h5 class="mb-0">
+                                                                        <button class="btn btn-link" data-toggle="collapse" data-target="#@option.Name" aria-expanded="true" aria-controls="collapseOne">
+                                                                            @option.Name
+                                                                        </button>
+                                                                    </h5>
+                                                                </div>
+                                                                <div>
+                                                                     @if (option.Name == "Hijo" || option.Name == "Otros" || option.Name == "Hermano"){
+                                                                        int cant = 0;
+                                                                        if (option.Name == "Hijo" || option.Name == "Hermano")
+                                                                            cant = 10;
+                                                                        else
+                                                                            cant = 3;
 
-                                                            }   
+                                                                        <div id="@option.Name" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                                                            <div class="card-body">
+                                                                                 <p>@option.Name</p>
+                                                                                <input class="multiselect" id="MultipleRegister" style="width: 50%;" type="number" min="0" max="@cant"> 
+                                                                            </div>
+                                                                        </div>
+                                                                            indexModeloMobile--;
+                                                                    }else{
+                                                                        <div id="@option.Name" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                                                            <div class="card-body">
+                                                                                  <input type="hidden" name="Fammilia[@indexModeloMobile].Parentesco" id="ParentescoInput" value="@option.Name"> 
+                                                                                  <div>
+                                                                                      <p>Sexo</p>
+                                                                                     <select class="form-select form-select-sm select-demograficos mb-2" name="Fammilia[@indexModeloMobile].Sexo" required>
+                                                                                         @if (option.Name == "Madre")
+                                                                                      {
+                                                                                            <option value="Femenino" selected>Femenino</option>
+                                                                                        }
+                                                                                        else if (option.Name == "Padre")
+                                                                                        {
+                                                                                            <option value="Masculino" selected>Masculino</option>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <option selected value="">Seleccione</option>
+                                                                                            @foreach (var select in Model.Demograficos[1].OpcionesDemo)
+                                                                                            {
+                                                                                                <option value="@select.Name">@select.Name</option>
+                                                                                            }
+                                                                                        }
+                                                                                      </select>
+                                                                                </div>
+                                                                                <div>
+                                                                                   <p>Estado Civil</p>
+                                                                                   @if (option.Name != "Colaborador"){
+                                                                                    <select class="form-select form-select-sm select-demograficos mb-2" name="Fammilia[@indexModeloMobile].EstadoCivil" onchange="blockMobile(this)" required>                                                                                
+                                                                                        <option selected value="">Seleccione</option>
+                                                                                                @foreach (var select in Model.Demograficos[2].OpcionesDemo)
+                                                                                                {
+                                                                                                    if (option.Name == "Colaborador" && select.Name == "Fallecido") { continue; }
+                                                                                            <option value="@select.Name">@select.Name</option>
+                                                                                                }
+                                                                                    </select>
+                                                                                    }else{
+                                                                                        <select class="form-select form-select-sm select-demograficos mb-2" name="Fammilia[@indexModeloMobile].EstadoCivil" required>
+                                                                                    
+                                                                                        <option selected value="">Seleccione</option>
+                                                                                                @foreach (var select in Model.Demograficos[2].OpcionesDemo)
+                                                                                                {
+                                                                                                    if (option.Name == "Colaborador" && select.Name == "Fallecido") { continue; }
 
-                                                </tbody>
-
-                                            </table>
-
+                                                                                            <option value="@select.Name">@select.Name</option>
+                                                                                                }
+                                                                                    </select>
+                                                                                    }
+                                                                                    </div>
+                                                                                <div>
+                                                                                    <p>Nivel Educativo</p>
+                                                                                    <select class="form-select form-select-sm select-demograficos mb-2" name="Fammilia[@indexModeloMobile].NivelEducativo" required>
+                                                                                        <option selected value="">Seleccione</option>
+                                                                                                @foreach (var select in Model.Demograficos[3].OpcionesDemo)
+                                                                                                {
+                                                                                            <option value="@select.Name">@select.Name</option>
+                                                                                                }
+                                                                                    </select>
+                                                                                </div>
+                                                                                
+                                                                               @if (option.Name != "Colaborador")
+                                                                                {
+                                                                                    
+                                                                                   <div>
+                                                                                     <p>Dependencia Económica</p>
+                                                                                    <select class="form-select form-select-sm select-demograficos mb-2" name="Fammilia[@indexModeloMobile].DependenciaEconomica" required>
+                                                                                        <option selected value="">Seleccione</option>
+                                                                                                @foreach (var select in Model.Demograficos[4].OpcionesDemo)
+                                                                                                {
+                                                                                            <option value="@select.Name">@select.Name</option>
+                                                                                                }
+                                                                                    </select>
+                                                                                    </div>
+                                                                                }
+                                                                                <div>
+                                                                                    <p>Edad</p>
+                                                                                    <select class="form-select form-select-sm select-demograficos mb-2" name="Fammilia[@indexModeloMobile].Edad" required>
+                                                                                        <option selected value="">Seleccione</option>
+                                                                                                @foreach (var select in Model.Demograficos[5].OpcionesDemo)
+                                                                                                {
+                                                                                                    <option value="@select.Name">@select.Name</option>
+                                                                                                }
+                                                                                    </select>
+                                                                                    </div>
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                    }
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    indexModeloMobile++;
                                                 }
-
-
                                                 @foreach (var pregunta in categori.Preguntas)
                                                 {
                                             <div class="row">
@@ -497,12 +619,12 @@
 
 
 @section Scripts{
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="~/js/functionValidation.js" asp-append-version="true"></script>
-    <script src="~/js/functionDeleteOptionSelect.js" asp-append-version="true"></script>
-    <script src="~/js/popper.min.js"></script>
-    <script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/js/functionValidation.js" asp-append-version="true"></script>
+<script src="~/js/functionDeleteOptionSelect.js" asp-append-version="true"></script>
+<script src="~/js/popper.min.js"></script>
+<script>
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -633,6 +755,7 @@
         })
 
         function block(element) {
+            debugger;
             let td = element.parentNode.parentNode;
             if (element.value == "Fallecido") {
                 td.children[4].children[0].disabled = true;
@@ -646,6 +769,23 @@
                 td.children[6].children[0].disabled = false;
             }
         }
+
+        function blockMobile(element) {
+            debugger;
+            let td = element.parentNode.parentNode;
+            if (element.value == "Fallecido") {
+                td.children[3].children[1].disabled = true;
+                td.children[4].children[1].disabled = true;
+                td.children[5].children[1].disabled = true;
+            } else {
+                td.children[1].children[1].disabled = false;
+                td.children[2].children[1].disabled = false;
+                td.children[3].children[1].disabled = false;
+                td.children[4].children[1].disabled = false;
+                td.children[5].children[1].disabled = false;
+            }
+        }
+
 
         let colaborador = document.getElementById("Colaborador");
         colaborador.children[3].children[0].onchange = (element) => {
@@ -661,16 +801,15 @@
             } else {
                 let td = element.target.parentNode.parentNode;
                 let nextTd = td.nextElementSibling;
-                console.log(nextTd);
                 nextTd.children[2].children[0].disabled = false;
                 nextTd.children[3].children[0].disabled = false;
                 nextTd.children[4].children[0].disabled = false;
                 nextTd.children[5].children[0].disabled = false;
                 nextTd.children[6].children[0].disabled = false;
             }
-
         }
 
+        //Lógica 3 checkboxes
         let groupCheck = document.querySelector(".options-check");
         let checkMax = groupCheck.querySelectorAll("#inlineCheckbox1");
         let checkeds = [];
@@ -688,11 +827,10 @@
             }
         });
 
-
-                //Funciones condicionales
-
+        // Mobile View
 
 
 
-    </script>
+
+</script>
     }
