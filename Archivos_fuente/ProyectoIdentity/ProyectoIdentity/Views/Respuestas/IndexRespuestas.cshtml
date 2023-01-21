@@ -50,7 +50,7 @@
                             }
            
             </ul>
-
+            < type="hidden" name="idEndcuesta" value="@Model.Id">
             <!-- fieldsets -->
                     @foreach (var categori in Model.Categorias)
                     {
@@ -103,7 +103,7 @@
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-12">
                                                                     <p>Negocio</p>
-                                                                    <select class="form-select form-select-sm likkert" name="BussinesUnit" aria-label="Default select example" required>
+                                                                    <select class="form-select form-select-sm likkert" name="BussinesUnitId" aria-label="Default select example" required>
                                                                         <option value="" selected>Seleccione</option>
                                                                                 @foreach (var option in Model.Negocios)
                                                                                 {
@@ -658,7 +658,7 @@
             if (element.target.value.includes("Viudo") || element.target.value.includes("Soltero") || element.target.value.includes("Divorciado") || element.target.value.includes("Separado")) {
                 let td = element.target.parentNode.parentNode;
                 let nextTd = td.nextElementSibling;
-                console.log(nextTd);
+                nextTd.children[0].value =null;
                 nextTd.children[2].children[0].disabled = true;
                 nextTd.children[3].children[0].disabled = true;
                 nextTd.children[4].children[0].disabled = true;
@@ -667,7 +667,7 @@
             } else {
                 let td = element.target.parentNode.parentNode;
                 let nextTd = td.nextElementSibling;
-                console.log(nextTd);
+                nextTd.children[0].value="Cónyugue";
                 nextTd.children[2].children[0].disabled = false;
                 nextTd.children[3].children[0].disabled = false;
                 nextTd.children[4].children[0].disabled = false;
