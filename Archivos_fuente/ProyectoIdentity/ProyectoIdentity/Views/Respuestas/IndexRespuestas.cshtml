@@ -11,6 +11,7 @@
                             "bi bi-person-check-fill",
                             "bi bi-tools",
                             "bi bi-shield-lock-fill" };
+    int contVal = 0;
 
 }
 
@@ -31,668 +32,682 @@
                 <form id="msform" class="needs-validation" novalidate asp-action="EnvioIndexRespuestas" asp-controller="Respuestas">
                     <!-- progressbar -->
                     <ul id="progressbar">
-                        
-                            @foreach (var categori in Model.Categorias)
-                            {
-                                if (Active)
-                                {
-                                <li class="col-md-2 active @iconStepper[opcion]" id="account"><strong>@opcion .@categori.NombreCategoria</strong></li>
-                                    Active = false;
-                                }
-                                else
-                                {
-                                <li class="col-md-2 @iconStepper[opcion]" id="personal"><strong>@opcion .@categori.NombreCategoria</strong></li>
-                                }
-                                opcion++;
-                            }
-                            @{
-                                opcion = 1;
-                            }
-           
-            </ul>
-            < type="hidden" name="idEndcuesta" value="@Model.Id">
-            <!-- fieldsets -->
-                    @foreach (var categori in Model.Categorias)
-                    {
-                <fieldset>
 
-                    <div class="w-100 mt-4 shadow p-4 rounded bg-white">
-                        <div>
-                            <div class="addQuestion mt-2">
-                                <div class="question-list ">
-                                            @if (categori.Preguntas != null)
-                                            {
-                                        <h3 class="titulo-dimension">@categori.NombreCategoria</h3>
-                                        <p class="descripcion-dimension">@categori.Description</p>
-                                                @if (categori.NombreCategoria == "Aspectos Demográficos")
+                        @foreach (var categori in Model.Categorias)
+                        {
+                            if (Active)
+                            {
+                                <li class="col-md-2 active @iconStepper[opcion]" id="account"><strong>@opcion .@categori.NombreCategoria</strong></li>
+                                Active = false;
+                            }
+                            else
+                            {
+                                <li class="col-md-2 @iconStepper[opcion]" id="personal"><strong>@opcion .@categori.NombreCategoria</strong></li>
+                            }
+                            opcion++;
+                        }
+                        @{
+                            opcion = 1;
+                        }
+
+                    </ul>
+                    < type="hidden" name="idEndcuesta" value="@Model.Id">
+                    <!-- fieldsets -->
+                        @foreach (var categori in Model.Categorias)
+                        {
+                        <fieldset>
+
+                            <div class="w-100 mt-4 shadow p-4 rounded bg-white">
+                                <div>
+                                    <div class="addQuestion mt-2">
+                                        <div class="question-list ">
+                                                @if (categori.Preguntas != null)
                                                 {
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="showEditDelete">
-                                                        <div>
-                                                            <p class="error-description"></p>
-                                                            <div class="row ml-2">
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <p>Países</p>
-                                                                    <select class="form-select form-select-sm likkert" name="Country" aria-label="Default select example" id="paises" required>
-                                                                        <option value="" selected>Seleccione</option>
-                                                                                @foreach (var option in Model.Paises)
-                                                                                {
-                                                                            <option value="@option.CountryName">@option.CountryName</option>
-                                                                                }
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Requerido.
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <p>Ciudades</p>
-                                                                    <select class="form-select form-select-sm likkert" name="City" aria-label="Default select example" id="capitales" required>
-                                                                        <option value="" selected>Seleccione</option>
-                                                                                @foreach (var option in Model.Paises)
-                                                                                {
-                                                                                    @foreach (var option2 in option.Cities)
+                                                <h3 class="titulo-dimension">@categori.NombreCategoria</h3>
+                                                <p class="descripcion-dimension">@categori.Description</p>
+                                                    @if (categori.NombreCategoria == "Aspectos Demográficos")
+                                                    {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="showEditDelete">
+                                                                <div>
+                                                                    <p class="error-description"></p>
+                                                                    <div class="row ml-2">
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <p>Países</p>
+                                                                            <select class="form-select form-select-sm likkert" name="Country" aria-label="Default select example" id="paises" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                    @foreach (var option in Model.Paises)
                                                                                     {
-                                                                                <option value="@option2.Country.CountryName">@option2.CityName</option>
+                                                                                    <option value="@option.CountryName">@option.CountryName</option>
                                                                                     }
-                                                                                }
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Requerido.
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <p>Negocio</p>
-                                                                    <select class="form-select form-select-sm likkert" name="BussinesUnitId" aria-label="Default select example" required>
-                                                                        <option value="" selected>Seleccione</option>
-                                                                                @foreach (var option in Model.Negocios)
-                                                                                {
-                                                                            <option value="1">@option.NameBusinnes</option>
-                                                                                }
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Requerido.
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <p>Área</p>
-                                                                    <select class="form-select form-select-sm likkert" name="Area" aria-label="Default select example" required>
-                                                                        <option value="" selected>Seleccione</option>
-                                                                                @foreach (var option in Model.Area)
-                                                                                {
-                                                                            <option value="1">@option.AreaName</option>
-                                                                                }
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Requerido.
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Requerido.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <p>Ciudades</p>
+                                                                            <select class="form-select form-select-sm likkert" name="City" aria-label="Default select example" id="capitales" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                    @foreach (var option in Model.Paises)
+                                                                                    {
+                                                                                        @foreach (var option2 in option.Cities)
+                                                                                        {
+                                                                                        <option value="@option2.Country.CountryName">@option2.CityName</option>
+                                                                                        }
+                                                                                    }
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Requerido.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <p>Negocio</p>
+                                                                            <select class="form-select form-select-sm likkert" name="BussinesUnitId" aria-label="Default select example" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                    @foreach (var option in Model.Negocios)
+                                                                                    {
+                                                                                    <option value="1">@option.NameBusinnes</option>
+                                                                                    }
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Requerido.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <p>Área</p>
+                                                                            <select class="form-select form-select-sm likkert" name="Area" aria-label="Default select example" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                    @foreach (var option in Model.Area)
+                                                                                    {
+                                                                                    <option value="1">@option.AreaName</option>
+                                                                                    }
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Requerido.
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                                }
-                                                else if (categori.NombreCategoria == "Datos Demográficos")
-                                                {
-                                            <table class="table">
-                                                <thead>
-                                                    <tr class="title-table">
-                                                        <th scope="col-sm-12">Parentesco</th>
-                                                        <th scope="col">Sexo</th>
-                                                        <th scope="col">Estado Civil</th>
-                                                        <th scope="col">Nivel Educativo</th>
-                                                        <th style="width: 0px;">Dependencia Económica</th>
-                                                        <th scope="col">Edad</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="title-table">
-                                                            @{
-                                                                int indexModelo = 0;
-                                                            }
-                                                            @foreach (var option in Model.Demograficos[0].OpcionesDemo)
-                                                            {
-
-                                                        <tr class="demograficos" id="@option.Name">
-
-                                                                    @if (option.Name == "Hijo" || option.Name == "Otros" || option.Name == "Hermano")
-                                                                    {
-                                                                        int cant = 0;
-                                                                        if (option.Name == "Hijo" || option.Name == "Hermano")
-                                                                            cant = 10;
-                                                                        else
-                                                                            cant = 3;
-                                                                <th style="width: 10%;" scope="row">
-                                                                    <p>@option.Name</p>
-                                                                    <input class="multiselect" id="MultipleRegister" style="width: 50%;" type="number" min="0" max="@cant">
-                                                                </th>
-                                                                        indexModelo--;
-
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                <input type="hidden" name="Fammilia[@indexModelo].Parentesco" id="ParentescoInput" value="@option.Name">
-                                                                <th scope="row">@option.Name</th>
-                                                                <td>
-                                                                    <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].Sexo" required>
-                                                                                @if (option.Name == "Madre")
-                                                                                {
-                                                                            <option value="Femenino" selected>Femenino</option>
-                                                                                }
-                                                                                else if (option.Name == "Padre")
-                                                                                {
-                                                                            <option value="Masculino" selected>Masculino</option>
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                            <option selected value="">Seleccione</option>
-                                                                                    @foreach (var select in Model.Demograficos[1].OpcionesDemo)
-                                                                                    {
-                                                                                <option value="@select.Name">@select.Name</option>
-                                                                                    }
-                                                                                }
-                                                                    </select>
-                                                                </td>
-                                                                <td>
-                                                                    <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].EstadoCivil" onchange="block(this)" required>
-                                                                        <option selected value="">Seleccione</option>
-                                                                                @foreach (var select in Model.Demograficos[2].OpcionesDemo)
-                                                                                {
-                                                                                    if (option.Name == "Colaborador" && select.Name == "Fallecido") { continue; }
-                                                                            <option value="@select.Name">@select.Name</option>
-                                                                                }
-                                                                    </select>
-                                                                </td>
-                                                                <td>
-                                                                    <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].NivelEducativo" required>
-                                                                        <option selected value="">Seleccione</option>
-                                                                                @foreach (var select in Model.Demograficos[3].OpcionesDemo)
-                                                                                {
-                                                                            <option value="@select.Name">@select.Name</option>
-                                                                                }
-                                                                    </select>
-                                                                </td>
-                                                                <td>
-                                                                            @if (option.Name != "Colaborador")
-                                                                            {
-                                                                        <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].DependenciaEconomica" required>
-                                                                            <option selected value="">Seleccione</option>
-                                                                                    @foreach (var select in Model.Demograficos[4].OpcionesDemo)
-                                                                                    {
-                                                                                <option value="@select.Name">@select.Name</option>
-                                                                                    }
-                                                                        </select>
-                                                                            }
-                                                                </td>
-                                                                <td>
-
-                                                                    <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].Edad" required>
-
-                                                                        <option selected value="">Seleccione</option>
-                                                                                @foreach (var select in Model.Demograficos[5].OpcionesDemo)
-                                                                                {
-
-                                                                            <option value="@select.Name">@select.Name</option>
-                                                                                }
-                                                                    </select>
-                                                                </td>
-                                                                    }
-                                                        </tr>
-
-                                                                indexModelo++;
-
-                                                            }
-
-                                                </tbody>
-
-                                            </table>
-
-                                                }
-
-
-                                                @foreach (var pregunta in categori.Preguntas)
-                                                {
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="showEditDelete">
+                                                    }
+                                                    else if (categori.NombreCategoria == "Datos Demográficos")
+                                                    {
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr class="title-table">
+                                                                <th scope="col-sm-12">Parentesco</th>
+                                                                <th scope="col">Sexo</th>
+                                                                <th scope="col">Estado Civil</th>
+                                                                <th scope="col">Nivel Educativo</th>
+                                                                <th style="width: 0px;">Dependencia Económica</th>
+                                                                <th scope="col">Edad</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="title-table">
                                                                 @{
-                                                                    string classCheck = "";
+                                                                    int indexModelo = 0;
                                                                 }
-                                                                @if (pregunta.NumeroPregunta == 21)
+                                                                @foreach (var option in Model.Demograficos[0].OpcionesDemo)
                                                                 {
-                                                                    classCheck = "options-check";
-                                                                }
-                                                        <div class="@classCheck">
-                                                            <p class="error-description"></p>
-                                                            <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(x => pregunta.NumeroPregunta).&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
-                                                            <div class="row ml-2">
-                                                                        @if (pregunta.Opciones != null)
+
+                                                                <tr class="demograficos" id="@option.Name">
+
+                                                                        @if (option.Name == "Hijo" || option.Name == "Otros" || option.Name == "Hermano")
                                                                         {
+                                                                            int cant = 0;
+                                                                            if (option.Name == "Hijo" || option.Name == "Hermano")
+                                                                                cant = 10;
+                                                                            else
+                                                                                cant = 3;
+                                                                        <th style="width: 10%;" scope="row">
+                                                                            <p>@option.Name</p>
+                                                                            <input class="multiselect" id="MultipleRegister" style="width: 50%;" type="number" min="0" max="@cant">
+                                                                        </th>
+                                                                            indexModelo--;
 
-                                                                            @foreach (var opcionP in pregunta.Opciones)
-                                                                            {
-                                                                                @if (pregunta.TipoPregunta == "Likkert")
-                                                                                {
-                                                                                    if (pregunta.NumeroPregunta == 17)
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                        <input type="hidden" name="Fammilia[@indexModelo].Parentesco" id="ParentescoInput" value="@option.Name">
+                                                                        <th scope="row">@option.Name</th>
+                                                                        <td>
+                                                                            <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].Sexo" required>
+                                                                                    @if (option.Name == "Madre")
                                                                                     {
-                                                                                <table class="table">
-                                                                                    <thead>
-                                                                                        <tr class="title-table">
-                                                                                            <th scope="col-sm-12">Concepto</th>
-                                                                                            <th scope="col">¿Conoces el beneficio?</th>
-                                                                                            <th scope="col">¿Qué tan atractivo te parece el beneficio?</th>
-                                                                                            <th scope="col">¿Cómo ha funcionado el beneficio?</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody>
-
-                                                                                                @foreach (var option in pregunta.Opciones)
-                                                                                                {
-                                                                                            <tr>
-                                                                                                <th>@option.OpcionName</th>
-                                                                                                <td>
-                                                                                                    <select class="form-select form-select-sm likkert" aria-label="Default select example" required>
-                                                                                                        <option value="" selected>Seleccione</option>
-                                                                                                        <option value="true">Si</option>
-                                                                                                        <option value="false">No</option>
-                                                                                                    </select>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <select class="form-select form-select-sm likkert" aria-label="Default select example" required>
-                                                                                                        <option value="" selected>Seleccione</option>
-                                                                                                        <option value="1.25">1.Bajo</option>
-                                                                                                        <option value="2.50">2.Regular</option>
-                                                                                                        <option value="3.75">3.Medio</option>
-                                                                                                        <option value="5.00">4.Alto</option>
-                                                                                                    </select>
-
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <select class="form-select form-select-sm likkert" aria-label="Default select example" required>
-                                                                                                        <option value="" selected>Seleccione</option>
-                                                                                                        <option value="1.25">1.Bajo</option>
-                                                                                                        <option value="2.50">2.Regular</option>
-                                                                                                        <option value="3.75">3.Medio</option>
-                                                                                                        <option value="5.00">4.Alto</option>
-                                                                                                    </select>
-                                                                                                </td>
-                                                                                            </tr>
-
-                                                                                                }
-
-                                                                                    </tbody>
-
-                                                                                </table>
-
+                                                                                    <option value="Femenino" selected>Femenino</option>
+                                                                                    }
+                                                                                    else if (option.Name == "Padre")
+                                                                                    {
+                                                                                    <option value="Masculino" selected>Masculino</option>
                                                                                     }
                                                                                     else
                                                                                     {
-                                                                                <div class="col-md-6 col-sm-12">
-                                                                                    <div class="options-multiple-linkert">
-                                                                                        <input type="hidden" name="IdPregunta" value="@pregunta.IdPregunta"/>
-                                                                                        <input type="hidden" name="Opcion" value="@pregunta.NombrePregunta">
-                                                                                        <select class="form-select form-select-sm likkert" name="Valor" aria-label="Default select example" required>
-                                                                                            <option value="" selected>Seleccione</option>
+                                                                                    <option selected value="">Seleccione</option>
+                                                                                        @foreach (var select in Model.Demograficos[1].OpcionesDemo)
+                                                                                        {
+                                                                                        <option value="@select.Name">@select.Name</option>
+                                                                                        }
+                                                                                    }
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].EstadoCivil" onchange="block(this)" required>
+                                                                                <option selected value="">Seleccione</option>
+                                                                                    @foreach (var select in Model.Demograficos[2].OpcionesDemo)
+                                                                                    {
+                                                                                        if (option.Name == "Colaborador" && select.Name == "Fallecido") { continue; }
+                                                                                    <option value="@select.Name">@select.Name</option>
+                                                                                    }
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].NivelEducativo" required>
+                                                                                <option selected value="">Seleccione</option>
+                                                                                    @foreach (var select in Model.Demograficos[3].OpcionesDemo)
+                                                                                    {
+                                                                                    <option value="@select.Name">@select.Name</option>
+                                                                                    }
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
+                                                                                @if (option.Name != "Colaborador")
+                                                                                {
+                                                                                <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].DependenciaEconomica" required>
+                                                                                    <option selected value="">Seleccione</option>
+                                                                                        @foreach (var select in Model.Demograficos[4].OpcionesDemo)
+                                                                                        {
+                                                                                        <option value="@select.Name">@select.Name</option>
+                                                                                        }
+                                                                                </select>
+                                                                                }
+                                                                        </td>
+                                                                        <td>
+
+                                                                            <select class="form-select form-select-sm select-demograficos" name="Fammilia[@indexModelo].Edad" required>
+
+                                                                                <option selected value="">Seleccione</option>
+                                                                                    @foreach (var select in Model.Demograficos[5].OpcionesDemo)
+                                                                                    {
+
+                                                                                    <option value="@select.Name">@select.Name</option>
+                                                                                    }
+                                                                            </select>
+                                                                        </td>
+                                                                        }
+                                                                </tr>
+
+                                                                    indexModelo++;
+
+                                                                }
+
+                                                        </tbody>
+
+                                                    </table>
+
+                                                    }
+
+
+                                                    @foreach (var pregunta in categori.Preguntas)
+                                                    {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="showEditDelete">
+                                                                    @{
+                                                                        string classCheck = "";
+                                                                    }
+                                                                    @if (pregunta.NumeroPregunta == 21)
+                                                                    {
+                                                                        classCheck = "options-check";
+                                                                    }
+                                                                <div class="@classCheck">
+                                                                    <p class="error-description"></p>
+                                                                    <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(x => pregunta.NumeroPregunta).&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
+                                                                    <div class="row ml-2">
+                                                                            @if (pregunta.Opciones != null)
+                                                                            {
+
+                                                                                @foreach (var opcionP in pregunta.Opciones)
+                                                                                {
+                                                                                    @if (pregunta.TipoPregunta == "Likkert")
+                                                                                    {
+                                                                                        if (pregunta.NumeroPregunta == 17)
+                                                                                        {
+                                                                                        <table class="table">
+                                                                                            <thead>
+                                                                                                <tr class="title-table">
+                                                                                                    <th scope="col-sm-12">Concepto</th>
+                                                                                                    <th scope="col">¿Conoces el beneficio?</th>
+                                                                                                    <th scope="col">¿Qué tan atractivo te parece el beneficio?</th>
+                                                                                                    <th scope="col">¿Cómo ha funcionado el beneficio?</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                    @{
+                                                                                                        int contPer = 0;
+                                                                                                    }
                                                                                                     @foreach (var option in pregunta.Opciones)
                                                                                                     {
-                                                                                                <option value="@option.ValorOPcion">@option.OpcionName</option>
+                                                                                                    <tr>
+                                                                                                        <input type="hidden" name="resPer[@contPer].IdPregunta" value="@pregunta.IdPregunta" />
+                                                                                                        <input type="hidden" name="resPer[@contPer].Concepto" value="@option.OpcionName" />
+                                                                                                        <th>@option.OpcionName</th>
+                                                                                                        <td>
+                                                                                                            <select class="form-select form-select-sm likkert" name="resPer[@contPer].Beneficio" aria-label="Default select example" required>
+                                                                                                                <option value="" selected>Seleccione</option>
+                                                                                                                <option value="true">Si</option>
+                                                                                                                <option value="false">No</option>
+                                                                                                            </select>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <select class="form-select form-select-sm likkert" aria-label="Default select example" name="resPer[@contPer].Atractivo" required>
+                                                                                                                <option value="" selected>Seleccione</option>
+                                                                                                                <option value="1.25">1.Bajo</option>
+                                                                                                                <option value="2.50">2.Regular</option>
+                                                                                                                <option value="3.75">3.Medio</option>
+                                                                                                                <option value="5.00">4.Alto</option>
+                                                                                                            </select>
+
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <select class="form-select form-select-sm likkert" aria-label="Default select example" name="resPer[@contPer].Funcionamiento" required>
+                                                                                                                <option value="" selected>Seleccione</option>
+                                                                                                                <option value="1.25">1.Bajo</option>
+                                                                                                                <option value="2.50">2.Regular</option>
+                                                                                                                <option value="3.75">3.Medio</option>
+                                                                                                                <option value="5.00">4.Alto</option>
+                                                                                                            </select>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                        contPer++;
                                                                                                     }
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
+                                                                                                    @{
+                                                                                                        contPer = 0;
+                                                                                                    }
+
+                                                                                            </tbody>
+
+                                                                                        </table>
+
+                                                                                        }
+                                                                                        else
+                                                                                        {
+
+                                                                                        <div class="col-md-6 col-sm-12">
+                                                                                            <div class="options-multiple-linkert">
+                                                                                                <input type="hidden" name="resValor[@contVal].IdPregunta" value="@pregunta.IdPregunta" />
+                                                                                                <input type="hidden" name="resValor[@contVal].Opcion" value="@pregunta.NombrePregunta">
+                                                                                                <select class="form-select form-select-sm likkert" name="resValor[@contVal].Valor" aria-label="Default select example" required>
+                                                                                                    <option value="" selected>Seleccione</option>
+                                                                                                        @foreach (var option in pregunta.Opciones)
+                                                                                                        {
+                                                                                                        <option value="@option.ValorOPcion">@option.OpcionName</option>
+                                                                                                        }
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                            contVal++;
+                                                                                        }
+
+                                                                                        break;
                                                                                     }
+                                                                                    else if (pregunta.TipoPregunta == "Seleccion Multiple")
+                                                                                    {
+                                                                                    <div class="form-check-inline">
+                                                                                        <div class="col-md-12 col-sm-12">
+                                                                                                @{
+                                                                                                    int countCheck = 1;
+                                                                                                }
+                                                                                                @if (pregunta.NumeroPregunta == 21)
+                                                                                                {
+                                                                                                    countCheck = 3;
+                                                                                                }
+                                                                                            <div class="options" data-Count="@countCheck">
+                                                                                                <input class="form-check-input datacheck" type="checkbox" id="inlineCheckbox1" value="@opcionP.OpcionName" readonly>
+                                                                                                <div class="block-text ml-2 minimo" id="strongly-disagree" name="strongly-disagree">@opcionP.OpcionName</div>
+                                                                                            </div>
 
-                                                                                    break;
-                                                                                }
-                                                                                else if (pregunta.TipoPregunta == "Seleccion Multiple")
-                                                                                {
-                                                                            <div class="form-check-inline">
-                                                                                <div class="col-md-12 col-sm-12">
-                                                                                            @{
-                                                                                                int countCheck = 1;
-                                                                                            }
-                                                                                            @if (pregunta.NumeroPregunta == 21)
-                                                                                            {
-                                                                                                countCheck = 3;
-                                                                                            }
-                                                                                    <div class="options" data-Count="@countCheck">
-                                                                                        <input class="form-check-input datacheck" type="checkbox" id="inlineCheckbox1" value="@opcionP.OpcionName" readonly>
-                                                                                        <div class="block-text ml-2 minimo" id="strongly-disagree" name="strongly-disagree">@opcionP.OpcionName</div>
+                                                                                        </div>
+                                                                                        <div class="invalid-feedback">
+                                                                                            You must agree before submitting.
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    }
+                                                                                    else if (pregunta.TipoPregunta == "Respuesta Unica")
+                                                                                    {
+                                                                                    <div class="col-md-6 col-sm-12">
+                                                                                        <div class="options">
+                                                                                            <input type="hidden" name="resValor[@contVal].IdPregunta" value="@pregunta.IdPregunta" />
+                                                                                            <input type="hidden" name="resValor[@contVal].Opcion" value="@pregunta.NombrePregunta">
+                                                                                            <select class="form-select form-select-sm escala" aria-label="Default select example" name="resValor[@contVal].Valor" required>
+                                                                                                <option value="" selected>Seleccione</option>
+                                                                                                    @foreach (var item in pregunta.Opciones)
+                                                                                                    {
+                                                                                                    <option value="@item.OpcionName">@item.OpcionName</option>
+                                                                                                    }
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                        contVal++;
+                                                                                        break;
+
+                                                                                    }
+                                                                                    else if (pregunta.TipoPregunta == "Valoracion Multiple")
+                                                                                    {
+
+
+                                                                                    <div class="col-md-6 col-sm-12">
+                                                                                        <div class="options" id="multiple-options">
+
+                                                                                            <select class="form-select form-select-sm escala " name="Valor" aria-label="Default select example" required>
+                                                                                                <option value="" selected>Seleccione</option>
+                                                                                                    @for (int i = 1; pregunta.Opciones.Count >= i; i++)
+                                                                                                    {
+                                                                                                    <option value="@i">@i</option>
+                                                                                                    }
+                                                                                            </select>
+                                                                                            <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName</div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    }
+                                                                                    else if (pregunta.TipoPregunta == "Multiple Likkert")
+                                                                                    {
+
+                                                                                    <div class="col-md-6 col-sm-12">
+                                                                                        <div class="options-multiple-linkert">
+                                                                                            <input type="hidden" name="resValor[@contVal].IdPregunta" value="@pregunta.IdPregunta" />
+                                                                                            <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree">@opcionP.OpcionName </div>
+                                                                                            <input type="hidden" name="resValor[@contVal].Opcion" value="@opcionP.OpcionName" />
+                                                                                            <select class="form-select form-select-sm escala" name="resValor[@contVal].valor" aria-label="Default select example" required>
+                                                                                                    @if (pregunta.NumeroPregunta != 15)
+                                                                                                    {
+                                                                                                    <option value="" selected>Seleccione</option>
+                                                                                                    <option value="1">No Aplica</option>
+                                                                                                    <option value="2">No cumple las expectativas</option>
+                                                                                                    <option value="3">Necesita algunas mejoras</option>
+                                                                                                    <option value="4">Cumple las expectativas</option>
+                                                                                                    <option value="5">Supera las expectativas</option>
+                                                                                                    }
+                                                                                                    else if (pregunta.NumeroPregunta == 15)
+                                                                                                    {
+                                                                                                    <option value="" selected>Seleccione</option>
+                                                                                                    <option value="1.25">Nunca (Ninguna)</option>
+                                                                                                    <option value="2.50">1 y 3 veces/mes (Baja)</option>
+                                                                                                    <option value="3.75">Entre 4 y 10 veces/mes (Media)</option>
+                                                                                                    <option value="5.00">Más de 10 veces/mes (Alta)</option>
+                                                                                                    }
+
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                        contVal++;
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                    <div style="height:50px;" class="mt-2">
+                                                                                        <input type="text" class="form-control" required>
+                                                                                        <div class="invalid-feedback">
+                                                                                            Requerido.
+                                                                                        </div>
+
                                                                                     </div>
 
-                                                                                </div>
-                                                                                <div class="invalid-feedback">
-                                                                                    You must agree before submitting.
-                                                                                </div>
-                                                                            </div>
+                                                                                    }
                                                                                 }
-                                                                                else if (pregunta.TipoPregunta == "Respuesta Unica")
-                                                                                {
-                                                                            <div class="col-md-6 col-sm-12">
-                                                                                <div class="options">
-                                                                                    <select class="form-select form-select-sm escala" aria-label="Default select example" required>
-                                                                                        <option value="" selected>Seleccione</option>
-                                                                                                @foreach (var item in pregunta.Opciones)
-                                                                                                {
-                                                                                            <option value="@item.OpcionName">@item.OpcionName</option>
-                                                                                                }
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                                    break;
-
-                                                                                }
-                                                                                else if (pregunta.TipoPregunta == "Valoracion Multiple")
-                                                                                {
-                                                                           
-                                                                                   
-                                                                            <div class="col-md-6 col-sm-12">
-                                                                                <div class="options" id="multiple-options">
-                                                                                    
-                                                                                    <select class="form-select form-select-sm escala " name="Valor" aria-label="Default select example" required>
-                                                                                        <option value="" selected>Seleccione</option>
-                                                                                                @for (int i = 1; pregunta.Opciones.Count >= i; i++)
-                                                                                                {
-                                                                                            <option value="@i">@i</option>
-                                                                                                }
-                                                                                    </select>
-                                                                                    <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName</div>
-                                                                                </div>
-                                                                            </div>
-                                                                                }
-                                                                                else if (pregunta.TipoPregunta == "Multiple Likkert")
-                                                                                {
-                                                                            <div class="col-md-6 col-sm-12">
-                                                                                <div class="options-multiple-linkert">
-                                                                                    <input type="hidden" name="IdPregunta" value="@pregunta.IdPregunta" />
-                                                                                    <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
-                                                                                    <input type="hidden" name="Opcion" value="@opcionP.OpcionName">
-                                                                                    <select class="form-select form-select-sm escala" name="valor" aria-label="Default select example" required>
-                                                                                                @if (pregunta.NumeroPregunta != 15)
-                                                                                                {
-                                                                                            <option value="" selected>Seleccione</option>
-                                                                                            <option value="1">No Aplica</option>
-                                                                                            <option value="2">No cumple las expectativas</option>
-                                                                                            <option value="3">Necesita algunas mejoras</option>
-                                                                                            <option value="4">Cumple las expectativas</option>
-                                                                                            <option value="5">Supera las expectativas</option>
-                                                                                                }
-                                                                                                else if (pregunta.NumeroPregunta == 15)
-                                                                                                {
-                                                                                            <option value="" selected>Seleccione</option>
-                                                                                            <option value="1.25">Nunca (Ninguna)</option>
-                                                                                            <option value="2.50">1 y 3 veces/mes (Baja)</option>
-                                                                                            <option value="3.75">Entre 4 y 10 veces/mes (Media)</option>
-                                                                                            <option value="5.00">Más de 10 veces/mes (Alta)</option>
-                                                                                                }
-
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                            <div style="height:50px;" class="mt-2">
-                                                                                <input type="text" class="form-control" required>
-                                                                                <div class="invalid-feedback">
-                                                                                    Requerido.
-                                                                                </div>
-
-                                                                            </div>
-
-                                                                                }
+                                                                                opcion++;
                                                                             }
-                                                                            opcion++;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                    <div style="height:50px;" class="mt-2">
-                                                                        <input type="text" class="form-control">
+                                                                            else
+                                                                            {
+                                                                            <div style="height:50px;" class="mt-2">
+                                                                                <input type="text" class="form-control">
+                                                                            </div>
+                                                                            }
                                                                     </div>
-                                                                        }
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
 
-                                            <div style="padding-left: 28px; padding-right: 28px;">
-                                                <hr class="mb-0 mt-0">
-                                            </div>
-                                                    opcion = 1;
+                                                    <div style="padding-left: 28px; padding-right: 28px;">
+                                                        <hr class="mb-0 mt-0">
+                                                    </div>
+                                                        opcion = 1;
+                                                    }
                                                 }
-                                            }
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="sc-xWrgk lssbs steppeActionBlock">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="text-right">
-                                            @if (categori.Id == Model.Categorias.Last().Id)
-                                            {
-                                        <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
-                                        <input type="submit" name="next" id="EnviarEncuesta" class="action-button btn btn-success" value="Enviar Encuesta" />
-                                            }
-                                            else
-                                            {
-                                                if (categori.Id != Model.Categorias.First().Id)
+                            <div class="sc-xWrgk lssbs steppeActionBlock">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="text-right">
+                                                @if (categori.Id == Model.Categorias.Last().Id)
                                                 {
-                                            <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                                <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                                <input type="submit" name="next" id="EnviarEncuesta" class="action-button btn btn-success" value="Enviar Encuesta" />
                                                 }
                                                 else
                                                 {
-                                            <input type="button" onclick="history.back()" class="btn btn-dark mr-2" value="Anterior" />
+                                                    if (categori.Id != Model.Categorias.First().Id)
+                                                    {
+                                                    <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                                    }
+                                                    else
+                                                    {
+                                                    <input type="button" onclick="history.back()" class="btn btn-dark mr-2" value="Anterior" />
+                                                    }
+                                                <input type="button" id="siguiente" name="next" class="next action-button btn btn-primary" value="Siguiente" />
                                                 }
-                                        <input type="button" id="siguiente" name="next" class="next action-button btn btn-primary" value="Siguiente" />
-                                            }
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </fieldset>
-                    }
-            </form>
+                        </fieldset>
+                        }
+                </form>
+            </div>
         </div>
+
+
     </div>
 
 
-</div>
+
+    @section Scripts{
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="~/js/functionValidation.js" asp-append-version="true"></script>
+        <script src="~/js/functionDeleteOptionSelect.js" asp-append-version="true"></script>
+        <script src="~/js/popper.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
 
 
-
-@section Scripts{
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="~/js/functionValidation.js" asp-append-version="true"></script>
-    <script src="~/js/functionDeleteOptionSelect.js" asp-append-version="true"></script>
-    <script src="~/js/popper.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-
-
-        var capitales = [];
-        var indexModelo = 4;
-        var capitalesColo = "@String.Join(",",Model.CapitalesColombia).Replace("&#xE1;", "á").Replace("&#xED;", "í").Replace("&#xE9;", "é").Replace("&#xFA;", "ú").Replace("&#xF3;", "ó").Replace("&#xFC;", "ü")";
-        capitalesColo = capitalesColo.replaceAll("&#xE1;", "á").replaceAll("&#xED;", "í").replaceAll("&#xE9;", "é").replaceAll("&#xFA;", "ú").replaceAll("&#xF3;", "ó").replaceAll("&#xFC;", "ü");
-        var capitalesColombia = capitalesColo.split(",");
-        document.querySelectorAll("#MultipleRegister")[0].onkeyup = function () { }
-        document.querySelectorAll("#MultipleRegister")[1].onkeyup = function () { }
-        @foreach (var pais in Model.Paises)
-        {
-            @foreach (var ciudad in pais.Cities)
+            var capitales = [];
+            var indexModelo = 4;
+            var capitalesColo = "@String.Join(",",Model.CapitalesColombia).Replace("&#xE1;", "á").Replace("&#xED;", "í").Replace("&#xE9;", "é").Replace("&#xFA;", "ú").Replace("&#xF3;", "ó").Replace("&#xFC;", "ü")";
+            capitalesColo = capitalesColo.replaceAll("&#xE1;", "á").replaceAll("&#xED;", "í").replaceAll("&#xE9;", "é").replaceAll("&#xFA;", "ú").replaceAll("&#xF3;", "ó").replaceAll("&#xFC;", "ü");
+            var capitalesColombia = capitalesColo.split(",");
+            document.querySelectorAll("#MultipleRegister")[0].onkeyup = function () { }
+            document.querySelectorAll("#MultipleRegister")[1].onkeyup = function () { }
+            @foreach (var pais in Model.Paises)
             {
-                if (pais.CountryName != "Colombia")
+                @foreach (var ciudad in pais.Cities)
                 {
-                    <text>capitales.push({
-                            "pais": "@pais.CountryName".replace("&#xE1;", "á").replace("&#xED;", "í").replace("&#xE9;", "é").replace("&#xFA;", "ú").replace("&#xF3;", "ó").replace("&#xFC;", "ü"),
-                            "capital": "@ciudad.CityName".replace("&#xE1;", "á").replace("&#xED;", "í").replace("&#xE9;", "é").replace("&#xFA;", "ú").replace("&#xF3;", "ó").replace("&#xFC;", "ü")
-                        }); </text>
+                    if (pais.CountryName != "Colombia")
+                    {
+                        <text>capitales.push({
+                                "pais": "@pais.CountryName".replace("&#xE1;", "á").replace("&#xED;", "í").replace("&#xE9;", "é").replace("&#xFA;", "ú").replace("&#xF3;", "ó").replace("&#xFC;", "ü"),
+                                "capital": "@ciudad.CityName".replace("&#xE1;", "á").replace("&#xED;", "í").replace("&#xE9;", "é").replace("&#xFA;", "ú").replace("&#xF3;", "ó").replace("&#xFC;", "ü")
+                            }); </text>
+                    }
                 }
             }
-        }
-            paises.onchange = function() {
-                filtrarCapitales();
+                paises.onchange = function() {
+                    filtrarCapitales();
+                };
+
+            function filtrarCapitales() {
+                var paisSeleccionado = paises.value;
+                if (paisSeleccionado == "Colombia") {
+                    capitalesFiltradas = capitalesColombia;
+                    actualizarSelectCapitales(capitalesFiltradas, "Colombia");
+                } else {
+                    var capitalesFiltradas = capitales.filter(function (capital) {
+                        return capital.pais === paisSeleccionado;
+
+                    });
+                    actualizarSelectCapitales(capitalesFiltradas, "");
+                }
+
             };
 
-        function filtrarCapitales() {
-            var paisSeleccionado = paises.value;
-            if (paisSeleccionado == "Colombia") {
-                capitalesFiltradas = capitalesColombia;
-                actualizarSelectCapitales(capitalesFiltradas, "Colombia");
-            } else {
-                var capitalesFiltradas = capitales.filter(function (capital) {
-                    return capital.pais === paisSeleccionado;
+            function actualizarSelectCapitales(capitales, pais) {
+                var select = document.querySelector("#capitales");
+                select.innerHTML = "";
+                console.log(capitales)
+                // Si las capitales están guardadas en un array
+                capitales.forEach(function (capital) {
+                    if (pais != "Colombia") {
+                        var option = document.createElement("option");
+                        option.value = capital.capital;
+                        option.text = capital.capital;
+                        select.appendChild(option);
+                    } else {
+                        var option = document.createElement("option");
+                        option.value = capital;
+                        option.text = capital;
+                        select.appendChild(option);
 
+                    }
                 });
-                actualizarSelectCapitales(capitalesFiltradas, "");
+            };
+            let FilasMultiples = document.querySelectorAll("#MultipleRegister")
+            FilasMultiples.forEach((option) => {
+                option.onchange = () => {
+                    let cantidad = option.value;
+                    let cantidadTotal = 0;
+                    var trPadre = option.parentNode.parentNode;
+                    var trCopy = document.getElementById("Cónyugue").cloneNode(true);
+                    if (option.previousElementSibling.textContent == "Hijo" || option.previousElementSibling.textContent == "Hermano") {
+                        trCopy.id = option.previousElementSibling.textContent + "Add";
+                        cantidadTotal = document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add").length;
+                    } else {
+                        trCopy.id = option.previousElementSibling.textContent + "Add";
+                        cantidadTotal = document.querySelectorAll("#OtrosAdd").length;
+
+                    }
+
+                    if (cantidad > cantidadTotal) {
+                        block(trCopy.children[2].children[0]);
+                        for (let i = cantidadTotal; i < cantidad; i++) {
+                            let nuevoTr = trCopy;
+                            if (option.previousElementSibling.textContent == "Otros") {
+
+                                nuevoTr.children[0].name = nuevoTr.children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                                nuevoTr.children[0].setAttribute('class', "form-control");
+                                nuevoTr.children[0].setAttribute('data-toggle', "tooltip");
+                                //nuevoTr.children[0].setAttribute('type',"text");
+                                nuevoTr.children[0].setAttribute('title', "Ingresa el parentesco");
+                                let inputClone = nuevoTr.children[0].cloneNode(true);
+                                nuevoTr.children[0].name = "";
+                                inputClone.setAttribute('type', "text");
+                                inputClone.value = "";
+                                nuevoTr.children[1].textContent = "";
+                                nuevoTr.children[1].appendChild(inputClone);
+
+                                $(document).on('mouseover', '[data-toggle="tooltip"]', function () {
+                                    $(this).tooltip();
+                                });
+                            } else {
+                                nuevoTr.children[0].setAttribute("name", "Fammilia[" + indexModelo + "].Parentesco");
+                                nuevoTr.children[0].setAttribute("value", option.previousElementSibling.textContent);
+                                nuevoTr.children[1].innerHTML = option.previousElementSibling.textContent
+                                let inputName = document.createElement("input");
+                            }
+                            nuevoTr.children[2].children[0].name = nuevoTr.children[2].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                            nuevoTr.children[3].children[0].name = nuevoTr.children[3].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                            nuevoTr.children[4].children[0].name = nuevoTr.children[4].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                            nuevoTr.children[5].children[0].name = nuevoTr.children[5].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                            nuevoTr.children[6].children[0].name = nuevoTr.children[6].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+
+
+                            trPadre.insertAdjacentElement("afterend", nuevoTr.cloneNode(true));
+                            indexModelo++;
+                        }
+                    } else if (cantidad <= cantidadTotal && document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add").length > 0) {
+                        for (let i = cantidadTotal; i > cantidad; i--) {
+                            const elements = document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add");
+                            const lastElement = elements[0];
+                            indexModelo--;
+                            lastElement.remove();
+                        }
+                    }
+
+                }
+            })
+
+            function block(element) {
+                let td = element.parentNode.parentNode;
+                if (element.value == "Fallecido") {
+                    td.children[4].children[0].disabled = true;
+                    td.children[5].children[0].disabled = true;
+                    td.children[6].children[0].disabled = true;
+                } else {
+                    td.children[2].children[0].disabled = false;
+                    td.children[3].children[0].disabled = false;
+                    td.children[4].children[0].disabled = false;
+                    td.children[5].children[0].disabled = false;
+                    td.children[6].children[0].disabled = false;
+                }
             }
 
-        };
-
-        function actualizarSelectCapitales(capitales, pais) {
-            var select = document.querySelector("#capitales");
-            select.innerHTML = "";
-            console.log(capitales)
-            // Si las capitales están guardadas en un array
-            capitales.forEach(function (capital) {
-                if (pais != "Colombia") {
-                    var option = document.createElement("option");
-                    option.value = capital.capital;
-                    option.text = capital.capital;
-                    select.appendChild(option);
+            let colaborador = document.getElementById("Colaborador");
+            colaborador.children[3].children[0].onchange = (element) => {
+                if (element.target.value.includes("Viudo") || element.target.value.includes("Soltero") || element.target.value.includes("Divorciado") || element.target.value.includes("Separado")) {
+                    let td = element.target.parentNode.parentNode;
+                    let nextTd = td.nextElementSibling;
+                    nextTd.children[0].value = null;
+                    nextTd.children[2].children[0].disabled = true;
+                    nextTd.children[3].children[0].disabled = true;
+                    nextTd.children[4].children[0].disabled = true;
+                    nextTd.children[5].children[0].disabled = true;
+                    nextTd.children[6].children[0].disabled = true;
                 } else {
-                    var option = document.createElement("option");
-                    option.value = capital;
-                    option.text = capital;
-                    select.appendChild(option);
+                    let td = element.target.parentNode.parentNode;
+                    let nextTd = td.nextElementSibling;
+                    nextTd.children[0].value = "Cónyugue";
+                    nextTd.children[2].children[0].disabled = false;
+                    nextTd.children[3].children[0].disabled = false;
+                    nextTd.children[4].children[0].disabled = false;
+                    nextTd.children[5].children[0].disabled = false;
+                    nextTd.children[6].children[0].disabled = false;
+                }
 
+            }
+
+            let groupCheck = document.querySelector(".options-check");
+            let checkMax = groupCheck.querySelectorAll("#inlineCheckbox1");
+            let checkeds = [];
+            checkMax.forEach((option) => {
+                option.onchange = function () {
+                    if (option.checked) {
+                        checkeds.push(option);
+                        if (checkeds.length > 3) {
+                            checkeds[0].checked = false;
+                            checkeds.shift()
+                        }
+                    } else {
+                        checkeds.splice(index, 1);
+                    }
                 }
             });
-        };
-        let FilasMultiples = document.querySelectorAll("#MultipleRegister")
-        FilasMultiples.forEach((option) => {
-            option.onchange = () => {
-                let cantidad = option.value;
-                let cantidadTotal = 0;
-                var trPadre = option.parentNode.parentNode;
-                var trCopy = document.getElementById("Cónyugue").cloneNode(true);
-                if (option.previousElementSibling.textContent == "Hijo" || option.previousElementSibling.textContent == "Hermano") {
-                    trCopy.id = option.previousElementSibling.textContent + "Add";
-                    cantidadTotal = document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add").length;
-                } else {
-                    trCopy.id = option.previousElementSibling.textContent + "Add";
-                    cantidadTotal = document.querySelectorAll("#OtrosAdd").length;
 
-                }
-
-                if (cantidad > cantidadTotal) {
-                    block(trCopy.children[2].children[0]);
-                    for (let i = cantidadTotal; i < cantidad; i++) {
-                        let nuevoTr = trCopy;
-                        if (option.previousElementSibling.textContent == "Otros") {
-
-                            nuevoTr.children[0].name = nuevoTr.children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                            nuevoTr.children[0].setAttribute('class', "form-control");
-                            nuevoTr.children[0].setAttribute('data-toggle', "tooltip");
-                            //nuevoTr.children[0].setAttribute('type',"text");
-                            nuevoTr.children[0].setAttribute('title', "Ingresa el parentesco");
-                            let inputClone = nuevoTr.children[0].cloneNode(true);
-                            nuevoTr.children[0].name = "";
-                            inputClone.setAttribute('type', "text");
-                            inputClone.value = "";
-                            nuevoTr.children[1].textContent = "";
-                            nuevoTr.children[1].appendChild(inputClone);
-
-                            $(document).on('mouseover', '[data-toggle="tooltip"]', function () {
-                                $(this).tooltip();
-                            });
-                        } else {
-                            nuevoTr.children[0].setAttribute("name", "Fammilia[" + indexModelo + "].Parentesco");
-                            nuevoTr.children[0].setAttribute("value", option.previousElementSibling.textContent);
-                            nuevoTr.children[1].innerHTML = option.previousElementSibling.textContent
-                            let inputName = document.createElement("input");
-                        }
-                        nuevoTr.children[2].children[0].name = nuevoTr.children[2].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                        nuevoTr.children[3].children[0].name = nuevoTr.children[3].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                        nuevoTr.children[4].children[0].name = nuevoTr.children[4].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                        nuevoTr.children[5].children[0].name = nuevoTr.children[5].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                        nuevoTr.children[6].children[0].name = nuevoTr.children[6].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-
-
-                        trPadre.insertAdjacentElement("afterend", nuevoTr.cloneNode(true));
-                        indexModelo++;
-                    }
-                } else if (cantidad <= cantidadTotal && document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add").length > 0) {
-                    for (let i = cantidadTotal; i > cantidad; i--) {
-                        const elements = document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add");
-                        const lastElement = elements[0];
-                        indexModelo--;
-                        lastElement.remove();
-                    }
-                }
-
-            }
-        })
-
-        function block(element) {
-            let td = element.parentNode.parentNode;
-            if (element.value == "Fallecido") {
-                td.children[4].children[0].disabled = true;
-                td.children[5].children[0].disabled = true;
-                td.children[6].children[0].disabled = true;
-            } else {
-                td.children[2].children[0].disabled = false;
-                td.children[3].children[0].disabled = false;
-                td.children[4].children[0].disabled = false;
-                td.children[5].children[0].disabled = false;
-                td.children[6].children[0].disabled = false;
-            }
-        }
-
-        let colaborador = document.getElementById("Colaborador");
-        colaborador.children[3].children[0].onchange = (element) => {
-            if (element.target.value.includes("Viudo") || element.target.value.includes("Soltero") || element.target.value.includes("Divorciado") || element.target.value.includes("Separado")) {
-                let td = element.target.parentNode.parentNode;
-                let nextTd = td.nextElementSibling;
-                nextTd.children[0].value =null;
-                nextTd.children[2].children[0].disabled = true;
-                nextTd.children[3].children[0].disabled = true;
-                nextTd.children[4].children[0].disabled = true;
-                nextTd.children[5].children[0].disabled = true;
-                nextTd.children[6].children[0].disabled = true;
-            } else {
-                let td = element.target.parentNode.parentNode;
-                let nextTd = td.nextElementSibling;
-                nextTd.children[0].value="Cónyugue";
-                nextTd.children[2].children[0].disabled = false;
-                nextTd.children[3].children[0].disabled = false;
-                nextTd.children[4].children[0].disabled = false;
-                nextTd.children[5].children[0].disabled = false;
-                nextTd.children[6].children[0].disabled = false;
-            }
-
-        }
-
-        let groupCheck = document.querySelector(".options-check");
-        let checkMax = groupCheck.querySelectorAll("#inlineCheckbox1");
-        let checkeds = [];
-        checkMax.forEach((option) => {
-            option.onchange = function () {
-                if (option.checked) {
-                    checkeds.push(option);
-                    if (checkeds.length > 3) {
-                        checkeds[0].checked = false;
-                        checkeds.shift()
-                    }
-                } else {
-                    checkeds.splice(index, 1);
-                }
-            }
-        });
-
-    </script>
+        </script>
     }

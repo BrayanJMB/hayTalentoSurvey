@@ -23,9 +23,9 @@
 
         public bool Beneficio { get; set; }
 
-        public int Atractivo { get; set; }
+        public float Atractivo { get; set; }
 
-        public int Funcionamiento { get; set; }
+        public float Funcionamiento { get; set; }
 
     }
 
