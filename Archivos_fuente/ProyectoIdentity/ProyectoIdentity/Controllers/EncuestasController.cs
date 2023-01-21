@@ -363,7 +363,6 @@ namespace ProyectoIdentity.Controllers
         //Metodo para crar la encuesta
         private async Task<bool> CreateSurvey(List<CategoriaR>encuesta, int idSurvey)
         {
-#pragma warning disable CS0168 // La variable 'Ex' se ha declarado pero nunca se usa
             try
             {
                 int numeroPregunta = 1;

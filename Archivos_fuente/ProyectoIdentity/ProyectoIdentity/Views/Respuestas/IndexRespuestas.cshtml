@@ -31,7 +31,7 @@
                 <form id="msform" class="needs-validation" novalidate asp-action="EnvioIndexRespuestas" asp-controller="Respuestas">
                     <!-- progressbar -->
                     <ul id="progressbar">
-                        <div class="row d-flex justify-content-between">
+                        
                             @foreach (var categori in Model.Categorias)
                             {
                                 if (Active)
@@ -48,7 +48,7 @@
                             @{
                                 opcion = 1;
                             }
-            </div>
+           
             </ul>
 
             <!-- fieldsets -->
@@ -147,12 +147,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody class="title-table">
-                                                            @{int indexModelo=0;}
+                                                            @{
+                                                                int indexModelo = 0;
+                                                            }
                                                             @foreach (var option in Model.Demograficos[0].OpcionesDemo)
                                                             {
-                                                        
-                                                            <tr class="demograficos" id="@option.Name">
-                                                            
+
+                                                        <tr class="demograficos" id="@option.Name">
+
                                                                     @if (option.Name == "Hijo" || option.Name == "Otros" || option.Name == "Hermano")
                                                                     {
                                                                         int cant = 0;
@@ -162,8 +164,8 @@
                                                                             cant = 3;
                                                                 <th style="width: 10%;" scope="row">
                                                                     <p>@option.Name</p>
-                                                                    <input class="multiselect" id="MultipleRegister"  style="width: 50%;" type="number" min="0" max="@cant">
-                                                                        </th>
+                                                                    <input class="multiselect" id="MultipleRegister" style="width: 50%;" type="number" min="0" max="@cant">
+                                                                </th>
                                                                         indexModelo--;
 
                                                                     }
@@ -197,7 +199,6 @@
                                                                                 @foreach (var select in Model.Demograficos[2].OpcionesDemo)
                                                                                 {
                                                                                     if (option.Name == "Colaborador" && select.Name == "Fallecido") { continue; }
-
                                                                             <option value="@select.Name">@select.Name</option>
                                                                                 }
                                                                     </select>
@@ -236,11 +237,11 @@
                                                                     </select>
                                                                 </td>
                                                                     }
-                                                                </tr>
-                                                        
+                                                        </tr>
+
                                                                 indexModelo++;
 
-                                                            }   
+                                                            }
 
                                                 </tbody>
 
@@ -281,7 +282,6 @@
                                                                                             <th scope="col">¿Conoces el beneficio?</th>
                                                                                             <th scope="col">¿Qué tan atractivo te parece el beneficio?</th>
                                                                                             <th scope="col">¿Cómo ha funcionado el beneficio?</th>
-
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody>
@@ -293,8 +293,8 @@
                                                                                                 <td>
                                                                                                     <select class="form-select form-select-sm likkert" aria-label="Default select example" required>
                                                                                                         <option value="" selected>Seleccione</option>
-                                                                                                        <option value="">Si</option>
-                                                                                                        <option value="">No</option>
+                                                                                                        <option value="true">Si</option>
+                                                                                                        <option value="false">No</option>
                                                                                                     </select>
                                                                                                 </td>
                                                                                                 <td>
@@ -329,11 +329,13 @@
                                                                                     {
                                                                                 <div class="col-md-6 col-sm-12">
                                                                                     <div class="options-multiple-linkert">
-                                                                                        <select class="form-select form-select-sm likkert" aria-label="Default select example" required>
+                                                                                        <input type="hidden" name="IdPregunta" value="@pregunta.IdPregunta"/>
+                                                                                        <input type="hidden" name="Opcion" value="@pregunta.NombrePregunta">
+                                                                                        <select class="form-select form-select-sm likkert" name="Valor" aria-label="Default select example" required>
                                                                                             <option value="" selected>Seleccione</option>
                                                                                                     @foreach (var option in pregunta.Opciones)
                                                                                                     {
-                                                                                                <option value="1">@option.OpcionName</option>
+                                                                                                <option value="@option.ValorOPcion">@option.OpcionName</option>
                                                                                                     }
                                                                                         </select>
                                                                                     </div>
@@ -382,17 +384,19 @@
                                                                                 }
                                                                                 else if (pregunta.TipoPregunta == "Valoracion Multiple")
                                                                                 {
+                                                                           
+                                                                                   
                                                                             <div class="col-md-6 col-sm-12">
                                                                                 <div class="options" id="multiple-options">
-
-                                                                                    <select class="form-select form-select-sm escala " aria-label="Default select example" required>
+                                                                                    
+                                                                                    <select class="form-select form-select-sm escala " name="Valor" aria-label="Default select example" required>
                                                                                         <option value="" selected>Seleccione</option>
                                                                                                 @for (int i = 1; pregunta.Opciones.Count >= i; i++)
                                                                                                 {
                                                                                             <option value="@i">@i</option>
                                                                                                 }
                                                                                     </select>
-                                                                                    <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
+                                                                                    <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName</div>
                                                                                 </div>
                                                                             </div>
                                                                                 }
@@ -400,8 +404,10 @@
                                                                                 {
                                                                             <div class="col-md-6 col-sm-12">
                                                                                 <div class="options-multiple-linkert">
+                                                                                    <input type="hidden" name="IdPregunta" value="@pregunta.IdPregunta" />
                                                                                     <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName </div>
-                                                                                    <select class="form-select form-select-sm escala" aria-label="Default select example" required>
+                                                                                    <input type="hidden" name="Opcion" value="@opcionP.OpcionName">
+                                                                                    <select class="form-select form-select-sm escala" name="valor" aria-label="Default select example" required>
                                                                                                 @if (pregunta.NumeroPregunta != 15)
                                                                                                 {
                                                                                             <option value="" selected>Seleccione</option>
@@ -493,7 +499,7 @@
 
 
 </div>
-</div>
+
 
 
 @section Scripts{
@@ -509,7 +515,7 @@
 
 
         var capitales = [];
-        var indexModelo=4;
+        var indexModelo = 4;
         var capitalesColo = "@String.Join(",",Model.CapitalesColombia).Replace("&#xE1;", "á").Replace("&#xED;", "í").Replace("&#xE9;", "é").Replace("&#xFA;", "ú").Replace("&#xF3;", "ó").Replace("&#xFC;", "ü")";
         capitalesColo = capitalesColo.replaceAll("&#xE1;", "á").replaceAll("&#xED;", "í").replaceAll("&#xE9;", "é").replaceAll("&#xFA;", "ú").replaceAll("&#xF3;", "ó").replaceAll("&#xFC;", "ü");
         var capitalesColombia = capitalesColo.split(",");
@@ -687,12 +693,6 @@
                 }
             }
         });
-
-
-                //Funciones condicionales
-
-
-
 
     </script>
     }
