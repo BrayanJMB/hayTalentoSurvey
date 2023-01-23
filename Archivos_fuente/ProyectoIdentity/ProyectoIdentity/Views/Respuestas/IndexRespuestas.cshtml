@@ -5,6 +5,7 @@
     bool Active = true;
     string firstSteper = "js-active";
     int opcion = 1;
+    int mobileOption = 1;
     string[] iconStepper = {"","bi bi-globe-americas",
                             "bi bi-heart-pulse",
                             "bi bi-piggy-bank-fill",
@@ -32,23 +33,8 @@
                     <!-- progressbar -->
                     <ul id="progressbar">
                         <div class="row d-flex justify-content-between">
-                            @foreach (var categori in Model.Categorias)
-                            {
-                                if (Active)
-                                {
-
-                                <li class="col-md-2 active @iconStepper[opcion]" id="account"><strong>@opcion .@categori.NombreCategoria</strong></li>
-                                    Active = false;
-                                }
-                                else
-                                {
-                                <li class="col-md-2 @iconStepper[opcion]" id="personal"><strong>@opcion .@categori.NombreCategoria</strong></li>
-                                }
-                                opcion++;
-                            }
-                            @{
-                                opcion = 1;
-                            }
+                            <input type="hidden" value="2" id="mobile" />
+                                    <li class="col-md-2 active @iconStepper[mobileOption]" id="account"><strong>@mobileOption </strong></li>
             </div>
             </ul>
 
@@ -90,13 +76,7 @@
                                                                             <p>Ciudades</p>
                                                                             <select class="form-select form-select-sm likkert" name="City" aria-label="Default select example" id="capitales" required>
                                                                                 <option value="" selected>Seleccione</option>
-                                                                                @foreach (var option in Model.Paises)
-                                                                                {
-                                                                                    @foreach (var option2 in option.Cities)
-                                                                                    {
-                                                                                        <option value="@option2.Country.CountryName">@option2.CityName</option>
-                                                                                    }
-                                                                                }
+                                                                                
                                                                             </select>
                                                                             <div class="invalid-feedback">
                                                                                 Requerido.
@@ -255,7 +235,7 @@
                                                             <div class="card">
                                                                 <div class="card-header" id="headingOne">
                                                                     <h5 class="mb-0">
-                                                                        <button class="btn btn-link" data-toggle="collapse" data-target="#@option.Name" aria-expanded="true" aria-controls="collapseOne">
+                                                                        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#@option.Name" aria-expanded="true" aria-controls="collapseOne">
                                                                             @option.Name
                                                                         </button>
                                                                     </h5>
@@ -588,20 +568,20 @@
                                 <div class="text-right">
                                             @if (categori.Id == Model.Categorias.Last().Id)
                                             {
-                                        <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
-                                        <input type="submit" name="next" id="EnviarEncuesta" class="action-button btn btn-success" value="Enviar Encuesta" />
+                                                <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                                <input type="submit" name="next" id="EnviarEncuesta" class="action-button btn btn-success" value="Enviar Encuesta" />
                                             }
                                             else
                                             {
                                                 if (categori.Id != Model.Categorias.First().Id)
                                                 {
-                                            <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
+                                                    <input type="button" name="previous" class="previous action-button-previous btn btn-dark mr-2" value="Anterior" />
                                                 }
                                                 else
                                                 {
-                                            <input type="button" onclick="history.back()" class="btn btn-dark mr-2" value="Anterior" />
+                                                    <input type="button" onclick="history.back()" class="btn btn-dark mr-2" value="Anterior" />
                                                 }
-                                        <input type="button" id="siguiente" name="next" class="next action-button btn btn-primary" value="Siguiente" />
+                                                <input type="button" id="siguiente" name="next" class="next action-button btn btn-primary" value="Siguiente" />
                                             }
                                 </div>
                             </div>
@@ -828,7 +808,7 @@
         });
 
         // Mobile View
-
+        @mobileOption = document.getElementById("mobile").value;
 
 
 

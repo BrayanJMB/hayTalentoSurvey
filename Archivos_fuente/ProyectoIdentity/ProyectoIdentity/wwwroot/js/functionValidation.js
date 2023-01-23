@@ -1,6 +1,7 @@
 $(document).ready(function () {
     let current_fs, next_fs, previous_fs; //fieldsets
     let opacity;
+    let x = document.getElementById("mobile").value;
     $("fieldset").first().addClass('active');
     var forms = document.getElementsByClassName('needs-validation');
     var nextButton = document.querySelectorAll("#siguiente");
@@ -51,6 +52,8 @@ $(document).ready(function () {
                                 },
                                 duration: 600
                             });
+                            x++;
+                            console.log(x)
                         }else {
                             window.location.href = '@Url.Action("EnvioIndexRespuestasMadurez","Respuestas")';
                         }
@@ -99,7 +102,8 @@ $(document).ready(function () {
     };
 
     $(".previous").click(function () {
-        
+        x--;
+        console.log(x)
         current_fs = $(this).parent().parent().parent().parent().parent();
         previous_fs = $(this).parent().parent().parent().parent().parent().prev();
         //Remove class active
