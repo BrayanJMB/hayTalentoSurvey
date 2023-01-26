@@ -54,7 +54,6 @@ $(document).ready(function () {
                                 },
                                 duration: 600
                             });
-                            console.log(contador)
                             //Lógica para quitar el requerido 
                             if (contador == 1) {
                                 if (window.matchMedia("(min-width: 768px)").matches) {
@@ -98,14 +97,13 @@ $(document).ready(function () {
                 let councantValida=nextCant==true?3:0;
                 let listCheckBoxes = option.querySelectorAll(".datacheck");
                 listCheckBoxes.forEach(element => {
-                        if (element.checked ) {
-                            countCant++
-                            if( countCant>=councantValida){
-                                validateGroup = true;
-                                errorP.innerHTML = "";
-                            }
+                    if (element.checked ) {
+                        countCant++
+                        if( countCant>=councantValida){
+                            validateGroup = true;
+                            errorP.innerHTML = "";
                         }
-                    
+                    }
                 });
                 if (!validateGroup) {
                     flagCheck=false;

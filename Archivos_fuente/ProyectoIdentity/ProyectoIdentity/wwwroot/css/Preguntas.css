@@ -636,13 +636,21 @@ element.style {
 
 
 /* View Mobile*/
-
+ul.progressbar-mobile{
+    padding-left: 0;
+}
 @media (min-width: 768px) {
     table.title-table {
         display: block;
     }
 
     div#accordion {
+        display: none;
+    }
+    .progressbar-destokp{
+        display: flex;
+    }
+    .progressbar-mobile{
         display: none;
     }
 }
@@ -653,6 +661,13 @@ element.style {
         display: none;
     }
     div#accordion{
+        display: block;
+    }
+
+    .progressbar-destokp{
+        display: none;
+    }
+    .progressbar-mobile{
         display: block;
     }
 }
