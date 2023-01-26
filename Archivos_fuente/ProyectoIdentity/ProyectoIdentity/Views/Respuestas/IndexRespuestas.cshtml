@@ -12,6 +12,7 @@
                             "bi bi-tools",
                             "bi bi-shield-lock-fill" };
     int contVal = 0;
+    int indexMult = 0;
 
 }
 
@@ -51,7 +52,7 @@
                         }
 
                     </ul>
-                    < type="hidden" name="idEndcuesta" value="@Model.Id">
+                    <input type="hidden" name="idEndcuesta" value="@Model.Id">
                     <!-- fieldsets -->
                         @foreach (var categori in Model.Categorias)
                         {
@@ -67,6 +68,7 @@
                                                 <p class="descripcion-dimension">@categori.Description</p>
                                                     @if (categori.NombreCategoria == "Aspectos Demográficos")
                                                     {
+
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="showEditDelete">
@@ -262,11 +264,19 @@
                                                                     @if (pregunta.NumeroPregunta == 21)
                                                                     {
                                                                         classCheck = "options-check";
+                                                                    }else if(pregunta.TipoPregunta=="Seleccion Multiple"){
+                                                                        classCheck +=  " multiple-check";
+                                                                        
                                                                     }
                                                                 <div class="@classCheck">
+                                                                    @if (pregunta.TipoPregunta == "Seleccion Multiple")
+                                                                    {
+                                                                        <input type="hidden" id="ValueCheck" valuie=""/>
+                                                                    }
                                                                     <p class="error-description"></p>
                                                                     <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(x => pregunta.NumeroPregunta).&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
-                                                                    <div class="row ml-2">
+
+                                                                    <div class="row ml-2 Seleccion Multiple">
                                                                             @if (pregunta.Opciones != null)
                                                                             {
 
@@ -401,18 +411,19 @@
 
                                                                                     <div class="col-md-6 col-sm-12">
                                                                                         <div class="options" id="multiple-options">
-
-                                                                                            <select class="form-select form-select-sm escala " name="Valor" aria-label="Default select example" required>
+                                                                                            <input type="hidden" name="resNumer[@indexMult].IdPregunta" value="@pregunta.IdPregunta" />
+                                                                                            <select class="form-select form-select-sm escala " name="resNumer[@indexMult].Valor" aria-label="Default select example" required>
                                                                                                 <option value="" selected>Seleccione</option>
                                                                                                     @for (int i = 1; pregunta.Opciones.Count >= i; i++)
                                                                                                     {
-                                                                                                    <option value="@i">@i</option>
+                                                                                                        <option value="@i">@i</option>
                                                                                                     }
                                                                                             </select>
-                                                                                            <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree"> @opcionP.OpcionName</div>
+                                                                                            <div class="block-text ml-2" id="strongly-disagree" name="resNumer[@indexMult].Opcion"> @opcionP.OpcionName</div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    }
+                                                                                    indexMult++;
+                                                                                }
                                                                                     else if (pregunta.TipoPregunta == "Multiple Likkert")
                                                                                     {
 
@@ -424,12 +435,12 @@
                                                                                             <select class="form-select form-select-sm escala" name="resValor[@contVal].valor" aria-label="Default select example" required>
                                                                                                     @if (pregunta.NumeroPregunta != 15)
                                                                                                     {
-                                                                                                    <option value="" selected>Seleccione</option>
-                                                                                                    <option value="1">No Aplica</option>
-                                                                                                    <option value="2">No cumple las expectativas</option>
-                                                                                                    <option value="3">Necesita algunas mejoras</option>
-                                                                                                    <option value="4">Cumple las expectativas</option>
-                                                                                                    <option value="5">Supera las expectativas</option>
+                                                                                                        <option value="" selected>Seleccione</option>
+                                                                                                        <option value="1">No Aplica</option>
+                                                                                                        <option value="2">No cumple las expectativas</option>
+                                                                                                        <option value="3">Necesita algunas mejoras</option>
+                                                                                                        <option value="4">Cumple las expectativas</option>
+                                                                                                        <option value="5">Supera las expectativas</option>
                                                                                                     }
                                                                                                     else if (pregunta.NumeroPregunta == 15)
                                                                                                     {
@@ -707,6 +718,24 @@
                         checkeds.splice(index, 1);
                     }
                 }
+            });
+
+            let multipleCheck = document.querySelectorAll(".multiple-check");
+            multipleCheck.forEach((blockCheck)=>{
+                let inputData=blockCheck.querySelector("#ValueCheck");
+                let checkeds=blockCheck.querySelectorAll("input[type=checkbox]");
+                checkeds.forEach((input)=>{
+                    input.onchange=()=>{
+                        
+                        if(input.checked)
+                           inputData.value+=input.value+";";
+                        else
+                           inputData.value = inputData.value.replace(input.value+";", "");
+
+                        console.log(inputData.value);
+                    }
+                })
+
             });
 
         </script>

@@ -136,7 +136,8 @@ namespace ProyectoIdentity.Controllers
             Respondente Res,
             List<RespuestasConvalor> resValor,
             List<RespuestasDeCheck> resCheck,
-            List<RespuestaPersonalizada> resPer)
+            List<RespuestaPersonalizada> resPer,
+            List<RespuestasConvalor> resNumer)
         {
             ViewBag.Message = "Login";
             return View();
