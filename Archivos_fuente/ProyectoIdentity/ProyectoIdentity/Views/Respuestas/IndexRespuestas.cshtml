@@ -290,7 +290,7 @@
                                                                         </div>
                                                                             indexModeloMobile--;
                                                                     }else{
-                                                                        <div id="@idMobile" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                                                        <div id="@idMobile" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                                                                             <div class="card-body">
                                                                                   <input type="hidden" name="Fammilia[@indexModeloMobile].Parentesco" id="ParentescoInput" value="@option.Name"> 
                                                                                   <div>
@@ -823,19 +823,33 @@
         });
 
         // Mobile View
-        function blockMobile(element) {
+        function blockMobile(element, isDinamicInput = false) {
             debugger;
             let td = element.parentNode.parentNode;
-            if (element.value == "Fallecido") {
-                td.children[3].children[1].disabled = true;
-                td.children[4].children[1].disabled = true;
-                td.children[5].children[1].disabled = true;
-            } else {
-                td.children[1].children[1].disabled = false;
-                td.children[2].children[1].disabled = false;
-                td.children[3].children[1].disabled = false;
-                td.children[4].children[1].disabled = false;
-                td.children[5].children[1].disabled = false;
+            if(!isDinamicInput){
+                if (element.value == "Fallecido") {
+                    td.children[3].children[1].disabled = true;
+                    td.children[4].children[1].disabled = true;
+                    td.children[5].children[1].disabled = true;
+                } else {
+                    td.children[1].children[1].disabled = false;
+                    td.children[2].children[1].disabled = false;
+                    td.children[3].children[1].disabled = false;
+                    td.children[4].children[1].disabled = false;
+                    td.children[5].children[1].disabled = false;
+                }
+            }else{
+                if (element.value == "Fallecido") {
+                    td.children[4].children[1].disabled = true;
+                    td.children[5].children[1].disabled = true;
+                    td.children[6].children[1].disabled = true;
+                } else {
+                    td.children[2].children[1].disabled = false;
+                    td.children[3].children[1].disabled = false;
+                    td.children[4].children[1].disabled = false;
+                    td.children[5].children[1].disabled = false;
+                    td.children[6].children[1].disabled = false;
+                }
             }
         }
 
@@ -847,6 +861,8 @@
                 let cantidadTotal = 0;
                 var trPadre = option.parentNode.parentNode;
                 var trCopy = document.getElementById("CónyugueMobile").cloneNode(true);
+                trCopy.classList.add("show");
+                console.log(trCopy)
                 if (option.previousElementSibling.textContent == "Hijo" || option.previousElementSibling.textContent == "Hermano") {
                     trCopy.id = option.previousElementSibling.textContent + "Add";
                     cantidadTotal = document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add").length;
@@ -894,17 +910,16 @@
                             //nuevoTr.children[1].innerHTML = option.previousElementSibling.textContent
                             let inputName = document.createElement("input");
                         }
-                        if (trCopy.classList.contains("collapse") && trCopy.classList.contains("show")){
-                            nuevoTr.children[0].children[2].children[1].name = nuevoTr.children[0].children[2].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                            nuevoTr.children[0].children[3].children[1].name = nuevoTr.children[0].children[3].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                            nuevoTr.children[0].children[4].children[1].name = nuevoTr.children[0].children[4].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                            nuevoTr.children[0].children[5].children[1].name = nuevoTr.children[0].children[5].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                        }else{
-                            alert("cagada2")
-                        }
+                        nuevoTr.children[0].children[3].children[1].removeAttribute("onchange");
+                        nuevoTr.children[0].children[3].children[1].setAttribute("onchange", "blockMobile(this, true)");
 
-                        //nuevoTr.children[0].children[6].children[1].name = nuevoTr.children[0].children[6].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
 
+                        nuevoTr.children[0].children[2].children[1].name = nuevoTr.children[0].children[2].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        nuevoTr.children[0].children[3].children[1].name = nuevoTr.children[0].children[3].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        nuevoTr.children[0].children[4].children[1].name = nuevoTr.children[0].children[4].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        nuevoTr.children[0].children[5].children[1].name = nuevoTr.children[0].children[5].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        nuevoTr.children[0].children[6].children[1].name = nuevoTr.children[0].children[6].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        console.log(nuevoTr.children[0].children[3].children[1])
                         trPadre.appendChild(nuevoTr.cloneNode(true));
                         indexModelo++;
                     }
