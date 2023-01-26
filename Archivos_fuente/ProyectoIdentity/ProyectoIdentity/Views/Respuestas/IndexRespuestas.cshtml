@@ -13,6 +13,7 @@
                             "bi bi-shield-lock-fill" };
     int contVal = 0;
     int indexMult = 0;
+    int contcheck = 0;
 
 }
 
@@ -271,7 +272,9 @@
                                                                 <div class="@classCheck">
                                                                     @if (pregunta.TipoPregunta == "Seleccion Multiple")
                                                                     {
-                                                                        <input type="hidden" id="ValueCheck" valuie=""/>
+                                                                        <input type="hidden" name="resCheck[@contcheck].IdPregunta" value="@pregunta.NumeroPregunta">
+                                                                        <input type="hidden" id="ValueCheck" name="resCheck[@contcheck].labelRespuesta" value="" />
+                                                                        contcheck++;
                                                                     }
                                                                     <p class="error-description"></p>
                                                                     <div class="bold-questions d-inline-flex mb-0">@Html.DisplayFor(x => pregunta.NumeroPregunta).&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
@@ -315,10 +318,10 @@
                                                                                                         <td>
                                                                                                             <select class="form-select form-select-sm likkert" aria-label="Default select example" name="resPer[@contPer].Atractivo" required>
                                                                                                                 <option value="" selected>Seleccione</option>
-                                                                                                                <option value="1.25">1.Bajo</option>
-                                                                                                                <option value="2.50">2.Regular</option>
-                                                                                                                <option value="3.75">3.Medio</option>
-                                                                                                                <option value="5.00">4.Alto</option>
+                                                                                                                <option value="1,25">1.Bajo</option>
+                                                                                                                <option value="2,50">2.Regular</option>
+                                                                                                                <option value="3,75">3.Medio</option>
+                                                                                                                <option value="5,00">4.Alto</option>
                                                                                                             </select>
 
                                                                                                         </td>
@@ -731,8 +734,6 @@
                            inputData.value+=input.value+";";
                         else
                            inputData.value = inputData.value.replace(input.value+";", "");
-
-                        console.log(inputData.value);
                     }
                 })
 

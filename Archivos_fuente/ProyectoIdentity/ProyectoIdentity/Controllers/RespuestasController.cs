@@ -79,7 +79,8 @@ namespace ProyectoIdentity.Controllers
                                                     {
                                                         NombrePregunta = pregunta.NombrePregunta,
                                                         IdTipo = pregunta.TipoPreguntaId,
-                                                        NumeroPregunta = pregunta.Id,
+                                                        NumeroPregunta = pregunta.NumeroPregunta,
+                                                        IdPregunta=pregunta.Id,
                                                         TipoPregunta = (from tipoPregunta in _context.TipoPregunta
                                                                         where pregunta.TipoPreguntaId == tipoPregunta.Id
                                                                         select tipoPregunta.NombreTipoPregunta).FirstOrDefault(),
