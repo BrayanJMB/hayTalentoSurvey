@@ -76,7 +76,7 @@
                                                                             <p>Ciudades</p>
                                                                             <select class="form-select form-select-sm likkert" name="City" aria-label="Default select example" id="capitales" required>
                                                                                 <option value="" selected>Seleccione</option>
-                                                                                
+                                                                                <option value="" selected>Okay</option>
                                                                             </select>
                                                                             <div class="invalid-feedback">
                                                                                 Requerido.
@@ -231,11 +231,12 @@
                                                    
                                                     @foreach (var option in Model.Demograficos[0].OpcionesDemo)
                                                     {
+                                                        var idMobile = option.Name + "Mobile"; 
                                                         <div id="accordion">
                                                             <div class="card">
                                                                 <div class="card-header" id="headingOne">
                                                                     <h5 class="mb-0">
-                                                                        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#@option.Name" aria-expanded="true" aria-controls="collapseOne">
+                                                                        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#@idMobile" aria-expanded="true" aria-controls="collapseOne">
                                                                             @option.Name
                                                                         </button>
                                                                     </h5>
@@ -248,15 +249,17 @@
                                                                         else
                                                                             cant = 3;
 
-                                                                        <div id="@option.Name" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                                                        <div id="@idMobile" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                                                             <div class="card-body">
                                                                                  <p>@option.Name</p>
-                                                                                <input class="multiselect" id="MultipleRegister" style="width: 50%;" type="number" min="0" max="@cant"> 
+                                                                                <input class="multiselect" id="MultipleRegisterMobile" style="width: 50%;" type="number" step="1" min="0" max="@cant"> 
+
+                                                                                <input type="number" id="typeNumber" class="form-control" />
                                                                             </div>
                                                                         </div>
                                                                             indexModeloMobile--;
                                                                     }else{
-                                                                        <div id="@option.Name" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                                                        <div id="@idMobile" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                                                             <div class="card-body">
                                                                                   <input type="hidden" name="Fammilia[@indexModeloMobile].Parentesco" id="ParentescoInput" value="@option.Name"> 
                                                                                   <div>
@@ -609,7 +612,7 @@
             $('[data-toggle="tooltip"]').tooltip();
         });
 
-
+        //Logica para capitales y ciudades
         var capitales = [];
         var indexModelo=4;
         var capitalesColo = "@String.Join(",",Model.CapitalesColombia).Replace("&#xE1;", "á").Replace("&#xED;", "í").Replace("&#xE9;", "é").Replace("&#xFA;", "ú").Replace("&#xF3;", "ó").Replace("&#xFC;", "ü")";
@@ -669,6 +672,8 @@
                 }
             });
         };
+
+        //Logica para crear inputs dinámicos desktop
         let FilasMultiples = document.querySelectorAll("#MultipleRegister")
         FilasMultiples.forEach((option) => {
             option.onchange = () => {
@@ -707,6 +712,7 @@
                                 $(this).tooltip();
                             });
                         } else {
+
                             nuevoTr.children[0].setAttribute("name", "Fammilia[" + indexModelo + "].Parentesco");
                             nuevoTr.children[0].setAttribute("value", option.previousElementSibling.textContent);
                             nuevoTr.children[1].innerHTML = option.previousElementSibling.textContent
@@ -750,29 +756,11 @@
             }
         }
 
-        function blockMobile(element) {
-            debugger;
-            let td = element.parentNode.parentNode;
-            if (element.value == "Fallecido") {
-                td.children[3].children[1].disabled = true;
-                td.children[4].children[1].disabled = true;
-                td.children[5].children[1].disabled = true;
-            } else {
-                td.children[1].children[1].disabled = false;
-                td.children[2].children[1].disabled = false;
-                td.children[3].children[1].disabled = false;
-                td.children[4].children[1].disabled = false;
-                td.children[5].children[1].disabled = false;
-            }
-        }
-
-
         let colaborador = document.getElementById("Colaborador");
         colaborador.children[3].children[0].onchange = (element) => {
             if (element.target.value.includes("Viudo") || element.target.value.includes("Soltero") || element.target.value.includes("Divorciado") || element.target.value.includes("Separado")) {
                 let td = element.target.parentNode.parentNode;
                 let nextTd = td.nextElementSibling;
-                console.log(nextTd);
                 nextTd.children[2].children[0].disabled = true;
                 nextTd.children[3].children[0].disabled = true;
                 nextTd.children[4].children[0].disabled = true;
@@ -808,9 +796,131 @@
         });
 
         // Mobile View
-        @mobileOption = document.getElementById("mobile").value;
+        function blockMobile(element) {
+            debugger;
+            let td = element.parentNode.parentNode;
+            if (element.value == "Fallecido") {
+                td.children[3].children[1].disabled = true;
+                td.children[4].children[1].disabled = true;
+                td.children[5].children[1].disabled = true;
+            } else {
+                td.children[1].children[1].disabled = false;
+                td.children[2].children[1].disabled = false;
+                td.children[3].children[1].disabled = false;
+                td.children[4].children[1].disabled = false;
+                td.children[5].children[1].disabled = false;
+            }
+        }
 
+        //Logica para crear inputs dinámicos Mobile
+        let FilasMultiplesMobile = document.querySelectorAll("#MultipleRegisterMobile")
+        FilasMultiplesMobile.forEach((option) => {
+            option.onchange = () => {
+                let cantidad = option.value;
+                let cantidadTotal = 0;
+                var trPadre = option.parentNode.parentNode;
+                console.log(trPadre)
+                var trCopy = document.getElementById("CónyugueMobile").cloneNode(true);
+                console.log(trCopy)
+                if (option.previousElementSibling.textContent == "Hijo" || option.previousElementSibling.textContent == "Hermano") {
+                    trCopy.id = option.previousElementSibling.textContent + "Add";
+                    cantidadTotal = document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add").length;
+                } else {
+                    trCopy.id = option.previousElementSibling.textContent + "Add";
+                    cantidadTotal = document.querySelectorAll("#OtrosAdd").length;
+                }
 
+                if (cantidad > cantidadTotal) {
+                    console.log(trCopy.children[0].children[2].children[0])
+                    blockMobile(trCopy.children[0].children[2].children[0]);
+                    for (let i = cantidadTotal; i < cantidad; i++) {
+                        let nuevoTr = trCopy;
+                        if (option.previousElementSibling.textContent == "Otros") {
+
+                            nuevoTr.children[0].children[2].children[1].name = nuevoTr.children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                            nuevoTr.children[0].children[2].children[1].setAttribute('class', "form-control");
+                            nuevoTr.children[0].children[2].children[1].setAttribute('data-toggle', "tooltip");
+                            //nuevoTr.children[0].setAttribute('type',"text");
+                            nuevoTr.children[0].setAttribute('title', "Ingresa el parentesco");
+                            let inputClone = nuevoTr.children[0].cloneNode(true);
+                            nuevoTr.children[0].name = "";
+                            inputClone.setAttribute('type', "text");
+                            inputClone.value = "";
+                            nuevoTr.children[1].textContent = "";
+                            nuevoTr.children[1].appendChild(inputClone);
+
+                            $(document).on('mouseover', '[data-toggle="tooltip"]', function () {
+                                $(this).tooltip();
+                            });
+                        } else {
+                            nuevoTr.children[0].children[0].setAttribute("name", "Fammilia[" + indexModelo + "].Parentesco");
+                            nuevoTr.children[0].children[0].setAttribute("value", option.previousElementSibling.textContent);
+                            //nuevoTr.children[1].innerHTML = option.previousElementSibling.textContent
+                            let inputName = document.createElement("input");
+                        }
+                        nuevoTr.children[0].children[2].children[1].name = nuevoTr.children[0].children[2].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        nuevoTr.children[0].children[3].children[1].name = nuevoTr.children[0].children[3].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        nuevoTr.children[0].children[4].children[1].name = nuevoTr.children[0].children[4].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        nuevoTr.children[0].children[5].children[1].name = nuevoTr.children[0].children[5].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        //nuevoTr.children[0].children[6].children[1].name = nuevoTr.children[0].children[6].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+
+                        trPadre.insertAdjacentElement("afterend", nuevoTr.cloneNode(true));
+                        indexModelo++;
+                    }
+                } else if (cantidad <= cantidadTotal && document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add").length > 0) {
+                    for (let i = cantidadTotal; i > cantidad; i--) {
+                        const elements = document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add");
+                        const lastElement = elements[0];
+                        indexModelo--;
+                        lastElement.remove();
+                    }
+                }
+
+            }
+        });
+
+        let colaboradorMobile = document.getElementById("ColaboradorMobile");
+        console.log(colaboradorMobile.children[0].children[3].children[1])
+        colaboradorMobile.children[0].children[2].children[1].onchange = (element) => {
+            debugger;
+            if (element.target.value.includes("Viudo") || element.target.value.includes("Soltero") || element.target.value.includes("Divorciado") || element.target.value.includes("Separado")) {
+                let td = element.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+                let nextTd = td.nextElementSibling;
+                console.log(nextTd.children[0].children[1].children[0].children[0].children[2])
+                nextTd.children[0].children[1].children[0].children[0].children[1].children[1].disabled = true;
+                nextTd.children[0].children[1].children[0].children[0].children[2].children[1].disabled = true;
+                nextTd.children[0].children[1].children[0].children[0].children[3].children[1].disabled = true;
+                nextTd.children[0].children[1].children[0].children[0].children[4].children[1].disabled = true;
+                nextTd.children[0].children[1].children[0].children[0].children[5].children[1].disabled = true;
+            } else {
+                let td = element.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+                let nextTd = td.nextElementSibling;
+                nextTd.children[0].children[1].children[0].children[0].children[1].children[1].disabled = false;
+                nextTd.children[0].children[1].children[0].children[0].children[2].children[1].disabled = false;
+                nextTd.children[0].children[1].children[0].children[0].children[3].children[1].disabled = false;
+                nextTd.children[0].children[1].children[0].children[0].children[4].children[1].disabled = false;
+                nextTd.children[0].children[1].children[0].children[0].children[5].children[1].disabled = false;
+            }
+        }
+
+       //setInterval(function() {
+       //     if (window.matchMedia("(min-width: 768px)").matches) {
+       //         debugger;
+       //         document.querySelectorAll("fieldset.active table select").forEach(function(input) {
+       //             input.required = true;
+       //         });
+       //         document.querySelectorAll("fieldset.active div#accordion select").forEach(function(input) {
+       //             input.required = false;
+       //         });
+       //     }else{
+       //         document.querySelectorAll("fieldset.active table select").forEach(function(input) {
+       //             input.required =false;
+       //         });
+       //         document.querySelectorAll("fieldset.active div#accordion select").forEach(function(input) {
+       //             input.required = true;
+       //         });
+       //     };
+       // }, 5000);
 
 </script>
     }

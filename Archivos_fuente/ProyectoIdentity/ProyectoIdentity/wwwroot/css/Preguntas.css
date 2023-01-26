@@ -636,21 +636,25 @@ element.style {
 
 
 /* View Mobile*/
+
 @media (min-width: 768px) {
-    table{
+    table.title-table {
         display: block;
     }
-    div.accordion{
+
+    div#accordion {
         display: none;
     }
 }
 
 
-@media (max-width: 767.98px) {
+@media (max-width: 767.97px) {
     table{
         display: none;
     }
-    div.accordion{
+    div#accordion{
         display: block;
     }
 }
+
+

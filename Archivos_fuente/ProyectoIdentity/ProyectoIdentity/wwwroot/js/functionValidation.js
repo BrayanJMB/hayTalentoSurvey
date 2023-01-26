@@ -1,13 +1,14 @@
 $(document).ready(function () {
     let current_fs, next_fs, previous_fs; //fieldsets
     let opacity;
-    let x = document.getElementById("mobile").value;
+    let contador = 0;
     $("fieldset").first().addClass('active');
     var forms = document.getElementsByClassName('needs-validation');
     var nextButton = document.querySelectorAll("#siguiente");
     var sendSurveyButton = document.querySelectorAll("#EnviarEncuesta");
     validateFields(nextButton, forms);
     validateFields(sendSurveyButton, forms, true);
+
     function validateFields(elemento, forms, isSubmit = false) {
         var validation = Array.prototype.filter.call(forms, function (form) {
             elemento.forEach((element) => {
@@ -30,6 +31,7 @@ $(document).ready(function () {
                         firstInvalid.focus();
                         form.classList.add('was-validated');
                     } else {
+                        contador++;
                         if (!isSubmit) {
                             current_fs = $(this).parent().parent().parent().parent().parent();
                             next_fs = $(this).parent().parent().parent().parent().parent().next();
@@ -52,8 +54,26 @@ $(document).ready(function () {
                                 },
                                 duration: 600
                             });
-                            x++;
-                            console.log(x)
+                            console.log(contador)
+                            //Lógica para quitar el requerido 
+                            if (contador == 1) {
+                                if (window.matchMedia("(min-width: 768px)").matches) {
+                                    debugger;
+                                    document.querySelectorAll("fieldset.active table select").forEach(function (input) {
+                                        input.required = true;
+                                    });
+                                    document.querySelectorAll("fieldset.active div#accordion select").forEach(function (input) {
+                                        input.required = false;
+                                    });
+                                } else {
+                                    document.querySelectorAll("fieldset.active table select").forEach(function (input) {
+                                        input.required = false;
+                                    });
+                                    document.querySelectorAll("fieldset.active div#accordion select").forEach(function (input) {
+                                        input.required = true;
+                                    });
+                                };
+                            }
                         }else {
                             window.location.href = '@Url.Action("EnvioIndexRespuestasMadurez","Respuestas")';
                         }
@@ -102,8 +122,7 @@ $(document).ready(function () {
     };
 
     $(".previous").click(function () {
-        x--;
-        console.log(x)
+        contador--;
         current_fs = $(this).parent().parent().parent().parent().parent();
         previous_fs = $(this).parent().parent().parent().parent().parent().prev();
         //Remove class active
