@@ -328,10 +328,10 @@
                                                                                                         <td>
                                                                                                             <select class="form-select form-select-sm likkert" aria-label="Default select example" name="resPer[@contPer].Funcionamiento" required>
                                                                                                                 <option value="" selected>Seleccione</option>
-                                                                                                                <option value="1.25">1.Bajo</option>
-                                                                                                                <option value="2.50">2.Regular</option>
-                                                                                                                <option value="3.75">3.Medio</option>
-                                                                                                                <option value="5.00">4.Alto</option>
+                                                                                                                <option value="1,25">1.Bajo</option>
+                                                                                                                <option value="2,50">2.Regular</option>
+                                                                                                                <option value="3,75">3.Medio</option>
+                                                                                                                <option value="5,00">4.Alto</option>
                                                                                                             </select>
                                                                                                         </td>
                                                                                                     </tr>
@@ -422,7 +422,8 @@
                                                                                                         <option value="@i">@i</option>
                                                                                                     }
                                                                                             </select>
-                                                                                            <div class="block-text ml-2" id="strongly-disagree" name="resNumer[@indexMult].Opcion"> @opcionP.OpcionName</div>
+                                                                                            <div class="block-text ml-2" id="strongly-disagree" > @opcionP.OpcionName</div>
+                                                                                            <input type="hidden" name="resNumer[@indexMult].Opcion" value="@opcionP.OpcionName"/>
                                                                                         </div>
                                                                                     </div>
                                                                                     indexMult++;
