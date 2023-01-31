@@ -4,5 +4,7 @@
     {
         public int Id { get; set; }
         public string OpcionName { get; set; }
+
+        public float ValorOPcion { get; set; }
     }
 }

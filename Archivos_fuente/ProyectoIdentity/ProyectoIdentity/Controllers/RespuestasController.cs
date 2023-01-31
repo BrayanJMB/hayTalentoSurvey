@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProyectoIdentity.Datos;
+using ProyectoIdentity.Models.ModelosRespuestas;
 using ProyectoIdentity.Models.ModelsJourney;
 using ProyectoIdentity.Models.ModelTemplateJorney;
 
@@ -32,7 +33,7 @@ namespace ProyectoIdentity.Controllers
         }
 
 
-
+        //Vista de respuestas 
         public async Task<IActionResult> IndexRespuestas(int idSurvey)
         {
             ViewBag.Message = "Login";
@@ -78,7 +79,8 @@ namespace ProyectoIdentity.Controllers
                                                     {
                                                         NombrePregunta = pregunta.NombrePregunta,
                                                         IdTipo = pregunta.TipoPreguntaId,
-                                                        NumeroPregunta = pregunta.Id,
+                                                        NumeroPregunta = pregunta.NumeroPregunta,
+                                                        IdPregunta=pregunta.Id,
                                                         TipoPregunta = (from tipoPregunta in _context.TipoPregunta
                                                                         where pregunta.TipoPreguntaId == tipoPregunta.Id
                                                                         select tipoPregunta.NombreTipoPregunta).FirstOrDefault(),
@@ -86,7 +88,8 @@ namespace ProyectoIdentity.Controllers
                                                                     where pregunta.Id == opciones.PreguntaId
                                                                     select new Models.ModelTemplateJorney.Opcion
                                                                     {
-                                                                        OpcionName = opciones.Nombre
+                                                                        OpcionName = opciones.Nombre,
+                                                                        ValorOPcion=opciones.ValorOpcion
                                                                     }).ToList()
                                                     }).ToList()
                                    }).ToList()
@@ -109,7 +112,7 @@ namespace ProyectoIdentity.Controllers
                 return RedirectToAction("Error", "Cuentas");
             }
         }
-
+        //Respuestas Vista de descripcion categorias
         public async Task<IActionResult> RedirectIndexRespuestas(int idSurvey)
         {
 
@@ -129,8 +132,13 @@ namespace ProyectoIdentity.Controllers
             }
             return View(query);
         }
-
-        public async Task<IActionResult> EnvioIndexRespuestas()
+        //respuesta Categorias
+        public async Task<IActionResult> EnvioIndexRespuestas(int idEndcuesta,
+            Respondente Res,
+            List<RespuestasConvalor> resValor,
+            List<RespuestasDeCheck> resCheck,
+            List<RespuestaPersonalizada> resPer,
+            List<RespuestasConvalor> resNumer)
         {
             ViewBag.Message = "Login";
             return View();
@@ -185,7 +193,7 @@ namespace ProyectoIdentity.Controllers
                              }).FirstOrDefaultAsync();
             return View(query);
         }
-
+        //vista Entrada MAdurez
         public async Task<IActionResult> RedirectIndexRespuestasMadurez(int idSurvey)
         {
             ViewBag.Message = "EnvioRedirectRespuestasMadurez";
@@ -199,7 +207,7 @@ namespace ProyectoIdentity.Controllers
                          }).FirstOrDefault();
             return View(query);
         }
-        
+        //envio respuestas de madurez 
         public async Task<IActionResult> EnvioIndexRespuestasMadurez(int IdEncuesta, List<int> IdPregunta,List<int> ValueRespuesta,string LabelRespuesta)
         {
             var Respouestas =new List<RespuestaMadurezcs>();
