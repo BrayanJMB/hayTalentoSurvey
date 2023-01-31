@@ -140,6 +140,74 @@ namespace ProyectoIdentity.Controllers
             List<RespuestaPersonalizada> resPer,
             List<RespuestasConvalor> resNumer)
         {
+            var repondente = await _context.Respondente.AddAsync(new Respondente
+            {
+                Area = Res.Area,
+                BussinesUnitId = Res.BussinesUnitId,
+                City = Res.City,
+                Country = Res.Country,
+                Fammilia = Res.Fammilia
+
+            });
+            await _context.SaveChangesAsync();
+            var encuestaResppondente = await _context.EncuestaRespondenteB.AddAsync(new EncuestaRespondenteB
+            {
+                EncuestaId = idEndcuesta,
+                RespondenteId = repondente.Entity.Id,
+
+            });
+
+            await _context.SaveChangesAsync();
+            var respuestas= new List<Respuesta>();
+
+            foreach(var respuesta in resValor)
+            {
+                respuestas.Add(new Respuesta
+                {
+                    PreguntaId = respuesta.IdPregunta,
+                    RespondenteId = repondente.Entity.Id,
+                    DescripcionRespuesta = respuesta.Opcion,
+                    Valor = respuesta.Valor,
+                    EncuestaRespondenteId= encuestaResppondente.Entity.Id
+                });
+            }
+            foreach (var respuesta in resNumer)
+            {
+                respuestas.Add(new Respuesta
+                {
+                    PreguntaId = respuesta.IdPregunta,
+                    RespondenteId = repondente.Entity.Id,
+                    DescripcionRespuesta = respuesta.Opcion,
+                    Valor = respuesta.Valor
+                    EncuestaRespondenteId = encuestaResppondente.Entity.Id
+                });
+            }
+            foreach (var respuesta in resCheck)
+            {
+                respuestas.Add(new Respuesta
+                {
+                    PreguntaId = respuesta.IdPregunta,
+                    RespondenteId = repondente.Entity.Id,
+                    DescripcionRespuesta = respuesta.labelRespuesta
+                    EncuestaRespondenteId = encuestaResppondente.Entity.Id
+
+                });
+            }
+            
+
+            var respuestasPer = new List<RespuestaPersonalizada>();
+            respuestasPer = resPer.Select(x => 
+            new RespuestaPersonalizada
+            {
+                EncuestaResponcenteId = encuestaResppondente.Entity.Id,
+                Atractivo = x.Atractivo,
+                Beneficio = x.Beneficio,
+                Concepto = x.Concepto,
+                Funcionamiento = x.Funcionamiento,
+                IdPregunta = x.IdPregunta
+            }).ToList();
+            await _context.SaveChangesAsync();           
+
             ViewBag.Message = "Login";
             return View();
         }

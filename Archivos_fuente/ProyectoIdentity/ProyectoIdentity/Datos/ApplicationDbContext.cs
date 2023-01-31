@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ProyectoIdentity.Models.ModelosRespuestas;
 using ProyectoIdentity.Models.ModelsJourney;
 
 using System.Security.Cryptography.Xml;
@@ -44,6 +45,9 @@ namespace ProyectoIdentity.Datos
 
         public DbSet<RespuestaMadurezcs> RespuestaMadurezcs { get; set; }
 
+        public DbSet<EncuestaRespondenteB> EncuestaRespondenteB { get; set; }
+
+        public DbSet<RespuestaPersonalizada> RespuestaPersonalizada { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

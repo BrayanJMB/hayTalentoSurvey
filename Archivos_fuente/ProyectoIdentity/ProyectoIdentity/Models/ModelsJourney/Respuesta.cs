@@ -21,6 +21,10 @@ namespace ProyectoIdentity.Models.ModelsJourney
         public int PreguntaId { get; set; }
 
         public Pregunta? Pregunta { get; set; }
+        [ForeignKey("EncuestaRespondenteB")]
+        public int? EncuestaRespondenteId { get; set; }
+
+        public EncuestaRespondenteB? EncuestaRespondenteB { get; set; }
 
     }
 }

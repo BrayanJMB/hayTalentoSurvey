@@ -1,4 +1,7 @@
-﻿namespace ProyectoIdentity.Models.ModelosRespuestas
+﻿using ProyectoIdentity.Models.ModelsJourney;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ProyectoIdentity.Models.ModelosRespuestas
 {
     
     public class RespuestasConvalor
@@ -6,7 +9,7 @@
         public int IdPregunta { get; set; }
         public string Opcion { get; set; }
 
-        public string Valor { get; set; }
+        public float Valor { get; set; }
     }
 
 
@@ -26,6 +29,9 @@
         public float Atractivo { get; set; }
 
         public float Funcionamiento { get; set; }
+        [ForeignKey("EncuestaRespondenteB")]
+        public int? EncuestaResponcenteId { get; set; }
+        public EncuestaRespondenteB? EncuestaRespondenteB { get; set; }
 
     }
 
