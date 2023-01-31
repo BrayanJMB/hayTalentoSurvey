@@ -50,17 +50,10 @@ $(document).ready(function () {
 
     $(".previous").click(function () {
         debugger;
-        contador -=1
         current_fs = $(this).parent().parent().parent().parent().parent();
         previous_fs = $(this).parent().parent().parent().parent().parent().prev();
         //Remove class active
         $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-        if (contador == -1){
-            $(".titulo-dimension").text("Aspectos Demográficos");
-            $(".descripcion-dimension").text("País, Ciudad, Unidad de Negocio, Área");
-        }else{
-            $(".titulo-dimension").text(tituloDimension[contador]);
-        }
         
         //show the previous fieldset
         previous_fs.show();
