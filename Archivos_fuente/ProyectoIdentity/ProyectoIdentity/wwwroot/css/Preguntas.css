@@ -263,7 +263,7 @@ img{
     .addQuestion .question-list .options .block-text {
         width: calc(100% - 35px);
         font-size: 13px;
-        word-break: break-all;
+        
     }
 .sc-xWrgk{
     text-align: left;
@@ -670,6 +670,11 @@ ul.progressbar-mobile{
     .progressbar-mobile{
         display: block;
     }
+    
 }
 
-
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

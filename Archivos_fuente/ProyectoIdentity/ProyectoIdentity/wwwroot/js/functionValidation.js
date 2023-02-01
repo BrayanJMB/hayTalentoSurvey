@@ -57,7 +57,6 @@ $(document).ready(function () {
                             //Lógica para quitar el requerido 
                             if (contador == 1) {
                                 if (window.matchMedia("(min-width: 768px)").matches) {
-                                    debugger;
                                     document.querySelectorAll("fieldset.active table select").forEach(function (input) {
                                         input.required = true;
                                     });
@@ -109,7 +108,7 @@ $(document).ready(function () {
                     flagCheck=false;
                     errorP.style.color = "red";
                     errorP.innerHTML = "Debe seleccionar una opción";
-                    errorP.nextElementSibling.focus();
+                    errorP.scrollIntoView();
                 }
             }
         } else

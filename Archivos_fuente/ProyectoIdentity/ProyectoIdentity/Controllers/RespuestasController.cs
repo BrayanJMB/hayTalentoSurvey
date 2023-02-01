@@ -178,7 +178,7 @@ namespace ProyectoIdentity.Controllers
                     PreguntaId = respuesta.IdPregunta,
                     RespondenteId = repondente.Entity.Id,
                     DescripcionRespuesta = respuesta.Opcion,
-                    Valor = respuesta.Valor
+                    Valor = respuesta.Valor,
                     EncuestaRespondenteId = encuestaResppondente.Entity.Id
                 });
             }
@@ -188,7 +188,7 @@ namespace ProyectoIdentity.Controllers
                 {
                     PreguntaId = respuesta.IdPregunta,
                     RespondenteId = repondente.Entity.Id,
-                    DescripcionRespuesta = respuesta.labelRespuesta
+                    DescripcionRespuesta = respuesta.labelRespuesta,
                     EncuestaRespondenteId = encuestaResppondente.Entity.Id
 
                 });

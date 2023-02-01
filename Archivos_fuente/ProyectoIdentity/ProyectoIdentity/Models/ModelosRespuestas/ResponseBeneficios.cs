@@ -20,6 +20,7 @@ namespace ProyectoIdentity.Models.ModelosRespuestas
     }
 
     public class RespuestaPersonalizada {
+        public int Id { get; set; }
         public int IdPregunta { get; set; }
 
         public string Concepto { get; set; }
