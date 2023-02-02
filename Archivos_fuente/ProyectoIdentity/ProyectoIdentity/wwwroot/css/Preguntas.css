@@ -2,19 +2,21 @@
     letter-spacing: 0.25px;
 }
 
-img{
-    max-width:100%;
-    height:auto;
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 .app-container .col-middle {
     width: 938px;
     padding-top: 36px;
 }
+
 .app-main-container {
     flex: 1;
     max-width: 940px;
 }
+
 .app-main-content-wrapper {
     flex: 1;
     display: -webkit-flex;
@@ -31,6 +33,7 @@ img{
     width: 100%;
     padding-bottom: 50px;
 }
+
 .app-main-content {
     flex: 1;
     width: 100%;
@@ -38,6 +41,7 @@ img{
     height: 90vh;
     height: calc(100vh - 70px);
 }
+
 .fqodEh .headerIcon {
     padding-right: 16px;
 }
@@ -58,6 +62,7 @@ img{
     transition: box-shadow 0.2s ease-in-out 0s;
     padding: 24px;
 }
+
 .app-wrapper {
     padding: 0px 0px 0px 28px;
     width: 100%;
@@ -66,6 +71,7 @@ img{
 .fqodEh {
     margin-bottom: 5px;
 }
+
     .fqodEh .heading-wrapper {
         overflow: hidden;
         flex: 1 1 0%;
@@ -108,6 +114,7 @@ img{
     transition: box-shadow 0.2s ease-in-out 0s;
     padding: 20px;
 }
+
 .addQuestion {
     color: rgb(36, 36, 36);
     box-sizing: border-box;
@@ -171,7 +178,7 @@ img{
         color: #FF9031;
         font-size: 12px;
         box-sizing: border-box;
-        min-width:100px;
+        min-width: 100px;
         text-align: center;
     }
 
@@ -192,7 +199,7 @@ img{
         cursor: pointer;
         top: 0;
         bottom: 0;
-        margin-top: auto;        
+        margin-top: auto;
         height: 48px;
     }
 
@@ -263,9 +270,9 @@ img{
     .addQuestion .question-list .options .block-text {
         width: calc(100% - 35px);
         font-size: 13px;
-        
     }
-.sc-xWrgk{
+
+.sc-xWrgk {
     text-align: left;
     font-family: Inter, sans-serif, sans-serif;
     font-size: 16px;
@@ -273,7 +280,6 @@ img{
     color: rgb(36, 36, 36);
     font-weight: 300;
     letter-spacing: 0.25px;
-    
 }
 
 .lssbs {
@@ -510,21 +516,22 @@ element.style {
     transition: all 0.2s ease-in 0s;
     border: none;
     border-radius: 8px;
-    margin-left:3px;
+    margin-left: 3px;
 }
 
 
 .steppeActionBlock {
-     padding: 10px 20px; 
-     background-color: #fff; 
-     box-shadow: 0px 1px 4px rgb(36 37 47 / 20%); 
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 0px 1px 4px rgb(36 37 47 / 20%);
     position: -webkit-sticky;
-     position: sticky; 
-     bottom: 5px; 
-     left: 0px; 
-     margin-top: 24px; 
+    position: sticky;
+    bottom: 5px;
+    left: 0px;
+    margin-top: 24px;
     display: block;
 }
+
 .MuiStepIcontext-0-2-1055 {
     fill: #fff;
     font-size: 0.75rem;
@@ -551,12 +558,13 @@ element.style {
     }
 
 .modal-content {
-    margin-top:95px;
-    margin-left:65px;
+    margin-top: 95px;
+    margin-left: 65px;
 }
+
 @media (min-width: 576px) {
     .modal-dialog {
-        max-width:935px;
+        max-width: 935px;
     }
 }
 
@@ -613,6 +621,7 @@ element.style {
     font-weight: 300;
     color: rgb(134, 140, 204);
 }
+
 .surveyContentWrap .option-num {
     width: 25px;
     height: 25px;
@@ -623,12 +632,13 @@ element.style {
     border-radius: 4px;
     color: #B2B2B2;
 }
+
 .fglRPU {
     flex: 1 1 0%;
 }
 
 /*Table style */
-.title-table{
+.title-table {
     font-size: 14px;
     text-align: center;
 }
@@ -636,9 +646,10 @@ element.style {
 
 
 /* View Mobile*/
-ul.progressbar-mobile{
+ul.progressbar-mobile {
     padding-left: 0;
 }
+
 @media (min-width: 768px) {
     table.title-table {
         display: block;
@@ -647,34 +658,58 @@ ul.progressbar-mobile{
     div#accordion {
         display: none;
     }
-    .progressbar-destokp{
+
+    .progressbar-destokp {
         display: flex;
     }
-    .progressbar-mobile{
+
+    .progressbar-mobile {
         display: none;
     }
 }
 
 
 @media (max-width: 767.97px) {
-    table{
+    table {
         display: none;
     }
-    div#accordion{
+
+    div#accordion {
         display: block;
     }
 
-    .progressbar-destokp{
+    .progressbar-destokp {
         display: none;
     }
-    .progressbar-mobile{
+
+    .progressbar-mobile {
         display: block;
     }
-    
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.input-group {
+    display: flex;
+    align-items: center;
 }
+
+    .input-group button {
+        width: 40px;
+        height: 40px;
+        border: 1px solid gray;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .input-group input[type="number"] {
+        width: 80px;
+        height: 40px;
+        text-align: center;
+        font-size: 24px;
+        border: 1px solid gray;
+        border-radius: 4px;
+        padding: 0 8px;
+    }

@@ -55,7 +55,7 @@ $(document).ready(function () {
                                 duration: 600
                             });
                             //Lógica para quitar el requerido 
-                            if (contador == 1) {
+                            if (contador == 1 || contador == 3) {
                                 if (window.matchMedia("(min-width: 768px)").matches) {
                                     document.querySelectorAll("fieldset.active table select").forEach(function (input) {
                                         input.required = true;

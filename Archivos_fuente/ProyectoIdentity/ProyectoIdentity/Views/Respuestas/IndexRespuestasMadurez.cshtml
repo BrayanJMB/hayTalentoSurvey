@@ -73,8 +73,19 @@
                                                         <div class="col-md-12">
                                                             <div class="showEditDelete">
                                                                 <div>
-
-                                                                    <div class="bold-questions d-inline-flex mb-0">@indexPregunta.&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
+                                                                    @if (indexPregunta == 7)
+                                                                    {
+                                                                        <div class="bold-questions  mb-0">
+                                                                            <p class="font-italic">‘De la siguiente lista de beneficios que ofrece el mercado (numerales 7-22), por favor especifique si aplican en la compañía o el nivel de percepción.’</p>
+                                                                            <p>@indexPregunta.&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</p>
+                                                                        </div>
+                                                                        
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="bold-questions d-inline-flex mb-0">@indexPregunta.&nbsp;@Html.DisplayFor(p=>pregunta.NombrePregunta)</div>
+                                                                        
+                                                                    }
                                                                     <div class="row ml-2">
                                                                         @if (pregunta.Opciones != null)
                                                                         {
