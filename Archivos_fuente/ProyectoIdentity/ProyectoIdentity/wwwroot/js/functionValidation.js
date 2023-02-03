@@ -42,6 +42,7 @@ $(document).ready(function () {
                             $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
                             //show the next fieldset
                             next_fs.show();
+                            document.getElementById("progressbar").scrollIntoView();
                             current_fs.animate({ opacity: 0 }, {
                                 step: function (now) {
                                     // for making fielset appear animation
@@ -72,6 +73,7 @@ $(document).ready(function () {
                                     });
                                 };
                             }
+
                         }else {
                             window.location.href = '@Url.Action("EnvioIndexRespuestasMadurez","Respuestas")';
                         }
@@ -126,6 +128,7 @@ $(document).ready(function () {
         $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");        
         //show the previous fieldset
         previous_fs.show();
+        document.getElementById("progressbar").scrollIntoView();
         //hide the current fieldset with style
         current_fs.animate({ opacity: 0 }, {
             step: function (now) {

@@ -33,9 +33,9 @@
     <div class="row justify-content-center mt-0">
         <div class="row">
             <div class="col-md-12 mx-0">
-                <form id="msform" class="needs-validation" novalidate asp-action="EnvioIndexRespuestas" asp-controller="Respuestas">
+                <form id="msform" class="needs-validation " novalidate asp-action="EnvioIndexRespuestas" asp-controller="Respuestas">
                     <!-- progressbar -->
-                    <ul id="progressbar">
+                    <ul id="progressbar" class="progressbar-destokp">
                         @foreach (var categori in Model.Categorias)
                         {
                             if (Active)
@@ -1147,6 +1147,8 @@
                 });
 
             });
+
+            
 
 
 

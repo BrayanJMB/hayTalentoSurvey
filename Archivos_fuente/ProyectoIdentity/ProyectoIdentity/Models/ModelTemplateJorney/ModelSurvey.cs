@@ -328,6 +328,21 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
         }
 
+        private static List<Opcion> OpcionesLikkert2()
+        {
+
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "No aplica" },
+                new Opcion { Id = 2, OpcionName = "Muy por debajo del mercado" },
+                new Opcion { Id = 3, OpcionName = "Podría mejorar" },
+                new Opcion { Id = 4, OpcionName = "Esta en línea con el mercado" },
+                new Opcion { Id = 5, OpcionName = "Sobrepasa el mercado" },
+            };
+
+            return OpcionesLik;
+
+        }
+
 
         private static List<Opcion> optionActividad2()
         {
@@ -564,11 +579,11 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         {
 
             var OpcionesLik = new List<Opcion> {
-                new Opcion { Id = 1, OpcionName = "Mínimo: No se tiene ningún beneficio o los existentes son producto de disposiciones unilaterales o de acuerdos colectivos." },
-                new Opcion { Id = 2, OpcionName = "Estable: Los beneficios están reglamentados en una política claramente definida que establece criterios de otorgamiento para que la administración sea equitativa." },
-                new Opcion { Id = 3, OpcionName = "Foco en Costo: Se hace un análisis de beneficios en relación con su aprovechamiento interno. Se lleva un control detallado de los beneficios y se cuenta con indicadores que permiten entender el grado de utilización de los mismos." },
-                new Opcion { Id = 4, OpcionName = "Foco en el Diseño: Se realiza un monitoreo permanente del mercado para incorporar toda oportunidad que pueda ser utilizada como beneficio(ejemplo: descuentos en establecimientos, convenios).Se hace una negociación con los proveedores con el fin de lograr economías de escala y mejores prestaciones del servicio." },
-                new Opcion { Id = 5, OpcionName = "Foco en el Empleado (Alto impulso): Se cuenta con un programa de beneficios a la carta o flexibles, el cual genera la posibilidad al colaborador de escoger sus propios beneficios de acuerdo con su momento de vida y necesidades personales y familiares." },
+                new Opcion { Id = 1, OpcionName = "Mínimo.: No se tiene ningún beneficio o los existentes son producto de disposiciones unilaterales o de acuerdos colectivos." },
+                new Opcion { Id = 2, OpcionName = "Estable.: Los beneficios están reglamentados en una política claramente definida que establece criterios de otorgamiento para que la administración sea equitativa." },
+                new Opcion { Id = 3, OpcionName = "Foco en Costo.: Se hace un análisis de beneficios en relación con su aprovechamiento interno. Se lleva un control detallado de los beneficios y se cuenta con indicadores que permiten entender el grado de utilización de los mismos." },
+                new Opcion { Id = 4, OpcionName = "Foco en el Diseño.: Se realiza un monitoreo permanente del mercado para incorporar toda oportunidad que pueda ser utilizada como beneficio(ejemplo: descuentos en establecimientos, convenios).Se hace una negociación con los proveedores con el fin de lograr economías de escala y mejores prestaciones del servicio." },
+                new Opcion { Id = 5, OpcionName = "Foco en el Empleado (Alto impulso).: Se cuenta con un programa de beneficios a la carta o flexibles, el cual genera la posibilidad al colaborador de escoger sus propios beneficios de acuerdo con su momento de vida y necesidades personales y familiares." },
             };
 
             return OpcionesLik;
@@ -715,14 +730,14 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                      TipoPregunta="Likkert",
                      IdTipo = 2,
                      NumeroPregunta=18,
-                     Opciones=OpcionesLikkert1()
+                     Opciones=OpcionesLikkert2()
                  },
                  new Pregunta {
                      NombrePregunta="¿La distribución de beneficios es equitativa?",
                      TipoPregunta="Likkert",
                      IdTipo = 2,
                      NumeroPregunta=19,
-                     Opciones=OpcionesLikkert1()},
+                     Opciones=OpcionesLikkert2()},
             };
             return Preguntas;
         }
