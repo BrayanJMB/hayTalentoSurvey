@@ -283,7 +283,6 @@ namespace ProyectoIdentity.Controllers
             var encuestaRespo =await _context.EncuestaRepondente.AddAsync(new EncuestaRepondente
             {
                 EncuestaId = IdEncuesta,
-                RespuestasMadurez = Respouestas,
                 PonderadoRespuesta = (ValueRespuesta.Sum() / ValueRespuesta.Count())
             });
             await _context.SaveChangesAsync();

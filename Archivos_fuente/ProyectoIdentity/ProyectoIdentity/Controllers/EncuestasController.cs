@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using ProyectoIdentity.Datos;
 using ProyectoIdentity.Models.ModelsJourney;
 using ProyectoIdentity.Models.ModelTemplateJorney;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using Opcion = ProyectoIdentity.Models.ModelTemplateJorney.Opcion;
@@ -155,25 +156,25 @@ namespace ProyectoIdentity.Controllers
                 encuestaRes.Entity.Link = _configuration.GetValue<string>("LinkSurvey") + "?idSurvey=" + encuestaRes.Entity.Id;
                 _context.Encuesta.Update(encuestaRes.Entity);
                 //demograficos Tablas Area Y negocios                    
-                List<string> datosAreas = encuesta.CategoriaR[0].Preguntas.Where(p => p.Nombre == "Area").Select(x => x.Opciones).First().Select(y => y.NombreOpcion.ToLower()).ToList();
+                List<string> datosAreas = encuesta.CategoriaR[0].Preguntas.Where(p => p.Nombre == "Area").Select(x => x.Opciones).First().Select(y => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(y.NombreOpcion)).ToList();
                 List<string> areas = new();
                 if (datosAreas != null)
                 {
                     List<string> opcionesDatabase = await _context.Area.Select(x => x.AreaName.ToLower()).ToListAsync();
                     if (opcionesDatabase.Count > 0)
-                        areas = datosAreas.Except(opcionesDatabase.Select(x => x.ToLower())).ToList();
+                        areas = datosAreas.Except(opcionesDatabase).ToList();
                     else
                         areas = datosAreas;
                 }
 
 
-                var datosNegocio = encuesta.CategoriaR[0].Preguntas.Where(p => p.Nombre == "Unidad de Negocio").Select(p => p.Opciones).First().Select(y => y.NombreOpcion.ToLower()).ToList();
+                var datosNegocio = encuesta.CategoriaR[0].Preguntas.Where(p => p.Nombre == "Unidad de Negocio").Select(p => p.Opciones).First().Select(y => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(y.NombreOpcion)).ToList();
                 List<string> negocios = new();
                 if (datosNegocio != null)
                 {
                     var opcionesNegocios = await _context.BusinessUnit.Select(a => a.NameBusinnes).ToListAsync();
                     if (opcionesNegocios.Count > 0)
-                        negocios = datosNegocio.Except(opcionesNegocios.Select(x => x.ToLower())).ToList();
+                        negocios = datosNegocio.Except(opcionesNegocios).ToList();
                     else
                         negocios = datosNegocio;
                 }
