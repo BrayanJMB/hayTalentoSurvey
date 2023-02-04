@@ -290,8 +290,6 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
             //    TipoPregunta = "Selección",
             //    Opciones = Demo12(),
             //},
-
-
             };
             return Demograficos;
         }
@@ -315,7 +313,6 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
 
         private static List<Opcion> OpcionesLikkert1()
         {
-
             var OpcionesLik = new List<Opcion> {
                 new Opcion { Id = 1, OpcionName = "No aplica" },
                 new Opcion { Id = 2, OpcionName = "No cumple las expectativas" },
@@ -323,10 +320,20 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                 new Opcion { Id = 4, OpcionName = "Cumple las expectativas" },
                 new Opcion { Id = 5, OpcionName = "Supera las expectativas" },
             };
-
             return OpcionesLik;
-
         }
+        private static List<Opcion> OpcionesPregunta17()
+        {
+            var OpcionesLik = new List<Opcion> {
+                new Opcion { Id = 1, OpcionName = "Primas Extralegales" },
+                new Opcion { Id = 2, OpcionName = "Bonos" },
+                new Opcion { Id = 3, OpcionName = "Horas Libres" },
+                new Opcion { Id = 4, OpcionName = "Gimnasio" },
+                new Opcion { Id = 5, OpcionName = "Subsidio Educativo" },
+            };
+            return OpcionesLik;
+        }
+
 
         private static List<Opcion> OpcionesLikkert2()
         {

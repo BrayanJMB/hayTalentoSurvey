@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProyectoIdentity.Migrations
 {
-    public partial class NewMigration : Migration
+    public partial class NewDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -258,6 +258,33 @@ namespace ProyectoIdentity.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Respondente",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Area = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BussinesUnitId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AreaName = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    BusinessUnitNameBusinnes = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Respondente", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Respondente_Area_AreaName",
+                        column: x => x.AreaName,
+                        principalTable: "Area",
+                        principalColumn: "AreaName");
+                    table.ForeignKey(
+                        name: "FK_Respondente_BusinessUnit_BusinessUnitNameBusinnes",
+                        column: x => x.BusinessUnitNameBusinnes,
+                        principalTable: "BusinessUnit",
+                        principalColumn: "NameBusinnes");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "City",
                 columns: table => new
                 {
@@ -397,38 +424,80 @@ namespace ProyectoIdentity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Respondente",
+                name: "DemograficoPersonal",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CountryId = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    CityId = table.Column<string>(type: "nvarchar(255)", nullable: true),
-                    AreaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    BussinesUnitId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Parentesco = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sexo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EstadoCivil = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NivelEducativo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DependenciaEconomica = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Edad = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RespondenteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Respondente", x => x.Id);
+                    table.PrimaryKey("PK_DemograficoPersonal", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Respondente_Area_AreaId",
-                        column: x => x.AreaId,
-                        principalTable: "Area",
-                        principalColumn: "AreaName");
+                        name: "FK_DemograficoPersonal_Respondente_RespondenteId",
+                        column: x => x.RespondenteId,
+                        principalTable: "Respondente",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EncuestaRepondente",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EncuestaId = table.Column<int>(type: "int", nullable: false),
+                    RespondenteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    FechaRespuesta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PonderadoRespuesta = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EncuestaRepondente", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Respondente_BusinessUnit_BussinesUnitId",
-                        column: x => x.BussinesUnitId,
-                        principalTable: "BusinessUnit",
-                        principalColumn: "NameBusinnes");
+                        name: "FK_EncuestaRepondente_Encuesta_EncuestaId",
+                        column: x => x.EncuestaId,
+                        principalTable: "Encuesta",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Respondente_City_CityId",
-                        column: x => x.CityId,
-                        principalTable: "City",
-                        principalColumn: "CityName");
+                        name: "FK_EncuestaRepondente_Respondente_RespondenteId",
+                        column: x => x.RespondenteId,
+                        principalTable: "Respondente",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EncuestaRespondenteB",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EncuestaId = table.Column<int>(type: "int", nullable: false),
+                    RespondenteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    FechaRespuesta = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EncuestaRespondenteB", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Respondente_Country_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Country",
-                        principalColumn: "CountryName");
+                        name: "FK_EncuestaRespondenteB_Encuesta_EncuestaId",
+                        column: x => x.EncuestaId,
+                        principalTable: "Encuesta",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EncuestaRespondenteB_Respondente_RespondenteId",
+                        column: x => x.RespondenteId,
+                        principalTable: "Respondente",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -461,53 +530,26 @@ namespace ProyectoIdentity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DemograficosName",
+                name: "RespuestaPersonalizada",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Parentezco = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Sexo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Estadocivil = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NivelEducativo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DependenciaEconomica = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Edad = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RespondenteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    IdPregunta = table.Column<int>(type: "int", nullable: false),
+                    Concepto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Beneficio = table.Column<bool>(type: "bit", nullable: false),
+                    Atractivo = table.Column<float>(type: "real", nullable: false),
+                    Funcionamiento = table.Column<float>(type: "real", nullable: false),
+                    EncuestaResponcenteId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DemograficosName", x => x.Id);
+                    table.PrimaryKey("PK_RespuestaPersonalizada", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DemograficosName_Respondente_RespondenteId",
-                        column: x => x.RespondenteId,
-                        principalTable: "Respondente",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EncuestaRepondente",
-                columns: table => new
-                {
-                    EncuestaId = table.Column<int>(type: "int", nullable: false),
-                    RespondenteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FechaRespuesta = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EncuestaRepondente", x => new { x.EncuestaId, x.RespondenteId });
-                    table.ForeignKey(
-                        name: "FK_EncuestaRepondente_Encuesta_EncuestaId",
-                        column: x => x.EncuestaId,
-                        principalTable: "Encuesta",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EncuestaRepondente_Respondente_RespondenteId",
-                        column: x => x.RespondenteId,
-                        principalTable: "Respondente",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_RespuestaPersonalizada_EncuestaRespondenteB_EncuestaResponcenteId",
+                        column: x => x.EncuestaResponcenteId,
+                        principalTable: "EncuestaRespondenteB",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -539,11 +581,17 @@ namespace ProyectoIdentity.Migrations
                     RespondenteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PreguntaId = table.Column<int>(type: "int", nullable: false),
                     DescripcionRespuesta = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Valor = table.Column<float>(type: "real", nullable: false)
+                    Valor = table.Column<float>(type: "real", nullable: true),
+                    EncuestaRespondenteId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Respuesta", x => new { x.PreguntaId, x.RespondenteId });
+                    table.ForeignKey(
+                        name: "FK_Respuesta_EncuestaRespondenteB_EncuestaRespondenteId",
+                        column: x => x.EncuestaRespondenteId,
+                        principalTable: "EncuestaRespondenteB",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Respuesta_Pregunta_PreguntaId",
                         column: x => x.PreguntaId,
@@ -558,18 +606,46 @@ namespace ProyectoIdentity.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "RespuestaMadurezcs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DescripcionRespuesta = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Valor = table.Column<float>(type: "real", nullable: true),
+                    PreguntaId = table.Column<int>(type: "int", nullable: false),
+                    EncuestaRespondenteID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RespuestaMadurezcs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RespuestaMadurezcs_EncuestaRepondente_EncuestaRespondenteID",
+                        column: x => x.EncuestaRespondenteID,
+                        principalTable: "EncuestaRepondente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RespuestaMadurezcs_Pregunta_PreguntaId",
+                        column: x => x.PreguntaId,
+                        principalTable: "Pregunta",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
             migrationBuilder.InsertData(
                 table: "Categoria",
                 columns: new[] { "Id", "Descripcion", "NombreCategoria" },
                 values: new object[,]
                 {
-                    { 1, "País, Ciudad, Unidad de Negocio, Área Diligencie la información de acuerdo con tus datos actuales", "Aspectos Demográficos" },
-                    { 2, "Diligencia la siguiente información acorde con tu actualidad y la de tu núcleo familiar", "Datos Demográficos" },
+                    { 1, "Diligencie la información de acuerdo con sus datos actuales", "Aspectos Demográficos" },
+                    { 2, "Diligencia la siguiente información acorde con tu actualidad y la de tu núcleo familiar", "Datos Personales" },
                     { 3, "Aspectos relacionados con las condiciones favorables en la relación laboral y el ambiente de trabajo.", "Beneficios de Calidad de Vida" },
                     { 4, "Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales.", "Beneficios Monetarios y No Monetarios" },
-                    { 5, "Paquete de mejoras extralegales que complementan el salario base, pueden ser monetarias o emocionales", "Beneficios de Desarrollo Personal" },
-                    { 6, "Acciones de largo plazo que apuestan por el crecimiento personal, potencializar el talento y transformar la organización", "Beneficios en Herramientas de Trabajo" },
-                    { 7, "Elementos útiles para una adecuada realización de la labor", "Beneficios/Madurez" }
+                    { 5, "Acciones de largo plazo que apuestan por el crecimiento personal, potencializar el talento y transformar la organización.", "Beneficios de Desarrollo Personal" },
+                    { 6, "Elementos útiles para una adecuada realización de la labor.", "Beneficios en Herramientas de Trabajo" },
+                    { 7, "Nivel en el que la compañía asimila o integra buenas prácticas relacionadas con la administración de los beneficios", "Beneficios/Madurez" }
                 });
 
             migrationBuilder.InsertData(
@@ -756,8 +832,8 @@ namespace ProyectoIdentity.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DemograficosName_RespondenteId",
-                table: "DemograficosName",
+                name: "IX_DemograficoPersonal_RespondenteId",
+                table: "DemograficoPersonal",
                 column: "RespondenteId");
 
             migrationBuilder.CreateIndex(
@@ -806,8 +882,23 @@ namespace ProyectoIdentity.Migrations
                 column: "EncuestaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EncuestaRepondente_EncuestaId",
+                table: "EncuestaRepondente",
+                column: "EncuestaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EncuestaRepondente_RespondenteId",
                 table: "EncuestaRepondente",
+                column: "RespondenteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EncuestaRespondenteB_EncuestaId",
+                table: "EncuestaRespondenteB",
+                column: "EncuestaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EncuestaRespondenteB_RespondenteId",
+                table: "EncuestaRespondenteB",
                 column: "RespondenteId");
 
             migrationBuilder.CreateIndex(
@@ -831,29 +922,39 @@ namespace ProyectoIdentity.Migrations
                 column: "TipoPreguntaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Respondente_AreaId",
+                name: "IX_Respondente_AreaName",
                 table: "Respondente",
-                column: "AreaId");
+                column: "AreaName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Respondente_BussinesUnitId",
+                name: "IX_Respondente_BusinessUnitNameBusinnes",
                 table: "Respondente",
-                column: "BussinesUnitId");
+                column: "BusinessUnitNameBusinnes");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Respondente_CityId",
-                table: "Respondente",
-                column: "CityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Respondente_CountryId",
-                table: "Respondente",
-                column: "CountryId");
+                name: "IX_Respuesta_EncuestaRespondenteId",
+                table: "Respuesta",
+                column: "EncuestaRespondenteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Respuesta_RespondenteId",
                 table: "Respuesta",
                 column: "RespondenteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RespuestaMadurezcs_EncuestaRespondenteID",
+                table: "RespuestaMadurezcs",
+                column: "EncuestaRespondenteID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RespuestaMadurezcs_PreguntaId",
+                table: "RespuestaMadurezcs",
+                column: "PreguntaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RespuestaPersonalizada_EncuestaResponcenteId",
+                table: "RespuestaPersonalizada",
+                column: "EncuestaResponcenteId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -874,7 +975,10 @@ namespace ProyectoIdentity.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "DemograficosName");
+                name: "City");
+
+            migrationBuilder.DropTable(
+                name: "DemograficoPersonal");
 
             migrationBuilder.DropTable(
                 name: "EncuestaArea");
@@ -886,9 +990,6 @@ namespace ProyectoIdentity.Migrations
                 name: "EncuestaDemografico");
 
             migrationBuilder.DropTable(
-                name: "EncuestaRepondente");
-
-            migrationBuilder.DropTable(
                 name: "Opcion");
 
             migrationBuilder.DropTable(
@@ -898,16 +999,28 @@ namespace ProyectoIdentity.Migrations
                 name: "Respuesta");
 
             migrationBuilder.DropTable(
+                name: "RespuestaMadurezcs");
+
+            migrationBuilder.DropTable(
+                name: "RespuestaPersonalizada");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Country");
 
             migrationBuilder.DropTable(
                 name: "Demograficos");
 
             migrationBuilder.DropTable(
+                name: "EncuestaRepondente");
+
+            migrationBuilder.DropTable(
                 name: "Pregunta");
 
             migrationBuilder.DropTable(
-                name: "Respondente");
+                name: "EncuestaRespondenteB");
 
             migrationBuilder.DropTable(
                 name: "EncuestaCategoria");
@@ -916,13 +1029,7 @@ namespace ProyectoIdentity.Migrations
                 name: "TipoPregunta");
 
             migrationBuilder.DropTable(
-                name: "Area");
-
-            migrationBuilder.DropTable(
-                name: "BusinessUnit");
-
-            migrationBuilder.DropTable(
-                name: "City");
+                name: "Respondente");
 
             migrationBuilder.DropTable(
                 name: "Categoria");
@@ -931,7 +1038,10 @@ namespace ProyectoIdentity.Migrations
                 name: "Encuesta");
 
             migrationBuilder.DropTable(
-                name: "Country");
+                name: "Area");
+
+            migrationBuilder.DropTable(
+                name: "BusinessUnit");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

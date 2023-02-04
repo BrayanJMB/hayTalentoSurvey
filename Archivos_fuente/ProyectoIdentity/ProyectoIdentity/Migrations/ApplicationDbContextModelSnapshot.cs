@@ -310,7 +310,7 @@ namespace ProyectoIdentity.Migrations
                         {
                             Id = 2,
                             Descripcion = "Diligencia la siguiente información acorde con tu actualidad y la de tu núcleo familiar",
-                            NombreCategoria = "Datos Demográficos"
+                            NombreCategoria = "Datos Personales"
                         },
                         new
                         {

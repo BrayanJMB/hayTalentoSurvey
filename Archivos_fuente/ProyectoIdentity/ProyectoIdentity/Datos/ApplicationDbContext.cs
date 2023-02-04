@@ -56,7 +56,7 @@ namespace ProyectoIdentity.Datos
                 new Categoria{Id=1,NombreCategoria="Aspectos Demográficos",
                         Descripcion="Diligencie la información de acuerdo con sus datos actuales"
                     },
-                new Categoria{Id=2,NombreCategoria="Datos Demográficos",
+                new Categoria{Id=2,NombreCategoria="Datos Personales",
                         Descripcion="Diligencia la siguiente información acorde con tu actualidad y la de tu núcleo familiar"
                     },
 
