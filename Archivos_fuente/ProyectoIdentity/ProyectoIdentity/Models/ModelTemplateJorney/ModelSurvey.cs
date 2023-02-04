@@ -730,7 +730,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
                      NumeroPregunta=17,
                      TipoPregunta="Likkert",
                      IdTipo = 2,
-                     Opciones=OpcionesLikkert1()
+                     Opciones=OpcionesPregunta17()
                  },
                  new Pregunta {
                      NombrePregunta="¿Los beneficios son mejores que en la mayoría de las empresas del mercado?",
