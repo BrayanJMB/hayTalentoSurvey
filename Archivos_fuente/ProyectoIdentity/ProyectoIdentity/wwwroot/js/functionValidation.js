@@ -40,9 +40,11 @@ $(document).ready(function () {
                             $("fieldset").eq($("fieldset").index(next_fs)).addClass("active");
                             form.classList.remove('was-validated');
                             $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+                            $("#progressbar-mobile li").eq($("fieldset").index(next_fs)).addClass("active");
                             //show the next fieldset
                             next_fs.show();
                             document.getElementById("progressbar").scrollIntoView();
+                            document.getElementById("progressbar-mobile").scrollIntoView();
                             current_fs.animate({ opacity: 0 }, {
                                 step: function (now) {
                                     // for making fielset appear animation
@@ -98,8 +100,12 @@ $(document).ready(function () {
                 let councantValida=nextCant==true?3:0;
                 let listCheckBoxes = option.querySelectorAll(".datacheck");
                 listCheckBoxes.forEach(element => {
-                    if (element.checked ) {
+                    if (element.checked) {
                         countCant++
+                        if (councantValida == 3 && element.value == "Ninguna") {
+                            console.log("entro aca")
+                            validateGroup = true;
+                        }
                         if( countCant>=councantValida){
                             validateGroup = true;
                             errorP.innerHTML = "";
@@ -125,7 +131,8 @@ $(document).ready(function () {
         current_fs = $(this).parent().parent().parent().parent().parent();
         previous_fs = $(this).parent().parent().parent().parent().parent().prev();
         //Remove class active
-        $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");        
+        $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+        $("#progressbar-mobile li").eq($("fieldset").index(next_fs)).removeClass("active");
         //show the previous fieldset
         previous_fs.show();
         document.getElementById("progressbar").scrollIntoView();

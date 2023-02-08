@@ -88,20 +88,20 @@ select.list-dt {
 }
 
 /*progressbar*/
-#progressbar {
+#progressbar, #progressbar-mobile {
     margin-bottom: 30px;
     overflow: hidden;
     color: lightgrey;
     border-radius: 8px;
     padding-top: 10px;
-    margin-bottom:5px;
+    margin-bottom: 5px;
 }
 
-    #progressbar .active {
+    #progressbar .active, #progressbar-mobile .active {
         color: #000000;
     }
 
-    #progressbar li {
+    #progressbar li, #progressbar-mobile li{
         list-style-type: none;
         font-size: 12px;
         width: 14%;
@@ -110,27 +110,25 @@ select.list-dt {
     }
 
     /*Icons in the ProgressBar*/
-    #progressbar #account:before {
+    #progressbar #account:before, #progressbar-mobile #account:before {
         font-family: FontAwesome;
-        
     }
 
-    #progressbar #personal:before {
-        font-family: FontAwesome;        
-    }
-
-    #progressbar #payment:before {
+    #progressbar #personal:before, #progressbar-mobile #personal:before {
         font-family: FontAwesome;
-        
     }
 
-    #progressbar #confirm:before {
+    #progressbar #payment:before, #progressbar-mobile #payment:before {
+        font-family: FontAwesome;
+    }
+
+    #progressbar #confirm:before, #progressbar-mobile #confirm:before {
         font-family: FontAwesome;
         content: "\f00c";
     }
 
     /*ProgressBar before any progress*/
-    #progressbar li:before {
+    #progressbar li:before, #progressbar-mobile li:before {
         width: 50px;
         height: 50px;
         line-height: 45px;
@@ -144,7 +142,7 @@ select.list-dt {
     }
 
     /*Color number of the step and the connector before it*/
-    #progressbar li.active:before, #progressbar li.active:after {
+    #progressbar li.active:before, #progressbar li.active:after, #progressbar-mobile li.active:before, #progressbar-mobile li.active:after {
         background: skyblue;
     }
 
