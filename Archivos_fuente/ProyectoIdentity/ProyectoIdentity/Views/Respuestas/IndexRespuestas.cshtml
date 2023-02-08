@@ -297,6 +297,7 @@
                                                                         <div id="@idMobile" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                                                                             <div class="card-body">
                                                                                 <div>
+                                                                                    
                                                                                     <p>@option.Name</p>
                                                                                     @if (option.Name == "Hermano")
                                                                                     {
@@ -490,10 +491,10 @@
                                                                                                             <p>¿Cómo ha funcionado el beneficio?</p>
                                                                                                             <select class="form-select form-select-sm likkert" aria-label="Default select example" name="resPer[@contPerMobile].Funcionamiento" required>
                                                                                                                 <option value="" selected>Seleccione</option>
-                                                                                                                <option value="1,25">1.Malo</option>
-                                                                                                                <option value="2,50">2.Regular</option>
-                                                                                                                <option value="3,75">3.Bueno</option>
-                                                                                                                <option value="5,00">4.Excelente</option>
+                                                                                                                <option value="1,25">1.No Aplica</option>
+                                                                                                                <option value="2,50">2.Malo</option>
+                                                                                                                <option value="3,75">3.Regular</option>
+                                                                                                                <option value="5,00">4.Bueno</option>
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -541,10 +542,11 @@
                                                                                                         <td>
                                                                                                             <select class="form-select form-select-sm likkert" aria-label="Default select example" name="resPer[@contPer].Funcionamiento" required>
                                                                                                                 <option value="" selected>Seleccione</option>
+                                                                                                                <option value="5,00">4.No Aplica</option>
                                                                                                                 <option value="1,25">1.Malo</option>
                                                                                                                 <option value="2,50">2.Regular</option>
                                                                                                                 <option value="3,75">3.Bueno</option>
-                                                                                                                <option value="5,00">4.Excelente</option>
+                                                                                                                
                                                                                                             </select>
                                                                                                         </td>
                                                                                                     </tr>
