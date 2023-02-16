@@ -14,24 +14,24 @@
     <div class="col-6">
         <canvas id="myChart2"></canvas>
     </div>
-    <div class="col-3 relative" >
+    <div class="col-3 relative">
         <canvas id="myChart3"></canvas>
-          <div class="absolute-center text-center">
+        <div class="absolute-center text-center">
             <p>Some text</p>
-          </div>
+        </div>
     </div>
-        <div class="col-3 relative" >
+    <div class="col-3 relative">
         <canvas id="myChart4"></canvas>
-          <div class="absolute-center text-center">
+        <div class="absolute-center text-center">
             <p>Some text</p>
-          </div>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div style="width:200px" >
+    <div style="width:700px">
         <h2>Demograficos</h2>
-        <canvas id="demograficos"></canvas>
+        <canvas id="demograficos" width="800" height="600"></canvas>
     </div>
 
 </div>
@@ -48,8 +48,12 @@
     <canvas id="myChart6"></canvas>
 </div>
 
+
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/js/index.umd.js" asp-append-version="true"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2 "></script>
+
 
 <script>
     //Registra plugin
@@ -64,7 +68,7 @@
                     data: [{
                         x: 2,
                         y: 40,
-                        r: 120 
+                        r: 120
                     }]
                 },
                 {
@@ -74,7 +78,7 @@
                     data: [{
                         x: 2,
                         y: 35,
-                        r: 5 
+                        r: 5
                     }],
                     datalabels: {
                         color: 'black',
@@ -96,14 +100,14 @@
                         r: 50
                     }]
                 },
-                 {
-                    label: `2.4`,
+                {
+                    label: `2.0`,
                     backgroundColor: "rgba(255,255,255,0.1)",
                     borderColor: "rgba(255, 255,255,0.1)",
                     data: [{
                         x: 3.3,
                         y: 68,
-                        r: 5 
+                        r: 5
                     }],
                     datalabels: {
                         color: 'black',
@@ -135,7 +139,7 @@
                     }]
                 },
                 {
-                    label: `2.4`,
+                    label: `3.6`,
                     backgroundColor: "rgba(255,255,255,0.1)",
                     borderColor: "rgba(255, 255,255,0.1)",
                     data: [{
@@ -171,9 +175,9 @@
                         y: 20,
                         r: 50
                     }]
-                  },
+                },
                 {
-                    label: `2.4`,
+                    label: `3.0`,
                     backgroundColor: "rgba(255,255,255,0.1)",
                     borderColor: "rgba(255, 255,255,0.1)",
                     data: [{
@@ -271,7 +275,7 @@
             responsive: true,
             maintainAspectRation: false,
             plugins: {
-                tooltip:{
+                tooltip: {
                     display: false,
                     enabled: false
                 },
@@ -285,11 +289,11 @@
             },
             title: {
                 display: false
-            }, 
+            },
             scales: {
                 y: {
-                    min:0,
-                    max:80,
+                    min: 0,
+                    max: 80,
                     display: false
                 },
                 x: {
@@ -301,7 +305,7 @@
         }
     });
 
-  const dimensionBeneficioBar = document.getElementById('myChart2');
+    const dimensionBeneficioBar = document.getElementById('myChart2');
 
     new Chart(dimensionBeneficioBar, {
         type: 'bar',
@@ -317,14 +321,14 @@
             ]
         },
         options: {
-           plugins: {
-                tooltip:{
+            plugins: {
+                tooltip: {
                     display: false
                 },
                 legend: {
                     display: false
                 },
-           }
+            }
         }
     });
 
@@ -332,7 +336,7 @@
     new Chart(dimensionBeneficioBar2, {
         type: 'doughnut',
         data: {
-            labels: ['Probando','Bueno'],
+            labels: ['Probando', 'Bueno'],
             datasets: [
                 {
                     label: 'My First Dataset',
@@ -342,90 +346,40 @@
             ]
         },
         options: {
-           plugins: {
-                tooltip:{
+            plugins: {
+                tooltip: {
                     display: false
                 },
                 legend: {
                     display: false
                 }
-           }
+            }
         }
     });
 
-        const demografico = document.getElementById('demograficos');
-    const graficoConLinea = {
-        id: "graficoConLinea",
-        afterDraw(chart, args, options) {
-            const { ctx, chartArea: { top, bottom, left, right, width, height } } = chart;
-            chart.data.datasets.forEach((dataset, i)=>{
-                chart.getDatasetMeta(i).data.forEach((datapoint, index)=>{
-                    const { x, y } = datapoint.tooltipPosition();
-                    //ctx.fillStyle = dataset.backgroundColor[index];
-                    //ctx.fill();
-
-                    console.log(ctx)
-                    //draw line
-                    const halfwidth = width/2;
-                    const halfheight = height/2;
-                    const xLine = x >= halfwidth ? x + 15 : x - 15;
-                    const yLine = y >= halfheight ? y + 15 : y - 15;
-                    const extraLine = x >= halfwidth ? 15 : -15;
-                    ////
-                    ctx.beginPath();
-                    ctx.moveTo(x, y);
-                    ctx.lineTo(xLine, yLine);
-                    ctx.lineTo(xLine + extraLine, yLine);
-                    ctx.strokeStyle = dataset.backgroundColor[index];
-                    ctx.stroke();
-
-                    //text
-                    const textWidth = ctx.measureText(chart.data.labels[index]).width + 5;
-                    ctx.font = "12px Arial";
-
-                    //control position
-                    const textXPosition = x >= halfwidth ? 'left' : 'right';
-                    const plusFivePx = x >= halfwidth ?  5: -5;
-                    ctx.TextAlign = textXPosition;
-                    ctx.textBaseLine = "middle";
-                    ctx.fillStyle = dataset.backgroundColor[index];
-                    ctx.fillText(chart.data.labels[index], xLine + extraLine + plusFivePx, yLine);
-
-                })
-            })
-        }
-    }
+    const demografico = document.getElementById('demograficos');
     new Chart(demografico, {
-        type: 'doughnut',
+        type: 'pie',
         data: {
-            labels: ['Probando','Bueno'],
+            labels: ['Serie 1', 'Serie 2', 'Serie 3'],
             datasets: [
                 {
-                    label: 'My First Dataset',
-                    backgroundColor: ["#3e95cd", "#8e5ea2"],
-                    data: [21, 30],
-                    borderWidth:1,
-                    cutout:'90%'
+                    data: [30, 50, 20],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+                },
+                {
+                    data: [20, 40, 40],
+                    backgroundColor: ['#FF8F8F', '#66C2A5', '#FFD28F']
                 }
-            ],
-
+            ]
         },
         options: {
-            layout:{
-                padding: 20
-            },
-           plugins: {
-                tooltip:{
-                    display: false
-                },
-                legend: {
-                    display: false
-                }
-           }
-        },
-        plugins:[graficoConLinea]
+            title: {
+                display: true,
+                text: 'Gráfica de Multi Series Pie'
+            }
+        }
     });
-
     const dimensionBeneficioBar3 = document.getElementById('myChart4');
 
     //var data_ = []
@@ -442,19 +396,19 @@
                 {
                     label: 'My First Dataset',
                     backgroundColor: ["#3e95cd", "#8e5ea2"],
-                    data: ["2","4"]
+                    data: ["2", "4"]
                 }
             ]
         },
         options: {
-           plugins: {
-                tooltip:{
+            plugins: {
+                tooltip: {
                     display: false
                 },
                 legend: {
                     display: false
                 },
-           }
+            }
         }
 
     });
@@ -465,10 +419,10 @@
     new Chart(dimensionBeneficioBar4, {
         type: 'bar',
         data: {
-            labels: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio"],
+            labels: ["pregunta numero 1", "febrero", "marzo", "abril", "mayo", "junio", "julio"],
             datasets: [
                 {
-                    data: ["0.1","0.2","0.3",".5","0.7","0.75","3"],
+                    data: ["0.1", "0.2", "0.3", ".5", "0.7", "0.75", "5"],
                     backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
                     borderColor: "white",
                     borderWidth: 2,
@@ -490,7 +444,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Chart.js Horizontal Bar Chart'
+                    text: 'Dimension'
                 }
             }
         }
@@ -550,5 +504,7 @@
     };
 
     new Chart(dimensionBeneficioBar5, config_)
-</script>
 
+    
+
+</script>

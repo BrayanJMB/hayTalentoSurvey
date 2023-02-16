@@ -1,0 +1,80 @@
+﻿@model ProyectoIdentity.Controllers.SurveyShow
+
+
+
+<div class="row">
+    <h2>Percepciones para cada Dimensión y Pregunta</h2>
+    <div class="col-md-12">
+        <div class="card" style="width:100%">
+            <div class="card-body">
+                <h5 class="card-title">@Model.NombreCategoria</h5>
+            </div>
+            <hr />
+            <div class="card-body">
+                <p href="#" class="card-link">@Model.DescripcionCategoria</p>
+                
+            </div>
+        </div>
+    </div>
+        @foreach (var pregunta in Model.datospreguntas)
+        {
+            <div class="col-md-6 d-flex flex-column justify-content-between">
+            <p class="m-2">@pregunta.mispreguntas</p>
+            <div class="progress">
+                <div class="progress-bar @pregunta.Color" role="progressbar" style="width: @pregunta.porcentaje%" aria-valuenow="@pregunta.valores" aria-valuemin="0" aria-valuemax="5">@pregunta.valores</div>
+            </div>
+            </div>
+
+        }
+    </div>
+    
+    <!--<canvas id="myChart5"></canvas>-->
+</div>
+<div id="container" class="mx-auto my-0 mt-4" style="width: 960px; height: 600px; border: 1px solid black">
+    <canvas id="wordCloud"></canvas>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/js/index.umd.js" asp-append-version="true"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2 "></script>
+<script>
+    window.onload = () => {
+        const words = [
+            {key: 'Bar', value: 4 },
+            { key: 'vacaciones', value: 8 },
+            { key: 'cantina libre', value: 4 }
+            
+        ];
+        const data = {
+            labels: words.map((d) => d.key),
+            datasets: [
+                {
+                    label: '',
+                    data: words.map((d) => 10 + d.value * 10),
+                },
+            ],
+        };
+        const ctx = document.getElementById('wordCloud').getContext('2d');
+        window.myBar = new Chart(ctx, {
+            type: 'wordCloud',
+            data: data,
+            options: {
+                title: {
+                    display: false,
+                    text: 'Chart.js Word Cloud',
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                },
+            },
+        });
+    };
+
+</script>
+
+
+
