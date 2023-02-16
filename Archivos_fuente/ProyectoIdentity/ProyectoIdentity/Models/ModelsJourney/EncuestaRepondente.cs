@@ -16,7 +16,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
 
         public List<RespuestaMadurezcs>? RespuestasMadurez { get; set; }
 
-        public int PonderadoRespuesta { get; set; }
+        public float PonderadoRespuesta { get; set; }
 
         public Encuesta? Encuesta { get; set; }
 

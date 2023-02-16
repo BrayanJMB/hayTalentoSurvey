@@ -202,7 +202,6 @@ namespace ProyectoIdentity.Datos
 
             };
 
-            modelBuilder.Entity<Respuesta>().HasKey(r => new { r.PreguntaId, r.RespondenteId });
             modelBuilder.Entity<Categoria>().HasData(categorias);
             modelBuilder.Entity<TipoPregunta>().HasData(tipoPreguntas);
             modelBuilder.Entity<Country>().HasData(Paises);

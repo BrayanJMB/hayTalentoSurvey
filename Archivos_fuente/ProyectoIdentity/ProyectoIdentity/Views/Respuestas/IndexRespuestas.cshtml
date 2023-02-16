@@ -132,7 +132,7 @@
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 @foreach (var option in Model.Negocios)
                                                                                 {
-                                                                                    <option value="1">@option.NameBusinnes</option>
+                                                                                    <option value="@option.NameBusinnes">@option.NameBusinnes</option>
                                                                                 }
                                                                             </select>
                                                                             <div class="invalid-feedback">
@@ -145,7 +145,7 @@
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 @foreach (var option in Model.Area)
                                                                                 {
-                                                                                    <option value="1">@option.AreaName</option>
+                                                                                    <option value="@option.AreaName">@option.AreaName</option>
                                                                                 }
                                                                             </select>
                                                                             <div class="invalid-feedback">
@@ -459,6 +459,63 @@
                                                                                 {
                                                                                     if (pregunta.NumeroPregunta == 17)
                                                                                     {
+                                                                                        //vista Desktop
+                                                                                        <table class="table">
+                                                                                            <thead>
+                                                                                                <tr class="title-table">
+                                                                                                    <td scope="col-sm-12">Concepto</td>
+                                                                                                    <td scope="col">¿Conoces el beneficio?</td>
+                                                                                                    <td scope="col">¿Qué tan atractivo te parece el beneficio?</td>
+                                                                                                    <td scope="col">¿Cómo ha funcionado el beneficio?</td>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                @{
+                                                                                                    int contPer = 0;
+                                                                                                }
+                                                                                                @foreach (var option in pregunta.Opciones)
+                                                                                                {
+                                                                                                    <tr>
+                                                                                                        <input type="hidden" name="resPer[@contPer].IdPregunta" value="@pregunta.IdPregunta" />
+                                                                                                        <input type="hidden" name="resPer[@contPer].Concepto" value="@option.OpcionName" />
+                                                                                                        <td>@option.OpcionName</td>
+                                                                                                        <td>
+                                                                                                            <select class="form-select form-select-sm likkert" name="resPer[@contPer].Beneficio" aria-label="Default select example" required>
+                                                                                                                <option value="" selected>Seleccione</option>
+                                                                                                                <option value="true">Si</option>
+                                                                                                                <option value="false">No</option>
+                                                                                                            </select>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <select class="form-select form-select-sm likkert" aria-label="Default select example" name="resPer[@contPer].Atractivo" required>
+                                                                                                                <option value="" selected>Seleccione</option>
+                                                                                                                <option value="1,25">1.Bajo</option>
+                                                                                                                <option value="2,50">2.Regular</option>
+                                                                                                                <option value="3,75">3.Medio</option>
+                                                                                                                <option value="5,00">4.Alto</option>
+                                                                                                            </select>
+
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <select class="form-select form-select-sm likkert" aria-label="Default select example" name="resPer[@contPer].Funcionamiento" required>
+                                                                                                                <option value="" selected>Seleccione</option>
+                                                                                                                <option value="1,25">4.No Aplica</option>
+                                                                                                                <option value="2,50">1.Malo</option>
+                                                                                                                <option value="3,75">2.Regular</option>
+                                                                                                                <option value="5,00">3.Bueno</option>
+                                                                                                                
+                                                                                                            </select>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    contPer++;
+                                                                                                }
+                                                                                                @{
+                                                                                                    contPer = 0;
+                                                                                                }
+
+                                                                                            </tbody>
+
+                                                                                        </table>
                                                                                         //Vista Mobile
                                                                                         @foreach (var option in pregunta.Opciones)
                                                                                         {
@@ -501,64 +558,7 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                         }
-
-                                                            //vista Desktop
-                                                                                        <table class="table">
-                                                                                            <thead>
-                                                                                                <tr class="title-table">
-                                                                                                    <td scope="col-sm-12">Concepto</td>
-                                                                                                    <td scope="col">¿Conoces el beneficio?</td>
-                                                                                                    <td scope="col">¿Qué tan atractivo te parece el beneficio?</td>
-                                                                                                    <td scope="col">¿Cómo ha funcionado el beneficio?</td>
-                                                                                                </tr>
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                                @{
-                                                                                                    int contPer = 0;
-                                                                                                }
-                                                                                                @foreach (var option in pregunta.Opciones)
-                                                                                                {
-                                                                                                    <tr>
-                                                                                                        <input type="hidden" name="resPer[@contPer].IdPregunta" value="@pregunta.IdPregunta" />
-                                                                                                        <input type="hidden" name="resPer[@contPer].Concepto" value="@option.OpcionName" />
-                                                                                                        <td>@option.OpcionName</td>
-                                                                                                        <td>
-                                                                                                            <select class="form-select form-select-sm likkert" name="resPer[@contPer].Beneficio" aria-label="Default select example" required>
-                                                                                                                <option value="" selected>Seleccione</option>
-                                                                                                                <option value="true">Si</option>
-                                                                                                                <option value="false">No</option>
-                                                                                                            </select>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <select class="form-select form-select-sm likkert" aria-label="Default select example" name="resPer[@contPer].Atractivo" required>
-                                                                                                                <option value="" selected>Seleccione</option>
-                                                                                                                <option value="1,25">1.Bajo</option>
-                                                                                                                <option value="2,50">2.Regular</option>
-                                                                                                                <option value="3,75">3.Medio</option>
-                                                                                                                <option value="5,00">4.Alto</option>
-                                                                                                            </select>
-
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <select class="form-select form-select-sm likkert" aria-label="Default select example" name="resPer[@contPer].Funcionamiento" required>
-                                                                                                                <option value="" selected>Seleccione</option>
-                                                                                                                <option value="5,00">4.No Aplica</option>
-                                                                                                                <option value="1,25">1.Malo</option>
-                                                                                                                <option value="2,50">2.Regular</option>
-                                                                                                                <option value="3,75">3.Bueno</option>
-                                                                                                                
-                                                                                                            </select>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                    contPer++;
-                                                                                                }
-                                                                                                @{
-                                                                                                    contPer = 0;
-                                                                                                }
-
-                                                                                            </tbody>
-
-                                                                                        </table>
+                                                            
 
                                                                                     }
                                                                                     else
@@ -614,7 +614,7 @@
                                                                                                 <option value="" selected>Seleccione</option>
                                                                                                 @foreach (var item in pregunta.Opciones)
                                                                                                 {
-                                                                                                    <option value="@item.OpcionName">@item.OpcionName</option>
+                                                                                                    <option value="@item.ValorOPcion">@item.OpcionName</option>
                                                                                                 }
                                                                                             </select>
                                                                                         </div>
@@ -664,10 +664,10 @@
                                                                                                 else if (pregunta.NumeroPregunta == 15)
                                                                                                 {
                                                                                                     <option value="" selected>Seleccione</option>
-                                                                                                    <option value="1.25">Nunca (Ninguna)</option>
-                                                                                                    <option value="2.50">1 y 3 veces/mes (Baja)</option>
-                                                                                                    <option value="3.75">Entre 4 y 10 veces/mes (Media)</option>
-                                                                                                    <option value="5.00">Más de 10 veces/mes (Alta)</option>
+                                                                                                    <option value="1,25">Nunca (Ninguna)</option>
+                                                                                                    <option value="2,50">1 y 3 veces/mes (Baja)</option>
+                                                                                                    <option value="3,75">Entre 4 y 10 veces/mes (Media)</option>
+                                                                                                    <option value="5,00">Más de 10 veces/mes (Alta)</option>
                                                                                                 }
 
                                                                                             </select>

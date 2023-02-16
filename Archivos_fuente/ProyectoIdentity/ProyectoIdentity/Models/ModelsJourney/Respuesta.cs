@@ -6,6 +6,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
 {
     public class Respuesta
     {
+        public int Id { get; set; }
 
         public string? DescripcionRespuesta { get; set; }
 
@@ -14,10 +15,12 @@ namespace ProyectoIdentity.Models.ModelsJourney
         //llaves Foraneas
         [Display(Name = "Id Persona que Responde")]
         [HiddenInput(DisplayValue = false)]
+        [ForeignKey("Respondente")]
         public Guid? RespondenteId { get; set; }
         public Respondente? Respondente { get; set; }
         [Display(Name = "Pregunta")]
         [HiddenInput(DisplayValue = false)]
+        [ForeignKey("Pregunta")]
         public int PreguntaId { get; set; }
 
         public Pregunta? Pregunta { get; set; }

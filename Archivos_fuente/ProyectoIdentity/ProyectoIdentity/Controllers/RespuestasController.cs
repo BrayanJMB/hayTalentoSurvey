@@ -171,6 +171,7 @@ namespace ProyectoIdentity.Controllers
                     EncuestaRespondenteId= encuestaResppondente.Entity.Id
                 });
             }
+            await _context.Respuesta.AddRangeAsync(respuestas);
             foreach (var respuesta in resNumer)
             {
                 respuestas.Add(new Respuesta
@@ -206,6 +207,8 @@ namespace ProyectoIdentity.Controllers
                 Funcionamiento = x.Funcionamiento,
                 IdPregunta = x.IdPregunta
             }).ToList();
+            await _context.Respuesta.AddRangeAsync(respuestas);
+            await _context.RespuestaPersonalizada.AddRangeAsync(respuestasPer);
             await _context.SaveChangesAsync();           
 
             ViewBag.Message = "Login";
