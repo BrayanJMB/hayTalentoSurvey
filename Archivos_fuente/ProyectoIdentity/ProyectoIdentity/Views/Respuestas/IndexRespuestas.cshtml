@@ -54,7 +54,7 @@
                         }
                     </ul>
                     <!-- Mobile view-->
-                    <ul id="progressbar" class="progressbar-mobile">
+                    <ul id="progressbar-mobile" class="progressbar-mobile">
                         @foreach (var categori in Model.Categorias)
                         {
                             if (activeMobile)
@@ -688,6 +688,7 @@
                                                                                 }
                                                                             }
                                                                             opcion++;
+
                                                                         }
                                                                         else
                                                                         {
@@ -1092,6 +1093,7 @@
                 let errorP = checkbox[j].previousSibling.previousSibling.previousSibling.previousSibling;
                 errorP.classList.add("checkbox");
                 let option = checkbox[j];
+                let nextCant=errorP.nextElementSibling.textContent;
                 let listCheckBoxes = option.querySelectorAll(".datacheck");
                 listCheckBoxes.forEach(element => {
                     if (/^Ningun[oa]$/i.test(element.value)) {
@@ -1150,6 +1152,27 @@
 
             });
 
+            //Logica accordeon
+            const accordions = document.querySelectorAll(".accordion");
+
+            for (let i = 0; i < accordions.length; i++) {
+              accordions[i].addEventListener("change", function() {
+                const inputs = this.querySelectorAll("input");
+                let filled = true;
+                for (let j = 0; j < inputs.length; j++) {
+                  if (!inputs[j].value) {
+                    filled = false;
+                    break;
+                  }
+                }
+                if (filled) {
+                  this.classList.remove("show");
+                  if (i < accordions.length - 1) {
+                    accordions[i + 1].classList.add("show");
+                  }
+                }
+              });
+            }
             
 
 
