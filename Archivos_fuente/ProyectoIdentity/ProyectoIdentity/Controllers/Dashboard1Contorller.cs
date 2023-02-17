@@ -31,14 +31,33 @@ namespace ProyectoIdentity.Controllers
         public string Color { get; set; }
     }
 
-    public class CategoriasValues {
-        public List<Categorias> MyProperty { get; set; }
-    }
-    public class Categorias {
+
+    public class Categorias
+    {
         public int CategoriaId { get; set; }
         public string CategoriaNombre { get; set; }
+        public List<PreguntasBeneficios> Preguntas { get; set; }
 
-        public List<Preguntas> Preguntas { get; set; }
+    }
+
+    public class PreguntasBeneficios
+    {
+        public int PreguntaId { get; set; }
+        public string PreguntaNombre { get; set; }
+
+        public float Promedio { get; set; }
+
+        public string Color { get; set; }
+
+        public int porcentaje { get; set; }
+        public List<RespuestasBeneficios> Respuestas { get; set; }
+
+    }
+
+    public class RespuestasBeneficios
+    {
+        public float? valor { get; set; }
+        public string DescripcionRespuesta { get; set; }
 
     }
 
@@ -100,11 +119,12 @@ namespace ProyectoIdentity.Controllers
 
                 .Where(x => x.EncuestaId == surveyId)
                 .Select(x => x.Categoria).ToList();
+
             var respuestasPorCategoria = _context.Respuesta
                 .Where(x => x.EncuestaRespondenteB.EncuestaId == surveyId)
                 .Include(x => x.Pregunta)
-                .ThenInclude(x => x.EncuestaCategoria)
-                .ThenInclude(x => x.Categoria)
+                    .ThenInclude(x => x.EncuestaCategoria)
+                        .ThenInclude(x => x.Categoria)
                 .Select(x => new
                 {
                     CategoriaId = x.Pregunta.EncuestaCategoria.CategoriaId,
@@ -116,26 +136,30 @@ namespace ProyectoIdentity.Controllers
                     x.Pregunta.TipoPreguntaId
                 })
                 .GroupBy(x => new { x.CategoriaId, x.CategoriaNombre })
-                .Select(g1 => new
+                .Select(g1 => new Categorias
                 {
                     CategoriaId = g1.Key.CategoriaId,
                     CategoriaNombre = g1.Key.CategoriaNombre,
                     Preguntas = g1.GroupBy(x => new { x.PreguntaId, x.PreguntaNombre })
-                        .Select(g2 => new
+                        .Select(g2 => new PreguntasBeneficios
                         {
                             PreguntaId = g2.Key.PreguntaId,
                             PreguntaNombre = g2.Key.PreguntaNombre,
-                            promedio = g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor),
-                            Respuestas = g2.ToList()
-                        })
-                        .ToList()
-                })
-                .ToList();
+                            Promedio = g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor) ?? 0,
+                            porcentaje= ((int?)(g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor)*20) ?? 0),
+                            Respuestas = g2.Select(z => new RespuestasBeneficios
+                            {
+                                valor = z.Valor,
+                                DescripcionRespuesta = z.DescripcionRespuesta
+                            }).ToList(),
+                            Color = colores[((int?)g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor)) ?? 0]
+                        }).ToList()
+                }).ToList();
 
-            
 
 
-            return null;
+
+            return View(respuestasPorCategoria);
         }
     }
 }
