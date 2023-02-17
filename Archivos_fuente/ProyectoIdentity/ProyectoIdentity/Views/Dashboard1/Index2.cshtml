@@ -1,31 +1,75 @@
 ﻿@model List<ProyectoIdentity.Controllers.Categorias>
+@{
+    string[] colores = { "bg-danger", "bg-danger", "bg-warning", "bg-info", "", "bg-success" };
+}
 <h2>Percepciones para cada Dimensión y Pregunta</h2>
-@foreach(var categorias in Model){
-<div class="row">
-    
-    <div class="col-md-12">
-        <div class="card" style="width:100%">
-            <div class="card-body">
-                    <h5 class="card-title">@categorias.CategoriaNombre</h5>
-            </div>
-            <hr />
-            <div class="card-body">
-                <p class="card-link">@categorias.CategoriaId</p>
-            </div>
-        </div>
-    </div>
-    @foreach (var pregunta in categorias.Preguntas)
-    {
-        <div class="col-md-6 d-flex flex-column justify-content-between">
-            <p class="m-2">@pregunta.PreguntaNombre</p>
-            <div class="progress">
-                <div class="progress-bar @pregunta.Color" role="progressbar" style="width: @pregunta.porcentaje%" aria-valuenow="@pregunta.Promedio" aria-valuemin="0" aria-valuemax="5">@pregunta.Promedio</div>
-            </div>
-        </div>
+@foreach (var categorias in Model)
+{
+    <div class="row">
 
-    }
-    
-</div>
+        <div class="col-md-12">
+            <div class="card" style="width:100%">
+                <div class="card-body">
+                    <h5 class="card-title">@categorias.CategoriaNombre</h5>
+                </div>
+                <hr />
+                <div class="card-body">
+                    <p class="card-link">@categorias.CategoriaId</p>
+                </div>
+            </div>
+        </div>
+        @foreach (var pregunta in categorias.Preguntas)
+        {
+            if (pregunta.TipoPreguntaId == 2)
+            {
+                <div class="col-md-6 d-flex flex-column justify-content-between">
+                    <p class="m-2">@pregunta.PreguntaNombre</p>
+                    <div class="progress">
+                        <div class="progress-bar @pregunta.Color" role="progressbar" style="width: @pregunta.porcentaje%" aria-valuenow="@pregunta.Promedio" aria-valuemin="0" aria-valuemax="5">@pregunta.Promedio</div>
+                    </div>
+                </div>
+            }
+            if (pregunta.TipoPreguntaId == 6)
+            {
+                <div class="col-md-12 d-flex flex-column justify-content-between">
+                    <p class="m-2">@pregunta.PreguntaNombre</p>
+                </div>
+                var datosRespuesta = pregunta.Respuestas.GroupBy(x => x.DescripcionRespuesta).ToList();
+                
+                @foreach(var data in datosRespuesta){
+                    var porcentaje = (int)(data.Average(x => x.valor) * 20);
+                    string poscolor = colores[(int)(data.Average(x => x.valor))];
+                    <div class="col-md-6 px-5 d-flex flex-column justify-content-between">
+                        <p>@data.Select(x=>x.DescripcionRespuesta).FirstOrDefault()</p>
+                        <div class="progress">
+                            <div class="progress-bar @poscolor" role="progressbar" style="width:@porcentaje%" aria-valuenow="@data.Average(x=>x.valor)" aria-valuemin="0" aria-valuemax="5">@data.Average(x=>x.valor)</div>
+                        </div>
+                    </div>                
+                }
+
+
+            }
+            if (pregunta.TipoPreguntaId == 4)
+            {
+                <div class="col-md-12 d-flex flex-column justify-content-between">
+                    <p class="m-2">@pregunta.PreguntaNombre</p>
+                </div>
+                var datosRespuesta = pregunta.Respuestas.GroupBy(x => x.DescripcionRespuesta).ToList();
+                @foreach (var data in datosRespuesta)
+                {
+                    var porcentaje = (int)(data.Average(x => x.valor) * 20);
+                    string poscolor = colores[(int)(data.Average(x => x.valor))];
+                    <div class="col-md-6 px-5 d-flex flex-column justify-content-between">
+                        <p>@data.Select(x=>x.DescripcionRespuesta).FirstOrDefault()</p>
+                        <div class="progress">
+                            <div class="progress-bar @poscolor" role="progressbar" style="width:@porcentaje%" aria-valuenow="@data.Average(x=>x.valor)" aria-valuemin="0" aria-valuemax="5">@data.Average(x=>x.valor)</div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+
+    </div>
 }
 
 <!--<canvas id="myChart5"></canvas>-->

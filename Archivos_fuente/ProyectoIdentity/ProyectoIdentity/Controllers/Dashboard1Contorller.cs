@@ -50,6 +50,7 @@ namespace ProyectoIdentity.Controllers
         public string Color { get; set; }
 
         public int porcentaje { get; set; }
+        public int TipoPreguntaId { get; set; }
         public List<RespuestasBeneficios> Respuestas { get; set; }
 
     }
@@ -130,6 +131,7 @@ namespace ProyectoIdentity.Controllers
                     CategoriaId = x.Pregunta.EncuestaCategoria.CategoriaId,
                     CategoriaNombre = x.Pregunta.EncuestaCategoria.Categoria.NombreCategoria,
                     PreguntaId = x.PreguntaId,
+                    TipoPreguntaID=x.Pregunta.TipoPreguntaId,
                     PreguntaNombre = x.Pregunta.NombrePregunta,
                     x.Valor,
                     x.DescripcionRespuesta,
@@ -140,14 +142,15 @@ namespace ProyectoIdentity.Controllers
                 {
                     CategoriaId = g1.Key.CategoriaId,
                     CategoriaNombre = g1.Key.CategoriaNombre,
-                    Preguntas = g1.GroupBy(x => new { x.PreguntaId, x.PreguntaNombre })
+                    Preguntas = g1.GroupBy(x => new { x.PreguntaId, x.PreguntaNombre,x.TipoPreguntaId })
                         .Select(g2 => new PreguntasBeneficios
                         {
                             PreguntaId = g2.Key.PreguntaId,
                             PreguntaNombre = g2.Key.PreguntaNombre,
+                            TipoPreguntaId=g2.Key.TipoPreguntaId,
                             Promedio = g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor) ?? 0,
                             porcentaje= ((int?)(g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor)*20) ?? 0),
-                            Respuestas = g2.Select(z => new RespuestasBeneficios
+                            Respuestas = g2.Select(z =>   new RespuestasBeneficios
                             {
                                 valor = z.Valor,
                                 DescripcionRespuesta = z.DescripcionRespuesta
