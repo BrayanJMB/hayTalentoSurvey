@@ -37,6 +37,9 @@ namespace ProyectoIdentity.Controllers
         public int CategoriaId { get; set; }
         public string CategoriaNombre { get; set; }
         public List<PreguntasBeneficios> Preguntas { get; set; }
+        public float? PromedioGeneral { get; set; } // Nueva propiedad agregada
+        public float?  SumaPromediosPreguntas { get; set; }
+
 
     }
 

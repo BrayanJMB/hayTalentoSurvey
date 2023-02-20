@@ -160,5 +160,92 @@ namespace ProyectoIdentity.Controllers
         {
           return _context.Categoria.Any(e => e.Id == id);
         }
+
+        [HttpPost]
+        public JsonResult DatosDemograficos(int surveyId = 1)
+        {
+            var respuestasPorCategoria = _context.Respuesta
+                    .Where(x => x.EncuestaRespondenteB.EncuestaId == surveyId)
+                    .Include(x => x.Pregunta)
+                        .ThenInclude(x => x.EncuestaCategoria)
+                            .ThenInclude(x => x.Categoria)
+                    .Select(x => new
+                    {
+                        CategoriaId = x.Pregunta.EncuestaCategoria.CategoriaId,
+                        CategoriaNombre = x.Pregunta.EncuestaCategoria.Categoria.NombreCategoria,
+                        PreguntaId = x.PreguntaId,
+                        TipoPreguntaID = x.Pregunta.TipoPreguntaId,
+                        PreguntaNombre = x.Pregunta.NombrePregunta,
+                        x.Valor,
+                        x.DescripcionRespuesta,
+                        x.Pregunta.TipoPreguntaId
+                    })
+                    .GroupBy(x => new { x.CategoriaId, x.CategoriaNombre })
+                    .Select(g1 => new Categorias
+                    {
+                        CategoriaId = g1.Key.CategoriaId,
+                        CategoriaNombre = g1.Key.CategoriaNombre,
+                        PromedioGeneral = g1.Where(x => x.TipoPreguntaID == 2 || x.TipoPreguntaID == 6).Average(x => x.Valor),
+                        Preguntas = g1.GroupBy(x => new { x.PreguntaId, x.PreguntaNombre, x.TipoPreguntaId })
+                            .Select(g2 => new PreguntasBeneficios
+                            {
+                                PreguntaId = g2.Key.PreguntaId,
+                                PreguntaNombre = g2.Key.PreguntaNombre,
+                                TipoPreguntaId = g2.Key.TipoPreguntaId,
+                                Promedio = g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor) ?? 0,
+                                porcentaje = ((int?)(g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor) * 20) ?? 0),
+                                Respuestas = g2.Select(z => new RespuestasBeneficios
+                                {
+                                    valor = z.Valor,
+                                    DescripcionRespuesta = z.DescripcionRespuesta
+                                }).ToList(),
+                            }).ToList(),
+                    })
+                    .ToList();
+            return Json(respuestasPorCategoria);
+        }
+
+
+        public JsonResult DatosMadurez(int surveyId = 2)
+        {
+            var respuestasPorCategoria = _context.RespuestaMadurezcs
+                    .Where(x => x.EncuestaRepondente.EncuestaId == surveyId)
+                    .Include(x => x.Pregunta)
+                        .ThenInclude(x => x.EncuestaCategoria)
+                            .ThenInclude(x => x.Categoria)
+                    .Select(x => new
+                    {
+                        CategoriaId = x.Pregunta.EncuestaCategoria.CategoriaId,
+                        CategoriaNombre = x.Pregunta.EncuestaCategoria.Categoria.NombreCategoria,
+                        PreguntaId = x.PreguntaId,
+                        TipoPreguntaID = x.Pregunta.TipoPreguntaId,
+                        PreguntaNombre = x.Pregunta.NombrePregunta,
+                        x.Valor,
+                        x.DescripcionRespuesta,
+                        x.Pregunta.TipoPreguntaId
+                    })
+                    .GroupBy(x => new { x.CategoriaId, x.CategoriaNombre })
+                    .Select(g1 => new Categorias
+                    {
+                        CategoriaId = g1.Key.CategoriaId,
+                        CategoriaNombre = g1.Key.CategoriaNombre,
+                        PromedioGeneral = g1.Where(x => x.TipoPreguntaID == 2 || x.TipoPreguntaID == 6).Average(x => x.Valor),
+                        Preguntas = g1.GroupBy(x => new { x.PreguntaId, x.PreguntaNombre, x.TipoPreguntaId })
+                            .Select(g2 => new PreguntasBeneficios
+                            {
+                                PreguntaId = g2.Key.PreguntaId,
+                                PreguntaNombre = g2.Key.PreguntaNombre,
+                                TipoPreguntaId = g2.Key.TipoPreguntaId,
+                                Promedio = g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor) ?? 0,
+                                porcentaje = ((int?)(g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor) * 20) ?? 0),
+                                Respuestas = g2.Select(z => new RespuestasBeneficios
+                                {
+                                    valor = z.Valor,
+                                    DescripcionRespuesta = z.DescripcionRespuesta
+                                }).ToList(),
+                            }).ToList(),
+                    }).ToList();
+            return Json(respuestasPorCategoria);
+        }
     }
 }
