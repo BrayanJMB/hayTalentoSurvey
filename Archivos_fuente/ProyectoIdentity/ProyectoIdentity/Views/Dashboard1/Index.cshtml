@@ -2,7 +2,8 @@
 @model ProyectoIdentity.Controllers.SurveyShow
 
 
-
+<h2 class="text-center">@Model.Encuesta.NombreEncuesta</h2>
+<h4>@DateTime.UtcNow.ToLocalTime()</h4>
 <div class="row">
     <h2>Percepciones para cada Dimensión y Pregunta</h2>
     <div class="col-md-12">

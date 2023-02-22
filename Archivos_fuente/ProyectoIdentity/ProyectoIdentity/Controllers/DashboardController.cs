@@ -27,6 +27,8 @@ namespace ProyectoIdentity.Controllers
                 .Where(x => x.EncuestaId == surveyId)
                 .Select(x => x.Categoria).ToList();
 
+            var encuesta = _context.Encuesta.FirstOrDefault(e => e.Id == surveyId);
+
             var respuestasPorCategoria = _context.Respuesta
                 .Where(x => x.EncuestaRespondenteB.EncuestaId == surveyId)
                 .Include(x => x.Pregunta)
@@ -34,7 +36,6 @@ namespace ProyectoIdentity.Controllers
                         .ThenInclude(x => x.Categoria)
                 .Select(x => new
                 {
-                    SurveyId=surveyId,
                     CategoriaId = x.Pregunta.EncuestaCategoria.CategoriaId,
                     CategoriaNombre = x.Pregunta.EncuestaCategoria.Categoria.NombreCategoria,
                     CategoriaDescripcion = x.Pregunta.EncuestaCategoria.Categoria.Descripcion,
@@ -46,13 +47,14 @@ namespace ProyectoIdentity.Controllers
                     x.DescripcionRespuesta,
                     x.Pregunta.TipoPreguntaId
                 })
-                .GroupBy(x => new { x.CategoriaId, x.CategoriaNombre, x.CategoriaDescripcion })
+                .GroupBy(x => new { x.CategoriaId, x.CategoriaNombre, x.CategoriaDescripcion})
                 .Select(g1 => new Categorias
                 {
                     CategoriaId = g1.Key.CategoriaId,
                     CategoriaNombre = g1.Key.CategoriaNombre,
                     CategoriaDescripcion = g1.Key.CategoriaDescripcion,
                     surveyId = surveyId,
+                    Encuesta= encuesta,
                     Preguntas = g1.GroupBy(x => new { x.PreguntaId, x.PreguntaNombre, x.TipoPreguntaId, x.NumeroPregunta })
                         .Select(g2 => new PreguntasBeneficios
                         {
@@ -211,7 +213,7 @@ namespace ProyectoIdentity.Controllers
         }
 
         [HttpPost]
-        public JsonResult DatosDemograficos(int surveyId=1)
+        public JsonResult DatosDemograficos(int surveyId)
         {
             var respuestasPorCategoria = _context.Respuesta
                     .Where(x => x.EncuestaRespondenteB.EncuestaId == surveyId)
@@ -255,7 +257,7 @@ namespace ProyectoIdentity.Controllers
         }
 
 
-        public JsonResult DatosMadurez(int surveyId = 2)
+        public JsonResult DatosMadurez(int surveyId)
         {
             var respuestasPorCategoria = _context.RespuestaMadurezcs
                     .Where(x => x.EncuestaRepondente.EncuestaId == surveyId)

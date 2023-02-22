@@ -21,6 +21,8 @@ namespace ProyectoIdentity.Controllers
         public string Preguntasimple { get; set; }
 
         public List<DictionaryClod> nubePalabras { get; set; }
+
+        public Encuesta Encuesta { get; set; }//Nuevo campo
     }
     public class dataPreguntas
     {
@@ -40,7 +42,7 @@ namespace ProyectoIdentity.Controllers
         public List<PreguntasBeneficios> Preguntas { get; set; }
         public float? PromedioGeneral { get; set; } // Nueva propiedad agregada
         public int surveyId { get; set; } //campo nuevo
-
+        public Encuesta Encuesta {get;set; }//campo nuevo
 
     }
 
@@ -84,7 +86,7 @@ namespace ProyectoIdentity.Controllers
 
         public IActionResult Index(int surveyId)
         {
-
+            var encuesta = _context.Encuesta.FirstOrDefault(e => e.Id == surveyId);
             _surveyShow = new SurveyShow();
             var category = _context.EncuestaCategoria.Include(x => x.Categoria)
                 .Where(x => x.EncuestaId == surveyId)
@@ -118,7 +120,7 @@ namespace ProyectoIdentity.Controllers
                                     ).Distinct()
                                     .ToArray();
             _surveyShow.nubePalabras = nubepalabras.Select(x => new DictionaryClod { Key = x, value = 2 }).ToList();
-
+            _surveyShow.Encuesta = encuesta;
             return View(_surveyShow);
         }
 
@@ -172,9 +174,6 @@ namespace ProyectoIdentity.Controllers
                             CantidadRespuestas = g2.Count()
                         }).ToList()
                 }).ToList();
-
-
-
 
             return View(respuestasPorCategoria);
         }
