@@ -1,38 +1,39 @@
-﻿@model List<int>
+﻿@model List<ProyectoIdentity.Controllers.Categorias>
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="row">
-    <h2>Dimensiones de los beneficios</h2>
+    <h2 class="text-center">Dimensiones de los beneficios</h2>
     <canvas id="myChart"></canvas>
 </div>
 
 <div class=" row d-flex align-content-center justify-content-center">
-    <h2>Dimensiones de los beneficios</h2>
-    <div class="col-6">
+    <h2 class="text-center">Dimensiones de los beneficios</h2>
+    <div class="col-9">
         <canvas id="myChart2"></canvas>
     </div>
-    <div class="col-3 relative">
-        <canvas id="myChart3"></canvas>
-        <div class="absolute-center text-center">
-            <h3>Madurez</h3>
+        <div class="col-2 relative">
+            <canvas id="myChart3"></canvas>
+            <div class="absolute-center text-center">
+                <h3>Madurez</h3>
+            </div>
+             <canvas id="myChart4"></canvas>
+            <div class="absolute-center text-center">
+                <h3>Total</h3>
+            </div>
         </div>
-    </div>
-    <div class="col-3 relative">
-        <canvas id="myChart4"></canvas>
-        <div class="absolute-center text-center">
-            <h3>Total</h3>
-        </div>
-    </div>
 </div>
 
-<div class="row">
+<div class="row mt-5">
     <div style="width:700px">
-        <h2>Demograficos</h2>
+        <h2 class="text-center">Demograficos</h2>
         <canvas id="demograficos" width="800" height="600"></canvas>
     </div>
 </div>
+
+@Html.Partial("../Dashboard1/Index2", Model)
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="~/js/index.umd.js" asp-append-version="true"></script>
@@ -52,7 +53,7 @@
                 data.forEach(element=>{
                     promedioPorCategoria+=element.promedioGeneral;
                 })
-                
+
 
                 //Datos para la encuesta de madurez
                   $.ajax({
@@ -96,7 +97,7 @@
                 datasets: [
                     {
                         label: `Madurez`,
-                        backgroundColor: "rgba(255,255,255,0.1)",
+                        backgroundColor: "rgba( 147, 147, 147,0.5)",
                         data: [{
                             x: 2,
                             y: 40,
@@ -124,12 +125,12 @@
 
                     {
                         label: `Herramientas \n     de trabajo`,
-                        backgroundColor: "rgba(255,221,50,0.2)",
-                        borderColor: "rgba(255,221,50,1)",
+                        backgroundColor: "rgba(207,66,63,0.5)",
+                        borderColor: "rgba(207,66,63,1)",
                         data: [{
                             x: 2.5,
                             y: 60,
-                            r: 50
+                            r: 60
                         }]
                     },
                     {
@@ -156,18 +157,18 @@
                         data: [{
                             x: 3.3,
                             y: 60,
-                            r: 50
+                            r: 5
                         }]
                     },
                     //Contenido texto Calidad de vida
                     {
                         label: 'Calidad de vida',
-                        backgroundColor: "rgba(193,46,12,0.2)",
-                        borderColor: "rgba(193,46,12,1)",
+                        backgroundColor: "rgba(77,179,199,0.5)",
+                        borderColor: "rgba(77,179,199,1)",
                         data: [{
                             x: 1.5,
                             y: 60,
-                            r: 50
+                            r: 60
                         }]
                     },
                     {
@@ -192,20 +193,20 @@
                         backgroundColor: "rgba(255,255,255,0.1)",
                         borderColor: "rgba(255, 255,255,0.1)",
                         data: [{
-                            x: 0.8,
+                            x: 0.7,
                             y: 60,
-                            r: 50
+                            r: 60
                         }]
                     },
                     //Desarrollo
                     {
-                        label: 'Desarrollo \n o Persona',
-                        backgroundColor: "rgba(0,0,0,0.2)",
-                        borderColor: "#000",
+                        label: 'Desarrollo \n Personal',
+                        backgroundColor: "rgba(29,110,155,0.5)",
+                        borderColor: "rgba(29,110,155,1)",
                         data: [{
                             x: 1.5,
                             y: 20,
-                            r: 50
+                            r: 60
                         }]
                     },
                     {
@@ -238,12 +239,12 @@
                     //Monetarios
                     {
                         label: '    Monetarios \n no monetarios',
-                        backgroundColor: "rgba(60,186,159,0.2)",
-                        borderColor: "rgba(60,186,159,1)",
+                        backgroundColor: "rgba(244,157,0,0.6)",
+                        borderColor: "rgba(244,157,0,1)",
                         data: [{
                             x: 2.5,
                             y: 20,
-                            r: 50,
+                            r: 60,
                         }]
                     },
                     {
@@ -280,7 +281,7 @@
                         borderColor: "rgba(255,255,255,0.1)",
                         data: [{
                             x: 2,
-                            y: 8,
+                            y: 80,
                             r: 50,
                         }]
                     },
@@ -290,7 +291,7 @@
                         borderColor: "rgba(255, 255,255,0.1)",
                         data: [{
                             x: 2,
-                            y: 2,
+                            y: 75,
                             r: 5
                         }],
                         datalabels: {
@@ -351,12 +352,24 @@
                     labels: ["Calidad de vida", "Monetarios no Monetarios", "Desarrollo Personal", "Herramientas Trabajo"],
                     datasets: [
                         {
-                            backgroundColor: ["rgba(62, 149, 205, 0.5)", "rgba(142, 94, 162, 0.5)", "rgba(60, 186, 159, 0.5)", "rgba(232, 195, 185, 0.5)"],
+                            backgroundColor: ["rgba(77,179,199,1)", "rgba(246, 194, 100, 1)", "rgba(29,110,155,1)", "rgba(207, 66, 63, 1)"],
                             data: datosPromedioPorCategoria,
                         }
                     ]
                 },
                 options: {
+                      scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
                     plugins: {
                         tooltip: {
                             display: false
@@ -364,6 +377,13 @@
                         legend: {
                             display: false
                         },
+                         datalabels: {
+                        color: '#FFFFFF',
+                        offset: 4,
+                        font: {
+                          weight: 'bold'
+                        }
+                      }
                     }
                 }
             });
@@ -427,15 +447,19 @@
     new Chart(demografico, {
         type: 'pie',
         data: {
-            labels: ['Serie 1', 'Serie 2', 'Serie 3'],
+            labels: ['Sexo', 'EstadoCivil', 'NivelEducativo', 'Dependencia Economica', 'Edad'],
             datasets: [
                 {
-                    data: [30, 50, 20],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+                    data: [30, 20],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FFCE90', '#AACE56']
                 },
                 {
-                    data: [20, 40, 40],
-                    backgroundColor: ['#FF8F8F', '#66C2A5', '#FFD28F']
+                    data: [20, 40],
+                    backgroundColor: ['#FF8F8F', '#66C2A5', '#FFD28F', '#FFDD11', '#CCCE23']
+                },
+                {
+                    data: [20, 40],
+                    backgroundColor: ['#FF8F8F', '#66C2A5', '#FFD28F', '#FFDD11', '#CCCE23']
                 }
             ]
         },
