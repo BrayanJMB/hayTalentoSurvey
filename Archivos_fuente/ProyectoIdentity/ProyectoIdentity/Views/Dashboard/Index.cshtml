@@ -31,7 +31,7 @@
     </div>
 </div>
 
-
+@Html.Partial("../Dashboard1/Index2", Model)
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="~/js/index.umd.js" asp-append-version="true"></script>
@@ -43,7 +43,7 @@
         $.ajax({
             url: 'DatosDemograficos/',
             type: 'POST',
-             data: JSON.stringify({surveyId: '1'}),
+             data: JSON.stringify({surveyId: '@Model.Select(x=>x.surveyId).FirstOrDefault()'}),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function(data) {
@@ -52,12 +52,11 @@
                     promedioPorCategoria+=element.promedioGeneral;
                 })
 
-
                 //Datos para la encuesta de madurez
                   $.ajax({
                         url: 'DatosMadurez/',
                         type: 'POST',
-                         data: JSON.stringify({surveyId: '2'}),
+                        data: JSON.stringify({surveyId: parseInt('@Model.Select(x=>x.surveyId).FirstOrDefault()+1')}),
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
                         success: function(dataMadurez) {

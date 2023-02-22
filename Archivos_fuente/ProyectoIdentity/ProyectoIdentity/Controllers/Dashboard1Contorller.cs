@@ -39,7 +39,7 @@ namespace ProyectoIdentity.Controllers
         public string CategoriaDescripcion { get; set; }
         public List<PreguntasBeneficios> Preguntas { get; set; }
         public float? PromedioGeneral { get; set; } // Nueva propiedad agregada
-        public float?  SumaPromediosPreguntas { get; set; }
+        public int surveyId { get; set; } //campo nuevo
 
 
     }
@@ -82,7 +82,7 @@ namespace ProyectoIdentity.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int surveyId = 2)
+        public IActionResult Index(int surveyId)
         {
 
             _surveyShow = new SurveyShow();
@@ -122,7 +122,7 @@ namespace ProyectoIdentity.Controllers
             return View(_surveyShow);
         }
 
-        public IActionResult Index2(int surveyId = 1)
+        public IActionResult Index2(int surveyId)
         {
             var categorias = _context.EncuestaCategoria.Include(x => x.Categoria)
                 .Include(x => x.Preguntas)
