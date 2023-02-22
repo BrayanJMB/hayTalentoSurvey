@@ -609,12 +609,12 @@
                                                                                     <div class="col-md-6 col-sm-12">
                                                                                         <div class="options">
                                                                                             <input type="hidden" name="resValor[@contVal].IdPregunta" value="@pregunta.IdPregunta" />
-                                                                                            <input type="hidden" name="resValor[@contVal].Opcion" value="@pregunta.NombrePregunta">
-                                                                                            <select class="form-select form-select-sm escala" aria-label="Default select example" name="resValor[@contVal].Valor" required>
+                                                                                            @*<input type="hidden" name="resValor[@contVal].Opcion" value="@pregunta.Opciones">*@
+                                                                                            <select class="form-select form-select-sm escala" aria-label="Default select example" name="resValor[@contVal].Opcion" required>
                                                                                                 <option value="" selected>Seleccione</option>
                                                                                                 @foreach (var item in pregunta.Opciones)
                                                                                                 {
-                                                                                                    <option value="@item.ValorOPcion">@item.OpcionName</option>
+                                                                                                    <option value="@item.OpcionName">@item.OpcionName</option>
                                                                                                 }
                                                                                             </select>
                                                                                         </div>
