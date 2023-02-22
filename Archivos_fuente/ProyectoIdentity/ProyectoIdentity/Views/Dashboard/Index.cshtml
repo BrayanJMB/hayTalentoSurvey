@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
 <div class="row">
     <h2 class="text-center">Dimensiones de los beneficios</h2>
     <canvas id="myChart"></canvas>
@@ -32,7 +31,6 @@
     </div>
 </div>
 
-@Html.Partial("../Dashboard1/Index2", Model)
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -398,8 +396,14 @@
                 datasets: [
                     {
                         label: 'Madurez',
-                        backgroundColor:  ["rgba(62, 149, 205, 0.5)", "rgba(30, 30, 30, 0.5)"],
+                        backgroundColor:  ["rgba(62, 149, 205, 1)", "rgba(30, 30, 30, 0.5)"],
                         data: [datosMadurez[0].promedioGeneral.toFixed(1),5-datosMadurez[0].promedioGeneral.toFixed(1)],
+                        datalabels: {
+                            color: 'white',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
                     }
                 ]
             },
@@ -424,8 +428,14 @@
                 datasets: [
                     {
                         label: 'Total',
-                        backgroundColor: ["rgba(62, 149, 205, 0.5)", "rgba(30, 30, 30, 0.5)"],
-                        data: [promedioGeneral.toFixed(1), (5-promedioGeneral).toFixed(1)]
+                        backgroundColor: ["rgba(62, 149, 205, 1)", "rgba(30, 30, 30, .5)"],
+                        data: [promedioGeneral.toFixed(1), (5-promedioGeneral).toFixed(1)],
+                        datalabels: {
+                            color: 'white',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
                     }
                 ]
             },
