@@ -5,15 +5,15 @@
 
 @{
     ViewData["Title"] = "Create";
-
-
 }
+
 @section Styles{
 
     <link rel="stylesheet" href="~/css/Preguntas.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-    }
+}
+
 <div class="app-main-content">
     <div class="app-wrapper">
         <div class="app-mid-column">
@@ -44,8 +44,8 @@
                                                 <label asp-for="DescripcionEncuesta" class="control-label">
                                                 </label>
                                                 <textarea  class="form-control sc-lllmON eEvYeb" rows="8" defaultvalue>Nos interesa conocer tu percepción acerca de los Beneficios Generales y Reconocimientos monetarios y no monetarios que te brinda la Compañía, así como algunos aspectos sociodemográficos que nos permitan proporcionar información relevante para adecuar y modernizar los modelos de reconocimientos y beneficios acordes con tu actual momento de vida.
-Esta información es confidencial y se utilizará para fines estrictamente estadísticos e informativos. Tu valoración y comentarios serán una referencia y no implican ningún compromiso presente ni futuro para la Compañía.
-Por favor responde con naturalidad y califica los conceptos relacionados con base en la escala de valoración que se presenta a continuación (tomar en consideración el último año de labor):                                                   
+                                                Esta información es confidencial y se utilizará para fines estrictamente estadísticos e informativos. Tu valoración y comentarios serán una referencia y no implican ningún compromiso presente ni futuro para la Compañía.
+                                                Por favor responde con naturalidad y califica los conceptos relacionados con base en la escala de valoración que se presenta a continuación (tomar en consideración el último año de labor):                                                   
                                                 </textarea>
                                                 <span asp-validation-for="DescripcionEncuesta" class="text-danger"></span>
                                             </div>
@@ -62,10 +62,8 @@ Por favor responde con naturalidad y califica los conceptos relacionados con bas
                                                 <input type="submit" value="Siguiente" class="btn btn-primary" />
                                             </div>
                                         </form>
-
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>

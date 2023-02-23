@@ -17,17 +17,14 @@ namespace ProyectoIdentity.Controllers
         public string NombreCategoria { get; set; }
         public string DescripcionCategoria { get; set; }
         public List<dataPreguntas> datospreguntas { get; set; }
-
         public string Preguntasimple { get; set; }
-
         public List<DictionaryClod> nubePalabras { get; set; }
-
         public Encuesta Encuesta { get; set; }//Nuevo campo
     }
+
     public class dataPreguntas
     {
         public string? mispreguntas { get; set; }
-
         public float valores { get; set; } = 0;
         public int porcentaje { get; set; }
         public string Color { get; set; }
@@ -43,27 +40,19 @@ namespace ProyectoIdentity.Controllers
         public float? PromedioGeneral { get; set; } // Nueva propiedad agregada
         public int surveyId { get; set; } //campo nuevo
         public Encuesta Encuesta {get;set; }//campo nuevo
-
     }
 
     public class PreguntasBeneficios
     {
         public int PreguntaId { get; set; }
         public string PreguntaNombre { get; set; }
-
         public float Promedio { get; set; }
-
         public string Color { get; set; }
-
         public int NumeroPregunta { get; set; }
-
-
         public int porcentaje { get; set; }
         public int TipoPreguntaId { get; set; }
-
         public int CantidadRespuestas { get; set; }
         public List<RespuestasBeneficios> Respuestas { get; set; }
-
     }
 
     public class RespuestasBeneficios
