@@ -1,37 +1,50 @@
 ﻿@model List<ProyectoIdentity.Controllers.Categorias>
 @{
     string[] colores = { "bg-danger", "bg-danger", "bg-danger", "bg-warning", "", "bg-success" };
+    string[] coloresDimension = { "#4DB3C7", "#F6C264", "#1D6E9B", "#CF423F" };
+    int categoriIndex = 0;
 }
 <h2 class="text-center mt-5">Percepciones para cada Dimensión y Pregunta</h2>
 @foreach (var categorias in Model)
 {
-    <div class="row mb-5">
-        <div class="col-md-12">
+    <div class="row m-5">
+        <div class="col-md-12 mb-3">
             <div class="card" style="width:100%">
                 <div class="card-body">
                     <h5 class="card-title">@categorias.CategoriaNombre</h5>
+                    <p>Promedio de la dimension:</p>
                 </div>
-                <hr />
-                <div class="card-body">
-                    <p class="card-link">@categorias.CategoriaDescripcion</p>
+                
+                <div class="card-body" style="background-color:@coloresDimension[categoriIndex]">
+                    <p class="card-link text-white fw-bolder">@categorias.CategoriaDescripcion</p>
                 </div>
             </div>
         </div>
+        @{
+            categoriIndex = categoriIndex + 1;
+        }
         @foreach (var pregunta in categorias.Preguntas)
         {
             if (pregunta.TipoPreguntaId == 2)
             {
-                <div class="col-md-6 d-flex flex-column justify-content-between">
-                    <p class="m-2">@pregunta.NumeroPregunta . @pregunta.PreguntaNombre</p>
-                    <div class="progress">
-                        <div class="progress-bar @pregunta.Color" role="progressbar" style="width: @pregunta.porcentaje%" aria-valuenow="@pregunta.Promedio" aria-valuemin="0" aria-valuemax="5">@pregunta.Promedio.ToString("0.00")</div>
+                <div class="col-md-12 d-flex flex-column justify-content-center">
+                    <div class="row  d-flex h-100 justify-content-center align-items-center">
+                        
+                        <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center fw-bolder">@*@pregunta.NumeroPregunta .*@ @pregunta.PreguntaNombre</div>
+                        <div class="col-md-1 border border-1 border-dark @pregunta.Color h-100 d-flex align-items-center fw-bolder text-white">@pregunta.Promedio.ToString("0.00")</div>
+                        <div class="progress col-md-4">
+                            <div class="progress-bar @pregunta.Color" role="progressbar" style="width: @pregunta.porcentaje%" aria-valuenow="@pregunta.Promedio" aria-valuemin="0" aria-valuemax="5">@pregunta.porcentaje</div>
+                        </div>
                     </div>
+
+                    @*<p class="m-2">@pregunta.NumeroPregunta . @pregunta.PreguntaNombre</p>
+                    *@
                 </div>
             }
             if (pregunta.TipoPreguntaId == 6)
             {
                 <div class="col-md-12 d-flex flex-column justify-content-between">
-                    <p class="m-2">@pregunta.NumeroPregunta . @pregunta.PreguntaNombre</p>
+                    <p class="m-2">@pregunta.PreguntaNombre</p>
                 </div>
                 var datosRespuesta = pregunta.Respuestas.GroupBy(x => x.DescripcionRespuesta).ToList();
 
@@ -40,18 +53,26 @@
                     var porcentaje = (int)(data.Average(x => x.valor) * 20);
                     string poscolor = colores[(int)(data.Average(x => x.valor))];
                     float average = (float)data.Average(x => x.valor);
-                    <div class="col-md-6 px-5 d-flex flex-column justify-content-between">
-                        <p>@data.Select(x=>x.DescripcionRespuesta).FirstOrDefault()</p>
-                        <div class="progress">
-                            <div class="progress-bar @poscolor" role="progressbar" style="width:@porcentaje%" aria-valuenow="@data.Average(x=>x.valor)" aria-valuemin="0" aria-valuemax="5">@average.ToString("0.00")</div>
+                    
+                    <div class="col-md-6 d-flex flex-column justify-content-center">
+                        <div class="row  d-flex h-100 justify-content-center align-items-center">
+                            <div class="col-md-8 border border-1 border-dark h-100 d-flex align-items-center fw-bolder">@data.Select(x=>x.DescripcionRespuesta).FirstOrDefault()</div>
+                            <div class="col-md-2 border border-1 border-dark bg-danger h-100 d-flex align-items-center fw-bolder text-white">@average.ToString("0.00")</div>
                         </div>
                     </div>
+                    <div class="col-md-6 px-5 d-flex flex-column justify-content-between">
+
+                        <div class="progress">
+                            <div class="progress-bar @poscolor" role="progressbar" style="width:@porcentaje%" aria-valuenow="@data.Average(x=>x.valor)" aria-valuemin="0" aria-valuemax="5">@porcentaje</div>
+                        </div>
+                    </div>
+
                 }
             }
             if (pregunta.TipoPreguntaId == 4)
             {
                 <div class="col-md-12 d-flex flex-column justify-content-between">
-                    <p class="m-2">@pregunta.NumeroPregunta . @pregunta.PreguntaNombre</p>
+                    <p class="m-2 fw-bolder">@pregunta.NumeroPregunta . @pregunta.PreguntaNombre</p>
                 </div>
                 var datosRespuesta = pregunta.Respuestas.GroupBy(x => x.DescripcionRespuesta).ToList();
                 @foreach (var data in datosRespuesta)
@@ -60,11 +81,10 @@
                     string poscolor = colores[(int)(data.Average(x => x.valor)/2)];
                     
                     float average = (float)data.Average(x => x.valor);
-                    <div class="col-md-6 px-5 d-flex flex-column justify-content-between">
-                        <p>@data.Select(x=>x.DescripcionRespuesta).FirstOrDefault()</p>
-                        <div class="progress">
-                            <div class="progress-bar @poscolor" role="progressbar" style="width:@porcentaje%" aria-valuenow="@data.Average(x=>x.valor)" aria-valuemin="0" aria-valuemax="5">@average.ToString("0.00")</div>
-                        </div>
+                   
+                    <div class="col-md-6 d-flex flex-column justify-content-between">
+                        <div class="col-md-4 border border-1 border-dark h-100 d-flex align-items-center fw-bolder">@data.Select(x=>x.DescripcionRespuesta).FirstOrDefault()</div>
+                        <div class="col-md-2 border border-1 border-dark @poscolor h-100 d-flex align-items-center fw-bolder text-white">@average.ToString("0.00")</div>
                     </div>
                 }
             }
@@ -72,7 +92,7 @@
             if (pregunta.TipoPreguntaId == 3)
             {
                 <div class="col-md-12 d-flex flex-column justify-content-between">
-                    <p class="m-2">@pregunta.NumeroPregunta . @pregunta.PreguntaNombre</p>
+                    <p class="m-2 fw-bolder">@pregunta.NumeroPregunta . @pregunta.PreguntaNombre</p>
                 </div>
                 var datosRespuesta = String.Join(",", pregunta.Respuestas.Select(x => x.DescripcionRespuesta).ToArray()).Replace(";",",");
                 var respuestasAgrupadas = datosRespuesta.Split(",")
@@ -99,7 +119,7 @@
             if (pregunta.TipoPreguntaId == 1)
             {
                 <div class="col-md-12 d-flex flex-column justify-content-between">
-                    <p class="m-2">@pregunta.NumeroPregunta . @pregunta.PreguntaNombre</p>
+                    <p class="m-2 fw-bolder">@pregunta.NumeroPregunta . @pregunta.PreguntaNombre</p>
                 </div>
                 var datosRespuesta = pregunta.Respuestas.GroupBy(x => x.DescripcionRespuesta).ToList();
                 @foreach (var data in datosRespuesta)

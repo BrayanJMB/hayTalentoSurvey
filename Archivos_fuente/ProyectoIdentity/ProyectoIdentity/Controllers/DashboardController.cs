@@ -12,7 +12,7 @@ namespace ProyectoIdentity.Controllers
     {
         private readonly ApplicationDbContext _context;
         private SurveyShow _surveyShow;
-        private string[] colores = { "bg-danger", "bg-danger", "bg-warning", "bg-info", "", "bg-success" };
+        private string[] colores = { "bg-danger", "bg-danger", "bg-danger", "bg-warning", "bg-primary", "bg-success" };
 
         public DashboardController(ApplicationDbContext context)
         {

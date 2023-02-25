@@ -4,29 +4,40 @@
     var surveyId = Model.Select(x => x.surveyId).FirstOrDefault();
 }
 
-<h2>@Model.Select(x=>x.Encuesta.NombreEncuesta).FirstOrDefault()</h2>
-
-<h4>@DateTime.UtcNow.ToLocalTime()</h4>
+<div class="contenedor-imagen w-100">
+    <img class="w-100" src="~/imagenes/ManosBeneficios.png" alt="Logo hay talento">
+    <div class="contenedor-texto w-100 h-100 d-flex flex-column justify-content-between">
+        <div class="d-flex align-items-center">
+            <img style="max-width:150px" src="~/imagenes/LogoHayTalento.png" alt="Logo hay talento">
+            <h1>@Model.Select(x=>x.Encuesta.NombreEncuesta).FirstOrDefault().Replace("Bienvenido a la","")</h1>
+        </div>
+        <h4>@DateTime.UtcNow.ToLocalTime()</h4>
+    </div>
+</div>
 <div class="row">
     <h2 class="text-center">Dimensiones de los beneficios</h2>
     <canvas id="myChart"></canvas>
 </div>
 
-<div class=" row d-flex align-content-center justify-content-center">
+<div class="row d-flex justify-content-around">
     <h2 class="text-center">Dimensiones de los beneficios</h2>
-    <div class="col-9">
+    <div class="col-md-8">
         <canvas id="myChart2"></canvas>
     </div>
-        <div class="col-2 relative">
+    <div class="col-2  d-flex flex-column justify-content-around">
+        <div style="width:85%;">
             <canvas id="myChart3"></canvas>
             <div class="absolute-center text-center">
-                <h3>Madurez</h3>
-            </div>
-             <canvas id="myChart4"></canvas>
-            <div class="absolute-center text-center">
-                <h3>Total</h3>
+                <h5>Madurez</h5>
             </div>
         </div>
+        <div style="width:85%;">
+        <canvas id="myChart4"></canvas>
+        <div class="absolute-center text-center">
+            <h5>Total</h5>
+        </div>
+        </div>
+    </div>
 </div>
 
 <div class="row mt-5">
@@ -45,44 +56,44 @@
 
 <script>
     var surveyId = @Model.Select(x=>x.surveyId).FirstOrDefault();
-    window.onload = ()=>{
+    window.onload = () => {
         $.ajax({
             url: 'DatosDemograficos/',
             type: 'POST',
             dataType: 'json',
-            data: {surveyId:surveyId},
-            success: function(data) {
+            data: { surveyId: surveyId },
+            success: function (data) {
                 let promedioPorCategoria = 0;
-                data.forEach(element=>{
-                    promedioPorCategoria+=element.promedioGeneral;
+                data.forEach(element => {
+                    promedioPorCategoria += element.promedioGeneral;
                 })
 
                 //Datos para la encuesta de madurez
-                  $.ajax({
-                        url: 'DatosMadurez/',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {surveyId: surveyId+1},
-                        success: function(dataMadurez) {
-                            let promedioGeneral = 0;
-                            dataMadurez.forEach(element=>{
-                                promedioPorCategoria+=element.promedioGeneral;
-                            })
-                            promedioGeneral = promedioPorCategoria/(data.length+dataMadurez.length)
+                $.ajax({
+                    url: 'DatosMadurez/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { surveyId: surveyId + 1 },
+                    success: function (dataMadurez) {
+                        let promedioGeneral = 0;
+                        dataMadurez.forEach(element => {
+                            promedioPorCategoria += element.promedioGeneral;
+                        })
+                        promedioGeneral = promedioPorCategoria / (data.length + dataMadurez.length)
 
-                                GraficaPromedioGeneral(data, dataMadurez, promedioGeneral);
-                                GraficaPromedioGeneralBarras(data);
-                                MadurezDoughnut(dataMadurez);
-                                PromedioTotalDoughnut(promedioGeneral);
-                        },
-                        error: function(xhr, textStatus, errorThrown) {
-                            // Se produjo un error al obtener los datos
-                            console.log('Error al obtener los datos: ' + errorThrown);
-                        }
-                    });
+                        GraficaPromedioGeneral(data, dataMadurez, promedioGeneral);
+                        GraficaPromedioGeneralBarras(data);
+                        MadurezDoughnut(dataMadurez);
+                        PromedioTotalDoughnut(promedioGeneral);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        // Se produjo un error al obtener los datos
+                        console.log('Error al obtener los datos: ' + errorThrown);
+                    }
+                });
 
             },
-            error: function(xhr, textStatus, errorThrown) {
+            error: function (xhr, textStatus, errorThrown) {
                 // Se produjo un error al obtener los datos
                 console.log('Error al obtener los datos: ' + errorThrown);
             }
@@ -90,7 +101,7 @@
     }
     //Registra plugin
     Chart.register(ChartDataLabels);
-    function GraficaPromedioGeneral(data, dataMadurez, promedioGeneral){
+    function GraficaPromedioGeneral(data, dataMadurez, promedioGeneral) {
         console.log(dataMadurez)
         new Chart(document.getElementById("myChart"), {
             type: 'bubble',
@@ -341,56 +352,57 @@
     }
 
 
-    function GraficaPromedioGeneralBarras(datos){
-            const dimensionBeneficioBar = document.getElementById('myChart2');
-            let datosPromedioPorCategoria = []
-            datos.forEach(element=>{
-                datosPromedioPorCategoria.push(element.promedioGeneral.toFixed(1))
-            })
-            new Chart(dimensionBeneficioBar, {
-                type: 'bar',
-                data: {
-                    labels: ["Calidad de vida", "Monetarios no Monetarios", "Desarrollo Personal", "Herramientas Trabajo"],
-                    datasets: [
-                        {
-                            backgroundColor: ["rgba(77,179,199,1)", "rgba(246, 194, 100, 1)", "rgba(29,110,155,1)", "rgba(207, 66, 63, 1)"],
-                            data: datosPromedioPorCategoria,
-                        }
-                    ]
-                },
-                options: {
-                      scales: {
-                        x: {
-                            grid: {
-                                display: false
-                            }
-                        },
-                        y: {
-                            grid: {
-                                display: false
-                            }
+    function GraficaPromedioGeneralBarras(datos) {
+        const dimensionBeneficioBar = document.getElementById('myChart2');
+        let datosPromedioPorCategoria = []
+        datos.forEach(element => {
+            datosPromedioPorCategoria.push(element.promedioGeneral.toFixed(1))
+        })
+        new Chart(dimensionBeneficioBar, {
+            type: 'bar',
+            data: {
+                labels: ["Calidad de vida", "Monetarios no Monetarios", "Desarrollo Personal", "Herramientas Trabajo"],
+                datasets: [
+                    {
+                        backgroundColor: ["rgba(77,179,199,1)", "rgba(246, 194, 100, 1)", "rgba(29,110,155,1)", "rgba(207, 66, 63, 1)"],
+                        data: datosPromedioPorCategoria,
+                    }
+                ]
+            },
+            options: {
+                barThickness: 80,
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
                         }
                     },
-                    plugins: {
-                        tooltip: {
+                    y: {
+                        grid: {
                             display: false
-                        },
-                        legend: {
-                            display: false
-                        },
-                         datalabels: {
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        display: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    datalabels: {
                         color: '#FFFFFF',
                         offset: 4,
                         font: {
-                          weight: 'bold'
+                            weight: 'bold'
                         }
-                      }
                     }
                 }
-            });
-        }
+            }
+        });
+    }
 
-    function MadurezDoughnut(datosMadurez){
+    function MadurezDoughnut(datosMadurez) {
         const dimensionBeneficioBar2 = document.getElementById('myChart3');
         new Chart(dimensionBeneficioBar2, {
             type: 'doughnut',
@@ -399,8 +411,8 @@
                 datasets: [
                     {
                         label: 'Madurez',
-                        backgroundColor:  ["rgba(62, 149, 205, 1)", "rgba(30, 30, 30, 0.5)"],
-                        data: [datosMadurez[0].promedioGeneral.toFixed(1),5-datosMadurez[0].promedioGeneral.toFixed(1)],
+                        backgroundColor: ["rgba(62, 149, 205, 1)", "rgba(30, 30, 30, 0.5)"],
+                        data: [datosMadurez[0].promedioGeneral.toFixed(1), 5 - datosMadurez[0].promedioGeneral.toFixed(1)],
                         datalabels: {
                             color: 'white',
                             font: {
@@ -411,6 +423,7 @@
                 ]
             },
             options: {
+                cutout: '60%',
                 plugins: {
                     tooltip: {
                         display: false
@@ -423,7 +436,7 @@
         });
     }
 
-    function PromedioTotalDoughnut(promedioGeneral){
+    function PromedioTotalDoughnut(promedioGeneral) {
         new Chart(dimensionBeneficioBar3, {
             type: 'doughnut',
             data: {
@@ -432,7 +445,7 @@
                     {
                         label: 'Total',
                         backgroundColor: ["rgba(62, 149, 205, 1)", "rgba(30, 30, 30, .5)"],
-                        data: [promedioGeneral.toFixed(1), (5-promedioGeneral).toFixed(1)],
+                        data: [promedioGeneral.toFixed(1), (5 - promedioGeneral).toFixed(1)],
                         datalabels: {
                             color: 'white',
                             font: {
@@ -443,7 +456,9 @@
                 ]
             },
             options: {
+                cutout: '60%',
                 plugins: {
+
                     tooltip: {
                         display: false
                     },
