@@ -8,8 +8,9 @@ namespace ProyectoIdentity.Models.ModelosRespuestas
     {
         public int IdPregunta { get; set; }
         public string Opcion { get; set; }
+        public string? ValorSeleccionado { get; set; }
 
-        public float Valor { get; set; }
+        public float? Valor { get; set; }
     }
 
 

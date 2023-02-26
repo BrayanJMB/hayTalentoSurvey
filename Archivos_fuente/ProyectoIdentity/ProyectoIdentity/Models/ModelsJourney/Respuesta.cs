@@ -12,6 +12,8 @@ namespace ProyectoIdentity.Models.ModelsJourney
 
         public float? Valor { get; set; }
 
+        public string? RespuestaOpcion { get; set; }
+
         //llaves Foraneas
         [Display(Name = "Id Persona que Responde")]
         [HiddenInput(DisplayValue = false)]
