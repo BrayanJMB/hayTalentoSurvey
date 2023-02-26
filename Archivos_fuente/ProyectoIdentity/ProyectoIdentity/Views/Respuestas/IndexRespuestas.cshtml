@@ -431,7 +431,7 @@
                                                                 }
                                                                 @if (pregunta.NumeroPregunta == 21)
                                                                 {
-                                                                    classCheck = "options-check";
+                                                                    classCheck = "options-check multiple-check";
                                                                 }
                                                                 else if (pregunta.TipoPregunta == "Seleccion Multiple")
                                                                 {
@@ -651,26 +651,32 @@
                                                                                             <input type="hidden" name="resValor[@contVal].IdPregunta" value="@pregunta.IdPregunta" />
                                                                                             <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree">@opcionP.OpcionName </div>
                                                                                             <input type="hidden" name="resValor[@contVal].Opcion" value="@opcionP.OpcionName" />
-                                                                                            <select class="form-select form-select-sm escala" name="resValor[@contVal].valor" aria-label="Default select example" required>
-                                                                                                @if (pregunta.NumeroPregunta != 15)
+                                                                                               @if (pregunta.NumeroPregunta != 15)
                                                                                                 {
+                                                                                                     
+                                                                                                    <select class="form-select form-select-sm escala" name="resValor[@contVal].valor" aria-label="Default select example" required>
+                                                                                            
                                                                                                     <option value="" selected>Seleccione</option>
                                                                                                     <option value="1">No Aplica</option>
                                                                                                     <option value="2">No cumple las expectativas</option>
                                                                                                     <option value="3">Necesita algunas mejoras</option>
                                                                                                     <option value="4">Cumple las expectativas</option>
                                                                                                     <option value="5">Supera las expectativas</option>
+                                                                                                </select>
                                                                                                 }
                                                                                                 else if (pregunta.NumeroPregunta == 15)
                                                                                                 {
+                                                                                                <select class="form-select form-select-sm escala" name="resValor[@contVal].ValorSeleccionado" aria-label="Default select example" required>
+                                                                                            
                                                                                                     <option value="" selected>Seleccione</option>
-                                                                                                    <option value="1,25">Nunca (Ninguna)</option>
-                                                                                                    <option value="2,50">1 y 3 veces/mes (Baja)</option>
-                                                                                                    <option value="3,75">Entre 4 y 10 veces/mes (Media)</option>
-                                                                                                    <option value="5,00">Más de 10 veces/mes (Alta)</option>
+                                                                                                    <option value="Nunca">Nunca (Ninguna)</option>
+                                                                                                    <option value="1 y 3 veces/mes">1 y 3 veces/mes (Baja)</option>
+                                                                                                    <option value="Entre 4 y 10 veces/mes">Entre 4 y 10 veces/mes (Media)</option>
+                                                                                                    <option value="Más de 10 veces/mes">Más de 10 veces/mes (Alta)</option>
+                                                                                                    </select>
                                                                                                 }
 
-                                                                                            </select>
+                                                                                            
                                                                                         </div>
                                                                                     </div>
                                                                                     contVal++;
@@ -956,10 +962,11 @@
                             let inputName = document.createElement("input");
                             const firstChild = nuevoTr.children[0].firstChild;
                             nuevoTr.children[0].insertBefore(inputName, firstChild);
-
+                            //nuevoTr.children[0].children[0].setAttribute("name", "Fammilia[" + indexModelo + "].Parentesco");
                             inputName.setAttribute('class', "form-control mb-3");
                             inputName.setAttribute('data-toggle', "tooltip");
                             inputName.setAttribute('title', "Ingresa el parentesco");
+
                             /*
                             nuevoTr.children[0].children[2].children[1].name = nuevoTr.children[0].children[2].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
                             nuevoTr.children[0].children[2].children[1].setAttribute('class', "form-control");

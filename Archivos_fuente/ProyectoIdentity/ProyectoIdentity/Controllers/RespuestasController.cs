@@ -167,7 +167,8 @@ namespace ProyectoIdentity.Controllers
                     PreguntaId = respuesta.IdPregunta,
                     RespondenteId = repondente.Entity.Id,
                     DescripcionRespuesta = respuesta.Opcion,
-                    Valor = respuesta.Valor,
+                    Valor = respuesta.Valor??0,
+                    RespuestaOpcion=respuesta.ValorSeleccionado??null,
                     EncuestaRespondenteId= encuestaResppondente.Entity.Id
                 });
             }

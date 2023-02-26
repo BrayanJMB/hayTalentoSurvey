@@ -29,11 +29,17 @@ namespace ProyectoIdentity.Controllers
 
             var encuesta = _context.Encuesta.FirstOrDefault(e => e.Id == surveyId);
 
+            var cantRespuestas = _context.EncuestaRespondenteB.Where(x => x.EncuestaId == surveyId).Count();
+            if (cantRespuestas < 1)
+                return RedirectToAction("Index","Encuestas");
+
+            //var preguntaPersonalizada=_context.Encuesta.
             var respuestasPorCategoria = _context.Respuesta
                 .Where(x => x.EncuestaRespondenteB.EncuestaId == surveyId)
                 .Include(x => x.Pregunta)
                     .ThenInclude(x => x.EncuestaCategoria)
                         .ThenInclude(x => x.Categoria)
+                .Include(y=>y.Pregunta.Opciones)
                 .Select(x => new
                 {
                     CategoriaId = x.Pregunta.EncuestaCategoria.CategoriaId,
@@ -45,7 +51,10 @@ namespace ProyectoIdentity.Controllers
                     PreguntaNombre = x.Pregunta.NombrePregunta,
                     x.Valor,
                     x.DescripcionRespuesta,
-                    x.Pregunta.TipoPreguntaId
+                    x.Pregunta.TipoPreguntaId,
+                    x.RespuestaOpcion,
+                    Opciones=x.Pregunta.Opciones.Select(y=>y.Nombre).ToList(),
+
                 })
                 .GroupBy(x => new { x.CategoriaId, x.CategoriaNombre, x.CategoriaDescripcion})
                 .Select(g1 => new Categorias
@@ -54,7 +63,7 @@ namespace ProyectoIdentity.Controllers
                     CategoriaNombre = g1.Key.CategoriaNombre,
                     CategoriaDescripcion = g1.Key.CategoriaDescripcion,
                     surveyId = surveyId,
-                    Encuesta= encuesta,
+                    Encuesta= encuesta,                   
                     Preguntas = g1.GroupBy(x => new { x.PreguntaId, x.PreguntaNombre, x.TipoPreguntaId, x.NumeroPregunta })
                         .Select(g2 => new PreguntasBeneficios
                         {
@@ -68,14 +77,24 @@ namespace ProyectoIdentity.Controllers
                             Respuestas = g2.Select(z => new RespuestasBeneficios
                             {
                                 valor = z.Valor,
-                                DescripcionRespuesta = z.DescripcionRespuesta
+                                DescripcionRespuesta = z.DescripcionRespuesta,
+                                RespuestaOpcion=z.RespuestaOpcion
+
                             }).ToList(),
-                            Color = colores[((int?)g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor)) ?? 0],
-                            CantidadRespuestas = g2.Count()
+                            Color = colores[(int?)Math.Ceiling((double)g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor)) ?? 0],
+                            CantidadRespuestas = g2.Count(),
+                            Opciones=g2.First().Opciones
                         }).ToList()
                 }).ToList();
 
-            return View(respuestasPorCategoria);
+            var pregunta17 = _context.Pregunta.Where(x => x.NumeroPregunta == 17 && x.EncuestaCategoria.EncuestaId == surveyId).FirstOrDefault().NombrePregunta;
+            var respuestas = _context.RespuestaPersonalizada.Where(x => x.IdPregunta == 17 && x.EncuestaRespondenteB.EncuestaId == surveyId).ToList();
+            var response17 = new Respuestaper { NombrePregunta = pregunta17, Respuestas = respuestas };
+            var datos2 = new orderBycategory { Categorias = respuestasPorCategoria, QuestionPer = response17 };
+
+
+
+            return View(datos2);
         }
 
         // GET: Categorias/Details/5

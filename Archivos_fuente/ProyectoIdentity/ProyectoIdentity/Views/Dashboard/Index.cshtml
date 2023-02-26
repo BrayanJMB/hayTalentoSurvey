@@ -1,7 +1,7 @@
-﻿@model List<ProyectoIdentity.Controllers.Categorias>
+﻿@model ProyectoIdentity.Controllers.orderBycategory
 @{
     ViewData["Title"] = "Home Page";
-    var surveyId = Model.Select(x => x.surveyId).FirstOrDefault();
+    var surveyId = Model.Categorias.Select(x => x.surveyId).FirstOrDefault();
 }
 
 <div class="contenedor-imagen w-100">
@@ -9,7 +9,7 @@
     <div class="contenedor-texto w-100 h-100 d-flex flex-column justify-content-between">
         <div class="d-flex align-items-center">
             <img style="max-width:150px" src="~/imagenes/LogoHayTalento.png" alt="Logo hay talento">
-            <h1>@Model.Select(x=>x.Encuesta.NombreEncuesta).FirstOrDefault().Replace("Bienvenido a la","")</h1>
+            <h1>@Model.Categorias.Select(x=>x.Encuesta.NombreEncuesta).FirstOrDefault().Replace("Bienvenido a la","")</h1>
         </div>
         <h4>@DateTime.UtcNow.ToLocalTime()</h4>
     </div>
@@ -40,12 +40,12 @@
     </div>
 </div>
 
-<div class="row mt-5">
+@*<div class="row mt-5">
     <div style="width:700px">
         <h2 class="text-center">Demograficos</h2>
         <canvas id="demograficos" width="800" height="600"></canvas>
     </div>
-</div>
+</div>*@
 
 @Html.Partial("../Dashboard1/Index2", Model)
 
@@ -55,7 +55,7 @@
 
 
 <script>
-    var surveyId = @Model.Select(x=>x.surveyId).FirstOrDefault();
+    var surveyId = @Model.Categorias.Select(x=>x.surveyId).FirstOrDefault();
     window.onload = () => {
         $.ajax({
             url: 'DatosDemograficos/',

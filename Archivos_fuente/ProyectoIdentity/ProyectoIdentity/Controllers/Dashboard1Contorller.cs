@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProyectoIdentity.Datos;
+using ProyectoIdentity.Models.ModelosRespuestas;
 using ProyectoIdentity.Models.ModelsJourney;
 using ProyectoIdentity.Models.ModelTemplateJorney;
 using System.Linq;
@@ -40,6 +41,20 @@ namespace ProyectoIdentity.Controllers
         public float? PromedioGeneral { get; set; } // Nueva propiedad agregada
         public int surveyId { get; set; } //campo nuevo
         public Encuesta Encuesta {get;set; }//campo nuevo
+
+        
+    }
+
+    public class orderBycategory {
+        public List<Categorias> Categorias { get; set; }
+        public Respuestaper QuestionPer { get; set; }
+
+    }
+
+    public class Respuestaper
+    {
+        public string NombrePregunta { get; set; }
+        public List<RespuestaPersonalizada> Respuestas { get; set; }
     }
 
     public class PreguntasBeneficios
@@ -52,6 +67,7 @@ namespace ProyectoIdentity.Controllers
         public int porcentaje { get; set; }
         public int TipoPreguntaId { get; set; }
         public int CantidadRespuestas { get; set; }
+        public List<string> Opciones { get; set; }
         public List<RespuestasBeneficios> Respuestas { get; set; }
     }
 
@@ -59,6 +75,7 @@ namespace ProyectoIdentity.Controllers
     {
         public float? valor { get; set; }
         public string DescripcionRespuesta { get; set; }
+        public string? RespuestaOpcion { get; set; }
 
     }
 
@@ -67,7 +84,7 @@ namespace ProyectoIdentity.Controllers
     {
         private readonly ApplicationDbContext _context;
         private SurveyShow _surveyShow;
-        private string[] colores = { "bg-danger", "bg-danger", "bg-warning", "bg-info", "", "bg-success" };
+        private string[] colores = { "bg-danger", "bg-danger", "bg-danger", "bg-warning", "bg-primary", "bg-success" };
         public Dashboard1Controller(ApplicationDbContext context)
         {
             _context = context;
@@ -115,6 +132,10 @@ namespace ProyectoIdentity.Controllers
 
         public IActionResult Index2(int surveyId)
         {
+            var cantRespuestas = _context.EncuestaRespondenteB.Where(x => x.EncuestaId == surveyId).Count();
+            if (cantRespuestas < 1)
+                return View(RedirectToAction("Index", "Encuestas"));
+            
             var categorias = _context.EncuestaCategoria.Include(x => x.Categoria)
                 .Include(x => x.Preguntas)
 
@@ -123,9 +144,10 @@ namespace ProyectoIdentity.Controllers
 
             var respuestasPorCategoria = _context.Respuesta
                 .Where(x => x.EncuestaRespondenteB.EncuestaId == surveyId)
-                .Include(x => x.Pregunta)
+                .Include(x => x.Pregunta)                    
                     .ThenInclude(x => x.EncuestaCategoria)
                         .ThenInclude(x => x.Categoria)
+                .Include(x => x.Pregunta.Opciones)
                 .Select(x => new
                 {
                     CategoriaId = x.Pregunta.EncuestaCategoria.CategoriaId,
@@ -137,7 +159,8 @@ namespace ProyectoIdentity.Controllers
                     PreguntaNombre = x.Pregunta.NombrePregunta,
                     x.Valor,
                     x.DescripcionRespuesta,
-                    x.Pregunta.TipoPreguntaId
+                    x.Pregunta.TipoPreguntaId,
+                    x.Pregunta.Opciones
                 })
                 .GroupBy(x => new { x.CategoriaId, x.CategoriaNombre,x.CategoriaDescripcion })
                 .Select(g1 => new Categorias
@@ -145,7 +168,7 @@ namespace ProyectoIdentity.Controllers
                     CategoriaId = g1.Key.CategoriaId,
                     CategoriaNombre = g1.Key.CategoriaNombre,
                     CategoriaDescripcion=g1.Key.CategoriaDescripcion,
-                    Preguntas = g1.GroupBy(x => new { x.PreguntaId, x.PreguntaNombre,x.TipoPreguntaId,x.NumeroPregunta})
+                    Preguntas = g1.GroupBy(x => new { x.PreguntaId, x.PreguntaNombre,x.TipoPreguntaId,x.NumeroPregunta, x.Opciones })
                         .Select(g2 => new PreguntasBeneficios
                         {
                             PreguntaId = g2.Key.PreguntaId,
@@ -159,8 +182,9 @@ namespace ProyectoIdentity.Controllers
                                 valor = z.Valor,
                                 DescripcionRespuesta = z.DescripcionRespuesta
                             }).ToList(),
-                            Color = colores[((int?)g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor)) ?? 0],
-                            CantidadRespuestas = g2.Count()
+                            Color = colores[((int?)Math.Ceiling((double)g2.Where(x => x.TipoPreguntaId == 2).Average(x => x.Valor))) ?? 0],
+                            CantidadRespuestas = g2.Count(),
+                            Opciones=g2.Key.Opciones.Select(g3=>g3.Nombre).ToList()
                         }).ToList()
                 }).ToList();
 
