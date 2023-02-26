@@ -2,9 +2,18 @@
 @{
     ViewData["Title"] = "Home Page";
     var surveyId = Model.Categorias.Select(x => x.surveyId).FirstOrDefault();
+    var paises = Model.Demograficos.GroupBy(x => x.Pais).Select(x => new
+    {
+        Pais = x,
+        count = x.Count()
+
+    }).ToArray();
 }
 
 <div class="contenedor-imagen w-100">
+    @{
+        paises.Count();
+    }
     <img class="w-100" src="~/imagenes/ManosBeneficios.png" alt="Logo hay talento">
     <div class="contenedor-texto w-100 h-100 d-flex flex-column justify-content-between">
         <div class="d-flex align-items-center">
@@ -32,12 +41,33 @@
             </div>
         </div>
         <div style="width:85%;">
-        <canvas id="myChart4"></canvas>
-        <div class="absolute-center text-center">
-            <h5>Total</h5>
-        </div>
+            <canvas id="myChart4"></canvas>
+            <div class="absolute-center text-center">
+                <h5>Total</h5>
+            </div>
         </div>
     </div>
+</div>
+<div class="row">
+    <h2 class="text-center">Datos Demograficos</h2>
+   
+
+<div class="row mt-5 align-items-center">
+    <div class="col-md-6">
+        <div style="width:300px">
+            <h4 class="text-center">Pais</h4>
+            <canvas id="demograficos" width="300px" height="300px"></canvas>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div style="width:300px">
+            <h4 class="text-center">Demograficos</h4>
+            <canvas id="demograficos1" width="300px" height="300px"></canvas>
+        </div>
+    </div>
+</div>
+</div>
+</div>
 </div>
 
 @*<div class="row mt-5">
@@ -471,30 +501,46 @@
         });
     }
 
-    const demografico = document.getElementById('demograficos');
-    new Chart(demografico, {
+    //Grafica de demograficos
+
+    var pieChart = document.getElementById("demograficos")
+    var myPieChart = new Chart(pieChart, {
         type: 'pie',
         data: {
-            labels: ['Sexo', 'EstadoCivil', 'NivelEducativo', 'Dependencia Economica', 'Edad'],
-            datasets: [
-                {
-                    data: [30, 20],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FFCE90', '#AACE56']
-                },
-                {
-                    data: [20, 40],
-                    backgroundColor: ['#FF8F8F', '#66C2A5', '#FFD28F', '#FFDD11', '#CCCE23']
-                },
-                {
-                    data: [20, 40],
-                    backgroundColor: ['#FF8F8F', '#66C2A5', '#FFD28F', '#FFDD11', '#CCCE23']
-                }
-            ]
+            labels: ['Manzanas', 'Naranjas', 'Plátanos'],
+            datasets: [{
+                label: 'Frutas',
+                data: [12, 19, 6],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ]
+            }]
+        }
+    });
+    var pieChart = document.getElementById("demograficos1")
+    var myPieChart1 = new Chart(pieChart, {
+        type: 'pie',
+        
+        data: {
+            labels: ['Manzanas', 'Naranjas', 'Plátanos'],
+            datasets: [{
+                label: 'Frutas',
+                data: [12, 19, 6],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ]
+            }]
+
         },
         options: {
-            title: {
-                display: true,
-                text: 'Gráfica de Multi Series Pie'
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
             }
         }
     });

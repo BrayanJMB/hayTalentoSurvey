@@ -26,6 +26,82 @@
 
     @foreach (var pregunta in categorias.Preguntas)
     {
+        if (pregunta.NumeroPregunta == 18)
+        {
+            <div class="row mx-1">
+                <div class="col-md-12 d-flex flex-column justify-content-between m-2">
+                    <p class="m-2 fw-bolder">17 . @Model.QuestionPer.NombrePregunta</p>
+                </div>
+            </div>
+            var datosPregunta = Model.QuestionPer.Respuestas.GroupBy(x => x.Concepto).ToList();
+            <div class="row d-flex mx-5 justify-content-between">
+                    <div class="col-md-3 border border-1 border-dark  d-flex align-items-center fw-bolder fs-6">Concepto</div>
+                    <div class="col-md-2 border border-1 border-dark  d-flex align-items-center fw-bolder">
+                    <div class="row">
+                        <div class="col-md-12 fs-6">Conoce el Beneficio</div>
+                        <div class="col-md-6 border-top border-dark ">SI</div>
+                        <div class="col-md-6 border-top border-start border-dark ">NO</div>
+                    </div>
+                    
+                    </div>
+                <div class="col-md-3 border border-1 border-dark  d-flex fw-bolder">
+                    <div class="row">
+                        <div class="col-md-12 fs-6">atractivo del beneficio</div>
+                        <div class="col-md-3  border-top border-dark fs-8">Bajo</div>
+                        <div class="col-md-3  border-top border-dark fs-8">Regular</div>
+                        <div class="col-md-3  border-top border-dark fs-8">Medio</div>
+                        <div class="col-md-3  border-top border-dark fs-8">Alto</div>
+                    </div>
+                    
+                    
+                    </div>
+                <div class="col-md-4 border border-1 border-dark  d-flex align-items-center fw-bolder">
+                    <div class="row">
+                        <div class="col-md-12 fs-6">funciona el beneficio</div>
+                        <div class="col-md-4  border-top border-dark ">No Aplica</div>
+                        <div class="col-md-2  border-top border-dark ">Malo</div>
+                        <div class="col-md-3  border-top border-dark ">Regular</div>
+                        <div class="col-md-3  border-top border-dark ">Bueno</div>
+                    </div>
+                    
+                </div>
+                   
+
+                
+            @foreach (var res in datosPregunta)
+                {
+                   @* <p>@res.Atractivo</p>*@
+                    <div class="col-md-3 border border-1 border-dark  d-flex align-items-center fw-bolder">
+                    @res.Key
+                    </div>
+                    <div class="col-md-2 border border-1 border-dark  d-flex align-items-center fw-bolder">
+                        <div class="col-md-6 d-flex align-items-center">70%</div>
+                        <div class="col-md-6 d-flex align-items-center border-start border-dark">30%</div>
+                    </div>
+                    <div class="col-md-3 border border-1 border-dark  d-flex align-items-center fw-bolder">
+                        <div class="row">
+                            <div class="col-md-3  border-end border-dark ">15%</div>
+                            <div class="col-md-3  border-end border-dark ">20%</div>
+                            <div class="col-md-3  border-end border-dark ">20%</div>
+                            <div class="col-md-3">25%</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 border border-1 border-dark  d-flex align-items-center fw-bolder">
+                        <div class="row">
+                            <div class="col-md-4  border-end border-dark ">15%</div>
+                            <div class="col-md-2  border-end border-dark ">20%</div>
+                            <div class="col-md-3  border-end border-dark ">20%</div>
+                            <div class="col-md-3">25%</div>
+                        </div>
+
+                    </div>
+                    @*<p>@res.Funcionamiento</p>
+                    <p>@res.Beneficio</p>*@
+                }
+            </div>
+            
+        }
+
         if (pregunta.TipoPreguntaId == 2)
         {
             <div class="row mx-1">

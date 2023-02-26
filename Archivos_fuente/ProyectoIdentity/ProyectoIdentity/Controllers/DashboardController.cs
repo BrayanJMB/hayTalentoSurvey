@@ -90,8 +90,15 @@ namespace ProyectoIdentity.Controllers
             var pregunta17 = _context.Pregunta.Where(x => x.NumeroPregunta == 17 && x.EncuestaCategoria.EncuestaId == surveyId).FirstOrDefault().NombrePregunta;
             var respuestas = _context.RespuestaPersonalizada.Where(x => x.IdPregunta == 17 && x.EncuestaRespondenteB.EncuestaId == surveyId).ToList();
             var response17 = new Respuestaper { NombrePregunta = pregunta17, Respuestas = respuestas };
-            var datos2 = new orderBycategory { Categorias = respuestasPorCategoria, QuestionPer = response17 };
-
+            var demograficos = _context.EncuestaRespondenteB.Where(x => x.EncuestaId == surveyId).Select(x => new DemograficosAnswer
+            {
+                Area = x.Respondente.Area,
+                Negocios = x.Respondente.BussinesUnitId,
+                Ciudad = x.Respondente.City,
+                Pais = x.Respondente.Country
+            }).ToList();
+            var datos2 = new orderBycategory { Categorias = respuestasPorCategoria, QuestionPer = response17, Demograficos=demograficos};
+            
 
 
             return View(datos2);
