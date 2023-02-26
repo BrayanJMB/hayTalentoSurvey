@@ -26,6 +26,8 @@ namespace ProyectoIdentity.Controllers
     public class dataPreguntas
     {
         public string? mispreguntas { get; set; }
+        public int? numeroPregunta { get; set; }
+        public float Promedio { get; set; }
         public float valores { get; set; } = 0;
         public int porcentaje { get; set; }
         public string Color { get; set; }
@@ -48,6 +50,7 @@ namespace ProyectoIdentity.Controllers
     public class orderBycategory {
         public List<Categorias> Categorias { get; set; }
         public Respuestaper QuestionPer { get; set; }
+        public List<DemograficosAnswer> Demograficos { get; set; }
 
     }
 
@@ -55,6 +58,18 @@ namespace ProyectoIdentity.Controllers
     {
         public string NombrePregunta { get; set; }
         public List<RespuestaPersonalizada> Respuestas { get; set; }
+
+        
+    }
+
+    public class DemograficosAnswer {
+
+        public string Ciudad { get; set; }
+        public string Pais { get; set; }
+
+        public string Area { get; set; }
+
+        public string Negocios { get; set; }
     }
 
     public class PreguntasBeneficios
@@ -108,7 +123,10 @@ namespace ProyectoIdentity.Controllers
                                 mispreguntas = g.First().Pregunta.NombrePregunta,
                                 valores = g.Average(x => (float)Math.Round((decimal)x.Valor, 2)),
                                 porcentaje = (int)(g.Average(x => x.Valor) * 20),
-                                Color = colores[(int)g.Average(x => x.Valor)]
+                                Color = colores[(int)g.Average(x => x.Valor)],
+                                Promedio = g.Where(x => x.Pregunta.TipoPreguntaId == 2).Average(x => x.Valor) ?? 0,
+                                numeroPregunta = g.First().Pregunta.NumeroPregunta,
+
                             }).ToList();
             _surveyShow.NombreCategoria = category.NombreCategoria;
             _surveyShow.DescripcionCategoria = category.Descripcion;

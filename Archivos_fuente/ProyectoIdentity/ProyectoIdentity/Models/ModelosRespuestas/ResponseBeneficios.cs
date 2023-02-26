@@ -28,9 +28,9 @@ namespace ProyectoIdentity.Models.ModelosRespuestas
 
         public bool Beneficio { get; set; }
 
-        public float Atractivo { get; set; }
+        public string Atractivo { get; set; }
 
-        public float Funcionamiento { get; set; }
+        public string Funcionamiento { get; set; }
         [ForeignKey("EncuestaRespondenteB")]
         public int? EncuestaResponcenteId { get; set; }
         public EncuestaRespondenteB? EncuestaRespondenteB { get; set; }
