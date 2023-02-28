@@ -1,22 +1,32 @@
-﻿@model ProyectoIdentity.Controllers.orderBycategory
+﻿@using System.Text.RegularExpressions;
+@model ProyectoIdentity.Controllers.orderBycategory
 @{
     string[] colores = { "bg-danger", "bg-danger", "bg-danger", "bg-warning", "bg-primary", "bg-success" };
     string[] coloresDimension = { "#4DB3C7", "#F6C264", "#1D6E9B", "#CF423F" };
     int categoriIndex = 0;
 }
+
 <h2 class="text-center mt-5">Percepciones para cada Dimensión y Pregunta</h2>
 @foreach (var categorias in Model.Categorias)
 {
+    
     <div class="row mx-3 my-4">
         <div class="col-md-12 ">
             <div class="card" style="width:100%">
-                <div class="card-body">
-                    <h5 class="card-title">@categorias</h5>
-                    <p>Promedio de la dimension:</p>
+                @if(categorias.CategoriaNombre.Contains("Monetarios")){
+                    <div class="card-body text-center " style="background-color:@coloresDimension[categoriIndex]">
+                        <h5 class="card-title">@categorias.CategoriaNombre</h5>
+                        <h6>Promedio de la dimensión: @categorias.PromedioGeneral?.ToString("0.0")</h6>
+                    </div>
+                }else{
+                <div class="card-body text-center text-white" style="background-color:@coloresDimension[categoriIndex]">
+                    <h5 class="card-title">@categorias.CategoriaNombre</h5>
+                        <h6>Promedio de la dimensión: @categorias.PromedioGeneral?.ToString("0.0")</h6>
                 </div>
+                }
 
-                <div class="card-body" style="background-color:@coloresDimension[categoriIndex]">
-                    <p class="card-link text-white fw-bolder">@categorias.CategoriaDescripcion</p>
+                <div class="card-body" >
+                    <p class="card-link  fw-bolder">@categorias.CategoriaDescripcion</p>
                 </div>
             </div>
         </div>
@@ -26,79 +36,90 @@
 
     @foreach (var pregunta in categorias.Preguntas)
     {
+        
+        if (pregunta.NumeroPregunta == 11 || pregunta.NumeroPregunta == 15 ||  pregunta.NumeroPregunta == 22)
+        {
+            <div id="nextPage"></div>
+
+        }
         if (pregunta.NumeroPregunta == 18)
         {
+            var nombrePregunta = Regex.Replace(Model.QuestionPer.NombrePregunta, @"\s*\(.*?\)\s*", "");
             <div class="row mx-1">
                 <div class="col-md-12 d-flex flex-column justify-content-between m-2">
-                    <p class="m-2 fw-bolder">17 . @Model.QuestionPer.NombrePregunta</p>
+                    <p class="m-2 fw-bolder">17 . @nombrePregunta</p>
                 </div>
             </div>
             var datosPregunta = Model.QuestionPer.Respuestas.GroupBy(x => x.Concepto).ToList();
-            <div class="row d-flex mx-5 justify-content-between">
-                    <div class="col-md-3 border border-1 border-dark  d-flex align-items-center fw-bolder fs-6">Concepto</div>
-                    <div class="col-md-2 border border-1 border-dark  d-flex align-items-center fw-bolder">
-                    <div class="row">
-                        <div class="col-md-12 fs-6">Conoce el Beneficio</div>
-                        <div class="col-md-6 border-top border-dark ">SI</div>
-                        <div class="col-md-6 border-top border-start border-dark ">NO</div>
-                    </div>
-                    
-                    </div>
-                <div class="col-md-3 border border-1 border-dark  d-flex fw-bolder">
-                    <div class="row">
-                        <div class="col-md-12 fs-6">atractivo del beneficio</div>
-                        <div class="col-md-3  border-top border-dark fs-8">Bajo</div>
-                        <div class="col-md-3  border-top border-dark fs-8">Regular</div>
-                        <div class="col-md-3  border-top border-dark fs-8">Medio</div>
-                        <div class="col-md-3  border-top border-dark fs-8">Alto</div>
-                    </div>
-                    
-                    
-                    </div>
-                <div class="col-md-4 border border-1 border-dark  d-flex align-items-center fw-bolder">
-                    <div class="row">
-                        <div class="col-md-12 fs-6">funciona el beneficio</div>
-                        <div class="col-md-4  border-top border-dark ">No Aplica</div>
-                        <div class="col-md-2  border-top border-dark ">Malo</div>
-                        <div class="col-md-3  border-top border-dark ">Regular</div>
-                        <div class="col-md-3  border-top border-dark ">Bueno</div>
-                    </div>
-                    
-                </div>
-                   
-
-                
-            @foreach (var res in datosPregunta)
-                {
-                   @* <p>@res.Atractivo</p>*@
-                    <div class="col-md-3 border border-1 border-dark  d-flex align-items-center fw-bolder">
-                    @res.Key
-                    </div>
-                    <div class="col-md-2 border border-1 border-dark  d-flex align-items-center fw-bolder">
-                        <div class="col-md-6 d-flex align-items-center">70%</div>
-                        <div class="col-md-6 d-flex align-items-center border-start border-dark">30%</div>
-                    </div>
-                    <div class="col-md-3 border border-1 border-dark  d-flex align-items-center fw-bolder">
-                        <div class="row">
-                            <div class="col-md-3  border-end border-dark ">15%</div>
-                            <div class="col-md-3  border-end border-dark ">20%</div>
-                            <div class="col-md-3  border-end border-dark ">20%</div>
-                            <div class="col-md-3">25%</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 border border-1 border-dark  d-flex align-items-center fw-bolder">
-                        <div class="row">
-                            <div class="col-md-4  border-end border-dark ">15%</div>
-                            <div class="col-md-2  border-end border-dark ">20%</div>
-                            <div class="col-md-3  border-end border-dark ">20%</div>
-                            <div class="col-md-3">25%</div>
-                        </div>
-
-                    </div>
-                    @*<p>@res.Funcionamiento</p>
-                    <p>@res.Beneficio</p>*@
-                }
-            </div>
+            <table class="table table-bordered mx-auto mb-5" style="width:80%">
+                <thead>
+                    <tr>
+                        <th scope="col" class="pt-0">
+                            <div class="text-center d-flex justify-content-center align-content-center">
+                                <p class="m-0">Concepto</p>
+                            </div>
+                        </th>
+                        <th scope="col" class=" p-0 text-center">
+                            Conoce el beneficio
+                            <div class="d-flex justify-content-around">
+                                <p class="m-0">Si</p>
+                                <p class="m-0">No</p>
+                            </div>
+                        </th>
+                        <th scope="col" class="p-0 text-center">
+                            Atractivo del beneficio
+                            <div class="d-flex justify-content-around">
+                                <p class="m-0">Bajo</p>
+                                <p class="m-0">Regular</p>
+                                <p class="m-0">Medio</p>
+                                <p class="m-0">Alto</p>
+                            </div>
+                        </th>
+                        <th scope="col" class="p-0 text-center">
+                            Funciona el beneficio
+                            <div class="d-flex justify-content-around">
+                                <p class="m-0">No Aplica</p>
+                                <p class="m-0">Malo</p>
+                                <p class="m-0">Regular</p>
+                                <p class="m-0">Bueno</p>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var res in datosPregunta)
+                    {
+                        var atractivos = res.GroupBy(x => x.Atractivo).Select(x => new { x.Key, Porcentaje = x.Count() }).ToList();
+                        var beneficio = res.GroupBy(x => x.Beneficio).Select(x => new { x.Key, Porcentaje = x.Count() }).ToList();
+                        var funcionamiento = res.GroupBy(x => x.Funcionamiento).Select(x => new { x.Key, Porcentaje = x.Count() }).ToList();
+                        <tr>
+                            <th scope="row">@res.Select(x=>x.Concepto).First()</th>
+                            <td>
+                                <div class="d-flex justify-content-around">
+                                    <p>@(beneficio.FirstOrDefault(x => x.Key == true)?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
+                                    <p>@(beneficio.FirstOrDefault(x => x.Key == false)?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-between">
+                                    <p>@(atractivos.FirstOrDefault(x => x.Key.Contains("Bajo"))?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
+                                    <p>@(atractivos.FirstOrDefault(x => x.Key.Contains("Regular"))?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
+                                    <p>@(atractivos.FirstOrDefault(x => x.Key.Contains("Medio"))?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
+                                    <p>@(atractivos.FirstOrDefault(x => x.Key.Contains("Alto"))?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-around">
+                                    <p>@(funcionamiento.FirstOrDefault(x => x.Key.Contains("No Aplica"))?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
+                                    <p>@(funcionamiento.FirstOrDefault(x => x.Key.Contains("Malo"))?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
+                                    <p>@(funcionamiento.FirstOrDefault(x => x.Key.Contains("Regular"))?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
+                                    <p>@(funcionamiento.FirstOrDefault(x => x.Key.Contains("Bueno"))?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
             
         }
 
@@ -108,7 +129,7 @@
                 <div class="col-md-12 d-flex flex-column  justify-content-center px-5">
                     <div class="row  d-flex  h-100 justify-content-center align-items-center ">
                         <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center fw-bolder">@pregunta.NumeroPregunta . @pregunta.PreguntaNombre</div>
-                        <div class="col-md-1 border border-1 border-dark @pregunta.Color h-100 d-flex align-items-center fw-bolder text-white">@pregunta.Promedio.ToString("0.00")</div>
+                        <div class="col-md-1 border border-1 border-dark @pregunta.Color h-100 d-flex align-items-center fw-bolder text-white">@pregunta.Promedio.ToString("0.0")</div>
                         <div class="progress col-md-4 ">
                             <div class="progress-bar @pregunta.Color fw-bolder" role="progressbar" style="width: @pregunta.porcentaje%" aria-valuenow="@pregunta.Promedio" aria-valuemin="0" aria-valuemax="100">@pregunta.porcentaje%</div>
                         </div>
@@ -126,49 +147,58 @@
             var datosRespuesta = pregunta.Respuestas.GroupBy(x => x.DescripcionRespuesta).ToList();
             if (pregunta.NumeroPregunta == 15)
             {
+                <table class="table table-bordered mx-auto" style="width:80%">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="p-0 text-center">Sustancia</th>
+                            <th scope="col" class="p-0 text-center">Ninguna</th>
+                            <th scope="col" class="p-0 text-center">Baja</th>
+                            <th scope="col" class="p-0 text-center">Media</th>
+                            <th scope="col" class="p-0 text-center">Alta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-
-
-
-                <div class="row d-flex mx-5">
-                    <div class="col-md-3 border border-1 border-dark  d-flex align-items-center fw-bolder">Sustancia</div>
-                    <div class="col-md-2 border border-1 border-dark  d-flex align-items-center fw-bolder">Ninguna</div>
-                    <div class="col-md-2 border border-1 border-dark  d-flex align-items-center fw-bolder">Baja</div>
-                    <div class="col-md-2 border border-1 border-dark  d-flex align-items-center fw-bolder">Media</div>
-                    <div class="col-md-2 border border-1 border-dark  d-flex align-items-center fw-bolder">Alta</div>
-
-                    @foreach (var data in datosRespuesta)
-                    {
-                        var opcion = data.Select(x => x.RespuestaOpcion).ToList();
-                        List<string> valores = new List<string> {"Nunca","1 y 3 veces/mes","Entre 4 y 10 veces/mes","Más de 10 veces/mes",};
-                        var opciones = valores.Select(x => new
+                        @foreach (var data in datosRespuesta)
                         {
-                            Cantidad =(int)Math.Ceiling((double)opcion.Count(y => y == x)*100/data.Count())
-                        });
+                            var opcion = data.Select(x => x.RespuestaOpcion).ToList();
+                            List<string> valores = new List<string> { "Nunca", "1 y 3 veces/mes", "Entre 4 y 10 veces/mes", "Más de 10 veces/mes", };
+                            var opciones = valores.Select(x => new
+                            {
+                                Cantidad = (int)Math.Ceiling((double)opcion.Count(y => y == x) * 100 / data.Count())
+                            });
 
-                        <div class="col-md-3 border border-1 border-dark d-flex align-items-center fw-bolder">@data.Key</div>
-
-                        <div class="col-md-2 border border-1 border-dark d-flex align-items-center fw-bolder">@opciones.ElementAt(0).Cantidad %</div>
-                        <div class="col-md-2 border border-1 border-dark d-flex align-items-center fw-bolder">@opciones.ElementAt(1).Cantidad %</div>
-                        <div class="col-md-2 border border-1 border-dark d-flex align-items-center fw-bolder">@opciones.ElementAt(2).Cantidad %</div>
-                        <div class="col-md-2 border border-1 border-dark d-flex align-items-center fw-bolder">@opciones.ElementAt(3).Cantidad %</div>
-                    }
-
-                </div>
-
+                            <tr>
+                                <th scope="row">@data.Key</th>
+                                <td class="text-center">
+                                    @opciones.ElementAt(0).Cantidad %
+                                </td>
+                                <td class="text-center">
+                                    @opciones.ElementAt(1).Cantidad %
+                                </td>
+                                <td class="text-center">
+                                    @opciones.ElementAt(2).Cantidad %
+                                </td>
+                                <td class="text-center">
+                                    @opciones.ElementAt(3).Cantidad %
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             }
             else
             {
                 @foreach (var data in datosRespuesta)
                 {
                     var porcentaje = (int)(data.Average(x => x.valor) * 20);
-                    string poscolor = colores[(int)(data.Average(x => x.valor))];
+                    string poscolor = colores[(int)Math.Ceiling((double)data.Average(x => x.valor))];
                     float average = (float)data.Average(x => x.valor);
                     <div class="row mx-1">
                         <div class="col-md-12 d-flex flex-column justify-content-center px-5">
                             <div class="row  d-flex  h-100 justify-content-center align-items-center ">
-                                <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center fw-bolder">@data.Select(x=>x.DescripcionRespuesta).FirstOrDefault()</div>
-                                <div class="col-md-1 border border-1 border-dark @poscolor h-100 d-flex align-items-center fw-bolder text-white">@average.ToString("0.00")</div>
+                                <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center ">@data.Select(x=>x.DescripcionRespuesta).FirstOrDefault()</div>
+                                <div class="col-md-1 border border-1 border-dark @poscolor h-100 d-flex align-items-center fw-bolder text-white">@average.ToString("0.0")</div>
                                 <div class="col-md-4 p-3">
                                     <div class="progress  p-0">
                                         <div class="progress-bar @poscolor fw-bolder" role="progressbar" style="width: @porcentaje% " aria-valuenow="@average" aria-valuemin="0" aria-valuemax="5">@porcentaje %</div>
@@ -204,8 +234,8 @@
                                 float average = (float)data.Average(x => x.valor);
 
 
-                                <div class="col-md-4 border border-1 border-dark h-100 d-flex  align-items-center fw-bolder justify-content-between">@data.Select(x=>x.DescripcionRespuesta).FirstOrDefault()</div>
-                                <div class="col-md-2 border border-1 border-dark @poscolor h-100 d-flex align-items-center fw-bolder text-white">@average.ToString("0.00")</div>
+                                <div class="col-md-4 border border-1 border-dark h-100 d-flex  align-items-center  justify-content-between">@data.Select(x=>x.DescripcionRespuesta).FirstOrDefault()</div>
+                                <div class="col-md-2 border border-1 border-dark @poscolor h-100 d-flex align-items-center fw-bolder text-white">@average.ToString("0.0")</div>
 
 
                             }
@@ -243,7 +273,7 @@
                 <div class="row mx-1">
                     <div class="col-md-12 d-flex flex-column   justify-content-center px-5">
                         <div class="row  d-flex h-100 justify-content-center align-items-center">
-                            <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center fw-bolder">@data.DescripcionRespuesta</div>
+                            <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center ">@data.DescripcionRespuesta</div>
                             <div class="col-md-1 border border-1 border-dark @poscolor h-100 d-flex align-items-center fw-bolder text-white"><i class="bi bi-person"></i>@data.Cantidad</div>
                             <div class="col-md-4 p-3">
                                 <div class="progress p-0">
@@ -278,7 +308,7 @@
                 <div class="row mx-1">
                     <div class="col-md-12 d-flex flex-column justify-content-center px-5">
                         <div class="row  d-flex h-100 justify-content-center align-items-center">
-                            <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center fw-bolder">@data.DescripcionRespuesta</div>
+                            <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center ">@data.DescripcionRespuesta</div>
                             <div class="col-md-1 border border-1 border-dark @poscolor h-100 d-flex align-items-center fw-bolder text-white"><i class="bi bi-person"></i>@data.Cantidad</div>
                             <div class="col-md-4 p-3">
                                 <div class="progress p-0">
@@ -289,6 +319,10 @@
                     </div>
                 </div>
             }
+        }
+        if ( pregunta.NumeroPregunta == 19 || pregunta.NumeroPregunta==24 || pregunta.NumeroPregunta==22) 
+        {
+            <div id="nextPage"></div>
         }
     }
 

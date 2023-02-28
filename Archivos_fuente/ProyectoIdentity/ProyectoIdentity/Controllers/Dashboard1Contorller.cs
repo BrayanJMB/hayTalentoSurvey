@@ -13,6 +13,16 @@ namespace ProyectoIdentity.Controllers
         public string Key { get; set; }
         public int value { get; set; }
     }
+    public class listDemographics
+    {
+        public List<DictionaryClod> Paises { get; set; }
+
+        public List<DictionaryClod> Ciudades { get; set; }
+
+        public List<DictionaryClod> Negocios { get; set; }
+
+        public List<DictionaryClod> Areas { get; set; }
+    }
     public class SurveyShow
     {
         public string NombreCategoria { get; set; }
@@ -33,9 +43,19 @@ namespace ProyectoIdentity.Controllers
         public string Color { get; set; }
     }
 
+    public class valuesPersonales {
+        public int a { get; set; }
+        public string b { get; set; }
+
+        public int c { get; set; }
+    }
+
+   
+
 
     public class Categorias
     {
+        
         public int CategoriaId { get; set; }
         public string CategoriaNombre { get; set; }
         public string CategoriaDescripcion { get; set; }
@@ -48,9 +68,14 @@ namespace ProyectoIdentity.Controllers
     }
 
     public class orderBycategory {
+        public int ContadorRespuestas { get; set; } 
         public List<Categorias> Categorias { get; set; }
         public Respuestaper QuestionPer { get; set; }
-        public List<DemograficosAnswer> Demograficos { get; set; }
+        public listDemographics Demograficos { get; set; }
+
+        public List<valuesPersonales> DatosPersonales { get; set; }
+
+        public List<valuesPersonales> DatosPersonalesFamilia { get; set; }
 
     }
 

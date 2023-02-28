@@ -1,87 +1,171 @@
 ﻿@model ProyectoIdentity.Controllers.orderBycategory
+@using Newtonsoft.Json;
+
 @{
     ViewData["Title"] = "Home Page";
     var surveyId = Model.Categorias.Select(x => x.surveyId).FirstOrDefault();
-    var paises = Model.Demograficos.GroupBy(x => x.Pais).Select(x => new
-    {
-        Pais = x,
-        count = x.Count()
+    string title = Model.Categorias.Select(x => x.Encuesta.NombreEncuesta).FirstOrDefault().Replace("Bienvenido a la", "").Trim();
+    string title2 = char.ToUpper(title[0]) + title.Substring(1);
 
-    }).ToArray();
 }
+<button id="pdf-button"> PDF</button>
+<div class="PdfText">
+    <div id="nextPage"></div>
+    <div class="pagina1">
+        <div class="contenedor-imagen w-100">
+            <img class="w-100" src="~/imagenes/ManosBeneficios.png" alt="Logo hay talento">
+            <div class="contenedor-texto w-100 h-100 d-flex flex-column justify-content-between">
+                <div class="d-flex align-items-center">
+                    <img style="max-width:150px" src="~/imagenes/LogoHayTalento.png" alt="Logo hay talento">
+                    <h1>@title2</h1>
+                </div>
+                <div>
+                    <h5>Poblacion Encuestada : @Model.ContadorRespuestas</h5>
+                    <h6>@DateTime.UtcNow.ToLocalTime()</h6>
+                </div>
 
-<div class="contenedor-imagen w-100">
-    @{
-        paises.Count();
-    }
-    <img class="w-100" src="~/imagenes/ManosBeneficios.png" alt="Logo hay talento">
-    <div class="contenedor-texto w-100 h-100 d-flex flex-column justify-content-between">
-        <div class="d-flex align-items-center">
-            <img style="max-width:150px" src="~/imagenes/LogoHayTalento.png" alt="Logo hay talento">
-            <h1>@Model.Categorias.Select(x=>x.Encuesta.NombreEncuesta).FirstOrDefault().Replace("Bienvenido a la","")</h1>
-        </div>
-        <h4>@DateTime.UtcNow.ToLocalTime()</h4>
-    </div>
-</div>
-<div class="row">
-    <h2 class="text-center">Dimensiones de los beneficios</h2>
-    <canvas id="myChart"></canvas>
-</div>
-
-<div class="row d-flex justify-content-around">
-    <h2 class="text-center">Dimensiones de los beneficios</h2>
-    <div class="col-md-8">
-        <canvas id="myChart2"></canvas>
-    </div>
-    <div class="col-2  d-flex flex-column justify-content-around">
-        <div style="width:85%;">
-            <canvas id="myChart3"></canvas>
-            <div class="absolute-center text-center">
-                <h5>Madurez</h5>
             </div>
         </div>
-        <div style="width:85%;">
-            <canvas id="myChart4"></canvas>
-            <div class="absolute-center text-center">
-                <h5>Total</h5>
+        <div class="row">
+            <h2 class="text-center">Dimensiones de los beneficios</h2>
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <div class="row d-flex justify-content-around">
+
+            <div class="col-md-8">
+                <canvas id="myChart2"></canvas>
+            </div>
+            <div class="col-2  d-flex flex-column justify-content-around">
+                <div style="width:85%;">
+                    <canvas id="myChart3"></canvas>
+                    <div class="absolute-center text-center">
+                        <h5>Madurez</h5>
+                    </div>
+                </div>
+                <div style="width:85%;">
+                    <canvas id="myChart4"></canvas>
+                    <div class="absolute-center text-center">
+                        <h5>Total</h5>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <h2 class="text-center">Datos Demograficos</h2>
-   
+    <div id="nextPage"></div>
+    <div class="pagina1">
+        <div class="row mx-5 mt-5">
+            <h2 class="text-center">Datos Demográficos</h2>
+            <div class="row mt-5 d-flex justify-content-center mx-auto">
+                <div class="col-md-6">
+                    <div style="width:300px" class="mx-auto">
+                        <h4 class="text-center">
+                            Áreas
 
-<div class="row mt-5 align-items-center">
-    <div class="col-md-6">
-        <div style="width:300px">
-            <h4 class="text-center">Pais</h4>
-            <canvas id="demograficos" width="300px" height="300px"></canvas>
+                        </h4>
+                        <canvas id="Areas" width="300px" height="300px"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="width:300px" class="mx-auto">
+                        <h4 class="text-center">Países</h4>
+                        <canvas id="Paises" width="300px" height="300px"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="width:300px" class="mx-auto">
+                        <h4 class="text-center">Negocios</h4>
+                        <canvas id="Negocios" width="300px" height="300px"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="width:300px" class="mx-auto">
+                        <h4 class="text-center">Ciudades</h4>
+                        <canvas id="Ciudades" width="300px" height="300px"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12 text-center">
+                <h2>Datos Personales</h2>
+            </div>
+            <div class="col-md-6">
+                <h5 class="text-center"> Datos Personales Colaborador</h5>
+                <div id="vis"></div>
+                <div class="row">
+                    <ul class="d-flex justify-content-evenly" style="list-style:none">
+                        <li class="d-flex justify-content-evenly align-items-center">
+                            <span style="background-color: #4C78A8; width: 16px; height: 16px; display: inline-block;"></span>
+                            <span class="ml-1">Sexo</span>
+                        </li>
+                        <li class="d-flex justify-content-evenly align-items-center">
+                            <span style="background-color: #F58518; width: 16px; height: 16px; display: inline-block;"></span>
+                            <span class="ml-1">Edad</span>
+                        </li>
+                        <li class="d-flex justify-content-evenly align-items-center">
+                            <span style="background-color: #E45756; width: 16px; height: 16px; display: inline-block;"></span>
+                            <span class="ml-1">Nivel Educativo</span>
+                        </li>
+                        <li class="d-flex justify-content-evenly align-items-center">
+                            <span style="background-color: #72B7B2; width: 16px; height: 16px; display: inline-block;"></span>
+                            <span class="ml-1">Estados Civil</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h5 class="text-center">Datos Familiares Colaborador</h5>
+                <div id="vis2"></div>
+                <div class="row">
+                    <ul class="d-flex justify-content-evenly" style="list-style:none">
+                        <li class="d-flex justify-content-evenly align-items-center">
+                            <span style="background-color: #4C78A8; width: 16px; height: 16px; display: inline-block;"></span>
+                            <span class="ml-1">Sexo</span>
+                        </li>
+                        <li class="d-flex justify-content-evenly align-items-center">
+                            <span style="background-color: #F58518; width: 16px; height: 16px; display: inline-block;"></span>
+                            <span class="ml-1">Edad</span>
+                        </li>
+                        <li class="d-flex justify-content-evenly align-items-center">
+                            <span style="background-color: #E45756; width: 16px; height: 16px; display: inline-block;"></span>
+                            <span class="ml-1">Nivel Educativo</span>
+                        </li>
+                        <li class="d-flex justify-content-evenly align-items-center">
+                            <span style="background-color: #72B7B2; width: 16px; height: 16px; display: inline-block;"></span>
+                            <span class="ml-1">Estados Civil</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row  mt-3">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">Hijos Promedio</div>
+                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">3</div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">Promedio dependencia económica</div>
+                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">2</div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">otro promedio</div>
+                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">4</div>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div style="width:300px">
-            <h4 class="text-center">Demograficos</h4>
-            <canvas id="demograficos1" width="300px" height="300px"></canvas>
-        </div>
-    </div>
+    <div id="nextPage"></div>
+    @Html.Partial("../Dashboard1/Index2", Model)
 </div>
-</div>
-</div>
-</div>
-
-@*<div class="row mt-5">
-    <div style="width:700px">
-        <h2 class="text-center">Demograficos</h2>
-        <canvas id="demograficos" width="800" height="600"></canvas>
-    </div>
-</div>*@
-
-@Html.Partial("../Dashboard1/Index2", Model)
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="~/js/index.umd.js" asp-append-version="true"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2 "></script>
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+@*<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>*@
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js" integrity="sha512-ToRWKKOvhBSS8EtqSflysM/S7v9bB9V0X3B1+E7xo7XZBEZCPL3VX5SFIp8zxY19r7Sz0svqQVbAOx+QcLQSAQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 <script>
@@ -132,7 +216,7 @@
     //Registra plugin
     Chart.register(ChartDataLabels);
     function GraficaPromedioGeneral(data, dataMadurez, promedioGeneral) {
-        console.log(dataMadurez)
+
         new Chart(document.getElementById("myChart"), {
             type: 'bubble',
             data: {
@@ -441,10 +525,10 @@
                 datasets: [
                     {
                         label: 'Madurez',
-                        backgroundColor: ["rgba(62, 149, 205, 1)", "rgba(30, 30, 30, 0.5)"],
+                        backgroundColor: ["rgba(199, 199, 199, 1)", "rgba(251, 251, 251, 0.5)"],
                         data: [datosMadurez[0].promedioGeneral.toFixed(1), 5 - datosMadurez[0].promedioGeneral.toFixed(1)],
                         datalabels: {
-                            color: 'white',
+                            color: ['white', 'black'],
                             font: {
                                 weight: 'bold'
                             }
@@ -474,10 +558,10 @@
                 datasets: [
                     {
                         label: 'Total',
-                        backgroundColor: ["rgba(62, 149, 205, 1)", "rgba(30, 30, 30, .5)"],
+                        backgroundColor: ["rgba(29, 108, 121, 1)", "rgba(251, 251, 251, 0.5)"],
                         data: [promedioGeneral.toFixed(1), (5 - promedioGeneral).toFixed(1)],
                         datalabels: {
-                            color: 'white',
+                            color: ['white', 'black'],
                             font: {
                                 weight: 'bold'
                             }
@@ -501,38 +585,171 @@
         });
     }
 
-    //Grafica de demograficos
+    //Graficas para demograficos
+    var areasJS = '@Html.Raw(JsonConvert.SerializeObject(Model.Demograficos.Ciudades))';
+    // Parsear la cadena JSON a un array de objetos JavaScript
+    var areasArray = JSON.parse(areasJS);
 
-    var pieChart = document.getElementById("demograficos")
+    // Crear un array de keys y un array de values a partir de los objetos del array
+    var keys = areasArray.map(function (obj) {
+        return obj.Key;
+    });
+    var values = areasArray.map(function (obj) {
+        return obj.value;
+    });
+
+    var pieChart = document.getElementById("Areas")
     var myPieChart = new Chart(pieChart, {
         type: 'pie',
         data: {
-            labels: ['Manzanas', 'Naranjas', 'Plátanos'],
+            labels: keys,
             datasets: [{
-                label: 'Frutas',
-                data: [12, 19, 6],
+                label: 'Areas',
+                data: values,
                 backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
-                ]
+                    '#B10DC9',
+                    '#0074D9',
+                    '#2ECC40',
+                    '#FFDC00',
+                    '#FF851B'
+                ],
+                datalabels: {
+                    color: 'white',
+                    font: {
+                        weight: 'bold'
+                    }
+                }
             }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
         }
+
     });
-    var pieChart = document.getElementById("demograficos1")
+    var paisesJS = '@Html.Raw(JsonConvert.SerializeObject(Model.Demograficos.Paises))';
+    // Parsear la cadena JSON a un array de objetos JavaScript
+    var paisesArray = JSON.parse(paisesJS);
+
+    // Crear un array de keys y un array de values a partir de los objetos del array
+    var keys = paisesArray.map(function (obj) {
+        return obj.Key;
+    });
+    var values = paisesArray.map(function (obj) {
+        return obj.value;
+    });
+
+    var pieChart = document.getElementById("Paises")
     var myPieChart1 = new Chart(pieChart, {
         type: 'pie',
-        
         data: {
-            labels: ['Manzanas', 'Naranjas', 'Plátanos'],
+            labels: keys,
             datasets: [{
-                label: 'Frutas',
-                data: [12, 19, 6],
+                label: 'Paises',
+                data: values,
                 backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
-                ]
+                    '#B10DC9',
+                    '#0074D9',
+                    '#2ECC40',
+                    '#FFDC00',
+                    '#FF851B'
+                ],
+                datalabels: {
+                    color: 'white',
+                    font: {
+                        weight: 'bold'
+                    }
+                }
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+    });
+    var negociosJS = '@Html.Raw(JsonConvert.SerializeObject(Model.Demograficos.Negocios))';
+    // Parsear la cadena JSON a un array de objetos JavaScript
+    var negociosArray = JSON.parse(negociosJS);
+
+    // Crear un array de keys y un array de values a partir de los objetos del array
+    var keys = negociosArray.map(function (obj) {
+        return obj.Key;
+    });
+    var values = negociosArray.map(function (obj) {
+        return obj.value;
+    });
+
+    var pieChart = document.getElementById("Negocios")
+    var myPieChart1 = new Chart(pieChart, {
+        type: 'pie',
+        data: {
+            labels: keys,
+            datasets: [{
+                label: 'Negocios',
+                data: values,
+                backgroundColor: [
+                    '#B10DC9',
+                    '#0074D9',
+                    '#2ECC40',
+                    '#FFDC00',
+                    '#FF851B'
+                ],
+                datalabels: {
+                    color: 'white',
+                    font: {
+                        weight: 'bold'
+                    }
+                }
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+    });
+
+    var ciudadesJS = '@Html.Raw(JsonConvert.SerializeObject(Model.Demograficos.Ciudades))';
+    // Parsear la cadena JSON a un array de objetos JavaScript
+    var ciudadesArray = JSON.parse(ciudadesJS);
+
+    // Crear un array de keys y un array de values a partir de los objetos del array
+    var keys = ciudadesArray.map(function (obj) {
+        return obj.Key;
+    });
+    var values = ciudadesArray.map(function (obj) {
+        return obj.value;
+    });
+
+    var pieChart = document.getElementById("Ciudades")
+    var myPieChart1 = new Chart(pieChart, {
+        type: 'pie',
+        data: {
+            labels: keys,
+            datasets: [{
+                label: 'Ciudades',
+                data: values,
+                backgroundColor: [
+                    '#B10DC9',
+                    '#0074D9',
+                    '#2ECC40',
+                    '#FFDC00',
+                    '#FF851B'
+                ],
+                datalabels: {
+                    color: 'white',
+                    font: {
+                        weight: 'bold'
+                    }
+                }
             }]
 
         },
@@ -545,4 +762,420 @@
         }
     });
     const dimensionBeneficioBar3 = document.getElementById('myChart4');
+
+</script>
+<script>
+    var datosPersonales = '@Html.Raw(JsonConvert.SerializeObject(Model.DatosPersonales))';
+    // Parsear la cadena JSON a un array de objetos JavaScript
+    var datosPersonalesArray = JSON.parse(datosPersonales);
+
+    const spec = {
+        "$schema": "https://vega.github.io/schema/vega/v5.json",
+        "description": "Datos Demograficos por personas",
+        "width": 400,
+        "padding": 5,
+        "autosize": "pad",
+
+        "signals": [
+            {
+                "name": "rangeStep", "value": 30
+            },
+            {
+                "name": "height",
+                "update": "trellisExtent[1]"
+            }
+        ],
+
+        "data": [
+            {
+                "name": "tuples",
+                "values": datosPersonalesArray,
+                "transform": [
+                    {
+                        "type": "aggregate",
+                        "groupby": ["a", "b"],
+                        "fields": ["c"],
+                        "ops": ["average"],
+                        "as": ["c"]
+                    }
+                ]
+            },
+            {
+                "name": "trellis",
+                "source": "tuples",
+                "transform": [
+                    {
+                        "type": "aggregate",
+                        "groupby": ["a"]
+                    },
+                    {
+                        "type": "formula", "as": "span",
+                        "expr": "rangeStep * bandspace(datum.count, 0.11, 0.21)"
+                    },
+                    {
+                        "type": "stack",
+                        "field": "span"
+                    },
+                    {
+                        "type": "extent",
+                        "field": "y1",
+                        "signal": "trellisExtent"
+                    }
+                ]
+            }
+        ],
+
+        "scales": [
+            {
+                "name": "xscale",
+                "domain": { "data": "tuples", "field": "c" },
+                "nice": true,
+                "zero": true,
+                "round": true,
+                "range": "width"
+            },
+            {
+                "name": "color",
+                "type": "ordinal",
+                "range": "category",
+                "domain": { "data": "trellis", "field": "a" }
+            }
+        ],
+
+        "axes": [
+            { "orient": "bottom", "scale": "xscale", "domain": true }
+        ],
+
+        "marks": [
+            {
+                "type": "group",
+
+                "from": {
+                    "data": "trellis",
+                    "facet": {
+                        "name": "faceted_tuples",
+                        "data": "tuples",
+                        "groupby": "a"
+                    }
+                },
+
+                "encode": {
+                    "enter": {
+                        "x": { "value": 0 },
+                        "width": { "signal": "width" }
+                    },
+                    "update": {
+                        "y": { "field": "y0" },
+                        "y2": { "field": "y1" }
+                    }
+                },
+
+                "scales": [
+                    {
+                        "name": "yscale",
+                        "type": "band",
+                        "paddingInner": 0.11,
+                        "paddingOuter": 0.21,
+                        "round": true,
+                        "domain": { "data": "faceted_tuples", "field": "b" },
+                        "range": { "step": 30 }
+                    }
+                ],
+
+                "axes": [
+                    {
+                        "orient": "left", "scale": "yscale",
+                        "ticks": false, "domain": false, "labelPadding": 4
+                    }
+                ],
+
+                "marks": [
+                    {
+                        "type": "rect",
+                        "from": { "data": "faceted_tuples" },
+                        "encode": {
+                            "enter": {
+                                "x": { "value": 0 },
+                                "x2": { "scale": "xscale", "field": "c" },
+                                "fill": { "scale": "color", "field": "a" },
+                                "strokeWidth": { "value": 2 }
+                            },
+                            "update": {
+                                "y": { "scale": "yscale", "field": "b" },
+                                "height": { "scale": "yscale", "band": 1 },
+                                "stroke": { "value": null },
+                                "zindex": { "value": 0 }
+                            },
+                            "hover": {
+                                "stroke": { "value": "firebrick" },
+                                "zindex": { "value": 1 }
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    };
+
+    vegaEmbed("#vis", spec, { mode: "vega" }).then(console.log).catch(console.warn);
+    var datosPersonalesf = '@Html.Raw(JsonConvert.SerializeObject(Model.DatosPersonalesFamilia))';
+    // Parsear la cadena JSON a un array de objetos JavaScript
+    var datosPersonalesfArray = JSON.parse(datosPersonalesf);
+
+    const spec1 = {
+        "$schema": "https://vega.github.io/schema/vega/v5.json",
+        "description": "Datos Demograficos por personas",
+        "width": 400,
+        "padding": 5,
+        "autosize": "pad",
+
+        "signals": [
+            {
+                "name": "rangeStep", "value": 17
+            },
+            {
+                "name": "height",
+                "update": "trellisExtent[1]"
+            }
+        ],
+
+        "data": [
+            {
+                "name": "tuples",
+                "values": datosPersonalesfArray,
+                "transform": [
+                    {
+                        "type": "aggregate",
+                        "groupby": ["a", "b"],
+                        "fields": ["c"],
+                        "ops": ["average"],
+                        "as": ["c"]
+                    }
+                ]
+            },
+            {
+                "name": "trellis",
+                "source": "tuples",
+                "transform": [
+                    {
+                        "type": "aggregate",
+                        "groupby": ["a"]
+                    },
+                    {
+                        "type": "formula", "as": "span",
+                        "expr": "rangeStep * bandspace(datum.count, 0.11, 0.21)"
+                    },
+                    {
+                        "type": "stack",
+                        "field": "span"
+                    },
+                    {
+                        "type": "extent",
+                        "field": "y1",
+                        "signal": "trellisExtent"
+                    }
+                ]
+            }
+        ],
+
+        "scales": [
+            {
+                "name": "xscale",
+                "domain": { "data": "tuples", "field": "c" },
+                "nice": true,
+                "zero": true,
+                "round": true,
+                "range": "width"
+            },
+            {
+                "name": "color",
+                "type": "ordinal",
+                "range": "category",
+                "domain": { "data": "trellis", "field": "a" }
+            }
+        ],
+
+        "axes": [
+            { "orient": "bottom", "scale": "xscale", "domain": true }
+        ],
+
+        "marks": [
+            {
+                "type": "group",
+
+                "from": {
+                    "data": "trellis",
+                    "facet": {
+                        "name": "faceted_tuples",
+                        "data": "tuples",
+                        "groupby": "a"
+                    }
+                },
+
+                "encode": {
+                    "enter": {
+                        "x": { "value": 0 },
+                        "width": { "signal": "width" }
+                    },
+                    "update": {
+                        "y": { "field": "y0" },
+                        "y2": { "field": "y1" }
+                    }
+                },
+
+                "scales": [
+                    {
+                        "name": "yscale",
+                        "type": "band",
+                        "paddingInner": 0.11,
+                        "paddingOuter": 0.21,
+                        "round": true,
+                        "domain": { "data": "faceted_tuples", "field": "b" },
+                        "range": { "step": 17 }
+                    }
+                ],
+
+                "axes": [
+                    {
+                        "orient": "left", "scale": "yscale",
+                        "ticks": false, "domain": false, "labelPadding": 4
+                    }
+                ],
+
+                "marks": [
+                    {
+                        "type": "rect",
+                        "from": { "data": "faceted_tuples" },
+                        "encode": {
+                            "enter": {
+                                "x": { "value": 0 },
+                                "x2": { "scale": "xscale", "field": "c" },
+                                "fill": { "scale": "color", "field": "a" },
+                                "strokeWidth": { "value": 2 }
+                            },
+                            "update": {
+                                "y": { "scale": "yscale", "field": "b" },
+                                "height": { "scale": "yscale", "band": 1 },
+                                "stroke": { "value": null },
+                                "zindex": { "value": 0 }
+                            },
+                            "hover": {
+                                "stroke": { "value": "firebrick" },
+                                "zindex": { "value": 1 }
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    };
+
+
+    vegaEmbed("#vis2", spec1, { mode: "vega" }).then(console.log).catch(console.warn);
+    //descargar pdf
+    document.addEventListener("DOMContentLoaded", function () {
+        var details = document.querySelector("#vis");
+        details.removeChild(details.children[1]);
+        var details2 = document.querySelector("#vis2");
+        details2.removeChild(details2.children[1]);
+        // Almacenar los nodos en un array
+        const nodosSeleccionados = [];
+    });
+
+    document.getElementById('pdf-button').addEventListener('click', function () {
+        var container = document.querySelector('.PdfText');
+        const nodostotales = container.querySelectorAll("#nextPage");
+        const doc = new jsPDF('p', 'mm')
+        const canvasPromises = [];
+        let previousPromise = Promise.resolve();
+
+        for (var i = 0; i < nodostotales.length - 1; i++) {
+            var previsouspage = nodostotales[i];
+            var nextpage = nodostotales[i + 1];
+            // Obtener el primer nodo después del elemento anterior
+            let nodo = previsouspage.nextSibling;
+            const nodosSeleccionados = [];
+            while (nodo && nodo !== nextpage) {
+                nodosSeleccionados.push(nodo);
+                nodo = nodo.nextSibling;
+            }
+
+            const contenedorSeleccionado = document.createElement("div");
+            // Agregar estilos CSS al contenedor
+            contenedorSeleccionado.style.width = '1300px';
+            let heightPantalla = 275;
+            if (i == nodostotales.length - 2) {
+                heightPantalla = 230;
+            }
+
+            if (i === 0) { // Agregar condición para la primera página
+                const canvasElements = contenedorSeleccionado.querySelectorAll('canvas');
+                // Iterar sobre cada imagen canvas
+                canvasElements.forEach(canvasEl => {
+                    // Crear un nuevo canvas para copiar la imagen
+                    const newCanvas = document.createElement('canvas');
+                    newCanvas.width = canvasEl.width;
+                    newCanvas.height = canvasEl.height;
+
+                    // Copiar el contenido de la imagen al nuevo canvas
+                    const newContext = newCanvas.getContext('2d');
+                    const dataUrl = canvasEl.toDataURL('image/png');
+                    const img = new Image();
+                    img.src = dataUrl;
+                    img.onload = () => {
+                        newContext.drawImage(img, 0, 0);
+                        // Agregar el nuevo canvas al contenedor seleccionado
+                        contenedorSeleccionado.appendChild(newCanvas);
+                    }
+                });
+            }
+           
+            // Agregar los nodos al contenedor
+            nodosSeleccionados.forEach(nodo => {
+                contenedorSeleccionado.appendChild(nodo.cloneNode(true));
+            });
+
+            previousPromise = previousPromise.then(() => {
+                // Convertir el contenedor a canvas y agregar a pdf
+                return html2canvas(contenedorSeleccionado);
+            }).then(canvas => {
+                // Utilizar el canvas en lugar del contenido original
+                doc.addImage(canvas, 'PNG', 3, 8, 208, heightPantalla);
+                doc.addPage();
+                contenedorSeleccionado.remove();
+            }).catch(error => {
+                console.log(error);
+            });
+        }
+
+        previousPromise.then(() => {
+            doc.save("archivo.pdf");
+        }).catch(error => {
+            console.log(error);
+        });
+    });
+
+    async function pdfFromHTML(content) {
+        //var container = document.querySelector('.PdfText');
+        //var pagina = container.querySelectorAll('.pagina1');
+
+        //for (var i = 0; i < pagina.length; i++) {
+        //    const contenido = pagina[i];
+        //    const canvas = document.createElement('canvas');
+        //    canvas.width = contenido.offsetWidth;
+        //    canvas.height = contenido.offsetHeight;
+        //    const context = canvas.getContext('2d');
+        //    context.scale(2, 2); // Escala para mejorar la calidad de la imagen
+        //    await html2canvas(contenido, { canvas: canvas });
+        //    doc.addPage();
+        //    doc.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 3, 0, 204, 0, null, 'FAST');
+        //}
+
+        console.log(content.width)
+
+    }
+
+                            
+
+
 </script>

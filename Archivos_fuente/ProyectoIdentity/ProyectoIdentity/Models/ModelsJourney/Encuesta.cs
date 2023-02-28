@@ -36,5 +36,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
         public List<EncuestaBussines>? EncuestaBussines { get; set; }
 
         public List<EncuestaArea>? EncuestaAreas { get; set; }
+
+        public List<EncuestaRespondenteB> RespondenteBeneficios { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@using Newtonsoft.Json;
 @model ProyectoIdentity.Controllers.SurveyShow
 
-<div class="contenedor-imagen w-100">
+<div class="contenedor-imagen w-100 m-5">
     <img class="w-100" src="~/imagenes/MontañaMadurez.png" alt="Logo hay talento">
     <div class="contenedor-texto w-100 h-100 d-flex flex-column justify-content-between">
         <div class="d-flex align-items-center">
@@ -11,6 +11,27 @@
         <h4>@DateTime.UtcNow.ToLocalTime()</h4>
     </div>
 </div>
+
+    <div class="row d-flex justify-content-around mb-5">
+        <h2 class="text-center">Comparativa Madurez y Beneficios</h2>
+        <div class="col-md-8">
+            <canvas id="barChartPromedio"></canvas>
+        </div>
+        <div class="col-2  d-flex flex-column justify-content-around">
+            <div style="width:85%;">
+                <canvas id="madurezDonut"></canvas>
+                <div class="absolute-center text-center">
+                    <h5>Madurez</h5>
+                </div>
+            </div>
+            <div style="width:85%;">
+                <canvas id="generalDonut"></canvas>
+                <div class="absolute-center text-center">
+                    <h5>Beneficios</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <div class="row">
     <h2>Percepciones para cada Dimensión y Pregunta</h2>
@@ -60,9 +81,12 @@
 <script>
     var nube = decodeJsonString('@Html.Raw(JsonConvert.SerializeObject(Model.nubePalabras))');
     var palabras = JSON.parse(nube);
+    var surveyId = @Model.Encuesta.Id;
+    //Registra plugin
+    Chart.register(ChartDataLabels);
     window.onload = () => {
         const words = palabras;
-        console.log(words);
+        
         const data = {
             labels: words.map((d) => d.Key),
             datasets: [
@@ -88,14 +112,171 @@
                 },
             },
         });
+
+        $.ajax({
+            url: '/Dashboard/DatosDemograficos/',
+            type: 'POST',
+            dataType: 'json',
+            data: { surveyId: surveyId - 1 },
+            success: function (data) {
+                let promedioPorCategoria = 0;
+                data.forEach(element => {
+                    promedioPorCategoria += element.promedioGeneral;
+                })
+
+                //Datos para la encuesta de madurez
+                $.ajax({
+                    url: '/Dashboard/DatosMadurez/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { surveyId: surveyId },
+                    success: function (dataMadurez) {
+                        let promedioGeneral = 0;                        
+                        promedioGeneral = promedioPorCategoria / (data.length)
+
+                        datosPromedios = []
+                        datosPromedios.push(dataMadurez[0].promedioGeneral.toFixed(1))
+                        datosPromedios.push(promedioGeneral.toFixed(1))
+                        GraficaPromedioGeneralBarras(datosPromedios);
+                        MadurezDoughnut(dataMadurez);
+                        PromedioTotalDoughnut(promedioGeneral);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        // Se produjo un error al obtener los datos
+                        console.log('Error al obtener los datos: ' + errorThrown);
+                    }
+                });
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                // Se produjo un error al obtener los datos
+                console.log('Error al obtener los datos: ' + errorThrown);
+            }
+        });
     };
 
 
     function decodeJsonString(jsonString) {
         return jsonString.replace(/&quot;/g, '"');
     }
+    //Funciones para mostrar
+
+    function GraficaPromedioGeneralBarras(datos) {
+        
+        const dimensionBeneficioBar = document.getElementById('barChartPromedio');
+
+        new Chart(dimensionBeneficioBar, {
+            type: 'bar',
+            data: {
+                labels: ["Madurez", "Beneficios"],
+                datasets: [
+                    {
+                        backgroundColor: ["rgba(77,179,199,1)", "rgba(246, 194, 100, 1)", "rgba(29,110,155,1)", "rgba(207, 66, 63, 1)"],
+                        data: datos,
+                    }
+                ]
+            },
+            options: {
+                barThickness: 80,
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        display: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    datalabels: {
+                        color: '#FFFFFF',
+                        offset: 4,
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function MadurezDoughnut(datosMadurez) {
+        const dimensionBeneficioBar2 = document.getElementById('madurezDonut');
+        new Chart(dimensionBeneficioBar2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Promedio Madurez'],
+                datasets: [
+                    {
+                        label: 'Madurez',
+                        backgroundColor: ["rgba(62, 149, 205, 1)", "rgba(30, 30, 30, 0.5)"],
+                        data: [datosMadurez[0].promedioGeneral.toFixed(1), 5 - datosMadurez[0].promedioGeneral.toFixed(1)],
+                        datalabels: {
+                            color: 'white',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                ]
+            },
+            options: {
+                cutout: '60%',
+                plugins: {
+                    tooltip: {
+                        display: false
+                    },
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    }
+
+    function PromedioTotalDoughnut(promedioGeneral) {
+        const dimensionBeneficioBar3 = document.getElementById('generalDonut');
+        new Chart(dimensionBeneficioBar3, {
+            type: 'doughnut',
+            data: {
+                labels: ['Promedio Otras Dimensiones'],
+                datasets: [
+                    {
+                        label: 'Total',
+                        backgroundColor: ["rgba(62, 149, 205, 1)", "rgba(30, 30, 30, .5)"],
+                        data: [promedioGeneral.toFixed(1), (5 - promedioGeneral).toFixed(1)],
+                        datalabels: {
+                            color: 'white',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                ]
+            },
+            options: {
+                cutout: '60%',
+                plugins: {
+
+                    tooltip: {
+                        display: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+            }
+
+        });
+    }
 
 </script>
-
-
-
