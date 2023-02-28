@@ -49,10 +49,12 @@ namespace ProyectoIdentity.Controllers
                     NumeroPregunta = x.Pregunta.NumeroPregunta,
                     TipoPreguntaID = x.Pregunta.TipoPreguntaId,
                     PreguntaNombre = x.Pregunta.NombrePregunta,
+                   
                     x.Valor,
                     x.DescripcionRespuesta,
                     x.Pregunta.TipoPreguntaId,
                     x.RespuestaOpcion,
+                    
                     Opciones=x.Pregunta.Opciones.Select(y=>y.Nombre).ToList(),
 
                 })
@@ -63,7 +65,8 @@ namespace ProyectoIdentity.Controllers
                     CategoriaNombre = g1.Key.CategoriaNombre,
                     CategoriaDescripcion = g1.Key.CategoriaDescripcion,
                     surveyId = surveyId,
-                    Encuesta= encuesta,                   
+                    Encuesta= encuesta,
+                    PromedioGeneral = g1.Where(x => x.TipoPreguntaID == 2 || x.TipoPreguntaID == 6).Average(x => x.Valor),
                     Preguntas = g1.GroupBy(x => new { x.PreguntaId, x.PreguntaNombre, x.TipoPreguntaId, x.NumeroPregunta })
                         .Select(g2 => new PreguntasBeneficios
                         {
@@ -90,6 +93,8 @@ namespace ProyectoIdentity.Controllers
             var pregunta17 = _context.Pregunta.Where(x => x.NumeroPregunta == 17 && x.EncuestaCategoria.EncuestaId == surveyId).FirstOrDefault().NombrePregunta;
             var respuestas = _context.RespuestaPersonalizada.Where(x => x.IdPregunta == 17 && x.EncuestaRespondenteB.EncuestaId == surveyId).ToList();
             var response17 = new Respuestaper { NombrePregunta = pregunta17, Respuestas = respuestas };
+            //Demograficos de todos los ususarto
+            
             var demograficos = _context.EncuestaRespondenteB.Where(x => x.EncuestaId == surveyId).Select(x => new DemograficosAnswer
             {
                 Area = x.Respondente.Area,
@@ -97,7 +102,109 @@ namespace ProyectoIdentity.Controllers
                 Ciudad = x.Respondente.City,
                 Pais = x.Respondente.Country
             }).ToList();
-            var datos2 = new orderBycategory { Categorias = respuestasPorCategoria, QuestionPer = response17, Demograficos=demograficos};
+
+            var paises = demograficos.Select(x => x.Pais).GroupBy(x => x).Select(x => new DictionaryClod{
+                Key=x.Key,
+                value = (int)Math.Round((double)x.Count() / demograficos.Count() * 100, 2)
+            }).ToList();
+
+            var negocios = demograficos.Select(x => x.Negocios).GroupBy(x => x).Select(x => new DictionaryClod
+            {
+                Key = x.Key,
+                value = (int)Math.Round((double)x.Count() / demograficos.Count() * 100, 2)
+            }).ToList();
+
+            var areas = demograficos.Select(x => x.Area).GroupBy(x => x).Select(x => new DictionaryClod
+            {
+                Key = x.Key,
+                value = (int)Math.Round((double)x.Count() / demograficos.Count() * 100, 2)
+            }).ToList();
+
+            var ciudades = demograficos.Select(x => x.Ciudad).GroupBy(x => x).Select(x => new DictionaryClod
+            {
+                Key = x.Key,
+                value = (int)Math.Round((double)x.Count() / demograficos.Count() * 100, 2)
+            }).ToList();
+
+            //aspetos personales de cada usuario
+            var datosPersonales = _context.EncuestaRespondenteB.Include(x=>x.Respondente.Fammilia).Where(x => x.EncuestaId == surveyId).Select(x => x.Respondente.Fammilia.Where(x=>x.Parentesco=="Colaborador")).ToList();
+            var NivelEducativo = datosPersonales.GroupBy(x =>  x.FirstOrDefault().NivelEducativo).ToList().Select(x => new valuesPersonales
+            {
+                a = 2,
+                b = x.Key.ToString(),
+                c = x.Count() * 100 / cantRespuestas
+            }).ToList();
+            var Edad = datosPersonales.GroupBy(x => x.FirstOrDefault().Edad).ToList().Select(x => new valuesPersonales
+            {
+                a = 3,
+                b = x.Key.ToString(),
+                c = x.Count() * 100 / cantRespuestas
+            }).ToList();
+            var estadoCivil = datosPersonales.GroupBy(x => x.FirstOrDefault().EstadoCivil).ToList().Select(x => new valuesPersonales
+            {
+                a = 1,
+                b = x.Key.ToString(),
+                c = x.Count() * 100 / cantRespuestas
+            }).ToList();
+            var Sexo = datosPersonales.GroupBy(x => x.FirstOrDefault().Sexo).ToList().Select(x => new valuesPersonales
+            {
+                a = 0,
+                b = x.Key.ToString(),
+                c = x.Count() * 100 / cantRespuestas
+            }).ToList();
+            Sexo.AddRange(estadoCivil);
+            Sexo.AddRange(NivelEducativo);
+            Sexo.AddRange(Edad);
+            //aspectos personales por familiar
+            var datosPersonalesFamiliar = _context.EncuestaRespondenteB.Include(x => x.Respondente.Fammilia)
+                .Where(x => x.EncuestaId == surveyId)
+                .SelectMany(x => x.Respondente.Fammilia
+                .Where(x => x.Parentesco != "Colaborador" && !string.IsNullOrEmpty(x.Parentesco))).ToList();
+            int count = datosPersonalesFamiliar.
+    Where(x=>x.EstadoCivil!="Fallecido")
+    .Count();
+            var NivelEducativof = datosPersonalesFamiliar.Where(x=>x.NivelEducativo!=null).GroupBy(x => x.NivelEducativo)?.ToList().Select(x => new valuesPersonales
+            {
+                a = 2,
+                b = x.Key.ToString(),
+                c = x.Count() * 100 / count
+            }).ToList();
+            var Edadf = datosPersonalesFamiliar.Where(x => x.Edad != null).GroupBy(x => x.Edad).ToList().Select(x => new valuesPersonales
+            {
+                a = 3,
+                b = x.Key.ToString(),
+                c = x.Count() * 100 / count
+            }).ToList();
+            var estadoCivilf = datosPersonalesFamiliar.Where(x => x.EstadoCivil != null).GroupBy(x => x.EstadoCivil).ToList().Select(x => new valuesPersonales
+            {
+                a = 1,
+                b = x.Key.ToString(),
+                c = x.Count() * 100 / datosPersonalesFamiliar.Count()
+            }).ToList();
+            var Sexof = datosPersonalesFamiliar.Where(x => x.Sexo != null).GroupBy(x => x.Sexo).ToList().Select(x => new valuesPersonales
+            {
+                a = 0,
+                b = x.Key.ToString(),
+                c = x.Count() * 100 / datosPersonalesFamiliar.Count()
+            }).ToList();
+            Sexof.AddRange(estadoCivilf);
+            Sexof.AddRange(NivelEducativof);
+            Sexof.AddRange(Edadf);
+
+            var datos2 = new orderBycategory {
+                ContadorRespuestas = cantRespuestas,
+                Categorias = respuestasPorCategoria,
+                QuestionPer = response17,
+                Demograficos = new listDemographics
+                {
+                    Areas = areas,
+                    Ciudades = ciudades,
+                    Negocios = negocios,
+                    Paises = paises
+                },
+                DatosPersonales = Sexo,
+                DatosPersonalesFamilia=Sexof
+            };
             
 
 
