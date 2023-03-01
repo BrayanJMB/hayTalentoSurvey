@@ -431,7 +431,7 @@
                                                                 }
                                                                 @if (pregunta.NumeroPregunta == 21)
                                                                 {
-                                                                    classCheck = "options-check multiple-check";
+                                                                    classCheck = "options-check";
                                                                 }
                                                                 else if (pregunta.TipoPregunta == "Seleccion Multiple")
                                                                 {
@@ -1067,8 +1067,11 @@
             let checkMax = groupCheck.querySelectorAll("#inlineCheckbox1");
             let checkeds = [];
             checkMax.forEach((option) => {
-                option.onchange = function () {
+                let inputData = option.querySelector("#ValueCheck");
+                let checkeds = option.querySelectorAll("input[type=checkbox]");
+                option.onchange = function () {                    
                     if (option.checked) {
+                            inputData.value += input.value + ";";
                         checkeds.push(option);
                         if (checkeds.length > 3) {
                             checkeds[0].checked = false;
@@ -1076,6 +1079,7 @@
                         }
                     } else {
                         checkeds.splice(index, 1);
+                        inputData.value = inputData.value.replace(input.value + ";", "");
                     }
                 }
             });
