@@ -1,92 +1,156 @@
 ﻿@using Newtonsoft.Json;
 @model ProyectoIdentity.Controllers.SurveyShow
-
-<div class="contenedor-imagen w-100 m-5">
+@{
+    string title = Model.Encuesta.NombreEncuesta.Replace("Bienvenido a la", "").Trim();
+    string title2 = char.ToUpper(title[0]) + title.Substring(1);
+}
+<div class="contenedor-imagen w-100">
     <img class="w-100" src="~/imagenes/MontañaMadurez.png" alt="Logo hay talento">
     <div class="contenedor-texto w-100 h-100 d-flex flex-column justify-content-between">
         <div class="d-flex align-items-center">
             <img style="max-width:150px" src="~/imagenes/LogoHayTalento.png" alt="Logo hay talento">
-            <h1>@Model.Encuesta.NombreEncuesta.Replace("Bienvenido a la","")</h1>
+            <h1>@title2</h1>
         </div>
-        <h4>@DateTime.UtcNow.ToLocalTime()</h4>
+        <div class="text-white">
+            <h5>Poblacion Encuestada :</h5>
+            <h6>@DateTime.UtcNow.ToLocalTime()</h6>
+        </div>
     </div>
 </div>
 
-    <div class="row d-flex justify-content-around mb-5">
-        <h2 class="text-center">Comparativa Madurez y Beneficios</h2>
-        <div class="col-md-8">
-            <canvas id="barChartPromedio"></canvas>
-        </div>
-        <div class="col-2  d-flex flex-column justify-content-around">
-            <div style="width:85%;">
-                <canvas id="madurezDonut"></canvas>
-                <div class="absolute-center text-center">
-                    <h5>Madurez</h5>
-                </div>
+<div class="row d-flex justify-content-around my-5">
+    <h2 class="text-center mb-2 justify-content-center">Dimensiones de Madurez</h2>
+    <div class="col-md-8">
+        <canvas id="barChartPromedio"></canvas>
+    </div>
+    <div class="col-2  d-flex flex-column justify-content-around">
+        <div style="width:85%;">
+            <canvas id="madurezDonut"></canvas>
+            <div class="absolute-center text-center">
+                <h5>Madurez</h5>
             </div>
-            <div style="width:85%;">
-                <canvas id="generalDonut"></canvas>
-                <div class="absolute-center text-center">
-                    <h5>Beneficios</h5>
-                </div>
+        </div>
+        <div style="width:85%;">
+            <canvas id="generalDonut"></canvas>
+            <div class="absolute-center text-center">
+                <h5>Total Dimensiones</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <h2 class="text-center">Percepciones para cada Dimensión y Pregunta</h2>
+    <div class="col-md-12 mt-3">
+        <div class="card" style="width:100%">
+            <div class="card-body" style="background-color:#C7C7C7">
+                <h5 class="card-title text-center  fw-bold">@Model.NombreCategoria</h5>
+            </div>
+            
+            <div class="card-body">
+                <p href="#" class="card-link fw-bold">@Model.DescripcionCategoria</p>
             </div>
         </div>
     </div>
 
-<div class="row">
-    <h2>Percepciones para cada Dimensión y Pregunta</h2>
-    <div class="col-md-12">
-        <div class="card" style="width:100%">
-            <div class="card-body">
-                <h5 class="card-title">@Model.NombreCategoria</h5>
-            </div>
-            <hr />
-            <div class="card-body">
-                <p href="#" class="card-link">@Model.DescripcionCategoria</p>
-                
+    <div class="mb-5">
+    <p class="mt-2 fw-bold">@Model.Pregunta.NumeroPregunta . @Model.Pregunta.NombrePregunta</p>
+    @foreach (var item in Model.PorcentajePromedio)
+    {
+        <div class="row mx-1">
+            <div class="col-md-12 d-flex flex-column  justify-content-center px-5">
+                <div class="row  d-flex h-100 justify-content-center align-items-center ">
+                    <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center ">@item.Opcion</div>
+                        <div class="col-md-1 border border-1 border-dark @item.Color h-100 d-flex align-items-center fw-bolder text-white"><i class="bi bi-person"></i>@item.Promedio</div>
+                    
+                        <div class="col-md-4 p-3">
+                            <div class="progress p-0">
+                                <div class="progress-bar @item.Color fw-bolder" role="progressbar" style="width: @item.Porcentaje%" aria-valuenow="@item.Promedio" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100">@item.Porcentaje%</div>
+
+                            </div>
+                        </div>
+                </div>
             </div>
         </div>
+    }
     </div>
         @foreach (var pregunta in Model.datospreguntas)
         {
         <div class="row mx-1">
             <div class="col-md-12 d-flex flex-column  justify-content-center px-5">
                 <div class="row  d-flex  h-100 justify-content-center align-items-center ">
-                    <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center fw-bolder">@pregunta.numeroPregunta . @pregunta.mispreguntas</div>
-                    <div class="col-md-1 border border-1 border-dark @pregunta.Color h-100 d-flex align-items-center fw-bolder text-white">@pregunta.Promedio.ToString("0.00")</div>
-                    <div class="progress col-md-4 ">
-                        <div class="progress-bar @pregunta.Color fw-bolder" role="progressbar" style="width: @pregunta.porcentaje%" aria-valuenow="@pregunta.Promedio" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100">@pregunta.porcentaje%</div>
+                    <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center fw-bolder p-2">@pregunta.numeroPregunta . @pregunta.mispreguntas</div>
+                    <div class="col-md-1 border border-1 border-dark @pregunta.Color h-100 d-flex align-items-center fw-bolder text-white">@pregunta.Promedio.ToString("0.0")</div>
+                    <div class="col-md-4 p-3">
+                        <div class="progress p-0">
+                            <div class="progress-bar @pregunta.Color fw-bolder" role="progressbar" style="width: @pregunta.porcentaje%" aria-valuenow="@pregunta.Promedio" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100">@pregunta.porcentaje%</div>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
 
         }
-    <div class="col-md-12">
-        <p><h3>@Model.Preguntasimple</h3></p>
-    </div>
+        <div class="col-md-12">
+            <p>
+                <h3>@Model.Preguntasimple</h3>
+            </p>
+        </div>
     </div>
     
+    
     <!--<canvas id="myChart5"></canvas>-->
-</div>
-<div id="container" class="mx-auto my-0 mt-4" style="width: 960px; height: 600px; border: 1px solid black">
-    <canvas id="wordCloud"></canvas>
+    <div id="container" class="mx-auto my-0 mt-4" style="width: 960px; height: 600px; border: 1px solid black">
+        <canvas id="wordCloud"></canvas>
+    </div>
 </div>
 
 
+<button id="pdf-button"> PDF</button>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js" integrity="sha512-ToRWKKOvhBSS8EtqSflysM/S7v9bB9V0X3B1+E7xo7XZBEZCPL3VX5SFIp8zxY19r7Sz0svqQVbAOx+QcLQSAQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="~/js/index.umd.js" asp-append-version="true"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2 "></script>
 <script>
+
+    document.getElementById('pdf-button').addEventListener('click', function () {
+    //var pdf = new jsPDF('p', 'pt', 'a4');
+    var container = document.querySelector('.container');
+   html2canvas(container).then((canvas) => {
+          const imgWidth = 208;
+          const pageHeight = 295;
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+          let heightLeft = imgHeight;
+          let position = 0;
+          heightLeft -= pageHeight;
+          const doc = new jsPDF('p', 'mm', 'a4');
+          doc.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight-8, '', 'FAST');
+          while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            doc.addPage();
+            doc.addImage(canvas, 'PNG', 0, position-6, imgWidth, imgHeight, '', 'FAST');
+            heightLeft -= pageHeight;
+          }
+          doc.save('Downld.pdf');
+        });
+    });
+
+
+        //Registra plugin
+    Chart.register(ChartDataLabels);
     var nube = decodeJsonString('@Html.Raw(JsonConvert.SerializeObject(Model.nubePalabras))');
     var palabras = JSON.parse(nube);
     var surveyId = @Model.Encuesta.Id;
-    //Registra plugin
-    Chart.register(ChartDataLabels);
     window.onload = () => {
         const words = palabras;
-        
+        console.log(words);
         const data = {
             labels: words.map((d) => d.Key),
             datasets: [
@@ -117,7 +181,7 @@
             url: '/Dashboard/DatosDemograficos/',
             type: 'POST',
             dataType: 'json',
-            data: { surveyId: surveyId - 1 },
+            data: { surveyId: surveyId-1 },
             success: function (data) {
                 let promedioPorCategoria = 0;
                 data.forEach(element => {
@@ -131,8 +195,11 @@
                     dataType: 'json',
                     data: { surveyId: surveyId },
                     success: function (dataMadurez) {
-                        let promedioGeneral = 0;                        
-                        promedioGeneral = promedioPorCategoria / (data.length)
+                        let promedioGeneral = 0;
+                        dataMadurez.forEach(element => {
+                            promedioPorCategoria += element.promedioGeneral;
+                        })
+                        promedioGeneral = promedioPorCategoria / (data.length + dataMadurez.length)
 
                         datosPromedios = []
                         datosPromedios.push(dataMadurez[0].promedioGeneral.toFixed(1))
@@ -162,16 +229,16 @@
     //Funciones para mostrar
 
     function GraficaPromedioGeneralBarras(datos) {
-        
+        console.log(datos)
         const dimensionBeneficioBar = document.getElementById('barChartPromedio');
 
         new Chart(dimensionBeneficioBar, {
             type: 'bar',
             data: {
-                labels: ["Madurez", "Beneficios"],
+                labels: ["Madurez", "Otras dimensiones"],
                 datasets: [
                     {
-                        backgroundColor: ["rgba(77,179,199,1)", "rgba(246, 194, 100, 1)", "rgba(29,110,155,1)", "rgba(207, 66, 63, 1)"],
+                        backgroundColor: ["rgba(199, 199, 199, 1)", "rgba(29, 108, 121, 1)", "rgba(29,110,155,1)", "rgba(207, 66, 63, 1)"],
                         data: datos,
                     }
                 ]
@@ -218,10 +285,11 @@
                 datasets: [
                     {
                         label: 'Madurez',
-                        backgroundColor: ["rgba(62, 149, 205, 1)", "rgba(30, 30, 30, 0.5)"],
+                        backgroundColor: ["rgba(199, 199, 199, 1)", "rgba(251, 251, 251, 0.5)"],
+                        
                         data: [datosMadurez[0].promedioGeneral.toFixed(1), 5 - datosMadurez[0].promedioGeneral.toFixed(1)],
                         datalabels: {
-                            color: 'white',
+                            color: ['white', 'black'],
                             font: {
                                 weight: 'bold'
                             }
@@ -252,10 +320,10 @@
                 datasets: [
                     {
                         label: 'Total',
-                        backgroundColor: ["rgba(62, 149, 205, 1)", "rgba(30, 30, 30, .5)"],
+                        backgroundColor: ["rgba(29, 108, 121, 1)", "rgba(251, 251, 251, 0.5)"],
                         data: [promedioGeneral.toFixed(1), (5 - promedioGeneral).toFixed(1)],
                         datalabels: {
-                            color: 'white',
+                            color: ['white','black'],
                             font: {
                                 weight: 'bold'
                             }
@@ -278,5 +346,7 @@
 
         });
     }
-
 </script>
+
+
+

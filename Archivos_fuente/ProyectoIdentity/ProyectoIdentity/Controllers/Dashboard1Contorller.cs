@@ -31,6 +31,9 @@ namespace ProyectoIdentity.Controllers
         public string Preguntasimple { get; set; }
         public List<DictionaryClod> nubePalabras { get; set; }
         public Encuesta Encuesta { get; set; }//Nuevo campo
+        public List<OpcionPorcentaje> PorcentajePromedio { get; set; }
+
+        public Models.ModelsJourney.Pregunta Pregunta { get; set; }
     }
 
     public class dataPreguntas
@@ -77,6 +80,12 @@ namespace ProyectoIdentity.Controllers
 
         public List<valuesPersonales> DatosPersonalesFamilia { get; set; }
 
+        public double Hijos { get; set; }
+
+        public double Hermanos { get; set; }
+
+        public double DependenciaEc0nomica { get; set; }
+
     }
 
     public class Respuestaper
@@ -119,6 +128,16 @@ namespace ProyectoIdentity.Controllers
 
     }
 
+    public class OpcionPorcentaje
+    {
+        public string Opcion { get; set; }
+        public double Porcentaje { get; set; }
+
+        public int Promedio { get; set; }
+
+        public string Color { get; set; }
+    }
+
 
     public class Dashboard1Controller : Controller
     {
@@ -148,7 +167,7 @@ namespace ProyectoIdentity.Controllers
                                 mispreguntas = g.First().Pregunta.NombrePregunta,
                                 valores = g.Average(x => (float)Math.Round((decimal)x.Valor, 2)),
                                 porcentaje = (int)(g.Average(x => x.Valor) * 20),
-                                Color = colores[(int)g.Average(x => x.Valor)],
+                                Color = colores[(int)Math.Ceiling((double)g.Average(x => x.Valor))],
                                 Promedio = g.Where(x => x.Pregunta.TipoPreguntaId == 2).Average(x => x.Valor) ?? 0,
                                 numeroPregunta = g.First().Pregunta.NumeroPregunta,
 
@@ -156,7 +175,24 @@ namespace ProyectoIdentity.Controllers
             _surveyShow.NombreCategoria = category.NombreCategoria;
             _surveyShow.DescripcionCategoria = category.Descripcion;
             _surveyShow.datospreguntas = datospreguntas;
-            _surveyShow.Preguntasimple = _context.Pregunta.Where(x => x.TipoPreguntaId == 5 && x.EncuestaCategoria.EncuestaId == surveyId).Select(x => x.NombrePregunta).FirstOrDefault();
+
+            var pregunta = _context.Pregunta
+            .Include(x => x.Opciones)
+            .FirstOrDefault(x => x.TipoPreguntaId == 3 && x.EncuestaCategoria.EncuestaId == surveyId);
+            var respuestas = _context.RespuestaMadurezcs.Where(x => x.PreguntaId == pregunta.Id);
+            var porcentajePorOpcion = pregunta.Opciones
+            .GroupBy(x => x.NumeroOpcion)
+            .Select(g => new OpcionPorcentaje
+            {
+                Promedio = (int)respuestas.Where(x => x.Valor == g.Key).Count(),
+                Opcion = g.First().Nombre,
+                Porcentaje = respuestas.Where(x => x.Valor == g.Key).Count() * 100 / respuestas.Count(),
+                Color = colores[(int?)Math.Ceiling((double)respuestas.Where(x => x.Valor == g.Key).Count() * 5 / respuestas.Count())??0],
+            }
+            ).ToList();
+
+
+
             var nubepalabras = _context.RespuestaMadurezcs.Include(x => x.Pregunta).Where(x => x.Pregunta.TipoPreguntaId == 5 && x.Pregunta.EncuestaCategoria.EncuestaId == surveyId).Select(x => x.DescripcionRespuesta).ToArray();
             string nubeWords = String.Join(",", nubepalabras);
             nubepalabras = nubeWords.Split(' ', '.', ',', ';', ':', '-', '!', '?')
@@ -170,6 +206,8 @@ namespace ProyectoIdentity.Controllers
                                     .ToArray();
             _surveyShow.nubePalabras = nubepalabras.Select(x => new DictionaryClod { Key = x, value = 2 }).ToList();
             _surveyShow.Encuesta = encuesta;
+            _surveyShow.PorcentajePromedio = porcentajePorOpcion;
+            _surveyShow.Pregunta = pregunta;
             return View(_surveyShow);
         }
 
