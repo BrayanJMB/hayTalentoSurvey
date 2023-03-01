@@ -4,78 +4,83 @@
     string title = Model.Encuesta.NombreEncuesta.Replace("Bienvenido a la", "").Trim();
     string title2 = char.ToUpper(title[0]) + title.Substring(1);
 }
-<div class="contenedor-imagen w-100">
-    <img class="w-100" src="~/imagenes/MontañaMadurez.png" alt="Logo hay talento">
-    <div class="contenedor-texto w-100 h-100 d-flex flex-column justify-content-between">
-        <div class="d-flex align-items-center">
-            <img style="max-width:150px" src="~/imagenes/LogoHayTalento.png" alt="Logo hay talento">
-            <h1>@title2</h1>
-        </div>
-        <div class="text-white">
-            <h5>Poblacion Encuestada :</h5>
-            <h6>@DateTime.UtcNow.ToLocalTime()</h6>
-        </div>
-    </div>
-</div>
-
-<div class="row d-flex justify-content-around my-5">
-    <h2 class="text-center mb-2 justify-content-center">Dimensiones de Madurez</h2>
-    <div class="col-md-8">
-        <canvas id="barChartPromedio"></canvas>
-    </div>
-    <div class="col-2  d-flex flex-column justify-content-around">
-        <div style="width:85%;">
-            <canvas id="madurezDonut"></canvas>
-            <div class="absolute-center text-center">
-                <h5>Madurez</h5>
+<div id="nextPage">
+    <div class="contenedor-imagen w-100">
+        <img class="w-100" src="~/imagenes/MontañaMadurez.png" alt="Logo hay talento">
+        <div class="contenedor-texto w-100 h-100 d-flex flex-column justify-content-between">
+            <div class="d-flex align-items-center">
+                <img style="max-width:150px" src="~/imagenes/LogoHayTalento.png" alt="Logo hay talento">
+                <h1>@title2</h1>
             </div>
-        </div>
-        <div style="width:85%;">
-            <canvas id="generalDonut"></canvas>
-            <div class="absolute-center text-center">
-                <h5>Total Dimensiones</h5>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <h2 class="text-center">Percepciones para cada Dimensión y Pregunta</h2>
-    <div class="col-md-12 mt-3">
-        <div class="card" style="width:100%">
-            <div class="card-body" style="background-color:#C7C7C7">
-                <h5 class="card-title text-center  fw-bold">@Model.NombreCategoria</h5>
-            </div>
-            
-            <div class="card-body">
-                <p href="#" class="card-link fw-bold">@Model.DescripcionCategoria</p>
+            <div class="text-white">
+                <h5>Poblacion Encuestada :</h5>
+                <h6>@DateTime.UtcNow.ToLocalTime()</h6>
             </div>
         </div>
     </div>
 
-    <div class="mb-5">
-    <p class="mt-2 fw-bold">@Model.Pregunta.NumeroPregunta . @Model.Pregunta.NombrePregunta</p>
-    @foreach (var item in Model.PorcentajePromedio)
-    {
-        <div class="row mx-1">
-            <div class="col-md-12 d-flex flex-column  justify-content-center px-5">
-                <div class="row  d-flex h-100 justify-content-center align-items-center ">
-                    <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center ">@item.Opcion</div>
-                        <div class="col-md-1 border border-1 border-dark @item.Color h-100 d-flex align-items-center fw-bolder text-white"><i class="bi bi-person"></i>@item.Promedio</div>
-                    
-                        <div class="col-md-4 p-3">
-                            <div class="progress p-0">
-                                <div class="progress-bar @item.Color fw-bolder" role="progressbar" style="width: @item.Porcentaje%" aria-valuenow="@item.Promedio" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100">@item.Porcentaje%</div>
-
-                            </div>
-                        </div>
+    <div class="row d-flex justify-content-around my-5">
+        <h2 class="text-center mb-2 justify-content-center">Dimensiones de Madurez</h2>
+        <div class="col-md-8">
+            <canvas id="barChartPromedio"></canvas>
+        </div>
+        <div class="col-2  d-flex flex-column justify-content-around">
+            <div style="width:85%;">
+                <canvas id="madurezDonut"></canvas>
+                <div class="absolute-center text-center">
+                    <h5>Madurez</h5>
+                </div>
+            </div>
+            <div style="width:85%;">
+                <canvas id="generalDonut"></canvas>
+                <div class="absolute-center text-center">
+                    <h5>Total Dimensiones</h5>
                 </div>
             </div>
         </div>
-    }
     </div>
-        @foreach (var pregunta in Model.datospreguntas)
-        {
+
+    <div class="row">
+        <h2 class="text-center">Percepciones para cada Dimensión y Pregunta</h2>
+        <div class="col-md-12 mt-3">
+            <div class="card" style="width:100%">
+                <div class="card-body" style="background-color:#C7C7C7">
+                    <h5 class="card-title text-center  fw-bold">@Model.NombreCategoria</h5>
+                </div>
+
+                <div class="card-body">
+                    <p href="#" class="card-link fw-bold">@Model.DescripcionCategoria</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-5">
+            <p class="mt-2 fw-bold">@Model.Pregunta.NumeroPregunta . @Model.Pregunta.NombrePregunta</p>
+            @foreach (var item in Model.PorcentajePromedio)
+            {
+                <div class="row mx-1">
+                    <div class="col-md-12 d-flex flex-column  justify-content-center px-5">
+                        <div class="row  d-flex h-100 justify-content-center align-items-center ">
+                            <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center ">@item.Opcion</div>
+                            <div class="col-md-1 border border-1 border-dark @item.Color h-100 d-flex align-items-center fw-bolder text-white"><i class="bi bi-person"></i>@item.Promedio</div>
+
+                            <div class="col-md-4 p-3">
+                                <div class="progress p-0">
+                                    <div class="progress-bar @item.Color fw-bolder" role="progressbar" style="width: @item.Porcentaje%" aria-valuenow="@item.Promedio" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100">@item.Porcentaje%</div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div id="nextPage">
+    @foreach (var pregunta in Model.datospreguntas)
+    {
         <div class="row mx-1">
             <div class="col-md-12 d-flex flex-column  justify-content-center px-5">
                 <div class="row  d-flex  h-100 justify-content-center align-items-center ">
@@ -86,24 +91,27 @@
                             <div class="progress-bar @pregunta.Color fw-bolder" role="progressbar" style="width: @pregunta.porcentaje%" aria-valuenow="@pregunta.Promedio" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100">@pregunta.porcentaje%</div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
 
-        }
-        <div class="col-md-12">
-            <p>
-                <h3>@Model.Preguntasimple</h3>
-            </p>
-        </div>
+    }
+</div>
+<div id="nextPage">
+    <div class="row m-5">
+    <div class="col-md-12">
+        <p>
+            <h3>@Model.Preguntasimple</h3>
+        </p>
     </div>
-    
-    
     <!--<canvas id="myChart5"></canvas>-->
     <div id="container" class="mx-auto my-0 mt-4" style="width: 960px; height: 600px; border: 1px solid black">
         <canvas id="wordCloud"></canvas>
     </div>
+    </div>
+
+
 </div>
 
 
@@ -121,29 +129,36 @@
 <script>
 
     document.getElementById('pdf-button').addEventListener('click', function () {
-    //var pdf = new jsPDF('p', 'pt', 'a4');
-    var container = document.querySelector('.container');
-   html2canvas(container).then((canvas) => {
-          const imgWidth = 208;
-          const pageHeight = 295;
-          const imgHeight = (canvas.height * imgWidth) / canvas.width;
-          let heightLeft = imgHeight;
-          let position = 0;
-          heightLeft -= pageHeight;
-          const doc = new jsPDF('p', 'mm', 'a4');
-          doc.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight-8, '', 'FAST');
-          while (heightLeft >= 0) {
-            position = heightLeft - imgHeight;
-            doc.addPage();
-            doc.addImage(canvas, 'PNG', 0, position-6, imgWidth, imgHeight, '', 'FAST');
-            heightLeft -= pageHeight;
-          }
-          doc.save('Downld.pdf');
+        var containers = document.querySelectorAll('#nextPage');
+        let previousPromise = Promise.resolve();
+        const doc = new jsPDF('p', 'mm', 'a4');
+        let imgWidth = 205;
+        let pageHeight = 285;
+        let my = 0;
+        for (var i = 0; i < containers.length; i++) {
+            const container = containers[i];
+            previousPromise = previousPromise.then(() => {
+                return html2canvas(container);
+            }).then((canvas) => {
+                
+                doc.addImage(canvas, 'PNG', 2, my, imgWidth, pageHeight);
+                doc.addPage();
+                pageHeight = pageHeight - 30;
+                if(pageHeight==225){
+                    pageHeight-=110
+                }
+                my=10;
+            });
+        }
+        previousPromise.then(() => {
+            doc.save("archivo.pdf");
+        }).catch(error => {
+            console.log(error);
         });
     });
 
 
-        //Registra plugin
+    //Registra plugin
     Chart.register(ChartDataLabels);
     var nube = decodeJsonString('@Html.Raw(JsonConvert.SerializeObject(Model.nubePalabras))');
     var palabras = JSON.parse(nube);
@@ -181,7 +196,7 @@
             url: '/Dashboard/DatosDemograficos/',
             type: 'POST',
             dataType: 'json',
-            data: { surveyId: surveyId-1 },
+            data: { surveyId: surveyId - 1 },
             success: function (data) {
                 let promedioPorCategoria = 0;
                 data.forEach(element => {
@@ -286,7 +301,7 @@
                     {
                         label: 'Madurez',
                         backgroundColor: ["rgba(199, 199, 199, 1)", "rgba(251, 251, 251, 0.5)"],
-                        
+
                         data: [datosMadurez[0].promedioGeneral.toFixed(1), 5 - datosMadurez[0].promedioGeneral.toFixed(1)],
                         datalabels: {
                             color: ['white', 'black'],
@@ -323,7 +338,7 @@
                         backgroundColor: ["rgba(29, 108, 121, 1)", "rgba(251, 251, 251, 0.5)"],
                         data: [promedioGeneral.toFixed(1), (5 - promedioGeneral).toFixed(1)],
                         datalabels: {
-                            color: ['white','black'],
+                            color: ['white', 'black'],
                             font: {
                                 weight: 'bold'
                             }

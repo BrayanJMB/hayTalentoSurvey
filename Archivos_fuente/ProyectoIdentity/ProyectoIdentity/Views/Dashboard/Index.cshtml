@@ -1080,24 +1080,36 @@
         const nodosSeleccionados = [];
     });
 
+    
+
     document.getElementById('pdf-button').addEventListener('click', function () {
         var container = document.querySelector('.PdfText');
         const nodostotales = container.querySelectorAll("#nextPage");
         const doc = new jsPDF('p', 'mm')
         const canvasPromises = [];
         let previousPromise = Promise.resolve();
-        let pagina = container.querySelectorAll('.pagina1');
+
+        let pagina = container.querySelectorAll(".pagina1")
+        //primeras paginas
+        let widtjCanvas = 193;
+        let heightCanvas = 240;
+        let marginy = 0;
 
         for (var i = 0; i < pagina.length; i++) {
             const contenido = pagina[i];
-            const canvas = document.createElement('canvas');
-            canvas.width = contenido.offsetWidth;
-            canvas.height = contenido.offsetHeight;
-            const context = canvas.getContext('2d');
-            context.scale(2, 2); // Escala para mejorar la calidad de la imagen
-            html2canvas(contenido, { canvas: canvas });
-            doc.addPage();
-            doc.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 3, 0, 208, 0, null, 'FAST');
+            contenido.style.width = '1100px';
+            
+
+            previousPromise = previousPromise.then(() => {
+                // Convertir el contenedor a canvas y agregar a pdf
+                return html2canvas(contenido);
+            }).then(canvas => {
+                doc.addImage(canvas, 'PNG', 10, marginy, widtjCanvas, heightCanvas);
+                doc.addPage();
+                 marginy=30;
+                 heightCanvas=210;
+            });
+           
         }
 
         for (var i = 0; i < nodostotales.length - 1; i++) {
@@ -1118,38 +1130,19 @@
             if (i == nodostotales.length - 2) {
                 heightPantalla = 230;
             }
-
-            if (i === 0) { // Agregar condición para la primera página
-                const canvasElements = contenedorSeleccionado.querySelectorAll('canvas');
-                // Iterar sobre cada imagen canvas
-                canvasElements.forEach(canvasEl => {
-                    // Crear un nuevo canvas para copiar la imagen
-                    const newCanvas = document.createElement('canvas');
-                    newCanvas.width = canvasEl.width;
-                    newCanvas.height = canvasEl.height;
-
-                    // Copiar el contenido de la imagen al nuevo canvas
-                    const newContext = newCanvas.getContext('2d');
-                    const dataUrl = canvasEl.toDataURL('image/png');
-                    const img = new Image();
-                    img.src = dataUrl;
-                    img.onload = () => {
-                        newContext.drawImage(img, 0, 0);
-                        // Agregar el nuevo canvas al contenedor seleccionado
-                        contenedorSeleccionado.appendChild(newCanvas);
-                    }
-                });
-            }
-           
             // Agregar los nodos al contenedor
             nodosSeleccionados.forEach(nodo => {
                 contenedorSeleccionado.appendChild(nodo.cloneNode(true));
             });
 
+            // Agregar el contenedor al DOM
+            document.body.appendChild(contenedorSeleccionado);
+            // Agregar la promesa de conversión a canvas al array
+
             previousPromise = previousPromise.then(() => {
-                // Convertir el contenedor a canvas y agregar a pdf
                 return html2canvas(contenedorSeleccionado);
             }).then(canvas => {
+
                 // Utilizar el canvas en lugar del contenido original
                 doc.addImage(canvas, 'PNG', 3, 8, 208, heightPantalla);
                 doc.addPage();
@@ -1157,36 +1150,21 @@
             }).catch(error => {
                 console.log(error);
             });
-        }
 
+        }
         previousPromise.then(() => {
             doc.save("archivo.pdf");
-        }).catch(error => {
-            console.log(error);
-        });
+        })
+            .catch(error => {
+                console.log(error);
+            });
     });
 
-    async function pdfFromHTML(content) {
-        //var container = document.querySelector('.PdfText');
-        //var pagina = container.querySelectorAll('.pagina1');
 
-        //for (var i = 0; i < pagina.length; i++) {
-        //    const contenido = pagina[i];
-        //    const canvas = document.createElement('canvas');
-        //    canvas.width = contenido.offsetWidth;
-        //    canvas.height = contenido.offsetHeight;
-        //    const context = canvas.getContext('2d');
-        //    context.scale(2, 2); // Escala para mejorar la calidad de la imagen
-        //    await html2canvas(contenido, { canvas: canvas });
-        //    doc.addPage();
-        //    doc.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 3, 0, 204, 0, null, 'FAST');
-        //}
 
-        console.log(content.width)
 
-    }
 
-                            
+
 
 
 </script>
