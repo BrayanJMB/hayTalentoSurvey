@@ -51,8 +51,8 @@
                 </div>
             </div>
             var datosPregunta = Model.QuestionPer.Respuestas.GroupBy(x => x.Concepto).ToList();
-            <table class="table table-bordered mx-auto mb-5" style="width:80%">
-                <thead>
+            <table class="table table-bordered mx-5 mb-5" style="width:90%">
+                <thead class="text-center">
                     <tr>
                         <th scope="col" class="pt-0">
                             <div class="text-center d-flex justify-content-center align-content-center">
@@ -101,7 +101,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-between align-items-center">
                                     <p>@(atractivos.FirstOrDefault(x => x.Key.Contains("Bajo"))?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
                                     <p>@(atractivos.FirstOrDefault(x => x.Key.Contains("Regular"))?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
                                     <p>@(atractivos.FirstOrDefault(x => x.Key.Contains("Medio"))?.Porcentaje * 100 / Model.ContadorRespuestas ?? 0) %</p>
@@ -130,8 +130,11 @@
                     <div class="row  d-flex  h-100 justify-content-center align-items-center ">
                         <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center fw-bolder">@pregunta.NumeroPregunta . @pregunta.PreguntaNombre</div>
                         <div class="col-md-1 border border-1 border-dark @pregunta.Color h-100 d-flex align-items-center fw-bolder text-white">@pregunta.Promedio.ToString("0.0")</div>
-                        <div class="progress col-md-4 ">
-                            <div class="progress-bar @pregunta.Color fw-bolder" role="progressbar" style="width: @pregunta.porcentaje%" aria-valuenow="@pregunta.Promedio" aria-valuemin="0" aria-valuemax="100">@pregunta.porcentaje%</div>
+                        
+                        <div class="col-md-4 p-3">
+                            <div class="progress p-0">
+                                <div class="progress-bar  @pregunta.Color fw-bolder " role="progressbar" style="width: @pregunta.porcentaje%" aria-valuenow="@pregunta.Promedio" aria-valuemin="0" aria-valuemax="100">@pregunta.porcentaje%</div>
+                            </div>
                         </div>
                     </div>
                 </div>

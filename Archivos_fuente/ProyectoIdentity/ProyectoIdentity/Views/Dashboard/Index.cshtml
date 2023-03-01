@@ -10,7 +10,6 @@
 }
 <button id="pdf-button"> PDF</button>
 <div class="PdfText">
-    <div id="nextPage"></div>
     <div class="pagina1">
         <div class="contenedor-imagen w-100">
             <img class="w-100" src="~/imagenes/ManosBeneficios.png" alt="Logo hay talento">
@@ -52,7 +51,6 @@
             </div>
         </div>
     </div>
-    <div id="nextPage"></div>
     <div class="pagina1">
         <div class="row mx-5 mt-5">
             <h2 class="text-center">Datos Demográficos</h2>
@@ -101,7 +99,7 @@
                         </li>
                         <li class="d-flex justify-content-evenly align-items-center">
                             <span style="background-color: #F58518; width: 16px; height: 16px; display: inline-block;"></span>
-                            <span class="ml-1">Edad</span>
+                            <span class="ml-1">Estados Civil</span>
                         </li>
                         <li class="d-flex justify-content-evenly align-items-center">
                             <span style="background-color: #E45756; width: 16px; height: 16px; display: inline-block;"></span>
@@ -109,7 +107,7 @@
                         </li>
                         <li class="d-flex justify-content-evenly align-items-center">
                             <span style="background-color: #72B7B2; width: 16px; height: 16px; display: inline-block;"></span>
-                            <span class="ml-1">Estados Civil</span>
+                            <span class="ml-1">Edad</span>
                         </li>
                     </ul>
                 </div>
@@ -125,7 +123,7 @@
                         </li>
                         <li class="d-flex justify-content-evenly align-items-center">
                             <span style="background-color: #F58518; width: 16px; height: 16px; display: inline-block;"></span>
-                            <span class="ml-1">Edad</span>
+                            <span class="ml-1">Estados Civil</span>
                         </li>
                         <li class="d-flex justify-content-evenly align-items-center">
                             <span style="background-color: #E45756; width: 16px; height: 16px; display: inline-block;"></span>
@@ -133,22 +131,22 @@
                         </li>
                         <li class="d-flex justify-content-evenly align-items-center">
                             <span style="background-color: #72B7B2; width: 16px; height: 16px; display: inline-block;"></span>
-                            <span class="ml-1">Estados Civil</span>
+                            <span class="ml-1">Edad</span>
                         </li>
                     </ul>
                 </div>
                 <div class="row  mt-3">
                     <div class="col-md-1"></div>
                     <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">Hijos Promedio</div>
-                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">3</div>
+                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">@Model.Hijos</div>
                     <div class="col-md-1"></div>
                     <div class="col-md-1"></div>
                     <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">Promedio dependencia económica</div>
-                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">2</div>
+                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">@Model.DependenciaEc0nomica</div>
                     <div class="col-md-1"></div>
                     <div class="col-md-1"></div>
-                    <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">otro promedio</div>
-                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">4</div>
+                    <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">Hermanos promedio</div>
+                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">@Model.Hermanos</div>
                     <div class="col-md-1"></div>
                 </div>
             </div>
@@ -1088,6 +1086,19 @@
         const doc = new jsPDF('p', 'mm')
         const canvasPromises = [];
         let previousPromise = Promise.resolve();
+        let pagina = container.querySelectorAll('.pagina1');
+
+        for (var i = 0; i < pagina.length; i++) {
+            const contenido = pagina[i];
+            const canvas = document.createElement('canvas');
+            canvas.width = contenido.offsetWidth;
+            canvas.height = contenido.offsetHeight;
+            const context = canvas.getContext('2d');
+            context.scale(2, 2); // Escala para mejorar la calidad de la imagen
+            html2canvas(contenido, { canvas: canvas });
+            doc.addPage();
+            doc.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 3, 0, 208, 0, null, 'FAST');
+        }
 
         for (var i = 0; i < nodostotales.length - 1; i++) {
             var previsouspage = nodostotales[i];

@@ -163,6 +163,9 @@ namespace ProyectoIdentity.Controllers
             int count = datosPersonalesFamiliar.
     Where(x=>x.EstadoCivil!="Fallecido")
     .Count();
+            var hijos = (double)datosPersonalesFamiliar.Count(x => x.Parentesco == "Hijo")/count;
+            var hermanos= (double)datosPersonalesFamiliar.Count(x => x.Parentesco == "Hermano")/count;
+            var dependenciaeco= (double)datosPersonalesFamiliar.Count(x => x.DependenciaEconomica == "Sí")/count;
             var NivelEducativof = datosPersonalesFamiliar.Where(x=>x.NivelEducativo!=null).GroupBy(x => x.NivelEducativo)?.ToList().Select(x => new valuesPersonales
             {
                 a = 2,
@@ -203,7 +206,10 @@ namespace ProyectoIdentity.Controllers
                     Paises = paises
                 },
                 DatosPersonales = Sexo,
-                DatosPersonalesFamilia=Sexof
+                DatosPersonalesFamilia=Sexof,
+                DependenciaEc0nomica=dependenciaeco,
+                Hijos=hijos,
+                Hermanos=hermanos
             };
             
 
