@@ -6,7 +6,6 @@ $(document).ready(function () {
         current_fs = $(this).parent().parent().parent().parent().parent();
         next_fs = $(this).parent().parent().parent().parent().parent().next();
         let elem = $(".next");
-        console.log(elem)
         let indexNext = $.inArray(this, elem);
         //show the next fieldset
         let showNext = true;
@@ -81,7 +80,6 @@ deleteQuestion.forEach(function (trash) {
     trash.addEventListener('click', function (e) {
         let divDelete = e.target.closest("#FilaPregunta");
         let linedelete = divDelete.nextElementSibling;
-        console.log(linedelete)
         linedelete.remove();
         divDelete.remove();
     })

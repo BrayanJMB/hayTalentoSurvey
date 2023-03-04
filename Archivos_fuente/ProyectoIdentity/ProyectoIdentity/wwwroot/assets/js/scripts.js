@@ -64,7 +64,7 @@ jQuery(document).ready(function() {
 		if (direction === 'down') {
 			$('.menu-elements li').removeClass('active');
 			$('.menu-elements a[href="#' + this.element.id + '"]').parents('li').addClass('active');
-			//console.log(this.element.id + ' hit, direction ' + direction);
+			
 		}
 	},
 	{
@@ -74,7 +74,6 @@ jQuery(document).ready(function() {
 		if (direction === 'up') {
 			$('.menu-elements li').removeClass('active');
 			$('.menu-elements a[href="#' + this.element.id + '"]').parents('li').addClass('active');
-			//console.log(this.element.id + ' hit, direction ' + direction);
 		}
 	},
 	{

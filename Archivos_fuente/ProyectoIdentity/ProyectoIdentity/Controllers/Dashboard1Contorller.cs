@@ -25,6 +25,7 @@ namespace ProyectoIdentity.Controllers
     }
     public class SurveyShow
     {
+        public string Cliente { get; set; }
         public string NombreCategoria { get; set; }
         public string DescripcionCategoria { get; set; }
         public List<dataPreguntas> datospreguntas { get; set; }
@@ -34,6 +35,8 @@ namespace ProyectoIdentity.Controllers
         public List<OpcionPorcentaje> PorcentajePromedio { get; set; }
 
         public Models.ModelsJourney.Pregunta Pregunta { get; set; }
+
+        public int  CantidadRespuestas { get; set; }
     }
 
     public class dataPreguntas
@@ -71,6 +74,7 @@ namespace ProyectoIdentity.Controllers
     }
 
     public class orderBycategory {
+        public string Cliente { get; set; }
         public int ContadorRespuestas { get; set; } 
         public List<Categorias> Categorias { get; set; }
         public Respuestaper QuestionPer { get; set; }
@@ -175,6 +179,7 @@ namespace ProyectoIdentity.Controllers
             _surveyShow.NombreCategoria = category.NombreCategoria;
             _surveyShow.DescripcionCategoria = category.Descripcion;
             _surveyShow.datospreguntas = datospreguntas;
+            _surveyShow.Cliente = encuesta.Cliente;
 
             var pregunta = _context.Pregunta
             .Include(x => x.Opciones)
@@ -208,6 +213,7 @@ namespace ProyectoIdentity.Controllers
             _surveyShow.Encuesta = encuesta;
             _surveyShow.PorcentajePromedio = porcentajePorOpcion;
             _surveyShow.Pregunta = pregunta;
+            _surveyShow.CantidadRespuestas = respuestas.Count();
             return View(_surveyShow);
         }
 

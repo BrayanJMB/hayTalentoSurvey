@@ -15,7 +15,24 @@ $(document).ready(function () {
                 element.addEventListener('click', function (event) {
                     let activeFieldset = document.querySelector('fieldset.active');
                     let formElements = activeFieldset.querySelectorAll('[required]');
+                    let accordion = activeFieldset.querySelectorAll("#accordion");
                     form.classList.add('was-validated');
+                    for (let i = 0; i < accordion.length; i++) {
+                        let inputs = accordion[i].querySelectorAll('select[required]');
+                        let isEmpty = false;
+                        inputs.forEach((input) => {
+                            if ((input.value.trim() === '' || input.value.trim() === 'Seleccione') && input.disabled == false) {
+                                isEmpty = true;
+                            }
+                        });
+
+                        if (isEmpty) {
+                            let header = accordion[i].querySelector('.collapse');
+                            if (!header.classList.contains('show')) {
+                                header.classList.add('show');
+                            }
+                        }
+                    }
                     var isValid = true;
                     for (var i = 0; i < formElements.length; i++) {
                         if (formElements[i].checkValidity() === false) {
@@ -103,7 +120,6 @@ $(document).ready(function () {
                     if (element.checked) {
                         countCant++
                         if (councantValida == 3 && element.value == "Ninguna") {
-                            console.log("entro aca")
                             validateGroup = true;
                         }
                         if( countCant>=councantValida){
