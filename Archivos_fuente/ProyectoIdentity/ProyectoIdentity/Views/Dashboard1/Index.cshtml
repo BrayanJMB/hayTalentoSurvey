@@ -1,8 +1,7 @@
 ﻿@using Newtonsoft.Json;
 @model ProyectoIdentity.Controllers.SurveyShow
 @{
-    string title = Model.Encuesta.NombreEncuesta.Replace("Bienvenido a la", "").Trim();
-    string title2 = char.ToUpper(title[0]) + title.Substring(1);
+   
 }
 <div id="nextPage">
     <div class="contenedor-imagen w-100">
@@ -10,17 +9,19 @@
         <div class="contenedor-texto w-100 h-100 d-flex flex-column justify-content-between">
             <div class="d-flex align-items-center">
                 <img style="max-width:150px" src="~/imagenes/LogoHayTalento.png" alt="Logo hay talento">
-                <h1>@title2</h1>
+                
             </div>
+            <div class="text-white"><h1>Resultados Encuesta y más</h1></div>
             <div class="text-white">
-                <h5>Poblacion Encuestada :</h5>
+                <h5>Cliente: @Model.Cliente</h5>
+                <h5>Poblacion Encuestada : @Model.CantidadRespuestas</h5>
                 <h6>@DateTime.UtcNow.ToLocalTime()</h6>
             </div>
         </div>
     </div>
 
     <div class="row d-flex justify-content-around my-5">
-        <h2 class="text-center mb-2 justify-content-center">Dimensiones de Madurez</h2>
+        <h2 class="text-center mb-2 justify-content-center">Resultados Consolidados Dimensión Madurez</h2>
         <div class="col-md-8">
             <canvas id="barChartPromedio"></canvas>
         </div>
@@ -62,7 +63,7 @@
                     <div class="col-md-12 d-flex flex-column  justify-content-center px-5">
                         <div class="row  d-flex h-100 justify-content-center align-items-center ">
                             <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center ">@item.Opcion</div>
-                            <div class="col-md-1 border border-1 border-dark @item.Color h-100 d-flex align-items-center fw-bolder text-white"><i class="bi bi-person"></i>@item.Promedio</div>
+                            <div class="col-md-1 border border-1 border-dark @item.Color h-100 d-flex align-items-center fw-bolder text-white justify-content-center"><i class="bi bi-person"></i>@item.Promedio</div>
 
                             <div class="col-md-4 p-3">
                                 <div class="progress p-0">
@@ -85,7 +86,7 @@
             <div class="col-md-12 d-flex flex-column  justify-content-center px-5">
                 <div class="row  d-flex  h-100 justify-content-center align-items-center ">
                     <div class="col-md-7 border border-1 border-dark h-100 d-flex align-items-center fw-bolder p-2">@pregunta.numeroPregunta . @pregunta.mispreguntas</div>
-                    <div class="col-md-1 border border-1 border-dark @pregunta.Color h-100 d-flex align-items-center fw-bolder text-white">@pregunta.Promedio.ToString("0.0")</div>
+                    <div class="col-md-1 border border-1 border-dark @pregunta.Color h-100 d-flex align-items-center fw-bolder text-white justify-content-center">@pregunta.Promedio.ToString("0.0")</div>
                     <div class="col-md-4 p-3">
                         <div class="progress p-0">
                             <div class="progress-bar @pregunta.Color fw-bolder" role="progressbar" style="width: @pregunta.porcentaje%" aria-valuenow="@pregunta.Promedio" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100">@pregunta.porcentaje%</div>
@@ -244,7 +245,7 @@
     //Funciones para mostrar
 
     function GraficaPromedioGeneralBarras(datos) {
-        console.log(datos)
+        
         const dimensionBeneficioBar = document.getElementById('barChartPromedio');
 
         new Chart(dimensionBeneficioBar, {

@@ -198,6 +198,7 @@ namespace ProyectoIdentity.Controllers
                 ContadorRespuestas = cantRespuestas,
                 Categorias = respuestasPorCategoria,
                 QuestionPer = response17,
+                Cliente= encuesta.Cliente,
                 Demograficos = new listDemographics
                 {
                     Areas = areas,

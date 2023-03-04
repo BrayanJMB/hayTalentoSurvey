@@ -12,6 +12,7 @@ namespace ProyectoIdentity.Models.ModelsJourney
         [StringLength(int.MaxValue, ErrorMessage = "Ha excedido el tamaño maximo del Nombre")]
         [Display(Name = "Descripcion de la Encuesta")]
         public string DescripcionEncuesta { get; set; }
+        public string? Cliente { get; set; }
 
         public string? Link { get; set; }
 

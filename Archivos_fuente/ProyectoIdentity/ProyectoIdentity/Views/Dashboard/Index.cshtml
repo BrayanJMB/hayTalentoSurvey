@@ -16,9 +16,11 @@
             <div class="contenedor-texto w-100 h-100 d-flex flex-column justify-content-between">
                 <div class="d-flex align-items-center">
                     <img style="max-width:150px" src="~/imagenes/LogoHayTalento.png" alt="Logo hay talento">
-                    <h1>@title2</h1>
+                    
                 </div>
+                <div><h1>Resultados Encuesta y más </h1></div>
                 <div>
+                    <h5>Cliente : Converty</h5>
                     <h5>Poblacion Encuestada : @Model.ContadorRespuestas</h5>
                     <h6>@DateTime.UtcNow.ToLocalTime()</h6>
                 </div>
@@ -26,7 +28,7 @@
             </div>
         </div>
         <div class="row">
-            <h2 class="text-center">Dimensiones de los beneficios</h2>
+            
             <canvas id="myChart"></canvas>
         </div>
 
@@ -437,7 +439,19 @@
                         enabled: false
                     },
                     legend: {
-                        display: false
+                        display: false,
+                    },
+                    title: {
+                        display: true,
+                        text: 'Resultados Consolidados Dimensiones Beneficios',
+                        font: {
+                            family: 'Arial',
+                            size: 28,
+                            weight: 'bold'
+                        },
+                        padding: {
+                            bottom: 40
+                        }
                     },
                     datalabels: {
                         color: 'black',
@@ -1080,7 +1094,7 @@
         const nodosSeleccionados = [];
     });
 
-    
+
 
     document.getElementById('pdf-button').addEventListener('click', function () {
         var container = document.querySelector('.PdfText');
@@ -1098,7 +1112,7 @@
         for (var i = 0; i < pagina.length; i++) {
             const contenido = pagina[i];
             contenido.style.width = '1100px';
-            
+
 
             previousPromise = previousPromise.then(() => {
                 // Convertir el contenedor a canvas y agregar a pdf
@@ -1106,10 +1120,10 @@
             }).then(canvas => {
                 doc.addImage(canvas, 'PNG', 10, marginy, widtjCanvas, heightCanvas);
                 doc.addPage();
-                 marginy=30;
-                 heightCanvas=210;
+                marginy = 30;
+                heightCanvas = 210;
             });
-           
+
         }
 
         for (var i = 0; i < nodostotales.length - 1; i++) {
@@ -1148,7 +1162,7 @@
                 doc.addPage();
                 contenedorSeleccionado.remove();
             }).catch(error => {
-                console.log(error);
+                
             });
 
         }
@@ -1156,7 +1170,7 @@
             doc.save("archivo.pdf");
         })
             .catch(error => {
-                console.log(error);
+               
             });
     });
 

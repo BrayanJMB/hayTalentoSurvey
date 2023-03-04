@@ -297,7 +297,7 @@
                                                                         <div id="@idMobile" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                                                                             <div class="card-body">
                                                                                 <div>
-                                                                                    
+
                                                                                     <p>@option.Name</p>
                                                                                     @if (option.Name == "Hermano")
                                                                                     {
@@ -417,8 +417,9 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        indexModeloMobile++;
                                                     }
-                                                    indexModeloMobile++;
+
                                                 }
 
                                                 @foreach (var pregunta in categori.Preguntas)
@@ -451,7 +452,7 @@
                                                                     <div class="row ml-2 Seleccion Multiple">
                                                                         @if (pregunta.Opciones != null)
                                                                         {
-                                                                            int contPerMobile = 0;
+
 
                                                                             @foreach (var opcionP in pregunta.Opciones)
                                                                             {
@@ -503,7 +504,7 @@
                                                                                                                 <option value="Malo">1.Malo</option>
                                                                                                                 <option value="Regular">2.Regular</option>
                                                                                                                 <option value="Bueno">3.Bueno</option>
-                                                                                                                
+
                                                                                                             </select>
                                                                                                         </td>
                                                                                                     </tr>
@@ -517,9 +518,12 @@
 
                                                                                         </table>
                                                                                         //Vista Mobile
+                                                                                        int contPerMobile = 0;
                                                                                         @foreach (var option in pregunta.Opciones)
                                                                                         {
-                                                                                            var idMobile = option.OpcionName.Replace(" ","") + "Mobile";
+                                                                                            var idMobile = option.OpcionName.Replace(" ", "") + "Mobile";
+                                                                                            <input type="hidden" name="resPer[@contPerMobile].IdPregunta" value="@pregunta.IdPregunta" />
+                                                                                            <input type="hidden" name="resPer[@contPerMobile].Concepto" value="@option.OpcionName" />
                                                                                             <div id="accordion">
                                                                                                 <div class="card">
                                                                                                     <div class="card-header" id="headingOne">
@@ -557,9 +561,10 @@
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
+                                                                                            contPerMobile++;
                                                                                         }
-                                                            
-
+                                                                                            contPerMobile = 0;
+                                                                                        
                                                                                     }
                                                                                     else
                                                                                     {
@@ -651,11 +656,11 @@
                                                                                             <input type="hidden" name="resValor[@contVal].IdPregunta" value="@pregunta.IdPregunta" />
                                                                                             <div class="block-text ml-2" id="strongly-disagree" name="strongly-disagree">@opcionP.OpcionName </div>
                                                                                             <input type="hidden" name="resValor[@contVal].Opcion" value="@opcionP.OpcionName" />
-                                                                                               @if (pregunta.NumeroPregunta != 15)
-                                                                                                {
-                                                                                                     
-                                                                                                    <select class="form-select form-select-sm escala" name="resValor[@contVal].valor" aria-label="Default select example" required>
-                                                                                            
+                                                                                            @if (pregunta.NumeroPregunta != 15)
+                                                                                            {
+
+                                                                                                <select class="form-select form-select-sm escala" name="resValor[@contVal].valor" aria-label="Default select example" required>
+
                                                                                                     <option value="" selected>Seleccione</option>
                                                                                                     <option value="1">No Aplica</option>
                                                                                                     <option value="2">No cumple las expectativas</option>
@@ -663,20 +668,20 @@
                                                                                                     <option value="4">Cumple las expectativas</option>
                                                                                                     <option value="5">Supera las expectativas</option>
                                                                                                 </select>
-                                                                                                }
-                                                                                                else if (pregunta.NumeroPregunta == 15)
-                                                                                                {
+                                                                                            }
+                                                                                            else if (pregunta.NumeroPregunta == 15)
+                                                                                            {
                                                                                                 <select class="form-select form-select-sm escala" name="resValor[@contVal].ValorSeleccionado" aria-label="Default select example" required>
-                                                                                            
+
                                                                                                     <option value="" selected>Seleccione</option>
                                                                                                     <option value="Nunca">Nunca (Ninguna)</option>
                                                                                                     <option value="1 y 3 veces/mes">1 y 3 veces/mes (Baja)</option>
                                                                                                     <option value="Entre 4 y 10 veces/mes">Entre 4 y 10 veces/mes (Media)</option>
                                                                                                     <option value="Más de 10 veces/mes">Más de 10 veces/mes (Alta)</option>
-                                                                                                    </select>
-                                                                                                }
+                                                                                                </select>
+                                                                                            }
 
-                                                                                            
+
                                                                                         </div>
                                                                                     </div>
                                                                                     contVal++;
@@ -758,7 +763,18 @@
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
+                let vistaMovile = window.matchMedia("(max-width: 768px)").matches
+                if (vistaMovile) {
+                    var table = document.querySelectorAll(".table");
+                    table[0].remove();
+                    table[1].remove();
+                }
+
+
+
             });
+
+
 
 
             var capitales = [];
@@ -802,7 +818,7 @@
             function actualizarSelectCapitales(capitales, pais) {
                 var select = document.querySelector("#capitales");
                 select.innerHTML = "";
-                console.log(capitales)
+
                 // Si las capitales están guardadas en un array
                 capitales.forEach(function (capital) {
                     if (pais != "Colombia") {
@@ -826,64 +842,64 @@
                 }
             })
 
-            function CreateRegister(option){
+            function CreateRegister(option) {
                 let cantidad = option.value;
-                    let cantidadTotal = 0;
-                    var trPadre = option.parentNode.parentNode;
-                    var trCopy = document.getElementById("Cónyugue").cloneNode(true);
-                    if (option.previousElementSibling.textContent == "Hijo" || option.previousElementSibling.textContent == "Hermano") {
-                        trCopy.id = option.previousElementSibling.textContent + "Add";
-                        cantidadTotal = document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add").length;
-                    } else {
-                        trCopy.id = option.previousElementSibling.textContent + "Add";
-                        cantidadTotal = document.querySelectorAll("#OtrosAdd").length;
+                let cantidadTotal = 0;
+                var trPadre = option.parentNode.parentNode;
+                var trCopy = document.getElementById("Cónyugue").cloneNode(true);
+                if (option.previousElementSibling.textContent == "Hijo" || option.previousElementSibling.textContent == "Hermano") {
+                    trCopy.id = option.previousElementSibling.textContent + "Add";
+                    cantidadTotal = document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add").length;
+                } else {
+                    trCopy.id = option.previousElementSibling.textContent + "Add";
+                    cantidadTotal = document.querySelectorAll("#OtrosAdd").length;
 
-                    }
-                    if (cantidad > cantidadTotal) {
-                        block(trCopy.children[2].children[0]);
-                        for (let i = cantidadTotal; i < cantidad; i++) {
-                            let nuevoTr = trCopy;
-                            if (option.previousElementSibling.textContent == "Otros") {
+                }
+                if (cantidad > cantidadTotal) {
+                    block(trCopy.children[2].children[0]);
+                    for (let i = cantidadTotal; i < cantidad; i++) {
+                        let nuevoTr = trCopy;
+                        if (option.previousElementSibling.textContent == "Otros") {
 
-                                nuevoTr.children[0].name = nuevoTr.children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                                nuevoTr.children[0].setAttribute('class', "form-control");
-                                nuevoTr.children[0].setAttribute('data-toggle', "tooltip");
-                                //nuevoTr.children[0].setAttribute('type',"text");
-                                nuevoTr.children[0].setAttribute('title', "Ingresa el parentesco");
-                                let inputClone = nuevoTr.children[0].cloneNode(true);
-                                nuevoTr.children[0].name = "";
-                                inputClone.setAttribute('type', "text");
-                                inputClone.value = "";
-                                nuevoTr.children[1].textContent = "";
-                                nuevoTr.children[1].appendChild(inputClone);
+                            nuevoTr.children[0].name = nuevoTr.children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                            nuevoTr.children[0].setAttribute('class', "form-control");
+                            nuevoTr.children[0].setAttribute('data-toggle', "tooltip");
+                            //nuevoTr.children[0].setAttribute('type',"text");
+                            nuevoTr.children[0].setAttribute('title', "Ingresa el parentesco");
+                            let inputClone = nuevoTr.children[0].cloneNode(true);
+                            nuevoTr.children[0].name = "";
+                            inputClone.setAttribute('type', "text");
+                            inputClone.value = "";
+                            nuevoTr.children[1].textContent = "";
+                            nuevoTr.children[1].appendChild(inputClone);
 
-                                $(document).on('mouseover', '[data-toggle="tooltip"]', function () {
-                                    $(this).tooltip();
-                                });
-                            } else {
-                                nuevoTr.children[0].setAttribute("name", "Fammilia[" + indexModelo + "].Parentesco");
-                                nuevoTr.children[0].setAttribute("value", option.previousElementSibling.textContent);
-                                nuevoTr.children[1].innerHTML = option.previousElementSibling.textContent
-                                let inputName = document.createElement("input");
-                            }
-                            nuevoTr.children[2].children[0].name = nuevoTr.children[2].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                            nuevoTr.children[3].children[0].name = nuevoTr.children[3].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                            nuevoTr.children[4].children[0].name = nuevoTr.children[4].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                            nuevoTr.children[5].children[0].name = nuevoTr.children[5].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                            nuevoTr.children[6].children[0].name = nuevoTr.children[6].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-
-
-                            trPadre.insertAdjacentElement("afterend", nuevoTr.cloneNode(true));
-                            indexModelo++;
+                            $(document).on('mouseover', '[data-toggle="tooltip"]', function () {
+                                $(this).tooltip();
+                            });
+                        } else {
+                            nuevoTr.children[0].setAttribute("name", "Fammilia[" + indexModelo + "].Parentesco");
+                            nuevoTr.children[0].setAttribute("value", option.previousElementSibling.textContent);
+                            nuevoTr.children[1].innerHTML = option.previousElementSibling.textContent
+                            let inputName = document.createElement("input");
                         }
-                    } else if (cantidad <= cantidadTotal && document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add").length > 0) {
-                        for (let i = cantidadTotal; i > cantidad; i--) {
-                            const elements = document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add");
-                            const lastElement = elements[0];
-                            indexModelo--;
-                            lastElement.remove();
-                        }
+                        nuevoTr.children[2].children[0].name = nuevoTr.children[2].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        nuevoTr.children[3].children[0].name = nuevoTr.children[3].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        nuevoTr.children[4].children[0].name = nuevoTr.children[4].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        nuevoTr.children[5].children[0].name = nuevoTr.children[5].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+                        nuevoTr.children[6].children[0].name = nuevoTr.children[6].children[0].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
+
+
+                        trPadre.insertAdjacentElement("afterend", nuevoTr.cloneNode(true));
+                        indexModelo++;
                     }
+                } else if (cantidad <= cantidadTotal && document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add").length > 0) {
+                    for (let i = cantidadTotal; i > cantidad; i--) {
+                        const elements = document.querySelectorAll("#" + option.previousElementSibling.textContent + "Add");
+                        const lastElement = elements[0];
+                        indexModelo--;
+                        lastElement.remove();
+                    }
+                }
             }
 
             function block(element) {
@@ -939,13 +955,13 @@
                 }
             });
 
-            function createregisterMobile(option){
+            function createregisterMobile(option) {
                 let cantidad = option.value;
                 let cantidadTotal = 0;
                 var trPadre = option.parentNode.parentNode;
                 var trCopy = document.getElementById("CónyugueMobile").cloneNode(true);
                 trCopy.classList.add("show");
-                var dataText=option.parentNode.previousElementSibling;
+                var dataText = option.parentNode.previousElementSibling;
                 if (dataText.children[0].textContent == "Hijo" || dataText.children[0].textContent == "Hermano") {
                     trCopy.id = dataText.children[0].textContent + "Add";
                     cantidadTotal = document.querySelectorAll("#" + dataText.children[0].textContent + "Add").length;
@@ -1003,7 +1019,7 @@
                         nuevoTr.children[0].children[4].children[1].name = nuevoTr.children[0].children[4].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
                         nuevoTr.children[0].children[5].children[1].name = nuevoTr.children[0].children[5].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
                         nuevoTr.children[0].children[6].children[1].name = nuevoTr.children[0].children[6].children[1].getAttribute("name").replace(/\[(.*?)\]/g, "[" + indexModelo + "]");
-                        console.log(nuevoTr.children[0].children[3].children[1])
+
                         trPadre.appendChild(nuevoTr.cloneNode(true));
                         indexModelo++;
                     }
@@ -1069,9 +1085,9 @@
             checkMax.forEach((option) => {
                 let inputData = option.querySelector("#ValueCheck");
                 let checkeds = option.querySelectorAll("input[type=checkbox]");
-                option.onchange = function () {                    
+                option.onchange = function () {
                     if (option.checked) {
-                            inputData.value += input.value + ";";
+                        inputData.value += input.value + ";";
                         checkeds.push(option);
                         if (checkeds.length > 3) {
                             checkeds[0].checked = false;
@@ -1104,7 +1120,7 @@
                 let errorP = checkbox[j].previousSibling.previousSibling.previousSibling.previousSibling;
                 errorP.classList.add("checkbox");
                 let option = checkbox[j];
-                let nextCant=errorP.nextElementSibling.textContent;
+                let nextCant = errorP.nextElementSibling.textContent;
                 let listCheckBoxes = option.querySelectorAll(".datacheck");
                 listCheckBoxes.forEach(element => {
                     if (/^Ningun[oa]$/i.test(element.value)) {
@@ -1144,11 +1160,11 @@
                     }
                 });
             }
-            const divInputNumber=document.querySelectorAll(".input-group");
-            
+            const divInputNumber = document.querySelectorAll(".input-group");
+
 
             divInputNumber.forEach((divInput) => {
-                console.log(divInput);
+
                 const inputNumber = divInput.querySelector("#MultipleRegisterMobile");
                 const decrementButton = divInput.querySelector(".decrement");
                 const incrementButton = divInput.querySelector(".increment");
@@ -1167,60 +1183,60 @@
             const accordions = document.querySelectorAll(".accordion");
 
             for (let i = 0; i < accordions.length; i++) {
-              accordions[i].addEventListener("change", function() {
-                const inputs = this.querySelectorAll("input");
-                let filled = true;
-                for (let j = 0; j < inputs.length; j++) {
-                  if (!inputs[j].value) {
-                    filled = false;
-                    break;
-                  }
-                }
-                if (filled) {
-                  this.classList.remove("show");
-                  if (i < accordions.length - 1) {
-                    accordions[i + 1].classList.add("show");
-                  }
-                }
-              });
+                accordions[i].addEventListener("change", function () {
+                    const inputs = this.querySelectorAll("input");
+                    let filled = true;
+                    for (let j = 0; j < inputs.length; j++) {
+                        if (!inputs[j].value) {
+                            filled = false;
+                            break;
+                        }
+                    }
+                    if (filled) {
+                        this.classList.remove("show");
+                        if (i < accordions.length - 1) {
+                            accordions[i + 1].classList.add("show");
+                        }
+                    }
+                });
             }
-            
 
 
 
-                        //inputNumber.addEventListener("input", function () {
-                        //    updateButtons();
-                        //});
 
-                        //inputNumber.addEventListener("change", function () {
-                        //    updateButtons();
-                        //});
+                                    //inputNumber.addEventListener("input", function () {
+                                    //    updateButtons();
+                                    //});
 
-                        //function updateButtons() {
-                        //    decrementButton.disabled = inputNumber.value <= inputNumber.min;
-                        //    incrementButton.disabled = inputNumber.value >= inputNumber.max;
-                        //}
+                                    //inputNumber.addEventListener("change", function () {
+                                    //    updateButtons();
+                                    //});
 
-                        //updateButtons();
+                                    //function updateButtons() {
+                                    //    decrementButton.disabled = inputNumber.value <= inputNumber.min;
+                                    //    incrementButton.disabled = inputNumber.value >= inputNumber.max;
+                                    //}
 
-                                                           //setInterval(function() {
-                                                           //     if (window.matchMedia("(min-width: 768px)").matches) {
-                                                           //         debugger;
-                                                           //         document.querySelectorAll("fieldset.active table select").forEach(function(input) {
-                                                           //             input.required = true;
-                                                           //         });
-                                                           //         document.querySelectorAll("fieldset.active div#accordion select").forEach(function(input) {
-                                                           //             input.required = false;
-                                                           //         });
-                                                           //     }else{
-                                                           //         document.querySelectorAll("fieldset.active table select").forEach(function(input) {
-                                                           //             input.required =false;
-                                                           //         });
-                                                           //         document.querySelectorAll("fieldset.active div#accordion select").forEach(function(input) {
-                                                           //             input.required = true;
-                                                           //         });
-                                                           //     };
-                                                           // }, 5000);
+                                    //updateButtons();
+
+                                                                       //setInterval(function() {
+                                                                       //     if (window.matchMedia("(min-width: 768px)").matches) {
+                                                                       //         debugger;
+                                                                       //         document.querySelectorAll("fieldset.active table select").forEach(function(input) {
+                                                                       //             input.required = true;
+                                                                       //         });
+                                                                       //         document.querySelectorAll("fieldset.active div#accordion select").forEach(function(input) {
+                                                                       //             input.required = false;
+                                                                       //         });
+                                                                       //     }else{
+                                                                       //         document.querySelectorAll("fieldset.active table select").forEach(function(input) {
+                                                                       //             input.required =false;
+                                                                       //         });
+                                                                       //         document.querySelectorAll("fieldset.active div#accordion select").forEach(function(input) {
+                                                                       //             input.required = true;
+                                                                       //         });
+                                                                       //     };
+                                                                       // }, 5000);
 
         </script>
     }

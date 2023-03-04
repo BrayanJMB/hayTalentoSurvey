@@ -46,7 +46,6 @@
                         current_fs = $(this).parent().parent().parent().parent().parent();
                         next_fs = $(this).parent().parent().parent().parent().parent().next();
                         let elem = $(".next");
-                        console.log(elem)
                         let indexNext = $.inArray(this, elem);
                         //Add Class Active
                         $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
@@ -119,7 +118,6 @@
         } else {
             flagCheck = false;
         }
-        console.log(flagCheck)
         return flagCheck;
 
     }
