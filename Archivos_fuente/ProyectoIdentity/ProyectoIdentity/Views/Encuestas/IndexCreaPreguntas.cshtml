@@ -1,4 +1,5 @@
-﻿@model ProyectoIdentity.Models.ModelTemplateJorney.ModelSurvey
+﻿@using System.Text.RegularExpressions
+@model ProyectoIdentity.Models.ModelTemplateJorney.ModelSurvey
 @{
     ViewData["Title"] = "CreateEncuestas";
     bool Active = true;
@@ -116,12 +117,13 @@
                                                                         </div>
                                                                     </div>
                                                                     @{if(pregunta.NombrePregunta!="Ciudad" && pregunta.NombrePregunta!="Pais"){
-                                                                    //<div>
-                                                                    //    <label class="control-label" for="NombreEncuesta">Descripcion de la Pregunta</label>
-                                                                    //</div>
-                                                                    //<div class="col-md-12 text-limit mt-2">
-                                                                    //    <textarea placeholder="Descripcion de la pregunta…" autocomplete="off" rows="4" id="full-width" maxlength="1000" class="form-control"></textarea>
-                                                                    //</div>
+                                                                    <div>
+
+                                                                        <label class="control-label" for="NombreEncuesta">Descripcion de la Pregunta</label>
+                                                                    </div>
+                                                                    <div class="col-md-12 text-limit mt-2">
+                                                                        <textarea placeholder="Descripcion de la pregunta…" autocomplete="off" rows="4" id="full-width" maxlength="1000" class="form-control"></textarea>
+                                                                    </div>
                                                                     <div class="sc-iTFTee dOrRfI">
                                                                         <div class="sc-iAEawV iTZqMQ">
                                                                             <div class="row">
@@ -191,8 +193,17 @@
                                                                                     <div class="col-6 text-limit mb-1" id="OpcionPregunta" style="display:@Invisible">
                                                                                         <div class="sc-cwSeag iHLect">
                                                                                             <div class="sc-lllmON eEvYeb">
-                                                                                                <textarea id="with-placeholder" maxlength="150" placeholder="Añadir opción..." autocomplete="off" class="sc-iJnaPW fjyQZj">@opcionP.OpcionName</textarea>
-                                                                                            </div>
+                                                                                                    @{
+                                                                                                        Regex regex = new Regex(@"Ningun[oa]|Otra ¿Cuál?");
+    
+                                                                                                    }
+                                                                                                    @if (!regex.IsMatch(opcionP.OpcionName))
+                                                                                                    {
+                                                                                                        <textarea id="with-placeholder" maxlength="150" placeholder="Añadir opción..." autocomplete="off" class="sc-iJnaPW fjyQZj">@opcionP.OpcionName</textarea>
+                                                                                                    }else{
+                                                                                                        <textarea disabled id="with-placeholder" maxlength="150" placeholder="Añadir opción..." autocomplete="off" class="sc-iJnaPW fjyQZj">@opcionP.OpcionName</textarea>
+                                                                                                    }
+                                                                                                </div>
                                                                                         </div>
                                                                                         <div class="sc-ezOQGI bQftdk">
                                                                                             <div class="sc-bYMpWt eGMbIs">
@@ -200,7 +211,7 @@
                                                                                                     <div class="col-12"></div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            @if (pregunta.TipoPregunta != "Likkert")
+                                                                                            @if (pregunta.TipoPregunta != "Likkert" && !regex.IsMatch(opcionP.OpcionName))
                                                                                             {
                                                                                                 <div class="sc-kMjNwy jtBNGv" id="EliminaOpcion" onclick="EliminaOpcionOne(this)">Eliminar</div>
                                                                                             }
@@ -274,17 +285,19 @@
 
 
                                                                     <div class="editDelete">
+                                                                    @if (pregunta.NombrePregunta != "Ciudad" && pregunta.NombrePregunta != "Pais" && pregunta.NombrePregunta != "Parentesco"){
                                                                         <button type="button" color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">
                                                                             <span class="sc-fEXmlR kowIqE">
                                                                                 <i class="bi-pencil-square" data-toggle="modal" data-target="#exampleModal_@indexModal"></i>
                                                                             </span>
                                                                         </button>
+                                                                        }
                                                                         @if (categori.NombreCategoria != "Datos Demograficos")
                                                                         {
-                                                                            <button type="button" id="DeletQuestion" color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">
+                                                                            //<button type="button" id="DeletQuestion" color="base" size="48" radius="50" class="sc-fnGiBr izDhoi">
 
-                                                                                <!--<i class="bi bi-trash3-fill"></i>-->
-                                                                            </button>
+                                                                            //    <i class="bi bi-trash3-fill"></i>
+                                                                            //</button>
                                                                         }
                                                                     </div>
                                                                     <div class="row">
