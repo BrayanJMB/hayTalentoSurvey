@@ -1,8 +1,7 @@
 ﻿@using Newtonsoft.Json;
 @model ProyectoIdentity.Controllers.SurveyShow
-@{
-   
-}
+
+
 <div id="nextPage">
     <div class="contenedor-imagen w-100">
         <img class="w-100" src="~/imagenes/MontañaMadurez.png" alt="Logo hay talento">
@@ -16,6 +15,9 @@
                 <h5>Cliente: @Model.Cliente</h5>
                 <h5>Poblacion Encuestada : @Model.CantidadRespuestas</h5>
                 <h6>@DateTime.UtcNow.ToLocalTime()</h6>
+                <div class="d-flex justify-content-end" id="div-button-pdf">
+                    <button class="btn btn-primary mb-3" id="pdf-button">Descargar PDF</button>
+                </div>
             </div>
         </div>
     </div>
@@ -116,11 +118,6 @@
 </div>
 
 
-<button id="pdf-button"> PDF</button>
-
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js" integrity="sha512-ToRWKKOvhBSS8EtqSflysM/S7v9bB9V0X3B1+E7xo7XZBEZCPL3VX5SFIp8zxY19r7Sz0svqQVbAOx+QcLQSAQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -131,6 +128,8 @@
 
     document.getElementById('pdf-button').addEventListener('click', function () {
         var containers = document.querySelectorAll('#nextPage');
+                let buttonPdf = document.getElementById('pdf-button').cloneNode(true);
+        document.getElementById('pdf-button').remove();
         let previousPromise = Promise.resolve();
         const doc = new jsPDF('p', 'mm', 'a4');
         let imgWidth = 205;
@@ -152,7 +151,9 @@
             });
         }
         previousPromise.then(() => {
+            document.getElementById('div-button-pdf').appendChild(buttonPdf);
             doc.save("archivo.pdf");
+            
         }).catch(error => {
             console.log(error);
         });

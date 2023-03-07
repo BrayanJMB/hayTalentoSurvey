@@ -6,9 +6,9 @@
     var surveyId = Model.Categorias.Select(x => x.surveyId).FirstOrDefault();
     string title = Model.Categorias.Select(x => x.Encuesta.NombreEncuesta).FirstOrDefault().Replace("Bienvenido a la", "").Trim();
     string title2 = char.ToUpper(title[0]) + title.Substring(1);
-
 }
-<button id="pdf-button"> PDF</button>
+
+
 <div class="PdfText">
     <div class="pagina1">
         <div class="contenedor-imagen w-100">
@@ -23,6 +23,10 @@
                     <h5>Cliente : Converty</h5>
                     <h5>Poblacion Encuestada : @Model.ContadorRespuestas</h5>
                     <h6>@DateTime.UtcNow.ToLocalTime()</h6>
+                    <div class="d-flex justify-content-end" id="div-button-pdf">
+                        <button class="btn btn-primary mb-3" id="pdf-button">Descargar PDF</button>
+                    </div>
+                    
                 </div>
 
             </div>
@@ -1102,13 +1106,14 @@
         const doc = new jsPDF('p', 'mm')
         const canvasPromises = [];
         let previousPromise = Promise.resolve();
-
+        let buttonPdf = document.getElementById('pdf-button').cloneNode(true);
+        document.getElementById('pdf-button').remove();
         let pagina = container.querySelectorAll(".pagina1")
         //primeras paginas
         let widtjCanvas = 193;
         let heightCanvas = 240;
         let marginy = 0;
-
+        
         for (var i = 0; i < pagina.length; i++) {
             const contenido = pagina[i];
             contenido.style.width = '1100px';
@@ -1168,10 +1173,13 @@
         }
         previousPromise.then(() => {
             doc.save("archivo.pdf");
+            document.getElementById('div-button-pdf').appendChild(buttonPdf);
         })
             .catch(error => {
                
             });
+
+         //document.getElementById('div-button-pdf').appendChild(buttonPdf);
     });
 
 
