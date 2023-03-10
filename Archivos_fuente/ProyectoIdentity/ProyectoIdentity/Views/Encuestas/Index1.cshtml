@@ -19,11 +19,18 @@
     <thead>
         <tr>
             <th>
+
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.NombreEncuesta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DescripcionEncuesta)
             </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Link)
             </th>
@@ -31,22 +38,36 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreEncuesta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescripcionEncuesta)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            var descripcion = item.DescripcionEncuesta != null && item.DescripcionEncuesta.Length > 200 ? item.DescripcionEncuesta.Substring(0, 200) : item.DescripcionEncuesta;
+            <tr>
+                <td>@Html.DisplayFor(modelItem=>item.Id)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreEncuesta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente)
+                </td>
+                @if (!item.NombreEncuesta.Contains("Madurez"))
+                {
+                    <td>
+                        @descripcion
+                    </td>
+                }
+                else
+                {
+                    <td>
+                    </td>
+                }
+                <td>
                     <a href="#" onclick="copyLink('@Html.DisplayFor(modelItem => item.Link)')"><i class="bi bi-clipboard"></i></a>
-            </td>
-            <td>
+                </td>
+                <td>
                     <a asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -54,27 +75,27 @@
     <script src="~/lib/datatables.net/jquery.dataTables.min.js"></script>
     <script src="~/lib/datatables.net-bs4/dataTables.bootstrap4.min.js"></script>
     <script>
-        $(document).ready( function () {
+        $(document).ready(function () {
             $('#TableEncuestas').DataTable(
                 {
                     "language": {
                         "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                     }
                 }
-            
+
             );
 
-        } );
+        });
 
         function copyLink(link) {
-    var tempInput = document.createElement("input");
-    tempInput.value = link;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    document.execCommand("copy");
-    document.body.removeChild(tempInput);
-    alert("enlace copiado-Enlace:" + link);
-}
+            var tempInput = document.createElement("input");
+            tempInput.value = link;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("enlace copiado-Enlace:" + link);
+        }
     </script>
 }
 

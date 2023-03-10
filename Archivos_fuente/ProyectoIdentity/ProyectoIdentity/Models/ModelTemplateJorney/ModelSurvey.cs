@@ -897,6 +897,7 @@ namespace ProyectoIdentity.Models.ModelTemplateJorney
         public string CompanyId { get; set; }
         public DateTime FechaDeCreacion { get; } = DateTime.UtcNow;
         public DateTime Fechalimite { get; set; }
+        public string Cliente { get; set; }
         public List<CategoriaR> CategoriaR { get; set; }
         public List<City> Ciudad { get; set; }
     }

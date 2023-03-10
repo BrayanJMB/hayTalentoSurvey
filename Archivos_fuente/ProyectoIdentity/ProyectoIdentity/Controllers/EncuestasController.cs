@@ -43,8 +43,8 @@ namespace ProyectoIdentity.Controllers
         //Vista Para encuesta no modificable
         public async Task<IActionResult> Index1()
         {
-            var appDbContext = _context.Encuesta.Include(e => e.Company);
-            return View(await appDbContext.ToListAsync());
+            var appDbContext =await _context.Encuesta.Include(e => e.Company).OrderBy(x=>x.Id).ToListAsync();
+            return View(appDbContext);
         }
 
         public async Task<IActionResult> IndexCreaPreguntas(Encuesta encuesta)
@@ -137,7 +137,8 @@ namespace ProyectoIdentity.Controllers
                     DescripcionEncuesta = encuesta.DescripcionEcuesta,
                     FechaDeCreacion = encuesta.FechaDeCreacion,
                     FechaMaximoPlazo = encuesta.Fechalimite,
-                    NombreEncuesta = encuesta.NombreEncuesta
+                    NombreEncuesta = encuesta.NombreEncuesta,
+                    Cliente=encuesta.Cliente
                 };
                 var encuestaRes = await _context.Encuesta.AddAsync(Encuesta);
                 
@@ -250,7 +251,8 @@ namespace ProyectoIdentity.Controllers
                     DescripcionEncuesta = encuesta.DescripcionEcuesta,
                     FechaDeCreacion = encuesta.FechaDeCreacion,
                     FechaMaximoPlazo = encuesta.Fechalimite,
-                    NombreEncuesta = encuesta.NombreEncuesta + "-Madurez"
+                    NombreEncuesta = encuesta.NombreEncuesta + "-Madurez",
+                    Cliente=encuesta.Cliente,
                 };
                 var encuestaMadRes = await _context.Encuesta.AddAsync(EncuestaMadurez);
                 await _context.SaveChangesAsync();

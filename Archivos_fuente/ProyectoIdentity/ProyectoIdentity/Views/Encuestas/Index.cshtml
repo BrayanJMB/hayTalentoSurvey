@@ -14,18 +14,29 @@
 <table class="display" id="TableEncuestas">
     <thead>
         <tr>
+            <th></th>
             <th>@Html.DisplayNameFor(model => model.NombreEncuesta)</th>
             <th>Descripción de la encuesta</th>
-            <th>Compañía</th>
+            <th>Cliente</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>      
 @foreach (var item in Model) {
+            var descripcion = item.DescripcionEncuesta != null && item.DescripcionEncuesta.Length > 200 ? item.DescripcionEncuesta.Substring(0, 200) : item.DescripcionEncuesta;
         <tr>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
             <td>@Html.DisplayFor(modelItem => item.NombreEncuesta)</td>
-            <td>@Html.DisplayFor(modelItem => item.DescripcionEncuesta)</td>
-            <td>@Html.DisplayFor(modelItem => item.Company.Id)</td>
+                @if (!item.NombreEncuesta.Contains("-Madurez"))
+                {
+                    <td>@descripcion</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                
+            <td>@Html.DisplayFor(modelItem => item.Cliente)</td>
             <td>
             <div class="d-flex justify-content-between align-items-center">
                         @if (item.NombreEncuesta.Contains("Madurez"))
