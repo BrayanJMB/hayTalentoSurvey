@@ -436,7 +436,7 @@
                                                                 }
                                                                 else if (pregunta.TipoPregunta == "Seleccion Multiple")
                                                                 {
-                                                                    classCheck += " multiple-check";
+                                                                    classCheck = " multiple-check";
 
                                                                 }
                                                                 <div class="@classCheck">
@@ -604,8 +604,7 @@
                                                                                             </div>
 
                                                                                         </div>
-                                                                                        <div class="invalid-feedback">
-                                                                                            You must agree before submitting.
+                                                                                        <div class="invalid-feedback">                                              
                                                                                         </div>
                                                                                     </div>
                                                                                 }
@@ -918,7 +917,7 @@
             }
             // Mobile View
             function blockMobile(element, isDinamicInput = false) {
-                debugger;
+                //debugger;
                 let td = element.parentNode.parentNode;
                 if (!isDinamicInput) {
                     if (element.value == "Fallecido") {
@@ -1081,21 +1080,24 @@
 
             let groupCheck = document.querySelector(".options-check");
             let checkMax = groupCheck.querySelectorAll("#inlineCheckbox1");
+            let inputData = groupCheck.querySelector("#ValueCheck");
             let checkeds = [];
             checkMax.forEach((option) => {
-                let inputData = option.querySelector("#ValueCheck");
-                let checkeds = option.querySelectorAll("input[type=checkbox]");
                 option.onchange = function () {
                     if (option.checked) {
-                        inputData.value += input.value + ";";
+                        inputData.value += option.value + ";";
                         checkeds.push(option);
                         if (checkeds.length > 3) {
                             checkeds[0].checked = false;
+                            inputData.value = inputData.value.replace(checkeds[0].value + ";", "");
                             checkeds.shift()
+                        }
+                        if(/^Ningun[oa]$/i.test(option.value)){
+                            inputData.value=option.value+";"
                         }
                     } else {
                         checkeds.splice(index, 1);
-                        inputData.value = inputData.value.replace(input.value + ";", "");
+                        inputData.value = inputData.value.replace(option.value + ";", "");
                     }
                 }
             });
@@ -1120,13 +1122,17 @@
                 let errorP = checkbox[j].previousSibling.previousSibling.previousSibling.previousSibling;
                 errorP.classList.add("checkbox");
                 let option = checkbox[j];
+                let dataValue = errorP.previousElementSibling;
+                console.log(dataValue);
                 let nextCant = errorP.nextElementSibling.textContent;
                 let listCheckBoxes = option.querySelectorAll(".datacheck");
                 listCheckBoxes.forEach(element => {
                     if (/^Ningun[oa]$/i.test(element.value)) {
                         element.onchange = function () {
+
                             if (element.checked) {
                                 if (/^Ningun[oa]$/i.test(element.value)) {
+                                    dataValue.value = element.value + ";";
                                     listCheckBoxes.forEach(otherCheckbox => {
                                         if (!(/^Ningun[oa]$/i.test(otherCheckbox.value))) {
                                             otherCheckbox.disabled = true;
@@ -1136,6 +1142,7 @@
                                 }
                             } else {
                                 if (/^Ningun[oa]$/i.test(element.value)) {
+                                    dataValue.value = "";
                                     listCheckBoxes.forEach(otherCheckbox => {
                                         if (!(/^Ningun[oa]$/i.test(otherCheckbox.value))) {
                                             otherCheckbox.disabled = false;

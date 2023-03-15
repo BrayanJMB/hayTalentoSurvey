@@ -602,7 +602,7 @@
     }
 
     //Graficas para demograficos
-    var areasJS = '@Html.Raw(JsonConvert.SerializeObject(Model.Demograficos.Ciudades))';
+    var areasJS = '@Html.Raw(JsonConvert.SerializeObject(Model.Demograficos.Areas))';
     // Parsear la cadena JSON a un array de objetos JavaScript
     var areasArray = JSON.parse(areasJS);
 

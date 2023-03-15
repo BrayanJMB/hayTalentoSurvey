@@ -36,7 +36,7 @@
                 nextButton.addEventListener('click', function (event) {
 
                     if (isValid === false) {
-                        debugger;
+                        //debugger;
                         event.preventDefault();
                         event.stopPropagation();
                         let firstInvalid = form.querySelector('[required]:invalid');
