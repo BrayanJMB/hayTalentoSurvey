@@ -64,7 +64,12 @@
                     <a href="#" onclick="copyLink('@Html.DisplayFor(modelItem => item.Link)')"><i class="bi bi-clipboard"></i></a>
                 </td>
                 <td>
+                  @if (item.NombreEncuesta.Contains("Madurez"))
+                 {
+                     <a asp-action="EditMadurez" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                }else{
                     <a asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                }
                 </td>
             </tr>
         }

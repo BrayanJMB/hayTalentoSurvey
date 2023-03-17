@@ -421,6 +421,17 @@ namespace ProyectoIdentity.Controllers
 
         }
 
+        //Editar Madurez
+
+        public async Task<IActionResult> EditMadurez(int? id)
+        {
+            var Model = new ModelSurvey();
+            //var preguntas =
+            //ViewBag.Encuesta = encuesta;
+            Model.Categorias = ModelSurvey.CategoriesMadurez();
+            return View(Model);
+        }
+
     }
 
 
