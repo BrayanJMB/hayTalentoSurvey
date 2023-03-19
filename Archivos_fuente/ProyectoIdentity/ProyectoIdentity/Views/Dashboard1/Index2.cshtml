@@ -168,7 +168,7 @@
                             List<string> valores = new List<string> { "Nunca", "1 y 3 veces/mes", "Entre 4 y 10 veces/mes", "Más de 10 veces/mes", };
                             var opciones = valores.Select(x => new
                             {
-                                Cantidad = (int)Math.Ceiling((double)opcion.Count(y => y == x) * 100 / data.Count())
+                                Cantidad = Math.Round((double)opcion.Count(y => y == x) * 100 / data.Count(), 0, MidpointRounding.ToEven)
                             });
 
                             <tr>

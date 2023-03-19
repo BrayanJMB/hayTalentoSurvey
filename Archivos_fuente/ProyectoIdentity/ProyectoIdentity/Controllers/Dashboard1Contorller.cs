@@ -192,7 +192,7 @@ namespace ProyectoIdentity.Controllers
                 Promedio = (int)respuestas.Where(x => x.Valor == g.Key).Count(),
                 Opcion = g.First().Nombre,
                 Porcentaje = respuestas.Where(x => x.Valor == g.Key).Count() * 100 / respuestas.Count(),
-                Color = colores[(int?)Math.Ceiling((double)respuestas.Where(x => x.Valor == g.Key).Count() * 5 / respuestas.Count())??0],
+                Color = colores[(int?)Math.Ceiling((double)respuestas.Where(x => x.Valor == g.Key).Count() * 5 / respuestas.Count()) ?? 0],
             }
             ).ToList();
 
@@ -214,6 +214,15 @@ namespace ProyectoIdentity.Controllers
             _surveyShow.PorcentajePromedio = porcentajePorOpcion;
             _surveyShow.Pregunta = pregunta;
             _surveyShow.CantidadRespuestas = respuestas.Count();
+
+            //Lógica para pregunta número 2
+            var idPregunta = _context.Pregunta
+                            .Select(x => x.EncuestaCategoriaId == surveyId)
+                            .FirstOrDefault();
+
+            var opcionesPregunta = _context.Opcion
+                                    .Select(x => x.PreguntaId == idPregunta);
+
             return View(_surveyShow);
         }
 

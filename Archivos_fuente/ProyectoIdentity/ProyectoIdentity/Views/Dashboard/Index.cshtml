@@ -143,16 +143,16 @@
                 </div>
                 <div class="row  mt-3">
                     <div class="col-md-1"></div>
-                    <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">Hijos Promedio</div>
-                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">@Model.Hijos</div>
+                    <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">Hijos Promedio por Colaborador</div>
+                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">@Math.Round(Model.Hijos,1)</div>
                     <div class="col-md-1"></div>
                     <div class="col-md-1"></div>
-                    <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">Promedio dependencia económica</div>
-                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">@Model.DependenciaEc0nomica</div>
+                    <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">Promedio de personas que dependen económicamente Colaborador</div>
+                    <div class="col-md-1 border border-1 border-dark d-flex align-items-center ">@Math.Round(Model.DependenciaEc0nomica,1)</div>
                     <div class="col-md-1"></div>
                     <div class="col-md-1"></div>
-                    <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">Hermanos promedio</div>
-                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">@Model.Hermanos</div>
+                    <div class="col-md-9 border border-1 border-dark h-100 d-flex align-items-center ">Hermanos promedio por Colaborador</div>
+                    <div class="col-md-1 border border-1 border-dark h-100 d-flex align-items-center ">@Math.Round(Model.Hermanos,1)</div>
                     <div class="col-md-1"></div>
                 </div>
             </div>

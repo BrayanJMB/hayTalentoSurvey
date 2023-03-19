@@ -61,6 +61,7 @@
             <p class="mt-2 fw-bold">@Model.Pregunta.NumeroPregunta . @Model.Pregunta.NombrePregunta</p>
             @foreach (var item in Model.PorcentajePromedio)
             {
+
                 <div class="row mx-1">
                     <div class="col-md-12 d-flex flex-column  justify-content-center px-5">
                         <div class="row  d-flex h-100 justify-content-center align-items-center ">
@@ -84,6 +85,17 @@
 <div id="nextPage">
     @foreach (var pregunta in Model.datospreguntas)
     {
+        if (pregunta.numeroPregunta == 2){
+            <div class="row mx-1">
+            <div class="col-md-12 d-flex flex-column  justify-content-center px-5">
+                    <div class=" border border-1 border-dark h-100 d-flex align-items-center fw-bolder p-2">@pregunta.numeroPregunta . @pregunta.mispreguntas</div>
+                        <div class="p-3">
+                          <canvas id="barChartPregunta2"></canvas>
+                    </div>
+                </div>
+            </div>
+            continue;
+        }
         <div class="row mx-1">
             <div class="col-md-12 d-flex flex-column  justify-content-center px-5">
                 <div class="row  d-flex  h-100 justify-content-center align-items-center ">
@@ -164,10 +176,10 @@
     Chart.register(ChartDataLabels);
     var nube = decodeJsonString('@Html.Raw(JsonConvert.SerializeObject(Model.nubePalabras))');
     var palabras = JSON.parse(nube);
+    console.log(palabras)
     var surveyId = @Model.Encuesta.Id;
     window.onload = () => {
         const words = palabras;
-        console.log(words);
         const data = {
             labels: words.map((d) => d.Key),
             datasets: [
@@ -189,6 +201,11 @@
                 plugins: {
                     legend: {
                         display: false,
+                    },
+                    datalabels: {
+                        font: {
+                            size: 0,
+                        },
                     },
                 },
             },
@@ -224,6 +241,7 @@
                         GraficaPromedioGeneralBarras(datosPromedios);
                         MadurezDoughnut(dataMadurez);
                         PromedioTotalDoughnut(promedioGeneral);
+                        GraficaPregunta2Barras();
                     },
                     error: function (xhr, textStatus, errorThrown) {
                         // Se produjo un error al obtener los datos
@@ -361,6 +379,55 @@
                 }
             }
 
+        });
+    }
+
+    //Gráfico Barra pregunta 2
+        function GraficaPregunta2Barras() {
+        
+        const dimensionBeneficioBar = document.getElementById('barChartPregunta2');
+
+        new Chart(dimensionBeneficioBar, {
+            type: 'bar',
+            data: {
+                labels: ["Madurez", "Otras dimensiones"],
+                datasets: [
+                    {
+                        backgroundColor: ["rgba(199, 199, 199, 1)", "rgba(29, 108, 121, 1)", "rgba(29,110,155,1)", "rgba(207, 66, 63, 1)"],
+                        data: ["1","2","3","4"],
+                    }
+                ]
+            },
+            options: {
+                barThickness: 80,
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        display: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    datalabels: {
+                        color: '#FFFFFF',
+                        offset: 4,
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
         });
     }
 </script>
