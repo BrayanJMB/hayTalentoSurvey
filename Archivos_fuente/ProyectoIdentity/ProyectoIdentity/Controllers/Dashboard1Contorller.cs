@@ -36,7 +36,29 @@ namespace ProyectoIdentity.Controllers
 
         public Models.ModelsJourney.Pregunta Pregunta { get; set; }
 
-        public int  CantidadRespuestas { get; set; }
+        public int CantidadRespuestas { get; set; }
+
+        public QuestionMadurez questionMadurez { get; set; }
+    }
+
+    //Pregunta 2 Madurez
+    public class QuestionMadurez
+    {
+        public List<OpcionesPregunta2> opcionesPreguntas { get; set; }
+        public List<CalculoOpciones> calculoOpciones { get; set; }
+    } 
+
+
+    public class OpcionesPregunta2
+    {
+        public List<string> opciones { get; set; }
+        public int id { get; set; }
+    }
+
+    public class CalculoOpciones
+    {
+        public double valor { get; set; }
+        public int cantidad { get; set; }
     }
 
     public class dataPreguntas
@@ -156,7 +178,9 @@ namespace ProyectoIdentity.Controllers
         public IActionResult Index(int surveyId)
         {
             var encuesta = _context.Encuesta.FirstOrDefault(e => e.Id == surveyId);
-            _surveyShow = new SurveyShow();
+            _surveyShow = new SurveyShow{
+                questionMadurez = new QuestionMadurez()
+            };
             var category = _context.EncuestaCategoria.Include(x => x.Categoria)
                 .Where(x => x.EncuestaId == surveyId)
                 .Select(x => new { x.Categoria.NombreCategoria, x.Categoria.Descripcion })
@@ -216,13 +240,30 @@ namespace ProyectoIdentity.Controllers
             _surveyShow.CantidadRespuestas = respuestas.Count();
 
             //Lógica para pregunta número 2
-            var idPregunta = _context.Pregunta
-                            .Select(x => x.EncuestaCategoriaId == surveyId)
+            var idPregunta = _context.EncuestaCategoria
+                            .Where(x => x.EncuestaId == surveyId)
+                            .Select(x=>x.Id)
                             .FirstOrDefault();
 
-            var opcionesPregunta = _context.Opcion
-                                    .Select(x => x.PreguntaId == idPregunta);
 
+            var opcionesPregunta = _context.Pregunta
+                                    .Include(x => x.Opciones)
+                                    .Where(x => x.EncuestaCategoriaId == idPregunta && x.NumeroPregunta == 2)
+                                    .Select(opcion => new OpcionesPregunta2
+                                    {
+                                        opciones = opcion.Opciones.Select(x => x.Nombre).ToList(),
+                                        id = opcion.Id
+                                    }).ToList();
+
+            var results = _context.RespuestaMadurezcs.Where(respuesta => respuesta.PreguntaId == opcionesPregunta.Select(x=>x.id).First())
+                                 .GroupBy(respuesta => new { respuesta.PreguntaId, respuesta.Valor })
+                                 .Select(grupo => new CalculoOpciones 
+                                 {
+                                      valor = (double)(grupo.Count() * 100.0) / (double)respuestas.Count(),
+                                      cantidad = grupo.Count()
+                                 }).ToList();
+            _surveyShow.questionMadurez.opcionesPreguntas = opcionesPregunta;
+            _surveyShow.questionMadurez.calculoOpciones = results;
             return View(_surveyShow);
         }
 

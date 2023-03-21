@@ -384,17 +384,20 @@
 
     //Gráfico Barra pregunta 2
         function GraficaPregunta2Barras() {
-        
+            var nombreOpciones = decodeJsonString('@Html.Raw(JsonConvert.SerializeObject(Model.questionMadurez.opcionesPreguntas))');
+            var valoresOpciones = decodeJsonString('@Html.Raw(JsonConvert.SerializeObject(Model.questionMadurez.calculoOpciones))');
+            var opcionesJson = JSON.parse(nombreOpciones);
+            var valoresJson = JSON.parse(valoresOpciones); 
         const dimensionBeneficioBar = document.getElementById('barChartPregunta2');
 
         new Chart(dimensionBeneficioBar, {
             type: 'bar',
             data: {
-                labels: ["Madurez", "Otras dimensiones"],
+                labels: opcionesJson[0].opciones,
                 datasets: [
                     {
-                        backgroundColor: ["rgba(199, 199, 199, 1)", "rgba(29, 108, 121, 1)", "rgba(29,110,155,1)", "rgba(207, 66, 63, 1)"],
-                        data: ["1","2","3","4"],
+                        backgroundColor: ["rgba(255, 215, 0, 0.5)", "rgba(34, 139, 34, 0.5)", "rgba(47, 79, 79, 0.5)", "rgba(255, 99, 71, 0.5)", "rgba(255, 165, 0, 0.5)"],
+                        data: valoresJson.map((d) => d.valor),
                     }
                 ]
             },
